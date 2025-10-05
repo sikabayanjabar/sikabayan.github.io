@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ikan Tasikmalaya Store</title>
+    <title>Sikabayan</title>
 
     <!-- Fonts  -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,33 +18,94 @@
 
     <!-- My Style -->
     <link rel="stylesheet" href="css/style.css" />
+
+    <!-- AlpineJS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- APP -->
+    <script src="src/app.js" async></script>
   </head>
   <body>
     <!-- Nav bar start -->
-    <nav class="navbar">
-      <a href="#" class="navbar-logo">IKAN <span>TASIKMALAYA</span></a>
+    <nav class="navbar" x-data>
+      <a href="#" class="navbar-logo"><span>SIKABAYAN</span></a>
 
       <div class="navbar-nav">
         <a href="#home">Home</a>
-        <a href="#about">Tentang Kami</a>
-        <a href="#menu">Menu</a>
+        <a href="#about">Sejarah</a>
+        <a href="#menu">Kebijakan</a>
+        <a href="#materi">Materi</a>
+        <a href="#products">Latihan</a>
         <a href="#contact">Kontak</a>
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search"><i data-feather="search"></i></a>
-        <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <a href="#signup">Login</a>
+        <!--<a href="#" id="shopping-cart-button">
+          <i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        </a>-->
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
+
+      <!-- Search form start -->
+       <div class="search-form">
+        <input type="search" id="search-box" placeholder="Search here...">
+        <label for="search-box"><i data-feather="search"></i></label>
+       </div>
+      <!-- Search form end -->
+
+      <!-- Shopping cart Start-->
+       <div class="shopping-cart">
+        <template x-for="(item, index) in $store.cart.items" x-key="index">
+        <div class="cart-item">
+          <img :src="`img/products/${item.img}`" :alt="item.name">
+          <div class="item-detail">
+            <h3 x-text="item.name"></h3>
+            <div class="item-price"></div>
+            <span x-text="rupiah(item.price)"></span> &times;
+            <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+            <span x-text="item.quantity"></span>
+            <button id="add" @click=$store.cart.add(item)>&plus;</button> &equals;
+            <span x-text="rupiah(item.total)"></span>
+          </div>
+       </div>
+       </template>
+       <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart is Empty</h4>
+       <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+       <div class="form-container" x-show="$store.cart.items.length">
+        <form action="" id="checkoutForm">
+          <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+          <input type="hidden" name="total" x-model="JSON.stringify($store.cart.total)">
+          <h5>Customer Detail</h5>
+
+          <label for="name">
+            <span>Name</span>
+            <input type="text" name="name" id="name">
+          </label>
+          <label for="email">
+            <span>Email</span>
+            <input type="text" name="email" id="email">
+          </label>
+          <label for="phone">
+            <span>No HP</span>
+            <input type="text" name="phone" id="phone" autocomplete="off">
+          </label>
+
+          <button class="checkout-button disabled" type="submit" id="checkout-button" value="checkout">Checkout</button>
+        </form>
+       </div>
+      <!-- Shopping cart End -->
     </nav>
     <!-- Nav bar end -->
 
     <!-- Hero section start -->
     <section class="hero" id="home">
       <main class="content">
-        <h1>Mari Penuhi Asupan Bergizi Dengan Makan <span>IKAN</span></h1>
-        <p>Mengandung sumber protein, omega 3, vitamin dan manfaat lainnya</p>
-        <a href="#" class="cta">Beli Sekarang</a>
+        <h1>Pembelajaran <span>AKSARA SUNDA</span></h1>
+        <p>Mangrupa sakur-sakur perangkat pembelajaran akasara sunda</p>
+        <a href="#products" class="cta">Mulai</a>
       </main>
     </section>
 
@@ -52,40 +113,43 @@
 
     <!-- About Section start -->
     <section id="about" class="about">
-      <h2><span>Tentang</span> Kami</h2>
+      <h2><span>Sejarah</span> Aksara Sunda</h2>
 
-      <div class="row">
-        <div class="about-img">
+      <div class="content">
+        <!--<div class="about-img">
           <img src="img/tentang-kami.jpg" alt="Tentang Kami" />
         </div>
         <div class="content">
-          <h3>Kenapa Memilih ikan kami?</h3>
+          <h3>Sejarah</h3>-->
           <p>
-            Berikut alasan mengapa ikan kami adalah
-            pilihan tepat untuk Anda:</br>
-            1. Kesegaran Terjamin<br>
-            Ikan kami langsung diproses langsung dari tambak dan didistribusikan secara cepat agar tetap segar saat
-            sampai ke tangan Anda.<br>
-            2. Harga Kompetitif<br>
-            Dengan sistem distribusi langsung dari
-            sumber, kami menawarkan harga terjangkau tanpa mengorbankan
-            kualitas. <br>
-            3. Beragam Pilihan Ikan<br>Beragam pilihan ikan air tawar
-            seperti ikan gurame, ikan mas, ikan nila, ikan, lele, ikan bawal dan
-            ikan lainnya
+            Sejarah Indonesia cukup panjang, begitu juga dengan akar budaya Sunda. Para peneliti sejarah mengatakan bahwa aksara Sunda awalnya berasal dari huruf Pallawa sebagai kreativitas dan kearifan lokal Sunda. Huruf Pallawa adalah jenis huruf tertua di Indonesia dan ditemukan di prasasti Kutai, Kalimantan.
           </p>
+          <p>
+            Adopsi huruf pun terus berkembang seiring dengan banyaknya kerajaan yang mampir ke nusantara. Dengan adanya kerajaan Tarumanegara yang menguasai Jawa bagian Barat, maka aksara yang menggambarkan bahasa Sunda pun ikut terpengaruh dengan adanya huruf sansekerta.
+          </p>
+          <p>
+            Saat itu, aksara ini juga sempet diatur penggunaannya oleh VOC. Tahun 1705, VOC sempat menduduki daerah Priangan. Sebagai pihak yang sempat memerintah, mereka mengeluarkan aturan bahwa aksara yang resmi salah satunya adalah Sunda, Pegon, Latin dan arab.
+          </p>
+          <p>
+            Kedudukan Eropa yang cukup lama di tanah Sunda membawa pengaruh yang sangat besar. Mereka jarang menggunakan aksara ini lagi dan lebih banyak menggunakan huruf latin. Orang Sunda pun menjadi jarang menggunakannya kembali kecuali menghadiri sekolah tertentu.
+          </p>
+          <br>
+          <div class="btn">
+            <a href="https://cultureofcomic.wordpress.com/2015/12/23/aksara-sunda-ngalagena-sejarah-dan-penggunaan/" target="_blank" class="btn"><span>Baca Selengkapnya</span></a>
         </div>
+        <br><br><br><br><br><br><br><br><br>
       </div>
     </section>
     <!-- About Section end -->
 
     <!-- Menu Section Start -->
     <section id="menu" class="menu">
-      <h2><span>Menu</span> Kami</h2>
+      <h2><span>Kebijakan</span> Aksara Sunda</h2>
       <p>
-        Beragam pilihan ikan air tawar seperti :<br>ikan gurame, ikan mas, ikan nila, ikan, lele, ikan bawal dan ikan lainnya
+        -
       </p>
-
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <!--
       <div class="row">
         <div class="menu-card">
           <img src="img/menu/menu-1.jpg" alt="Gurame" class="menu-card-img" />
@@ -120,20 +184,72 @@
           <p>IDR 20K/Kg</p>
         </div>
         <div class="menu-card"></div>
-      </div>
+      </div>-->
     </section>
 
     <!-- Menu Section End -->
+
+    <!-- Product Section Start-->
+     <!--
+     <section class="products" id="products" x-data="products">
+      <h2><span>Produk</span> Kami</h2>
+      <p>Menyediakan berbagai jenis ikan segar</p>
+
+      <div class="row">
+        <template x-for="(item, index) in items" x-key="index">
+        <div class="product-cart">
+          <div class="product-icons">
+            <a href="#" @click.prevent="$store.cart.add(item)">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <use href="img/feather-sprite.svg#shopping-cart" />
+              </svg>
+            </a>
+            <a href="#" class="item-detail-button"> 
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <use href="img/feather-sprite.svg#eye" />
+              </svg>
+            </a>
+          </div>
+          <div class="product-image">
+            <img :src="`img/products/${item.img}`" :alt="item.name">
+          </div>
+          <div class="product-content">
+            <h3 x-text="item.name"></h3>
+            <div class="product-stars">
+              <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <use href="img/feather-sprite.svg#star" />
+              </svg>
+              <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <use href="img/feather-sprite.svg#star" />
+              </svg>
+              <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <use href="img/feather-sprite.svg#star" />
+              </svg>
+              <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <use href="img/feather-sprite.svg#star" />
+              </svg>
+              <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <use href="img/feather-sprite.svg#star" />
+              </svg>
+            </div>
+            <div class="product-price"><span x-text="rupiah(item.price)">/span></div>
+          </div>
+        </div>
+        </template>
+      </div>
+     </section>
+    -->
+    <!-- Product Section End -->
 
     <!-- Contack Section Start -->
     <section id="contact" class="contact">
       <h2><span>Kontak</span> Kami</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias error
-        sunt, enim corrupti hic suscipit laborum quisquam earum ex minus?
+        
       </p>
       <div class="row">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2885.642823458173!2d108.19047481603205!3d-7.2992105333341595!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sid!2sid!4v1753328487333!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
+        <!--<iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2885.642823458173!2d108.19047481603205!3d-7.2992105333341595!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sid!2sid!4v1753328487333!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
+      -->
         <form action="">
           <div class="input-grup">
             <i data-feather="user"></i>
@@ -162,16 +278,43 @@
       </div>
       <div class="links">
         <a href="#home">Home</a>
-        <a href="#about">Tentang Kami</a>
-        <a href="#menu">Menu</a>
+        <a href="#about">Sejarah</a>
+        <a href="#menu">Kebijakan</a>
+        <a href="#menu">Materi</a>
+        <a href="#menu">Latihan</a>
         <a href="#contact">Kontak</a>
       </div>
       <div class="credit">
-        <p>Created by <a href="">Miftah Nurjamil</a>. | &copy; 2025.</p>
+        <p>Created by <a href="">Sikabayan</a>. | &copy; 2025.</p>
       </div>
      </footer>
     <!-- Footer End -->
 
+    <!-- Modal box item detail start -->
+     <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x-circle"></i></a>
+        <div class="modal-content">
+          <img src="img/product/1.jpg" alt="Product 1">
+          <div class="product-content">
+            <h3>Produk 1</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ducimus molestias velit natus nemo. Ab similique ipsa inventore amet accusamus!
+            </p>
+            <div class="product-stars">
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">IDR 3OK <span>IDR 50K</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i><span>add to cart</span></a>
+          </div>
+        </div>
+      </div>
+     </div>
+
+    <!-- Modal box item detail end-->
     <!-- Feather Icons -->
     <script>
       feather.replace();
