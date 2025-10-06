@@ -571,7 +571,13 @@ body {
   margin-bottom: 1rem;
 }
 
-.menu p,
+.menu p {
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+  margin: 4rem 0 20rem 0;
+}
+
 .contact p,
 .products p,
 .materi p {
@@ -1395,7 +1401,11 @@ footer .credits a {
   }
 
   .menu p {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: #fff;
+    text-align: justify;
+    margin: 0;
   }
 
   .materi .row {
