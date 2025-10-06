@@ -1039,6 +1039,10 @@ body {
   background: #000;
 }
 
+.social-btn.threads:hover {
+  background: #000;
+}
+
 .social-btn.youtube:hover {
   background: #ff0000;
 }
