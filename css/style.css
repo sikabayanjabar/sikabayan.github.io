@@ -78,6 +78,16 @@ body {
   color: var(--primary);
 }
 
+.user-menu-simple {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-menu-simple a:hover {
+  color: var(--primary);
+}
+
 #hamburger-menu {
   display: none;
 }
@@ -306,6 +316,23 @@ body {
   box-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
 }
 
+.cta {
+  display: inline-block;
+  padding: 1rem 3rem;
+  font-size: 1.4rem;
+  color: #fff;
+  background-color: var(--primary);
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta:hover {
+  background-color: #1a7a85;
+  transform: translateY(-2px);
+}
+
 /* About Section */
 .about,
 .menu,
@@ -359,6 +386,65 @@ body {
   line-height: 1.6;
 }
 
+/* Sejarah Content Styling */
+.sejarah-content {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.sejarah-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--primary);
+  transition: all 0.3s ease;
+}
+
+.sejarah-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(32, 147, 164, 0.15);
+}
+
+.sejarah-item h3 {
+  color: var(--primary);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.sejarah-item p {
+  font-size: 1.4rem;
+  line-height: 1.8;
+  color: #fff;
+  text-align: justify;
+  margin: 0;
+}
+
+.read-more {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.read-more .btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.read-more .btn:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(32, 147, 164, 0.3);
+}
+
 /* Menu Section */
 .menu h2 {
   margin-bottom: 1rem;
@@ -366,7 +452,8 @@ body {
 
 .menu p,
 .contact p,
-.products p {
+.products p,
+.materi p {
   text-align: center;
   max-width: 30rem;
   margin: auto;
@@ -393,6 +480,91 @@ body {
 
 .menu .row .menu-card .menu-card-title {
   margin: 1rem auto 0.5rem;
+}
+
+/* Materi Section */
+.materi {
+  padding: 10rem 7% 1.4rem;
+}
+
+.materi h2 {
+  text-align: center;
+  font-size: 2.6rem;
+  margin-bottom: 3rem;
+}
+
+.materi h2 span {
+  color: var(--primary);
+}
+
+.materi .row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.materi .materi-card {
+  background-color: #333;
+  border: 1px solid #666;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.materi .materi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(32, 147, 164, 0.3);
+  border-color: var(--primary);
+}
+
+.materi .materi-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+  height: 6rem;
+  background-color: var(--primary);
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+}
+
+.materi .materi-icon i {
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.materi .materi-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.materi .materi-card p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #ccc;
+  text-align: center;
+  max-width: none;
+}
+
+.materi .btn-materi {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.materi .btn-materi:hover {
+  background-color: #1a7a85;
+  transform: scale(1.05);
 }
 
 /* Product Section */
@@ -497,6 +669,334 @@ body {
   color: #fff;
   background-color: var(--primary);
   cursor: pointer;
+}
+
+/* Team Section */
+.team-section {
+  margin: 4rem 0;
+  padding: 2rem 0;
+}
+
+.team-section h3 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--primary);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.team-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 35px rgba(32, 147, 164, 0.2);
+}
+
+.team-photo {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--primary);
+  transition: all 0.3s ease;
+}
+
+.team-photo:hover {
+  border-color: var(--secondary);
+  transform: scale(1.05);
+}
+
+.team-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-info h4 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.team-info p {
+  font-size: 1.2rem;
+  color: var(--primary);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Contact Information Section */
+.contact-info-section {
+  margin: 4rem 0;
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-info-section h3 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+  color: var(--primary);
+}
+
+.contact-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+  max-width: 120rem;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: stretch;
+}
+
+/* For larger screens, show 3 columns in top row, 2 in bottom */
+@media (min-width: 900px) {
+  .contact-details {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      "email instagram facebook"
+      "tiktok youtube .";
+  }
+
+  .contact-item:nth-child(1) {
+    grid-area: email;
+  }
+  .contact-item:nth-child(2) {
+    grid-area: instagram;
+  }
+  .contact-item:nth-child(3) {
+    grid-area: facebook;
+  }
+  .contact-item:nth-child(4) {
+    grid-area: tiktok;
+  }
+  .contact-item:nth-child(5) {
+    grid-area: youtube;
+  }
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.8rem;
+  border-left: 4px solid var(--primary);
+  transition: all 0.3s ease;
+  height: auto;
+  min-height: 80px;
+}
+
+.contact-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.5rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.contact-icon svg,
+.contact-icon i {
+  width: 24px;
+  height: 24px;
+}
+
+.contact-content h4 {
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.contact-content p {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin: 0;
+}
+
+/* Social Media Links */
+.social-media-links {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-media-links h4 {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 2rem;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.social-btn:hover {
+  background: var(--secondary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(32, 147, 164, 0.3);
+}
+
+.social-btn.email:hover {
+  background: #ea4335;
+}
+
+.social-btn.instagram:hover {
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #fd1d1d
+  );
+}
+
+.social-btn.facebook:hover {
+  background: #1877f2;
+}
+
+.social-btn.tiktok:hover {
+  background: #000;
+}
+
+.social-btn.youtube:hover {
+  background: #ff0000;
+}
+
+.social-btn svg,
+.social-btn i {
+  width: 20px;
+  height: 20px;
+}
+
+/* Contact Form Section */
+.contact-form-section {
+  margin-top: 4rem;
+  padding: 3rem 0;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 1rem;
+}
+
+.contact-form-section h3 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.contact-form-section > p {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #ccc;
+  font-size: 1.3rem;
+}
+
+.contact .row form .input-grup textarea {
+  width: 100%;
+  padding: 1.5rem 2rem;
+  font-size: 1.4rem;
+  background: none;
+  color: #fff;
+  border: none;
+  outline: none;
+  resize: vertical;
+  font-family: "DM Sans", sans-serif;
+}
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(32, 147, 164, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  border: none;
+  outline: none;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--secondary);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(32, 147, 164, 0.5);
+}
+
+.back-to-top:active {
+  transform: translateY(-2px);
+}
+
+.back-to-top i {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.5;
 }
 
 /* Footer */
@@ -687,8 +1187,50 @@ footer .credits a {
     font-size: 1.6rem;
   }
 
+  /* Sejarah Responsive */
+  .sejarah-content {
+    padding: 1rem;
+  }
+
+  .sejarah-item {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .sejarah-item h3 {
+    font-size: 1.6rem;
+  }
+
+  .sejarah-item p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+  }
+
+  .read-more .btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+  }
+
   .menu p {
     font-size: 1.2rem;
+  }
+
+  .materi .row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .materi .materi-card {
+    padding: 1.5rem;
+  }
+
+  .materi .materi-icon {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .materi .materi-icon i {
+    font-size: 2rem;
   }
 
   .contact .row {
@@ -697,6 +1239,99 @@ footer .credits a {
 
   .contact .row form {
     padding-top: 0;
+  }
+
+  /* Team Section Responsive */
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .team-card {
+    padding: 1.5rem;
+  }
+
+  .team-photo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .team-info h4 {
+    font-size: 1.6rem;
+  }
+
+  .team-info p {
+    font-size: 1.1rem;
+  }
+
+  /* Contact Information Responsive */
+  .contact-info-section {
+    margin: 2rem 1rem;
+    padding: 2rem 1rem;
+  }
+
+  .contact-details {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    padding: 1rem;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+  }
+
+  .contact-icon svg,
+  .contact-icon i {
+    width: 20px;
+    height: 20px;
+  }
+
+  .contact-content h4 {
+    font-size: 1.3rem;
+  }
+
+  .contact-content p {
+    font-size: 1.1rem;
+  }
+
+  .social-buttons {
+    gap: 1rem;
+  }
+
+  .social-btn {
+    padding: 0.8rem 1.5rem;
+    min-width: 100px;
+    font-size: 0.9rem;
+  }
+
+  .social-btn svg,
+  .social-btn i {
+    width: 18px;
+    height: 18px;
+  }
+
+  .contact-form-section {
+    margin: 2rem 1rem;
+    padding: 2rem 1rem;
+  }
+
+  /* Back to Top Responsive */
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .back-to-top i {
+    width: 20px;
+    height: 20px;
   }
 
   .modal-content {

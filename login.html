@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Sikabayan</title>
+
+    <!-- Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+      :root {
+        --primary: #2093a4;
+        --bg: #232222;
+        --secondary: #1a7a85;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: linear-gradient(135deg, var(--bg) 0%, #1a1a1a 100%);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        background-color: rgba(51, 51, 51, 0.9);
+        padding: 3rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 450px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .logo {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .logo h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .logo p {
+        color: #ccc;
+        font-size: 1rem;
+      }
+
+      .form-title {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .form-title h2 {
+        color: #fff;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-title p {
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      .input-wrapper i {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+        font-size: 1.1rem;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 1rem 1rem 1rem 3rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.75rem;
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(32, 147, 164, 0.2);
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .form-group input::placeholder {
+        color: #888;
+      }
+
+      .forgot-password {
+        text-align: right;
+        margin-bottom: 1.5rem;
+      }
+
+      .forgot-password a {
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+
+      .forgot-password a:hover {
+        color: var(--secondary);
+      }
+
+      .btn-login {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        border: none;
+        border-radius: 0.75rem;
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 1.5rem;
+      }
+
+      .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(32, 147, 164, 0.3);
+      }
+
+      .btn-login:active {
+        transform: translateY(0);
+      }
+
+      .divider {
+        text-align: center;
+        margin: 1.5rem 0;
+        position: relative;
+      }
+
+      .divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .divider span {
+        background: rgba(51, 51, 51, 0.9);
+        padding: 0 1rem;
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+
+      .social-login {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .social-btn {
+        flex: 1;
+        padding: 0.75rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.75rem;
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .social-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .signup-link {
+        text-align: center;
+        margin-top: 1.5rem;
+      }
+
+      .signup-link p {
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+
+      .signup-link a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .signup-link a:hover {
+        color: var(--secondary);
+      }
+
+      .back-home {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+      }
+
+      .back-home a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+
+      .back-home a:hover {
+        color: var(--secondary);
+      }
+
+      .error-message {
+        background-color: rgba(220, 53, 69, 0.2);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        color: #ff6b6b;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        display: none;
+      }
+
+      .success-message {
+        background-color: rgba(40, 167, 69, 0.2);
+        border: 1px solid rgba(40, 167, 69, 0.3);
+        color: #51cf66;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 1rem;
+          align-items: flex-start;
+          padding-top: 2rem;
+        }
+
+        .container {
+          padding: 2rem;
+          max-width: none;
+          width: 100%;
+        }
+
+        .back-home {
+          position: static;
+          margin-bottom: 1rem;
+        }
+
+        .social-login {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="back-home">
+      <a href="index.html">
+        <i data-feather="arrow-left"></i>
+        Kembali ke Beranda
+      </a>
+    </div>
+
+    <div class="container">
+      <div class="logo">
+        <h1>SIKABAYAN</h1>
+        <p>Pembelajaran Aksara Sunda</p>
+      </div>
+
+      <div class="form-title">
+        <h2>Selamat Datang</h2>
+        <p>Masuk ke akun Anda untuk melanjutkan pembelajaran</p>
+      </div>
+
+      <div class="error-message" id="errorMessage">
+        Email atau kata sandi tidak valid
+      </div>
+
+      <div class="success-message" id="successMessage">
+        Login berhasil! Mengalihkan...
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-wrapper">
+            <i data-feather="mail"></i>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Masukkan email Anda"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Kata Sandi</label>
+          <div class="input-wrapper">
+            <i data-feather="lock"></i>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Masukkan kata sandi"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="forgot-password">
+          <a href="#" onclick="showForgotPassword()">Lupa kata sandi?</a>
+        </div>
+
+        <button type="submit" class="btn-login">Masuk</button>
+      </form>
+
+      <div class="divider">
+        <span>atau masuk dengan</span>
+      </div>
+
+      <div class="social-login">
+        <a href="#" class="social-btn" onclick="loginWithGoogle()">
+          <i data-feather="mail"></i>
+          Google
+        </a>
+        <a href="#" class="social-btn" onclick="loginWithFacebook()">
+          <i data-feather="facebook"></i>
+          Facebook
+        </a>
+      </div>
+
+      <div class="signup-link">
+        <p>Belum punya akun? <a href="signup.html">Daftar sekarang</a></p>
+      </div>
+    </div>
+
+    <script>
+      feather.replace();
+
+      // Check if already logged in
+      if (localStorage.getItem("isLoggedIn") === "true") {
+        window.location.href = "dashboard.html";
+      }
+
+      // Handle form submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          // Hide previous messages
+          document.getElementById("errorMessage").style.display = "none";
+          document.getElementById("successMessage").style.display = "none";
+
+          // Simple validation (in real app, this would be server-side)
+          const users = JSON.parse(localStorage.getItem("users") || "[]");
+          const user = users.find(
+            (u) => u.email === email && u.password === password
+          );
+
+          if (
+            user ||
+            (email === "admin@sikabayan.com" && password === "admin123")
+          ) {
+            document.getElementById("successMessage").style.display = "block";
+            setTimeout(() => {
+              localStorage.setItem("isLoggedIn", "true");
+              localStorage.setItem("userEmail", email);
+              window.location.href = "dashboard.html";
+            }, 1500);
+          } else {
+            document.getElementById("errorMessage").style.display = "block";
+          }
+        });
+
+      // Social login functions
+      function loginWithGoogle() {
+        alert("Fitur login Google akan segera tersedia");
+      }
+
+      function loginWithFacebook() {
+        alert("Fitur login Facebook akan segera tersedia");
+      }
+
+      function showForgotPassword() {
+        alert(
+          "Fitur reset password akan segera tersedia.\nSilakan hubungi admin di admin@sikabayan.com"
+        );
+      }
+    </script>
+  </body>
+</html>

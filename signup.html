@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar - Sikabayan</title>
+
+    <!-- Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+      :root {
+        --primary: #2093a4;
+        --bg: #232222;
+        --secondary: #1a7a85;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: linear-gradient(135deg, var(--bg) 0%, #1a1a1a 100%);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+      }
+
+      .container {
+        background-color: rgba(51, 51, 51, 0.9);
+        padding: 3rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 500px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .logo {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .logo h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .logo p {
+        color: #ccc;
+        font-size: 1rem;
+      }
+
+      .form-title {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .form-title h2 {
+        color: #fff;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-title p {
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      .form-group label {
+        display: block;
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      .input-wrapper i {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+        font-size: 1.1rem;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 1rem 1rem 1rem 3rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.75rem;
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group select {
+        cursor: pointer;
+      }
+
+      .form-group select option {
+        background-color: var(--bg);
+        color: #fff;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(32, 147, 164, 0.2);
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .form-group input::placeholder {
+        color: #888;
+      }
+
+      .password-strength {
+        margin-top: 0.5rem;
+        font-size: 0.8rem;
+      }
+
+      .strength-weak {
+        color: #ff6b6b;
+      }
+      .strength-medium {
+        color: #ffa726;
+      }
+      .strength-strong {
+        color: #51cf66;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        transform: scale(1.2);
+        accent-color: var(--primary);
+      }
+
+      .checkbox-group label {
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        cursor: pointer;
+      }
+
+      .checkbox-group a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .checkbox-group a:hover {
+        color: var(--secondary);
+      }
+
+      .btn-signup {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        border: none;
+        border-radius: 0.75rem;
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 1.5rem;
+      }
+
+      .btn-signup:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(32, 147, 164, 0.3);
+      }
+
+      .btn-signup:active {
+        transform: translateY(0);
+      }
+
+      .btn-signup:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .divider {
+        text-align: center;
+        margin: 1.5rem 0;
+        position: relative;
+      }
+
+      .divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .divider span {
+        background: rgba(51, 51, 51, 0.9);
+        padding: 0 1rem;
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+
+      .social-login {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .social-btn {
+        flex: 1;
+        padding: 0.75rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.75rem;
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .social-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 1.5rem;
+      }
+
+      .login-link p {
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+
+      .login-link a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .login-link a:hover {
+        color: var(--secondary);
+      }
+
+      .back-home {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+      }
+
+      .back-home a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+
+      .back-home a:hover {
+        color: var(--secondary);
+      }
+
+      .error-message {
+        background-color: rgba(220, 53, 69, 0.2);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        color: #ff6b6b;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        display: none;
+      }
+
+      .success-message {
+        background-color: rgba(40, 167, 69, 0.2);
+        border: 1px solid rgba(40, 167, 69, 0.3);
+        color: #51cf66;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          align-items: flex-start;
+          padding-top: 1rem;
+        }
+
+        .container {
+          padding: 2rem;
+          max-width: none;
+          width: 100%;
+        }
+
+        .back-home {
+          position: static;
+          margin-bottom: 1rem;
+        }
+
+        .form-row {
+          flex-direction: column;
+          gap: 0;
+        }
+
+        .social-login {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="back-home">
+      <a href="index.html">
+        <i data-feather="arrow-left"></i>
+        Kembali ke Beranda
+      </a>
+    </div>
+
+    <div class="container">
+      <div class="logo">
+        <h1>SIKABAYAN</h1>
+        <p>Pembelajaran Aksara Sunda</p>
+      </div>
+
+      <div class="form-title">
+        <h2>Bergabung dengan Kami</h2>
+        <p>Daftar untuk memulai perjalanan belajar aksara Sunda</p>
+      </div>
+
+      <div class="error-message" id="errorMessage">
+        Terjadi kesalahan. Silakan periksa kembali data Anda.
+      </div>
+
+      <div class="success-message" id="successMessage">
+        Pendaftaran berhasil! Mengalihkan ke halaman login...
+      </div>
+
+      <form id="signupForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Nama Depan</label>
+            <div class="input-wrapper">
+              <i data-feather="user"></i>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                placeholder="Nama depan"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Nama Belakang</label>
+            <div class="input-wrapper">
+              <i data-feather="user"></i>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                placeholder="Nama belakang"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-wrapper">
+            <i data-feather="mail"></i>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Masukkan email Anda"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Nomor Telepon</label>
+          <div class="input-wrapper">
+            <i data-feather="phone"></i>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Nomor telepon (opsional)"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="birthDate">Tanggal Lahir</label>
+          <div class="input-wrapper">
+            <i data-feather="calendar"></i>
+            <input type="date" id="birthDate" name="birthDate" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="education">Tingkat Pendidikan</label>
+          <div class="input-wrapper">
+            <i data-feather="book"></i>
+            <select id="education" name="education" required>
+              <option value="">Pilih tingkat pendidikan</option>
+              <option value="sd">SD/Sederajat</option>
+              <option value="smp">SMP/Sederajat</option>
+              <option value="sma">SMA/Sederajat</option>
+              <option value="diploma">Diploma</option>
+              <option value="sarjana">Sarjana (S1)</option>
+              <option value="magister">Magister (S2)</option>
+              <option value="doktor">Doktor (S3)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Kata Sandi</label>
+          <div class="input-wrapper">
+            <i data-feather="lock"></i>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Minimal 8 karakter"
+              required
+            />
+          </div>
+          <div class="password-strength" id="passwordStrength"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Konfirmasi Kata Sandi</label>
+          <div class="input-wrapper">
+            <i data-feather="lock"></i>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Ulangi kata sandi"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="terms" name="terms" required />
+          <label for="terms">
+            Saya menyetujui
+            <a href="#" onclick="showTerms()">Syarat dan Ketentuan</a> serta
+            <a href="#" onclick="showPrivacy()">Kebijakan Privasi</a>
+          </label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="newsletter" name="newsletter" />
+          <label for="newsletter">
+            Saya ingin menerima informasi terbaru tentang pembelajaran aksara
+            Sunda
+          </label>
+        </div>
+
+        <button type="submit" class="btn-signup" id="submitBtn">
+          Daftar Sekarang
+        </button>
+      </form>
+
+      <div class="divider">
+        <span>atau daftar dengan</span>
+      </div>
+
+      <div class="social-login">
+        <a href="#" class="social-btn" onclick="signupWithGoogle()">
+          <i data-feather="mail"></i>
+          Google
+        </a>
+        <a href="#" class="social-btn" onclick="signupWithFacebook()">
+          <i data-feather="facebook"></i>
+          Facebook
+        </a>
+      </div>
+
+      <div class="login-link">
+        <p>Sudah punya akun? <a href="login.html">Masuk di sini</a></p>
+      </div>
+    </div>
+
+    <script>
+      feather.replace();
+
+      // Password strength checker
+      document
+        .getElementById("password")
+        .addEventListener("input", function () {
+          const password = this.value;
+          const strengthDiv = document.getElementById("passwordStrength");
+
+          if (password.length === 0) {
+            strengthDiv.textContent = "";
+            return;
+          }
+
+          let strength = 0;
+          if (password.length >= 8) strength++;
+          if (/[a-z]/.test(password)) strength++;
+          if (/[A-Z]/.test(password)) strength++;
+          if (/[0-9]/.test(password)) strength++;
+          if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+          if (strength < 3) {
+            strengthDiv.textContent = "Kata sandi lemah";
+            strengthDiv.className = "password-strength strength-weak";
+          } else if (strength < 4) {
+            strengthDiv.textContent = "Kata sandi sedang";
+            strengthDiv.className = "password-strength strength-medium";
+          } else {
+            strengthDiv.textContent = "Kata sandi kuat";
+            strengthDiv.className = "password-strength strength-strong";
+          }
+        });
+
+      // Form validation
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+          const password = formData.get("password");
+          const confirmPassword = formData.get("confirmPassword");
+          const email = formData.get("email");
+          const terms = formData.get("terms");
+
+          // Hide previous messages
+          document.getElementById("errorMessage").style.display = "none";
+          document.getElementById("successMessage").style.display = "none";
+
+          // Validation
+          if (password !== confirmPassword) {
+            showError("Kata sandi dan konfirmasi kata sandi tidak cocok");
+            return;
+          }
+
+          if (password.length < 8) {
+            showError("Kata sandi harus minimal 8 karakter");
+            return;
+          }
+
+          if (!terms) {
+            showError("Anda harus menyetujui syarat dan ketentuan");
+            return;
+          }
+
+          // Check if email already exists (simulation)
+          const existingUsers = JSON.parse(
+            localStorage.getItem("users") || "[]"
+          );
+          if (existingUsers.some((user) => user.email === email)) {
+            showError("Email sudah terdaftar");
+            return;
+          }
+
+          // Save user data
+          const userData = {
+            firstName: formData.get("firstName"),
+            lastName: formData.get("lastName"),
+            email: email,
+            phone: formData.get("phone"),
+            birthDate: formData.get("birthDate"),
+            education: formData.get("education"),
+            password: password, // In real app, this should be hashed
+            newsletter: formData.get("newsletter"),
+            registrationDate: new Date().toISOString(),
+          };
+
+          existingUsers.push(userData);
+          localStorage.setItem("users", JSON.stringify(existingUsers));
+
+          // Show success and redirect
+          document.getElementById("successMessage").style.display = "block";
+          document.getElementById("submitBtn").disabled = true;
+
+          setTimeout(() => {
+            window.location.href = "login.html";
+          }, 2000);
+        });
+
+      function showError(message) {
+        const errorDiv = document.getElementById("errorMessage");
+        errorDiv.textContent = message;
+        errorDiv.style.display = "block";
+      }
+
+      // Social signup functions
+      function signupWithGoogle() {
+        alert("Fitur daftar dengan Google akan segera tersedia");
+      }
+
+      function signupWithFacebook() {
+        alert("Fitur daftar dengan Facebook akan segera tersedia");
+      }
+
+      function showTerms() {
+        alert(
+          "Syarat dan Ketentuan:\n\n1. Pengguna bertanggung jawab atas keamanan akun\n2. Dilarang menyalahgunakan platform\n3. Konten pembelajaran hanya untuk tujuan edukasi\n4. Sikabayan berhak mengubah ketentuan tanpa pemberitahuan"
+        );
+      }
+
+      function showPrivacy() {
+        alert(
+          "Kebijakan Privasi:\n\n1. Data pribadi Anda aman bersama kami\n2. Informasi tidak akan dibagikan ke pihak ketiga\n3. Data digunakan untuk meningkatkan layanan\n4. Anda dapat menghapus akun kapan saja"
+        );
+      }
+
+      // Check if already logged in
+      if (localStorage.getItem("isLoggedIn") === "true") {
+        window.location.href = "dashboard.html";
+      }
+    </script>
+  </body>
+</html>

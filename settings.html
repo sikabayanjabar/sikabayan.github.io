@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengaturan - Sikabayan</title>
+
+    <!-- Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+      :root {
+        --primary: #2093a4;
+        --bg: #232222;
+        --secondary: #1a7a85;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background-color: var(--bg);
+        color: #fff;
+        min-height: 100vh;
+      }
+
+      .navbar {
+        background-color: rgba(1, 1, 1, 0.9);
+        padding: 1rem 7%;
+        border-bottom: 1px solid #21646e;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar-logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .navbar-nav {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .navbar-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-nav a:hover {
+        color: var(--primary);
+      }
+
+      .navbar-extra {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .navbar-extra a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-extra a:hover {
+        color: var(--primary);
+      }
+
+      .search-form {
+        position: absolute;
+        top: 100%;
+        right: 7%;
+        background-color: #fff;
+        width: 50rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: 0.3s;
+      }
+
+      .search-form.active {
+        transform: scaleY(1);
+      }
+
+      .search-form input {
+        height: 100%;
+        width: 100%;
+        font-size: 1.6rem;
+        color: var(--bg);
+        padding: 1rem;
+        border: none;
+        outline: none;
+      }
+
+      .search-form label {
+        cursor: pointer;
+        font-size: 2rem;
+        margin-right: 1.5rem;
+        color: var(--bg);
+      }
+
+      .user-menu {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .user-info:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .user-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1rem;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        display: none;
+        z-index: 1000;
+      }
+
+      .dropdown-menu a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        color: var(--bg);
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: #f5f5f5;
+      }
+
+      .container {
+        padding: 2rem 7%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .page-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .back-btn:hover {
+        color: var(--secondary);
+      }
+
+      .page-title {
+        font-size: 2rem;
+        color: var(--primary);
+      }
+
+      .settings-grid {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 2rem;
+      }
+
+      .settings-sidebar {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        border: 1px solid #666;
+        height: fit-content;
+      }
+
+      .settings-main {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid #666;
+      }
+
+      .settings-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .settings-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem;
+        background-color: #444;
+        border-radius: 0.5rem;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .settings-nav-item:hover,
+      .settings-nav-item.active {
+        background-color: rgba(32, 147, 164, 0.2);
+        color: var(--primary);
+      }
+
+      .settings-section {
+        display: none;
+      }
+
+      .settings-section.active {
+        display: block;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .setting-group {
+        background-color: #444;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .setting-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #555;
+      }
+
+      .setting-item:last-child {
+        border-bottom: none;
+      }
+
+      .setting-info {
+        flex: 1;
+      }
+
+      .setting-title {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .setting-description {
+        font-size: 0.9rem;
+        color: #ccc;
+      }
+
+      .setting-control {
+        margin-left: 1rem;
+      }
+
+      .toggle-switch {
+        position: relative;
+        width: 50px;
+        height: 24px;
+        background-color: #666;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .toggle-switch.active {
+        background-color: var(--primary);
+      }
+
+      .toggle-switch::before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background-color: #fff;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+      }
+
+      .toggle-switch.active::before {
+        transform: translateX(26px);
+      }
+
+      .select-control {
+        padding: 0.5rem 1rem;
+        background-color: #555;
+        border: 1px solid #666;
+        border-radius: 0.5rem;
+        color: #fff;
+        font-size: 0.9rem;
+        min-width: 120px;
+      }
+
+      .select-control option {
+        background-color: var(--bg);
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: #fff;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(32, 147, 164, 0.3);
+      }
+
+      .btn-secondary {
+        background-color: #666;
+        color: #fff;
+      }
+
+      .btn-secondary:hover {
+        background-color: #555;
+      }
+
+      .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+      }
+
+      .btn-danger:hover {
+        background-color: #c82333;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 1rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.5rem;
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(32, 147, 164, 0.2);
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .success-message,
+      .error-message {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        display: none;
+      }
+
+      .success-message {
+        background-color: rgba(40, 167, 69, 0.2);
+        border: 1px solid rgba(40, 167, 69, 0.3);
+        color: #51cf66;
+      }
+
+      .error-message {
+        background-color: rgba(220, 53, 69, 0.2);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        color: #ff6b6b;
+      }
+
+      .danger-zone {
+        background-color: rgba(220, 53, 69, 0.1);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .danger-zone h3 {
+        color: #ff6b6b;
+        margin-bottom: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem 5%;
+        }
+
+        .settings-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .navbar {
+          padding: 1rem 5%;
+        }
+
+        .navbar-nav {
+          display: none;
+        }
+
+        .setting-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .setting-control {
+          margin-left: 0;
+          align-self: flex-end;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="index.html" class="navbar-logo">SIKABAYAN</a>
+
+      <div class="navbar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="materi.html">Materi</a>
+        <a href="#latihan">Latihan</a>
+        <a href="profile.html">Profil</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <div class="user-menu">
+          <div class="user-info" onclick="toggleDropdown()">
+            <div class="user-avatar" id="navUserAvatar">U</div>
+            <span id="navUserName">User</span>
+            <i data-feather="chevron-down"></i>
+          </div>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="profile.html">
+              <i data-feather="user"></i>
+              Profil Saya
+            </a>
+            <a href="settings.html">
+              <i data-feather="settings"></i>
+              Pengaturan
+            </a>
+            <a href="#" onclick="logout()">
+              <i data-feather="log-out"></i>
+              Keluar
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search form start -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="Cari materi..." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- Search form end -->
+    </nav>
+
+    <div class="container">
+      <div class="page-header">
+        <a href="dashboard.html" class="back-btn">
+          <i data-feather="arrow-left"></i>
+          Kembali ke Dashboard
+        </a>
+        <h1 class="page-title">Pengaturan</h1>
+      </div>
+
+      <div class="success-message" id="successMessage">
+        Pengaturan berhasil disimpan!
+      </div>
+
+      <div class="error-message" id="errorMessage">
+        Terjadi kesalahan saat menyimpan pengaturan.
+      </div>
+
+      <div class="settings-grid">
+        <div class="settings-sidebar">
+          <div class="settings-nav">
+            <div
+              class="settings-nav-item active"
+              onclick="showSection('general')"
+            >
+              <i data-feather="settings"></i>
+              Umum
+            </div>
+            <div
+              class="settings-nav-item"
+              onclick="showSection('notifications')"
+            >
+              <i data-feather="bell"></i>
+              Notifikasi
+            </div>
+            <div class="settings-nav-item" onclick="showSection('privacy')">
+              <i data-feather="shield"></i>
+              Privasi
+            </div>
+            <div class="settings-nav-item" onclick="showSection('account')">
+              <i data-feather="user"></i>
+              Akun
+            </div>
+            <div class="settings-nav-item" onclick="showSection('about')">
+              <i data-feather="info"></i>
+              Tentang
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-main">
+          <!-- General Settings -->
+          <div id="general" class="settings-section active">
+            <h2 class="section-title">
+              <i data-feather="settings"></i>
+              Pengaturan Umum
+            </h2>
+
+            <div class="setting-group">
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Bahasa Interface</div>
+                  <div class="setting-description">
+                    Pilih bahasa untuk tampilan aplikasi
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <select class="select-control" id="language">
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="su">Basa Sunda</option>
+                    <option value="en">English</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Tema Gelap</div>
+                  <div class="setting-description">
+                    Aktifkan mode gelap untuk kenyamanan mata
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div
+                    class="toggle-switch active"
+                    id="darkTheme"
+                    onclick="toggleSetting('darkTheme')"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Auto-save Progress</div>
+                  <div class="setting-description">
+                    Simpan progress pembelajaran secara otomatis
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div
+                    class="toggle-switch active"
+                    id="autoSave"
+                    onclick="toggleSetting('autoSave')"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Suara Efek</div>
+                  <div class="setting-description">
+                    Aktifkan suara untuk feedback interaksi
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div
+                    class="toggle-switch"
+                    id="soundEffects"
+                    onclick="toggleSetting('soundEffects')"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notification Settings -->
+          <div id="notifications" class="settings-section">
+            <h2 class="section-title">
+              <i data-feather="bell"></i>
+              Pengaturan Notifikasi
+            </h2>
+
+            <div class="setting-group">
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Email Notifikasi</div>
+                  <div class="setting-description">
+                    Terima notifikasi melalui email
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div
+                    class="toggle-switch active"
+                    id="emailNotifications"
+                    onclick="toggleSetting('emailNotifications')"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Pengingat Belajar</div>
+                  <div class="setting-description">
+                    Ingatkan untuk belajar setiap hari
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div
+                    class="toggle-switch active"
+                    id="studyReminders"
+                    onclick="toggleSetting('studyReminders')"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Waktu Pengingat</div>
+                  <div class="setting-description">
+                    Pilih waktu untuk pengingat harian
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <select class="select-control" id="reminderTime">
+                    <option value="08:00">08:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="18:00" selected>18:00</option>
+                    <option value="20:00">20:00</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Newsletter</div>
+                  <div class="setting-description">
+                    Terima informasi terbaru dan tips pembelajaran
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div
+                    class="toggle-switch"
+                    id="newsletter"
+                    onclick="toggleSetting('newsletter')"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Privacy Settings -->
+          <div id="privacy" class="settings-section">
+            <h2 class="section-title">
+              <i data-feather="shield"></i>
+              Privasi & Keamanan
+            </h2>
+
+            <div class="setting-group">
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Profil Publik</div>
+                  <div class="setting-description">
+                    Izinkan pengguna lain melihat profil Anda
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div
+                    class="toggle-switch"
+                    id="publicProfile"
+                    onclick="toggleSetting('publicProfile')"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Analitik Pembelajaran</div>
+                  <div class="setting-description">
+                    Izinkan pengumpulan data untuk analisis pembelajaran
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div
+                    class="toggle-switch active"
+                    id="analytics"
+                    onclick="toggleSetting('analytics')"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Two-Factor Authentication</div>
+                  <div class="setting-description">
+                    Tingkatkan keamanan akun dengan 2FA
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <button class="btn btn-primary" onclick="setup2FA()">
+                    Setup 2FA
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <h3 style="color: var(--primary); margin-bottom: 1rem">
+                Ubah Password
+              </h3>
+              <form id="passwordForm">
+                <div class="form-group">
+                  <label for="currentPassword">Password Saat Ini</label>
+                  <input
+                    type="password"
+                    id="currentPassword"
+                    name="currentPassword"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="newPassword">Password Baru</label>
+                  <input
+                    type="password"
+                    id="newPassword"
+                    name="newPassword"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="confirmNewPassword"
+                    >Konfirmasi Password Baru</label
+                  >
+                  <input
+                    type="password"
+                    id="confirmNewPassword"
+                    name="confirmNewPassword"
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i data-feather="save"></i>
+                  Ubah Password
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Account Settings -->
+          <div id="account" class="settings-section">
+            <h2 class="section-title">
+              <i data-feather="user"></i>
+              Pengaturan Akun
+            </h2>
+
+            <div class="setting-group">
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Export Data</div>
+                  <div class="setting-description">
+                    Unduh semua data pembelajaran Anda
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <button class="btn btn-secondary" onclick="exportData()">
+                    <i data-feather="download"></i>
+                    Export
+                  </button>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-title">Reset Progress</div>
+                  <div class="setting-description">
+                    Hapus semua progress dan mulai dari awal
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <button class="btn btn-danger" onclick="resetProgress()">
+                    <i data-feather="refresh-cw"></i>
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="danger-zone">
+              <h3><i data-feather="alert-triangle"></i> Zona Berbahaya</h3>
+              <p style="color: #ccc; margin-bottom: 1rem">
+                Tindakan di bawah ini tidak dapat dibatalkan. Pastikan Anda
+                benar-benar yakin.
+              </p>
+
+              <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+                <button class="btn btn-danger" onclick="deactivateAccount()">
+                  <i data-feather="user-x"></i>
+                  Nonaktifkan Akun
+                </button>
+                <button class="btn btn-danger" onclick="deleteAccount()">
+                  <i data-feather="trash-2"></i>
+                  Hapus Akun
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- About Section -->
+          <div id="about" class="settings-section">
+            <h2 class="section-title">
+              <i data-feather="info"></i>
+              Tentang Sikabayan
+            </h2>
+
+            <div class="setting-group">
+              <div style="text-align: center; padding: 2rem">
+                <h3
+                  style="
+                    color: var(--primary);
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                  "
+                >
+                  SIKABAYAN
+                </h3>
+                <p style="color: #ccc; margin-bottom: 2rem">
+                  Platform Pembelajaran Aksara Sunda
+                </p>
+
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 1rem;
+                    margin: 2rem 0;
+                  "
+                >
+                  <div
+                    style="
+                      background-color: #444;
+                      padding: 1rem;
+                      border-radius: 0.5rem;
+                    "
+                  >
+                    <strong>Versi</strong><br />
+                    <span style="color: #ccc">1.0.0</span>
+                  </div>
+                  <div
+                    style="
+                      background-color: #444;
+                      padding: 1rem;
+                      border-radius: 0.5rem;
+                    "
+                  >
+                    <strong>Developer</strong><br />
+                    <span style="color: #ccc">Tim Sikabayan</span>
+                  </div>
+                  <div
+                    style="
+                      background-color: #444;
+                      padding: 1rem;
+                      border-radius: 0.5rem;
+                    "
+                  >
+                    <strong>License</strong><br />
+                    <span style="color: #ccc">MIT License</span>
+                  </div>
+                </div>
+
+                <div style="margin: 2rem 0">
+                  <a
+                    href="#"
+                    class="btn btn-secondary"
+                    onclick="checkUpdates()"
+                  >
+                    <i data-feather="refresh-cw"></i>
+                    Cek Update
+                  </a>
+                  <a href="#" class="btn btn-secondary" onclick="showTerms()">
+                    <i data-feather="file-text"></i>
+                    Syarat & Ketentuan
+                  </a>
+                  <a
+                    href="#"
+                    class="btn btn-secondary"
+                    onclick="showPrivacyPolicy()"
+                  >
+                    <i data-feather="shield"></i>
+                    Kebijakan Privasi
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+      feather.replace();
+
+      // Check authentication
+      if (!AuthManager.requireAuth()) {
+        // Will redirect to login if not authenticated
+      }
+
+      // Load user data on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        loadUserData();
+        loadSettings();
+      });
+
+      function loadUserData() {
+        const currentUser = AuthManager.getCurrentUser();
+        if (!currentUser) return;
+
+        document.getElementById("navUserName").textContent =
+          currentUser.firstName || "User";
+        document.getElementById("navUserAvatar").textContent = (
+          currentUser.firstName || "U"
+        )
+          .charAt(0)
+          .toUpperCase();
+      }
+
+      function loadSettings() {
+        const settings = JSON.parse(
+          localStorage.getItem("userSettings") || "{}"
+        );
+
+        // Load toggle states
+        const toggles = [
+          "darkTheme",
+          "autoSave",
+          "soundEffects",
+          "emailNotifications",
+          "studyReminders",
+          "newsletter",
+          "publicProfile",
+          "analytics",
+        ];
+
+        toggles.forEach((toggle) => {
+          const element = document.getElementById(toggle);
+          if (element && settings[toggle] !== undefined) {
+            element.classList.toggle("active", settings[toggle]);
+          }
+        });
+
+        // Load select values
+        if (settings.language)
+          document.getElementById("language").value = settings.language;
+        if (settings.reminderTime)
+          document.getElementById("reminderTime").value = settings.reminderTime;
+      }
+
+      function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll(".settings-section").forEach((section) => {
+          section.classList.remove("active");
+        });
+
+        // Remove active from nav items
+        document.querySelectorAll(".settings-nav-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        // Show selected section
+        document.getElementById(sectionId).classList.add("active");
+
+        // Add active to clicked nav item
+        event.target.classList.add("active");
+      }
+
+      function toggleSetting(settingId) {
+        const toggle = document.getElementById(settingId);
+        toggle.classList.toggle("active");
+
+        // Save setting
+        const settings = JSON.parse(
+          localStorage.getItem("userSettings") || "{}"
+        );
+        settings[settingId] = toggle.classList.contains("active");
+        localStorage.setItem("userSettings", JSON.stringify(settings));
+
+        showMessage("successMessage", "Pengaturan berhasil disimpan!");
+      }
+
+      // Save select changes
+      document
+        .getElementById("language")
+        .addEventListener("change", function () {
+          saveSelectSetting("language", this.value);
+        });
+
+      document
+        .getElementById("reminderTime")
+        .addEventListener("change", function () {
+          saveSelectSetting("reminderTime", this.value);
+        });
+
+      function saveSelectSetting(key, value) {
+        const settings = JSON.parse(
+          localStorage.getItem("userSettings") || "{}"
+        );
+        settings[key] = value;
+        localStorage.setItem("userSettings", JSON.stringify(settings));
+        showMessage("successMessage", "Pengaturan berhasil disimpan!");
+      }
+
+      // Password change form
+      document
+        .getElementById("passwordForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const currentPassword =
+            document.getElementById("currentPassword").value;
+          const newPassword = document.getElementById("newPassword").value;
+          const confirmNewPassword =
+            document.getElementById("confirmNewPassword").value;
+
+          if (newPassword !== confirmNewPassword) {
+            showMessage(
+              "errorMessage",
+              "Password baru dan konfirmasi tidak cocok!"
+            );
+            return;
+          }
+
+          if (newPassword.length < 8) {
+            showMessage(
+              "errorMessage",
+              "Password baru harus minimal 8 karakter!"
+            );
+            return;
+          }
+
+          // In a real app, you would validate current password against server
+          const currentUser = AuthManager.getCurrentUser();
+          if (currentUser && currentUser.password !== currentPassword) {
+            showMessage("errorMessage", "Password saat ini tidak benar!");
+            return;
+          }
+
+          // Update password
+          const users = JSON.parse(localStorage.getItem("users") || "[]");
+          const userIndex = users.findIndex(
+            (user) => user.email === currentUser.email
+          );
+          if (userIndex !== -1) {
+            users[userIndex].password = newPassword;
+            localStorage.setItem("users", JSON.stringify(users));
+          }
+
+          // Clear form
+          this.reset();
+          showMessage("successMessage", "Password berhasil diubah!");
+        });
+
+      function showMessage(elementId, message) {
+        const element = document.getElementById(elementId);
+        element.textContent = message;
+        element.style.display = "block";
+
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 3000);
+      }
+
+      function setup2FA() {
+        alert("Fitur Two-Factor Authentication akan segera tersedia");
+      }
+
+      function exportData() {
+        const currentUser = AuthManager.getCurrentUser();
+        const settings = JSON.parse(
+          localStorage.getItem("userSettings") || "{}"
+        );
+
+        const data = {
+          user: currentUser,
+          settings: settings,
+          exportDate: new Date().toISOString(),
+        };
+
+        const blob = new Blob([JSON.stringify(data, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `sikabayan-data-${
+          new Date().toISOString().split("T")[0]
+        }.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showMessage("successMessage", "Data berhasil diexport!");
+      }
+
+      function resetProgress() {
+        if (
+          confirm(
+            "Apakah Anda yakin ingin mereset semua progress? Tindakan ini tidak dapat dibatalkan."
+          )
+        ) {
+          if (confirm("Konfirmasi sekali lagi: Semua progress akan hilang!")) {
+            // Reset progress data
+            localStorage.removeItem("userProgress");
+            showMessage("successMessage", "Progress berhasil direset!");
+          }
+        }
+      }
+
+      function deactivateAccount() {
+        if (
+          confirm(
+            "Apakah Anda yakin ingin menonaktifkan akun? Anda dapat mengaktifkannya kembali dengan login."
+          )
+        ) {
+          const users = JSON.parse(localStorage.getItem("users") || "[]");
+          const currentUser = AuthManager.getCurrentUser();
+          const userIndex = users.findIndex(
+            (user) => user.email === currentUser.email
+          );
+
+          if (userIndex !== -1) {
+            users[userIndex].isActive = false;
+            localStorage.setItem("users", JSON.stringify(users));
+          }
+
+          AuthManager.logout();
+          window.location.href = "index.html";
+        }
+      }
+
+      function deleteAccount() {
+        if (
+          confirm(
+            "PERINGATAN: Apakah Anda yakin ingin menghapus akun? Semua data akan hilang permanen!"
+          )
+        ) {
+          if (
+            confirm("Konfirmasi terakhir: Tindakan ini TIDAK DAPAT DIBATALKAN!")
+          ) {
+            const users = JSON.parse(localStorage.getItem("users") || "[]");
+            const currentUser = AuthManager.getCurrentUser();
+            const filteredUsers = users.filter(
+              (user) => user.email !== currentUser.email
+            );
+
+            localStorage.setItem("users", JSON.stringify(filteredUsers));
+            localStorage.removeItem("userSettings");
+            localStorage.removeItem("userProgress");
+
+            AuthManager.logout();
+            alert(
+              "Akun berhasil dihapus. Terima kasih telah menggunakan Sikabayan."
+            );
+            window.location.href = "index.html";
+          }
+        }
+      }
+
+      function checkUpdates() {
+        showMessage("successMessage", "Anda menggunakan versi terbaru!");
+      }
+
+      function showTerms() {
+        alert(
+          "Syarat dan Ketentuan Sikabayan\n\n1. Penggunaan platform hanya untuk tujuan edukasi\n2. Dilarang menyalahgunakan konten pembelajaran\n3. Pengguna bertanggung jawab atas keamanan akun\n4. Sikabayan berhak mengubah ketentuan tanpa pemberitahuan"
+        );
+      }
+
+      function showPrivacyPolicy() {
+        alert(
+          "Kebijakan Privasi Sikabayan\n\n1. Data pribadi Anda aman bersama kami\n2. Informasi tidak dibagikan ke pihak ketiga\n3. Data digunakan untuk meningkatkan layanan\n4. Anda dapat menghapus akun kapan saja\n5. Cookies digunakan untuk pengalaman yang lebih baik"
+        );
+      }
+
+      // Dropdown functionality
+      function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function (event) {
+        const dropdown = document.getElementById("dropdownMenu");
+        const userMenu = document.querySelector(".user-menu");
+        if (!userMenu.contains(event.target)) {
+          dropdown.style.display = "none";
+        }
+      });
+
+      // Search functionality
+      const searchButton = document.querySelector("#search-button");
+      const searchForm = document.querySelector(".search-form");
+      const searchBox = document.querySelector("#search-box");
+
+      searchButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        searchForm.classList.toggle("active");
+        searchBox.focus();
+      });
+
+      // Hide search form when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !searchButton.contains(e.target) &&
+          !searchForm.contains(e.target)
+        ) {
+          searchForm.classList.remove("active");
+        }
+      });
+
+      // Handle search
+      searchBox.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          const searchTerm = searchBox.value.trim();
+          if (searchTerm) {
+            // In a real app, this would search content
+            alert(
+              `Mencari: "${searchTerm}" - Fitur pencarian akan segera tersedia`
+            );
+            searchForm.classList.remove("active");
+            searchBox.value = "";
+          }
+        }
+      });
+
+      function logout() {
+        if (confirm("Apakah Anda yakin ingin keluar?")) {
+          AuthManager.logout();
+          window.location.href = "index.html";
+        }
+      }
+    </script>
+  </body>
+</html>

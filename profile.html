@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil Saya - Sikabayan</title>
+
+    <!-- Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+      :root {
+        --primary: #2093a4;
+        --bg: #232222;
+        --secondary: #1a7a85;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background-color: var(--bg);
+        color: #fff;
+        min-height: 100vh;
+      }
+
+      .navbar {
+        background-color: rgba(1, 1, 1, 0.9);
+        padding: 1rem 7%;
+        border-bottom: 1px solid #21646e;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar-logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .navbar-nav {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .navbar-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-nav a:hover {
+        color: var(--primary);
+      }
+
+      .navbar-extra {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .navbar-extra a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-extra a:hover {
+        color: var(--primary);
+      }
+
+      .search-form {
+        position: absolute;
+        top: 100%;
+        right: 7%;
+        background-color: #fff;
+        width: 50rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: 0.3s;
+      }
+
+      .search-form.active {
+        transform: scaleY(1);
+      }
+
+      .search-form input {
+        height: 100%;
+        width: 100%;
+        font-size: 1.6rem;
+        color: var(--bg);
+        padding: 1rem;
+        border: none;
+        outline: none;
+      }
+
+      .search-form label {
+        cursor: pointer;
+        font-size: 2rem;
+        margin-right: 1.5rem;
+        color: var(--bg);
+      }
+
+      .user-menu {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .user-info:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .user-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1rem;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        display: none;
+        z-index: 1000;
+      }
+
+      .dropdown-menu a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        color: var(--bg);
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: #f5f5f5;
+      }
+
+      .container {
+        padding: 2rem 7%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .page-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .back-btn:hover {
+        color: var(--secondary);
+      }
+
+      .page-title {
+        font-size: 2rem;
+        color: var(--primary);
+      }
+
+      .profile-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 2rem;
+      }
+
+      .profile-sidebar {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid #666;
+        height: fit-content;
+      }
+
+      .profile-main {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid #666;
+      }
+
+      .profile-avatar-section {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .profile-avatar-large {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        font-weight: bold;
+        margin: 0 auto 1rem;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .profile-avatar-large:hover {
+        transform: scale(1.05);
+      }
+
+      .avatar-upload-btn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 35px;
+        height: 35px;
+        background-color: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: 3px solid #333;
+        transition: background-color 0.3s ease;
+      }
+
+      .avatar-upload-btn:hover {
+        background-color: var(--secondary);
+      }
+
+      .profile-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .profile-email {
+        color: #ccc;
+        margin-bottom: 1rem;
+      }
+
+      .profile-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background-color: #444;
+        border-radius: 0.5rem;
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: #ccc;
+      }
+
+      .quick-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .quick-link {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        background-color: #444;
+        border-radius: 0.5rem;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .quick-link:hover {
+        background-color: rgba(32, 147, 164, 0.2);
+        color: var(--primary);
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .form-group label {
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        padding: 1rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.5rem;
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(32, 147, 164, 0.2);
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .form-group input::placeholder,
+      .form-group textarea::placeholder {
+        color: #888;
+      }
+
+      .form-group select option {
+        background-color: var(--bg);
+        color: #fff;
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: #fff;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(32, 147, 164, 0.3);
+      }
+
+      .btn-secondary {
+        background-color: #666;
+        color: #fff;
+      }
+
+      .btn-secondary:hover {
+        background-color: #555;
+      }
+
+      .success-message {
+        background-color: rgba(40, 167, 69, 0.2);
+        border: 1px solid rgba(40, 167, 69, 0.3);
+        color: #51cf66;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        display: none;
+      }
+
+      .error-message {
+        background-color: rgba(220, 53, 69, 0.2);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        color: #ff6b6b;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem 5%;
+        }
+
+        .profile-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .navbar {
+          padding: 1rem 5%;
+        }
+
+        .navbar-nav {
+          display: none;
+        }
+
+        .btn-group {
+          flex-direction: column;
+        }
+
+        .profile-stats {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="index.html" class="navbar-logo">SIKABAYAN</a>
+
+      <div class="navbar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="materi.html">Materi</a>
+        <a href="#latihan">Latihan</a>
+        <a href="settings.html">Pengaturan</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <div class="user-menu">
+          <div class="user-info" onclick="toggleDropdown()">
+            <div class="user-avatar" id="navUserAvatar">U</div>
+            <span id="navUserName">User</span>
+            <i data-feather="chevron-down"></i>
+          </div>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="profile.html">
+              <i data-feather="user"></i>
+              Profil Saya
+            </a>
+            <a href="settings.html">
+              <i data-feather="settings"></i>
+              Pengaturan
+            </a>
+            <a href="#" onclick="logout()">
+              <i data-feather="log-out"></i>
+              Keluar
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search form start -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="Cari materi..." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- Search form end -->
+    </nav>
+
+    <div class="container">
+      <div class="page-header">
+        <a href="dashboard.html" class="back-btn">
+          <i data-feather="arrow-left"></i>
+          Kembali ke Dashboard
+        </a>
+        <h1 class="page-title">Profil Saya</h1>
+      </div>
+
+      <div class="success-message" id="successMessage">
+        Profil berhasil diperbarui!
+      </div>
+
+      <div class="error-message" id="errorMessage">
+        Terjadi kesalahan saat memperbarui profil.
+      </div>
+
+      <div class="profile-grid">
+        <div class="profile-sidebar">
+          <div class="profile-avatar-section">
+            <div class="profile-avatar-large" id="profileAvatar">
+              U
+              <div class="avatar-upload-btn" onclick="uploadAvatar()">
+                <i data-feather="camera" style="font-size: 1rem"></i>
+              </div>
+            </div>
+            <div class="profile-name" id="profileName">User Name</div>
+            <div class="profile-email" id="profileEmail">user@example.com</div>
+          </div>
+
+          <div class="profile-stats">
+            <div class="stat-item">
+              <div class="stat-number" id="totalLessons">3</div>
+              <div class="stat-label">Materi Selesai</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="studyHours">12</div>
+              <div class="stat-label">Jam Belajar</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="achievements">5</div>
+              <div class="stat-label">Pencapaian</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="streakDays">7</div>
+              <div class="stat-label">Hari Beruntun</div>
+            </div>
+          </div>
+
+          <div class="quick-links">
+            <a href="dashboard.html" class="quick-link">
+              <i data-feather="home"></i>
+              Dashboard
+            </a>
+            <a href="settings.html" class="quick-link">
+              <i data-feather="settings"></i>
+              Pengaturan
+            </a>
+            <a href="#" onclick="changePassword()" class="quick-link">
+              <i data-feather="lock"></i>
+              Ubah Password
+            </a>
+            <a
+              href="#"
+              onclick="AuthManager.logoutWithConfirm()"
+              class="quick-link"
+            >
+              <i data-feather="log-out"></i>
+              Keluar
+            </a>
+          </div>
+        </div>
+
+        <div class="profile-main">
+          <h2 class="section-title">
+            <i data-feather="user"></i>
+            Informasi Pribadi
+          </h2>
+
+          <form id="profileForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="firstName">Nama Depan</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="Nama depan"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Nama Belakang</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Nama belakang"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  required
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="phone">Nomor Telepon</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="Nomor telepon"
+                />
+              </div>
+              <div class="form-group">
+                <label for="birthDate">Tanggal Lahir</label>
+                <input type="date" id="birthDate" name="birthDate" />
+              </div>
+              <div class="form-group">
+                <label for="education">Tingkat Pendidikan</label>
+                <select id="education" name="education">
+                  <option value="">Pilih tingkat pendidikan</option>
+                  <option value="sd">SD/Sederajat</option>
+                  <option value="smp">SMP/Sederajat</option>
+                  <option value="sma">SMA/Sederajat</option>
+                  <option value="diploma">Diploma</option>
+                  <option value="sarjana">Sarjana (S1)</option>
+                  <option value="magister">Magister (S2)</option>
+                  <option value="doktor">Doktor (S3)</option>
+                </select>
+              </div>
+              <div class="form-group full-width">
+                <label for="bio">Tentang Saya</label>
+                <textarea
+                  id="bio"
+                  name="bio"
+                  placeholder="Ceritakan sedikit tentang diri Anda..."
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="location">Lokasi</label>
+                <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  placeholder="Kota, Provinsi"
+                />
+              </div>
+              <div class="form-group">
+                <label for="occupation">Pekerjaan</label>
+                <input
+                  type="text"
+                  id="occupation"
+                  name="occupation"
+                  placeholder="Pekerjaan/Profesi"
+                />
+              </div>
+            </div>
+
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="resetForm()"
+              >
+                <i data-feather="x"></i>
+                Batal
+              </button>
+              <button type="submit" class="btn btn-primary">
+                <i data-feather="save"></i>
+                Simpan Perubahan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden file input for avatar upload -->
+    <input
+      type="file"
+      id="avatarInput"
+      accept="image/*"
+      style="display: none"
+    />
+
+    <script src="js/auth.js"></script>
+    <script>
+      feather.replace();
+
+      // Check authentication
+      if (!AuthManager.requireAuth()) {
+        // Will redirect to login if not authenticated
+      }
+
+      // Load user data on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        loadUserProfile();
+      });
+
+      function loadUserProfile() {
+        const currentUser = AuthManager.getCurrentUser();
+        if (!currentUser) return;
+
+        // Update navbar
+        document.getElementById("navUserName").textContent =
+          currentUser.firstName || "User";
+        document.getElementById("navUserAvatar").textContent = (
+          currentUser.firstName || "U"
+        )
+          .charAt(0)
+          .toUpperCase();
+
+        // Update profile sidebar
+        document.getElementById("profileName").textContent =
+          `${currentUser.firstName || ""} ${
+            currentUser.lastName || ""
+          }`.trim() || "User";
+        document.getElementById("profileEmail").textContent =
+          currentUser.email || "";
+        document.getElementById("profileAvatar").firstChild.textContent = (
+          currentUser.firstName || "U"
+        )
+          .charAt(0)
+          .toUpperCase();
+
+        // Load form data
+        document.getElementById("firstName").value =
+          currentUser.firstName || "";
+        document.getElementById("lastName").value = currentUser.lastName || "";
+        document.getElementById("email").value = currentUser.email || "";
+        document.getElementById("phone").value = currentUser.phone || "";
+        document.getElementById("birthDate").value =
+          currentUser.birthDate || "";
+        document.getElementById("education").value =
+          currentUser.education || "";
+        document.getElementById("bio").value = currentUser.bio || "";
+        document.getElementById("location").value = currentUser.location || "";
+        document.getElementById("occupation").value =
+          currentUser.occupation || "";
+      }
+
+      // Handle form submission
+      document
+        .getElementById("profileForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+          const currentUser = AuthManager.getCurrentUser();
+
+          if (!currentUser) return;
+
+          // Update user data
+          const updatedUser = {
+            ...currentUser,
+            firstName: formData.get("firstName"),
+            lastName: formData.get("lastName"),
+            phone: formData.get("phone"),
+            birthDate: formData.get("birthDate"),
+            education: formData.get("education"),
+            bio: formData.get("bio"),
+            location: formData.get("location"),
+            occupation: formData.get("occupation"),
+            lastUpdated: new Date().toISOString(),
+          };
+
+          // Save to localStorage
+          const users = JSON.parse(localStorage.getItem("users") || "[]");
+          const userIndex = users.findIndex(
+            (user) => user.email === currentUser.email
+          );
+
+          if (userIndex !== -1) {
+            users[userIndex] = updatedUser;
+          } else {
+            users.push(updatedUser);
+          }
+
+          localStorage.setItem("users", JSON.stringify(users));
+
+          // Show success message
+          showMessage("successMessage", "Profil berhasil diperbarui!");
+
+          // Reload profile data
+          setTimeout(() => {
+            loadUserProfile();
+          }, 500);
+        });
+
+      function showMessage(elementId, message) {
+        const element = document.getElementById(elementId);
+        element.textContent = message;
+        element.style.display = "block";
+
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 3000);
+      }
+
+      function resetForm() {
+        if (confirm("Apakah Anda yakin ingin membatalkan perubahan?")) {
+          loadUserProfile();
+        }
+      }
+
+      function uploadAvatar() {
+        document.getElementById("avatarInput").click();
+      }
+
+      // Handle avatar upload
+      document
+        .getElementById("avatarInput")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              // In a real app, you would upload this to a server
+              // For now, we'll just show a message
+              showMessage(
+                "successMessage",
+                "Fitur upload avatar akan segera tersedia"
+              );
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+      function changePassword() {
+        // This would typically open a modal or redirect to change password page
+        alert("Fitur ubah password akan segera tersedia");
+      }
+
+      // Dropdown functionality
+      function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function (event) {
+        const dropdown = document.getElementById("dropdownMenu");
+        const userMenu = document.querySelector(".user-menu");
+        if (!userMenu.contains(event.target)) {
+          dropdown.style.display = "none";
+        }
+      });
+
+      // Search functionality
+      const searchButton = document.querySelector("#search-button");
+      const searchForm = document.querySelector(".search-form");
+      const searchBox = document.querySelector("#search-box");
+
+      searchButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        searchForm.classList.toggle("active");
+        searchBox.focus();
+      });
+
+      // Hide search form when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !searchButton.contains(e.target) &&
+          !searchForm.contains(e.target)
+        ) {
+          searchForm.classList.remove("active");
+        }
+      });
+
+      // Handle search
+      searchBox.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          const searchTerm = searchBox.value.trim();
+          if (searchTerm) {
+            // In a real app, this would search content
+            alert(
+              `Mencari: "${searchTerm}" - Fitur pencarian akan segera tersedia`
+            );
+            searchForm.classList.remove("active");
+            searchBox.value = "";
+          }
+        }
+      });
+
+      function logout() {
+        if (confirm("Apakah Anda yakin ingin keluar?")) {
+          AuthManager.logout();
+          window.location.href = "index.html";
+        }
+      }
+    </script>
+  </body>
+</html>

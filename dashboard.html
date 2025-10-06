@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Sikabayan</title>
+
+    <!-- Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+      :root {
+        --primary: #2093a4;
+        --bg: #232222;
+        --secondary: #1a7a85;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background-color: var(--bg);
+        color: #fff;
+        min-height: 100vh;
+      }
+
+      .navbar {
+        background-color: rgba(1, 1, 1, 0.9);
+        padding: 1rem 7%;
+        border-bottom: 1px solid #21646e;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar-logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .navbar-nav {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .navbar-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-nav a:hover {
+        color: var(--primary);
+      }
+
+      .user-menu {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .user-info:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .user-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1rem;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #333;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0;
+        min-width: 200px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 1001;
+      }
+
+      .dropdown-menu a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        color: #fff;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: rgba(32, 147, 164, 0.2);
+      }
+
+      .container {
+        padding: 2rem 7%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .welcome-section {
+        background: linear-gradient(
+          135deg,
+          rgba(32, 147, 164, 0.2),
+          rgba(26, 122, 133, 0.2)
+        );
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        border: 1px solid rgba(32, 147, 164, 0.3);
+      }
+
+      .welcome-section h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .welcome-section p {
+        font-size: 1.2rem;
+        color: #ccc;
+        margin-bottom: 1.5rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .stat-card {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+        border: 1px solid #666;
+        transition: all 0.3s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(32, 147, 164, 0.3);
+      }
+
+      .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: #ccc;
+        font-size: 1rem;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .main-content {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid #666;
+      }
+
+      .sidebar {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid #666;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .progress-item {
+        background-color: #444;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .progress-title {
+        font-weight: 600;
+        color: #fff;
+      }
+
+      .progress-percentage {
+        font-size: 0.9rem;
+        color: var(--primary);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background-color: #555;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        transition: width 0.3s ease;
+      }
+
+      .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .action-btn {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border: none;
+        border-radius: 0.75rem;
+        padding: 1rem;
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: center;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(32, 147, 164, 0.3);
+      }
+
+      .recent-activity {
+        margin-top: 2rem;
+      }
+
+      .activity-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background-color: #444;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .activity-content {
+        flex: 1;
+      }
+
+      .activity-title {
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 0.25rem;
+      }
+
+      .activity-time {
+        font-size: 0.9rem;
+        color: #ccc;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem 5%;
+        }
+
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .navbar {
+          padding: 1rem 5%;
+        }
+
+        .navbar-nav {
+          display: none;
+        }
+
+        .welcome-section h1 {
+          font-size: 2rem;
+        }
+
+        .stats-grid {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="index.html" class="navbar-logo">SIKABAYAN</a>
+
+      <div class="navbar-nav">
+        <a href="index.html">Beranda</a>
+        <a href="materi.html">Materi</a>
+        <a href="#latihan">Latihan</a>
+        <a href="#progress">Progress</a>
+      </div>
+
+      <div class="user-menu">
+        <div class="user-info" onclick="toggleDropdown()">
+          <div class="user-avatar" id="userAvatar">U</div>
+          <span id="userName">User</span>
+          <i data-feather="chevron-down"></i>
+        </div>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="profile.html">
+            <i data-feather="user"></i>
+            Profil Saya
+          </a>
+          <a href="settings.html">
+            <i data-feather="settings"></i>
+            Pengaturan
+          </a>
+          <a href="#" onclick="logout()">
+            <i data-feather="log-out"></i>
+            Keluar
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="welcome-section">
+        <h1>Selamat Datang di Dashboard!</h1>
+        <p>
+          Lanjutkan perjalanan pembelajaran aksara Sunda Anda. Anda telah
+          menyelesaikan beberapa materi dan siap untuk tantangan selanjutnya.
+        </p>
+        <div class="quick-actions">
+          <a href="materi.html" class="action-btn">
+            <i data-feather="book-open"></i>
+            Lanjut Belajar
+          </a>
+          <a href="latihan.html" class="action-btn">
+            <i data-feather="edit-3"></i>
+            Mulai Latihan
+          </a>
+          <a href="progress.html" class="action-btn">
+            <i data-feather="trending-up"></i>
+            Lihat Progress
+          </a>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i data-feather="book"></i>
+          </div>
+          <div class="stat-number" id="completedLessons">3</div>
+          <div class="stat-label">Materi Selesai</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i data-feather="clock"></i>
+          </div>
+          <div class="stat-number" id="studyTime">12</div>
+          <div class="stat-label">Jam Belajar</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i data-feather="award"></i>
+          </div>
+          <div class="stat-number" id="achievements">5</div>
+          <div class="stat-label">Pencapaian</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i data-feather="target"></i>
+          </div>
+          <div class="stat-number" id="streakDays">7</div>
+          <div class="stat-label">Hari Beruntun</div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="main-content">
+          <h2 class="section-title">
+            <i data-feather="trending-up"></i>
+            Progress Pembelajaran
+          </h2>
+
+          <div class="progress-item">
+            <div class="progress-header">
+              <span class="progress-title">Materi Dasar Aksara Sunda</span>
+              <span class="progress-percentage">100%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 100%"></div>
+            </div>
+          </div>
+
+          <div class="progress-item">
+            <div class="progress-header">
+              <span class="progress-title">Sejarah Aksara Sunda</span>
+              <span class="progress-percentage">85%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 85%"></div>
+            </div>
+          </div>
+
+          <div class="progress-item">
+            <div class="progress-header">
+              <span class="progress-title">Latihan Menulis</span>
+              <span class="progress-percentage">60%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 60%"></div>
+            </div>
+          </div>
+
+          <div class="progress-item">
+            <div class="progress-header">
+              <span class="progress-title">Quiz dan Evaluasi</span>
+              <span class="progress-percentage">25%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 25%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar">
+          <h3 class="section-title">
+            <i data-feather="activity"></i>
+            Aktivitas Terkini
+          </h3>
+
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i data-feather="check"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-title">Menyelesaikan Materi Dasar</div>
+              <div class="activity-time">2 jam yang lalu</div>
+            </div>
+          </div>
+
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i data-feather="edit"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-title">Latihan Menulis Level 3</div>
+              <div class="activity-time">1 hari yang lalu</div>
+            </div>
+          </div>
+
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i data-feather="star"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-title">Mendapat Badge Pemula</div>
+              <div class="activity-time">2 hari yang lalu</div>
+            </div>
+          </div>
+
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i data-feather="book-open"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-title">Membaca Sejarah Aksara</div>
+              <div class="activity-time">3 hari yang lalu</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      feather.replace();
+
+      // Initialize dashboard
+      document.addEventListener("DOMContentLoaded", function () {
+        // Check if user is logged in
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+          window.location.href = "login.html";
+          return;
+        }
+
+        // Load user data
+        const userEmail = localStorage.getItem("userEmail");
+        if (userEmail) {
+          const users = JSON.parse(localStorage.getItem("users") || "[]");
+          const currentUser = users.find(
+            (user) => user.email === userEmail
+          ) || { firstName: "User", email: userEmail };
+
+          document.getElementById("userName").textContent =
+            currentUser.firstName;
+          document.getElementById("userAvatar").textContent =
+            currentUser.firstName.charAt(0).toUpperCase();
+        }
+
+        // Simulate progress loading
+        setTimeout(updateStats, 500);
+      });
+
+      function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function (event) {
+        const userMenu = document.querySelector(".user-menu");
+        const dropdown = document.getElementById("dropdownMenu");
+
+        if (!userMenu.contains(event.target)) {
+          dropdown.style.display = "none";
+        }
+      });
+
+      function updateStats() {
+        // Animate numbers
+        animateCounter("completedLessons", 0, 3, 1000);
+        animateCounter("studyTime", 0, 12, 1200);
+        animateCounter("achievements", 0, 5, 1400);
+        animateCounter("streakDays", 0, 7, 1600);
+      }
+
+      function animateCounter(elementId, start, end, duration) {
+        const element = document.getElementById(elementId);
+        const range = end - start;
+        const minTimer = 50;
+        const stepTime = Math.abs(Math.floor(duration / range));
+        const timer = stepTime < minTimer ? minTimer : stepTime;
+
+        let current = start;
+        const increment = end > start ? 1 : -1;
+
+        const obj = setInterval(() => {
+          current += increment;
+          element.textContent = current;
+
+          if (current === end) {
+            clearInterval(obj);
+          }
+        }, timer);
+      }
+
+      function showProfile() {
+        window.location.href = "profile.html";
+      }
+
+      function showSettings() {
+        window.location.href = "settings.html";
+      }
+
+      function logout() {
+        if (confirm("Apakah Anda yakin ingin keluar?")) {
+          localStorage.removeItem("isLoggedIn");
+          localStorage.removeItem("userEmail");
+          window.location.href = "index.html";
+        }
+      }
+
+      function startQuiz() {
+        window.location.href = "latihan.html";
+      }
+
+      function viewProgress() {
+        window.location.href = "progress.html";
+      }
+    </script>
+  </body>
+</html>

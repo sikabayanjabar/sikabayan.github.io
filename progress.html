@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress Pembelajaran - Sikabayan</title>
+
+    <!-- Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+      :root {
+        --primary: #2093a4;
+        --bg: #232222;
+        --secondary: #1a7a85;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background-color: var(--bg);
+        color: #fff;
+        min-height: 100vh;
+      }
+
+      .navbar {
+        background-color: rgba(1, 1, 1, 0.9);
+        padding: 1rem 7%;
+        border-bottom: 1px solid #21646e;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar-logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .navbar-nav {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .navbar-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-nav a:hover,
+      .navbar-nav a.active {
+        color: var(--primary);
+      }
+
+      .navbar-extra {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .navbar-extra a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-extra a:hover {
+        color: var(--primary);
+      }
+
+      .search-form {
+        position: absolute;
+        top: 100%;
+        right: 7%;
+        background-color: #fff;
+        width: 50rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: 0.3s;
+      }
+
+      .search-form.active {
+        transform: scaleY(1);
+      }
+
+      .search-form input {
+        height: 100%;
+        width: 100%;
+        font-size: 1.6rem;
+        color: var(--bg);
+        padding: 1rem;
+        border: none;
+        outline: none;
+      }
+
+      .search-form label {
+        cursor: pointer;
+        font-size: 2rem;
+        margin-right: 1.5rem;
+        color: var(--bg);
+      }
+
+      .user-menu {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .user-info:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .user-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1rem;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        display: none;
+        z-index: 1000;
+      }
+
+      .dropdown-menu a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        color: var(--bg);
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: #f5f5f5;
+      }
+
+      .container {
+        padding: 2rem 7%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 3rem;
+      }
+
+      .page-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--primary);
+        border-radius: 0.5rem;
+      }
+
+      .back-btn:hover {
+        background-color: var(--primary);
+        color: #fff;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        color: var(--primary);
+      }
+
+      .progress-overview {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 1px solid #666;
+      }
+
+      .overview-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .overview-icon {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: #fff;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+
+      .overview-info h2 {
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .overview-info p {
+        color: #ccc;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .stat-card {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+        border: 1px solid #666;
+        transition: transform 0.3s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .stat-icon {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: #fff;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 1.5rem;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: #ccc;
+        font-size: 1rem;
+      }
+
+      .progress-sections {
+        display: grid;
+        gap: 2rem;
+      }
+
+      .progress-section {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid #666;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .section-badge {
+        background-color: var(--primary);
+        color: #fff;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      .progress-bar-container {
+        margin-bottom: 1rem;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 12px;
+        background-color: #555;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        transition: width 0.3s ease;
+        border-radius: 6px;
+      }
+
+      .progress-text {
+        display: flex;
+        justify-content: space-between;
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+
+      .level-progress {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .level-item {
+        background-color: #444;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+      }
+
+      .level-item.completed {
+        background-color: rgba(32, 147, 164, 0.2);
+        border: 1px solid var(--primary);
+      }
+
+      .level-item.current {
+        background-color: rgba(255, 193, 7, 0.2);
+        border: 1px solid #ffc107;
+      }
+
+      .level-title {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .level-status {
+        font-size: 0.8rem;
+        color: #ccc;
+      }
+
+      .level-item.completed .level-status {
+        color: var(--primary);
+      }
+
+      .level-item.current .level-status {
+        color: #ffc107;
+      }
+
+      .achievement-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .achievement-item {
+        background-color: #444;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .achievement-item.earned {
+        background-color: rgba(40, 167, 69, 0.2);
+        border: 1px solid #28a745;
+      }
+
+      .achievement-item:hover {
+        transform: scale(1.05);
+      }
+
+      .achievement-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .achievement-item.earned .achievement-icon {
+        color: #28a745;
+      }
+
+      .achievement-title {
+        font-size: 0.9rem;
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+      }
+
+      .achievement-desc {
+        font-size: 0.7rem;
+        color: #ccc;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem 5%;
+        }
+
+        .navbar {
+          padding: 1rem 5%;
+        }
+
+        .navbar-nav {
+          display: none;
+        }
+
+        .page-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .page-title {
+          font-size: 2rem;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .level-progress {
+          grid-template-columns: 1fr;
+        }
+
+        .achievement-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="index.html" class="navbar-logo">SIKABAYAN</a>
+
+      <div class="navbar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="materi.html">Materi</a>
+        <a href="latihan.html">Latihan</a>
+        <a href="progress.html" class="active">Progress</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <div class="user-menu">
+          <div class="user-info" onclick="toggleDropdown()">
+            <div class="user-avatar" id="navUserAvatar">U</div>
+            <span id="navUserName">User</span>
+            <i data-feather="chevron-down"></i>
+          </div>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="profile.html">
+              <i data-feather="user"></i>
+              Profil Saya
+            </a>
+            <a href="settings.html">
+              <i data-feather="settings"></i>
+              Pengaturan
+            </a>
+            <a href="#" onclick="logout()">
+              <i data-feather="log-out"></i>
+              Keluar
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search form start -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="Cari materi..." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- Search form end -->
+    </nav>
+
+    <div class="container">
+      <div class="page-header">
+        <div class="page-info">
+          <a href="dashboard.html" class="back-btn">
+            <i data-feather="arrow-left"></i>
+            Kembali ke Dashboard
+          </a>
+          <h1 class="page-title">Progress Pembelajaran</h1>
+        </div>
+      </div>
+
+      <div class="progress-overview">
+        <div class="overview-header">
+          <div class="overview-icon">
+            <i data-feather="trending-up"></i>
+          </div>
+          <div class="overview-info">
+            <h2>Perjalanan Pembelajaran Anda</h2>
+            <p>Lacak kemajuan dan pencapaian dalam mempelajari aksara Sunda</p>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i data-feather="book"></i>
+            </div>
+            <div class="stat-number" id="completedMaterials">3</div>
+            <div class="stat-label">Materi Selesai</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i data-feather="clock"></i>
+            </div>
+            <div class="stat-number" id="studyTime">12</div>
+            <div class="stat-label">Jam Belajar</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i data-feather="award"></i>
+            </div>
+            <div class="stat-number" id="achievements">5</div>
+            <div class="stat-label">Pencapaian</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i data-feather="target"></i>
+            </div>
+            <div class="stat-number" id="accuracy">85%</div>
+            <div class="stat-label">Akurasi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-sections">
+        <!-- Materials Progress -->
+        <div class="progress-section">
+          <div class="section-header">
+            <h3 class="section-title">
+              <i data-feather="book-open"></i>
+              Progress Materi
+            </h3>
+            <span class="section-badge">3/3 Selesai</span>
+          </div>
+
+          <div class="progress-bar-container">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 100%"></div>
+            </div>
+            <div class="progress-text">
+              <span>Materi Pembelajaran</span>
+              <span>100% Selesai</span>
+            </div>
+          </div>
+
+          <div class="level-progress">
+            <div class="level-item completed">
+              <div class="level-title">Dasar Aksara Sunda</div>
+              <div class="level-status">✓ Selesai</div>
+            </div>
+            <div class="level-item completed">
+              <div class="level-title">Sejarah Aksara Sunda</div>
+              <div class="level-status">✓ Selesai</div>
+            </div>
+            <div class="level-item completed">
+              <div class="level-title">Latihan Menulis</div>
+              <div class="level-status">✓ Selesai</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Practice Progress -->
+        <div class="progress-section">
+          <div class="section-header">
+            <h3 class="section-title">
+              <i data-feather="edit-3"></i>
+              Progress Latihan
+            </h3>
+            <span class="section-badge">2/4 Level</span>
+          </div>
+
+          <div class="progress-bar-container">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 50%"></div>
+            </div>
+            <div class="progress-text">
+              <span>Level Latihan</span>
+              <span>50% Selesai</span>
+            </div>
+          </div>
+
+          <div class="level-progress">
+            <div class="level-item completed">
+              <div class="level-title">Level 1: Menebak Huruf</div>
+              <div class="level-status">✓ Selesai (90%)</div>
+            </div>
+            <div class="level-item completed">
+              <div class="level-title">Level 2: Menebak Kata</div>
+              <div class="level-status">✓ Selesai (85%)</div>
+            </div>
+            <div class="level-item current">
+              <div class="level-title">Level 3: Membaca Paragraf</div>
+              <div class="level-status">🔄 Sedang Berlangsung</div>
+            </div>
+            <div class="level-item">
+              <div class="level-title">Level 4: Menulis Cerita</div>
+              <div class="level-status">🔒 Terkunci</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="progress-section">
+          <div class="section-header">
+            <h3 class="section-title">
+              <i data-feather="award"></i>
+              Pencapaian
+            </h3>
+            <span class="section-badge">5/8 Diraih</span>
+          </div>
+
+          <div class="achievement-grid">
+            <div class="achievement-item earned">
+              <div class="achievement-icon">🏆</div>
+              <div class="achievement-title">Pemula</div>
+              <div class="achievement-desc">Selesaikan materi pertama</div>
+            </div>
+            <div class="achievement-item earned">
+              <div class="achievement-icon">📚</div>
+              <div class="achievement-title">Pelajar Rajin</div>
+              <div class="achievement-desc">Selesaikan semua materi</div>
+            </div>
+            <div class="achievement-item earned">
+              <div class="achievement-icon">🎯</div>
+              <div class="achievement-title">Akurat</div>
+              <div class="achievement-desc">Capai akurasi 80%</div>
+            </div>
+            <div class="achievement-item earned">
+              <div class="achievement-icon">⚡</div>
+              <div class="achievement-title">Cepat</div>
+              <div class="achievement-desc">
+                Selesaikan level dalam waktu record
+              </div>
+            </div>
+            <div class="achievement-item earned">
+              <div class="achievement-icon">🔥</div>
+              <div class="achievement-title">Konsisten</div>
+              <div class="achievement-desc">Belajar 5 hari berturut-turut</div>
+            </div>
+            <div class="achievement-item">
+              <div class="achievement-icon">📝</div>
+              <div class="achievement-title">Penulis</div>
+              <div class="achievement-desc">Selesaikan level menulis</div>
+            </div>
+            <div class="achievement-item">
+              <div class="achievement-icon">🌟</div>
+              <div class="achievement-title">Sempurna</div>
+              <div class="achievement-desc">Capai skor 100% di semua level</div>
+            </div>
+            <div class="achievement-item">
+              <div class="achievement-icon">👑</div>
+              <div class="achievement-title">Master</div>
+              <div class="achievement-desc">Selesaikan semua tantangan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+      feather.replace();
+
+      // Check authentication
+      if (!AuthManager.requireAuth()) {
+        // Will redirect to login if not authenticated
+      }
+
+      // Load user data on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        loadUserProgress();
+      });
+
+      function loadUserProgress() {
+        const currentUser = AuthManager.getCurrentUser();
+        if (!currentUser) return;
+
+        // Update navbar
+        document.getElementById("navUserName").textContent =
+          currentUser.firstName || "User";
+        document.getElementById("navUserAvatar").textContent = (
+          currentUser.firstName || "U"
+        )
+          .charAt(0)
+          .toUpperCase();
+
+        // Load progress data from localStorage or set defaults
+        const progressData = JSON.parse(
+          localStorage.getItem("userProgress") || "{}"
+        );
+
+        // Update stats with actual or simulated data
+        updateStats(progressData);
+      }
+
+      function updateStats(progressData) {
+        // Animate stats
+        animateCounter(
+          "completedMaterials",
+          0,
+          progressData.completedMaterials || 3,
+          1000
+        );
+        animateCounter("studyTime", 0, progressData.studyTime || 12, 1200);
+        animateCounter("achievements", 0, progressData.achievements || 5, 1400);
+
+        // Update accuracy
+        setTimeout(() => {
+          document.getElementById("accuracy").textContent =
+            (progressData.accuracy || 85) + "%";
+        }, 1600);
+      }
+
+      function animateCounter(elementId, start, end, duration) {
+        const element = document.getElementById(elementId);
+        const range = end - start;
+        const minTimer = 50;
+        const stepTime = Math.abs(Math.floor(duration / range));
+        const timer = stepTime < minTimer ? minTimer : stepTime;
+
+        let current = start;
+        const increment = end > start ? 1 : -1;
+
+        const obj = setInterval(() => {
+          current += increment;
+          element.textContent = current;
+
+          if (current === end) {
+            clearInterval(obj);
+          }
+        }, timer);
+      }
+
+      // Dropdown functionality
+      function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function (event) {
+        const dropdown = document.getElementById("dropdownMenu");
+        const userMenu = document.querySelector(".user-menu");
+        if (!userMenu.contains(event.target)) {
+          dropdown.style.display = "none";
+        }
+      });
+
+      // Search functionality
+      const searchButton = document.querySelector("#search-button");
+      const searchForm = document.querySelector(".search-form");
+      const searchBox = document.querySelector("#search-box");
+
+      searchButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        searchForm.classList.toggle("active");
+        searchBox.focus();
+      });
+
+      // Hide search form when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !searchButton.contains(e.target) &&
+          !searchForm.contains(e.target)
+        ) {
+          searchForm.classList.remove("active");
+        }
+      });
+
+      // Handle search
+      searchBox.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          const searchTerm = searchBox.value.trim();
+          if (searchTerm) {
+            alert(
+              `Mencari: "${searchTerm}" - Fitur pencarian akan segera tersedia`
+            );
+            searchForm.classList.remove("active");
+            searchBox.value = "";
+          }
+        }
+      });
+
+      function logout() {
+        if (confirm("Apakah Anda yakin ingin keluar?")) {
+          AuthManager.logout();
+          window.location.href = "index.html";
+        }
+      }
+    </script>
+  </body>
+</html>
