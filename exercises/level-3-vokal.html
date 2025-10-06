@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 3: Vokal (Swara) - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .exercise-header h1 {
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .exercise-header h1 span {
+        color: var(--primary);
+      }
+
+      .level-info {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .progress-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .progress-text {
+        color: var(--text-color);
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .question-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: none;
+      }
+
+      .question-card.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .question-number {
+        color: var(--primary);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .question-text {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .audio-player {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin: 1rem 0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .play-btn {
+        background: var(--primary);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .play-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 5px 15px rgba(32, 147, 164, 0.4);
+      }
+
+      .audio-info {
+        color: var(--text-color);
+      }
+
+      .vowel-display {
+        text-align: center;
+        margin: 2rem 0;
+      }
+
+      .vowel-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        margin: 2rem 0;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        flex-wrap: wrap;
+      }
+
+      .vowel-item {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        min-width: 100px;
+      }
+
+      .vowel-char {
+        font-size: 3rem;
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        margin-bottom: 0.5rem;
+      }
+
+      .vowel-latin {
+        color: var(--text-color);
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .vowel-description {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+      }
+
+      .options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .option {
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .option:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+      }
+
+      .option.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+      }
+
+      .option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+      }
+
+      .option-char {
+        font-size: 2rem;
+        font-family: "Times New Roman", serif;
+        margin-bottom: 0.5rem;
+      }
+
+      .option-text {
+        color: var(--text-color);
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(32, 147, 164, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+      }
+
+      .feedback.correct {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid #10b981;
+        color: #10b981;
+      }
+
+      .feedback.incorrect {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        color: #ef4444;
+      }
+
+      .result-screen {
+        display: none;
+        text-align: center;
+      }
+
+      .result-screen.show {
+        display: block;
+      }
+
+      .score-display {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1rem 0;
+      }
+
+      .result-message {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+        }
+
+        .level-info {
+          gap: 1rem;
+        }
+
+        .vowel-group {
+          gap: 1rem;
+        }
+
+        .vowel-char {
+          font-size: 2rem;
+        }
+
+        .controls {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .options {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="exercise-container">
+      <!-- Exercise Header -->
+      <div class="exercise-header">
+        <h1><span>Level 3:</span> Vokal (Swara) Aksara Sunda</h1>
+        <p>Pelajari huruf vokal dalam aksara Sunda dan bunyi pelafalannya</p>
+        <div class="level-info">
+          <div class="info-item">
+            <i data-feather="target"></i>
+            <span>Target: 80% untuk lulus</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="clock"></i>
+            <span>Waktu: ~15 menit</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="volume-2"></i>
+            <span>7 Soal Audio</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Soal 1 dari 7</div>
+      </div>
+
+      <!-- Quiz Container -->
+      <div id="quizContainer">
+        <!-- Questions will be generated by JavaScript -->
+      </div>
+
+      <!-- Result Screen -->
+      <div class="result-screen" id="resultScreen">
+        <div class="question-card">
+          <h2>🎉 Level 3 Selesai!</h2>
+          <div class="score-display" id="finalScore">86/100</div>
+          <div class="result-message" id="resultMessage">
+            Bagus! Anda sudah memahami vokal dalam aksara Sunda.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" id="correctAnswers">6</div>
+              <div class="stat-label">Jawaban Benar</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="incorrectAnswers">1</div>
+              <div class="stat-label">Jawaban Salah</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="timeTaken">12:30</div>
+              <div class="stat-label">Waktu</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="accuracy">86%</div>
+              <div class="stat-label">Akurasi</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button
+              class="btn btn-secondary"
+              onclick="window.location.href='../latihan.html'"
+            >
+              <i data-feather="arrow-left"></i> Kembali ke Menu
+            </button>
+            <button class="btn btn-primary" onclick="nextLevel()">
+              Level Selanjutnya <i data-feather="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Quiz data
+      const quizData = [
+        {
+          question:
+            "Dengarkan bunyi vokal berikut. Manakah huruf aksara Sunda yang tepat?",
+          type: "audio",
+          audioText: "a",
+          vowelGroup: [
+            { char: "ᮃ", latin: "a", description: "seperti 'bapa'" },
+            { char: "ᮤ", latin: "i", description: "seperti 'isi'" },
+            { char: "ᮥ", latin: "u", description: "seperti 'bulu'" },
+          ],
+          options: [
+            { char: "ᮃ", text: "a (bapa)", correct: true },
+            { char: "ᮤ", text: "i (isi)", correct: false },
+            { char: "ᮥ", text: "u (bulu)", correct: false },
+            { char: "ᮦ", text: "é (sepé)", correct: false },
+          ],
+          explanation:
+            "Bunyi 'a' yang jelas dan terbuka ditulis dengan huruf ᮃ (a).",
+        },
+        {
+          question:
+            "Pilih huruf aksara Sunda yang melambangkan bunyi 'i' seperti dalam kata 'isi':",
+          type: "identification",
+          vowelGroup: [
+            { char: "ᮃ", latin: "a", description: "seperti 'bapa'" },
+            { char: "ᮤ", latin: "i", description: "seperti 'isi'" },
+            { char: "ᮥ", latin: "u", description: "seperti 'bulu'" },
+            { char: "ᮦ", latin: "é", description: "seperti 'sepé'" },
+          ],
+          options: [
+            { char: "ᮃ", text: "a", correct: false },
+            { char: "ᮤ", text: "i", correct: true },
+            { char: "ᮥ", text: "u", correct: false },
+            { char: "ᮧ", text: "o", correct: false },
+          ],
+          explanation:
+            "Huruf ᮤ (i) digunakan untuk bunyi 'i' yang tinggi seperti dalam kata 'isi'.",
+        },
+        {
+          question: "Dengarkan bunyi vokal ini. Huruf manakah yang benar?",
+          type: "audio",
+          audioText: "u",
+          vowelGroup: [
+            { char: "ᮥ", latin: "u", description: "seperti 'bulu'" },
+            { char: "ᮧ", latin: "o", description: "seperti 'noko'" },
+            { char: "ᮨ", latin: "eu", description: "seperti 'jeung'" },
+          ],
+          options: [
+            { char: "ᮤ", text: "i (isi)", correct: false },
+            { char: "ᮥ", text: "u (bulu)", correct: true },
+            { char: "ᮧ", text: "o (noko)", correct: false },
+            { char: "ᮨ", text: "eu (jeung)", correct: false },
+          ],
+          explanation: "Bunyi 'u' yang bulat ditulis dengan huruf ᮥ (u).",
+        },
+        {
+          question:
+            "Huruf aksara Sunda untuk bunyi 'é' (taling) seperti dalam kata 'sepé' adalah:",
+          type: "identification",
+          vowelGroup: [
+            { char: "ᮦ", latin: "é", description: "seperti 'sepé'" },
+            { char: "ᮨ", latin: "eu", description: "seperti 'jeung'" },
+            { char: "ᮩ", latin: "o", description: "seperti 'golong'" },
+          ],
+          options: [
+            { char: "ᮃ", text: "a", correct: false },
+            { char: "ᮦ", text: "é", correct: true },
+            { char: "ᮨ", text: "eu", correct: false },
+            { char: "ᮧ", text: "o", correct: false },
+          ],
+          explanation:
+            "Huruf ᮦ (é) digunakan untuk bunyi 'é' yang terang seperti dalam kata 'sepé'.",
+        },
+        {
+          question:
+            "Dengarkan bunyi vokal khas Sunda ini. Pilih huruf yang tepat:",
+          type: "audio",
+          audioText: "eu",
+          vowelGroup: [
+            { char: "ᮨ", latin: "eu", description: "bunyi khas Sunda" },
+            { char: "ᮦ", latin: "é", description: "seperti 'sepé'" },
+            { char: "ᮤ", latin: "i", description: "seperti 'isi'" },
+          ],
+          options: [
+            { char: "ᮦ", text: "é (sepé)", correct: false },
+            { char: "ᮨ", text: "eu (jeung)", correct: true },
+            { char: "ᮥ", text: "u (bulu)", correct: false },
+            { char: "ᮧ", text: "o (noko)", correct: false },
+          ],
+          explanation:
+            "Bunyi 'eu' adalah vokal khas bahasa Sunda yang ditulis dengan huruf ᮨ (eu).",
+        },
+        {
+          question:
+            "Pilih huruf aksara Sunda untuk bunyi 'o' seperti dalam kata 'noko':",
+          type: "identification",
+          vowelGroup: [
+            { char: "ᮧ", latin: "o", description: "seperti 'noko'" },
+            { char: "ᮩ", latin: "o", description: "seperti 'golong'" },
+            { char: "ᮥ", latin: "u", description: "seperti 'bulu'" },
+          ],
+          options: [
+            { char: "ᮥ", text: "u", correct: false },
+            { char: "ᮧ", text: "o", correct: true },
+            { char: "ᮨ", text: "eu", correct: false },
+            { char: "ᮩ", text: "o panjang", correct: false },
+          ],
+          explanation:
+            "Huruf ᮧ (o) digunakan untuk bunyi 'o' pendek seperti dalam kata 'noko'.",
+        },
+        {
+          question:
+            "Manakah yang merupakan urutan vokal dasar aksara Sunda yang benar?",
+          type: "sequence",
+          vowelGroup: [
+            { char: "ᮃ", latin: "a", description: "" },
+            { char: "ᮤ", latin: "i", description: "" },
+            { char: "ᮥ", latin: "u", description: "" },
+            { char: "ᮦ", latin: "é", description: "" },
+            { char: "ᮧ", latin: "o", description: "" },
+            { char: "ᮨ", latin: "eu", description: "" },
+          ],
+          options: [
+            { char: "ᮃᮤᮥᮦᮧᮨ", text: "a - i - u - é - o - eu", correct: true },
+            { char: "ᮃᮦᮤᮥᮧᮨ", text: "a - é - i - u - o - eu", correct: false },
+            { char: "ᮤᮃᮥᮦᮧᮨ", text: "i - a - u - é - o - eu", correct: false },
+            { char: "ᮃᮤᮨᮥᮦᮧ", text: "a - i - eu - u - é - o", correct: false },
+          ],
+          explanation:
+            "Urutan vokal dasar aksara Sunda adalah: a (ᮃ), i (ᮤ), u (ᮥ), é (ᮦ), o (ᮧ), eu (ᮨ).",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let userAnswers = [];
+      let startTime = Date.now();
+
+      function initializeQuiz() {
+        generateQuizHTML();
+        showQuestion(0);
+        updateProgress();
+      }
+
+      function generateQuizHTML() {
+        const container = document.getElementById("quizContainer");
+        container.innerHTML = "";
+
+        quizData.forEach((question, index) => {
+          const questionHTML = `
+                    <div class="question-card" id="question-${index}">
+                        <div class="question-number">Soal ${index + 1} dari ${
+            quizData.length
+          }</div>
+                        <div class="question-text">${question.question}</div>
+                        
+                        ${
+                          question.type === "audio"
+                            ? `
+                            <div class="audio-player">
+                                <button class="play-btn" onclick="playAudio('${question.audioText}')">
+                                    <i data-feather="play"></i>
+                                </button>
+                                <div class="audio-info">
+                                    <div>Klik untuk mendengar bunyi vokal</div>
+                                    <small>Anda bisa memutar ulang kapan saja</small>
+                                </div>
+                            </div>
+                        `
+                            : ""
+                        }
+                        
+                        ${
+                          question.vowelGroup
+                            ? `
+                            <div class="vowel-display">
+                                <h4>Referensi Vokal:</h4>
+                                <div class="vowel-group">
+                                    ${question.vowelGroup
+                                      .map(
+                                        (vowel) => `
+                                        <div class="vowel-item">
+                                            <div class="vowel-char">${
+                                              vowel.char
+                                            }</div>
+                                            <div class="vowel-latin">${
+                                              vowel.latin
+                                            }</div>
+                                            ${
+                                              vowel.description
+                                                ? `<div class="vowel-description">${vowel.description}</div>`
+                                                : ""
+                                            }
+                                        </div>
+                                    `
+                                      )
+                                      .join("")}
+                                </div>
+                            </div>
+                        `
+                            : ""
+                        }
+                        
+                        <div class="options" id="options-${index}">
+                            ${question.options
+                              .map(
+                                (option, optionIndex) => `
+                                <div class="option" onclick="selectAnswer(${index}, ${optionIndex})">
+                                    <div class="option-char">${option.char}</div>
+                                    <div class="option-text">${option.text}</div>
+                                </div>
+                            `
+                              )
+                              .join("")}
+                        </div>
+                        
+                        <div class="feedback" id="feedback-${index}"></div>
+                        
+                        <div class="controls">
+                            <button class="btn btn-secondary" onclick="previousQuestion()" ${
+                              index === 0 ? 'style="visibility: hidden"' : ""
+                            }>
+                                <i data-feather="arrow-left"></i> Sebelumnya
+                            </button>
+                            <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                                ${
+                                  index === quizData.length - 1
+                                    ? "Selesai"
+                                    : "Selanjutnya"
+                                } 
+                                <i data-feather="arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+          container.innerHTML += questionHTML;
+        });
+      }
+
+      function playAudio(text) {
+        // Simulate audio playback with text-to-speech
+        if ("speechSynthesis" in window) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = "su-ID"; // Sundanese language code
+          utterance.rate = 0.7;
+          utterance.pitch = 1.0;
+          speechSynthesis.speak(utterance);
+        } else {
+          // Fallback: show text briefly
+          alert(`Bunyi: "${text}"`);
+        }
+      }
+
+      function selectAnswer(questionIndex, answerIndex) {
+        const options = document.querySelectorAll(
+          `#options-${questionIndex} .option`
+        );
+        const question = quizData[questionIndex];
+
+        // Remove previous selections
+        options.forEach((option) => {
+          option.classList.remove("selected", "correct", "incorrect");
+        });
+
+        // Mark selected answer
+        options[answerIndex].classList.add("selected");
+
+        // Store user answer
+        userAnswers[questionIndex] = answerIndex;
+
+        // Check if correct
+        const isCorrect = question.options[answerIndex].correct;
+
+        if (isCorrect) {
+          options[answerIndex].classList.add("correct");
+          score += Math.round(100 / quizData.length);
+          showFeedback(
+            questionIndex,
+            "correct",
+            "✓ Benar! " + question.explanation
+          );
+        } else {
+          options[answerIndex].classList.add("incorrect");
+          // Show correct answer
+          question.options.forEach((option, index) => {
+            if (option.correct) {
+              options[index].classList.add("correct");
+            }
+          });
+          showFeedback(
+            questionIndex,
+            "incorrect",
+            "✗ Salah. " + question.explanation
+          );
+        }
+
+        // Enable next button
+        document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+      }
+
+      function showFeedback(questionIndex, type, message) {
+        const feedback = document.getElementById(`feedback-${questionIndex}`);
+        feedback.className = `feedback ${type}`;
+        feedback.innerHTML = message;
+        feedback.style.display = "block";
+      }
+
+      function showQuestion(index) {
+        // Hide all questions
+        document.querySelectorAll(".question-card").forEach((card) => {
+          card.classList.remove("active");
+        });
+
+        // Show current question
+        document.getElementById(`question-${index}`).classList.add("active");
+
+        // Update progress
+        updateProgress();
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextQuestion() {
+        if (currentQuestion < quizData.length - 1) {
+          currentQuestion++;
+          showQuestion(currentQuestion);
+        } else {
+          showResults();
+        }
+      }
+
+      function previousQuestion() {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          showQuestion(currentQuestion);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (currentQuestion / quizData.length) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+        document.getElementById("progressText").textContent = `Soal ${
+          currentQuestion + 1
+        } dari ${quizData.length}`;
+      }
+
+      function showResults() {
+        const endTime = Date.now();
+        const timeTaken = Math.floor((endTime - startTime) / 1000);
+        const minutes = Math.floor(timeTaken / 60);
+        const seconds = timeTaken % 60;
+
+        const correctCount = userAnswers.filter(
+          (answer, index) =>
+            answer !== undefined && quizData[index].options[answer].correct
+        ).length;
+        const incorrectCount = quizData.length - correctCount;
+
+        // Hide quiz container
+        document.getElementById("quizContainer").style.display = "none";
+        document.querySelector(".progress-container").style.display = "none";
+
+        // Show results
+        document.getElementById("resultScreen").classList.add("show");
+        document.getElementById("finalScore").textContent = score + "/100";
+        document.getElementById("correctAnswers").textContent = correctCount;
+        document.getElementById("incorrectAnswers").textContent =
+          incorrectCount;
+        document.getElementById("timeTaken").textContent = `${minutes}:${seconds
+          .toString()
+          .padStart(2, "0")}`;
+        document.getElementById("accuracy").textContent = score + "%";
+
+        // Update result message
+        let message = "";
+        if (score >= 90) {
+          message = "🌟 Luar biasa! Anda sangat menguasai vokal aksara Sunda!";
+        } else if (score >= 80) {
+          message = "👏 Bagus! Anda sudah memahami vokal dalam aksara Sunda.";
+        } else if (score >= 70) {
+          message = "👍 Cukup baik! Terus berlatih mengenali bunyi vokal.";
+        } else {
+          message =
+            "💪 Jangan menyerah! Latihan mendengar dan mengucapkan vokal akan membantu.";
+        }
+
+        document.getElementById("resultMessage").textContent = message;
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextLevel() {
+        window.location.href = "level-4-konsonan.html";
+      }
+
+      // Initialize quiz when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeQuiz();
+        feather.replace();
+      });
+    </script>
+  </body>
+</html>

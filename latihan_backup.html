@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Latihan Aksara Sunda - Sikabayan</title>
+
+    <!-- Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+      :root {
+        --primary: #2093a4;
+        --bg: #232222;
+        --secondary: #1a7a85;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background-color: var(--bg);
+        color: #fff;
+        min-height: 100vh;
+      }
+
+      .navbar {
+        background-color: rgba(1, 1, 1, 0.9);
+        padding: 1rem 7%;
+        border-bottom: 1px solid #21646e;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar-logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .navbar-nav {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .navbar-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-nav a:hover,
+      .navbar-nav a.active {
+        color: var(--primary);
+      }
+
+      .navbar-extra {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .navbar-extra a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-extra a:hover {
+        color: var(--primary);
+      }
+
+      .container {
+        padding: 2rem 7%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .page-title {
+        font-size: 3rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .page-subtitle {
+        font-size: 1.2rem;
+        color: #ccc;
+        margin-bottom: 2rem;
+      }
+
+      /* Level Selection Styles */
+      .level-selection {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .levels-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .level-card {
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 2px solid #666;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .level-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(32, 147, 164, 0.3);
+      }
+
+      .level-card.locked {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: #2a2a2a;
+      }
+
+      .level-card.locked:hover {
+        transform: none;
+        border-color: #666;
+        box-shadow: none;
+      }
+
+      .level-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .level-number {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .level-title {
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .level-description {
+        color: #ccc;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .level-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+
+      .level-difficulty {
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      .difficulty-easy {
+        background-color: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+      }
+
+      .difficulty-medium {
+        background-color: rgba(255, 193, 7, 0.2);
+        color: #ffc107;
+      }
+
+      .difficulty-hard {
+        background-color: rgba(220, 53, 69, 0.2);
+        color: #dc3545;
+      }
+
+      .difficulty-expert {
+        background-color: rgba(102, 16, 242, 0.2);
+        color: #6610f2;
+      }
+
+      .lock-icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        opacity: 0.5;
+      }
+
+      /* Game Container Styles */
+      .game-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #333;
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid #666;
+        display: none;
+      }
+
+      .game-container.active {
+        display: block;
+      }
+
+      .game-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #666;
+      }
+
+      .level-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.1rem;
+        color: var(--primary);
+        font-weight: bold;
+      }
+
+      .back-btn {
+        background-color: #666;
+        border: none;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .back-btn:hover {
+        background-color: #777;
+      }
+
+      .game-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #666;
+      }
+
+      .game-progress {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .progress-bar {
+        width: 200px;
+        height: 10px;
+        background-color: #555;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        display: flex;
+        gap: 2rem;
+        font-size: 1.1rem;
+      }
+
+      .score-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .question-container {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .question-number {
+        font-size: 1.2rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .question-text {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .character-display {
+        background-color: #fff;
+        border-radius: 1rem;
+        padding: 3rem;
+        margin: 2rem auto;
+        max-width: 300px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .sundanese-char {
+        font-size: 6rem;
+        color: var(--bg);
+        font-weight: bold;
+        line-height: 1;
+        font-family: "Times New Roman", serif;
+      }
+
+      /* Word/Sentence Display */
+      .word-display {
+        background-color: #fff;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 500px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+
+      .sundanese-word {
+        font-size: 3rem;
+        color: var(--bg);
+        font-weight: bold;
+        line-height: 1.4;
+        font-family: "Times New Roman", serif;
+        margin-bottom: 1rem;
+      }
+
+      /* Paragraph Display */
+      .paragraph-display {
+        background-color: #fff;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 600px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .sundanese-paragraph {
+        font-size: 1.8rem;
+        color: var(--bg);
+        line-height: 1.6;
+        font-family: "Times New Roman", serif;
+        text-align: justify;
+      }
+
+      /* Writing Area */
+      .writing-area {
+        background-color: #fff;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 700px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .writing-textarea {
+        width: 100%;
+        min-height: 200px;
+        border: 2px solid #ddd;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        font-size: 1.2rem;
+        font-family: "Times New Roman", serif;
+        color: var(--bg);
+        resize: vertical;
+        line-height: 1.6;
+      }
+
+      .writing-textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      .word-count {
+        text-align: right;
+        margin-top: 0.5rem;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      /* Input Fields */
+      .answer-input {
+        width: 100%;
+        max-width: 400px;
+        padding: 1rem;
+        font-size: 1.2rem;
+        border: 2px solid #ddd;
+        border-radius: 0.5rem;
+        text-align: center;
+        margin: 1rem auto;
+        display: block;
+        color: var(--bg);
+        font-family: "Times New Roman", serif;
+      }
+
+      .answer-input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      .answer-input.correct {
+        border-color: #28a745;
+        background-color: rgba(40, 167, 69, 0.1);
+      }
+
+      .answer-input.incorrect {
+        border-color: #dc3545;
+        background-color: rgba(220, 53, 69, 0.1);
+      }
+
+      .options-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .option-btn {
+        background-color: #555;
+        border: 2px solid #777;
+        color: #fff;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .option-btn:hover {
+        background-color: #666;
+        border-color: var(--primary);
+      }
+
+      .option-btn.selected {
+        background-color: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .option-btn.correct {
+        background-color: #28a745;
+        border-color: #28a745;
+      }
+
+      .option-btn.incorrect {
+        background-color: #dc3545;
+        border-color: #dc3545;
+      }
+
+      .option-btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+
+      .game-controls {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: #fff;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--secondary);
+      }
+
+      .btn-secondary {
+        background-color: #666;
+        color: #fff;
+      }
+
+      .btn-secondary:hover {
+        background-color: #777;
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .result-container {
+        display: none;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .result-container.show {
+        display: block;
+      }
+
+      .result-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .result-score {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .result-grade {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+
+      .result-grade.excellent {
+        color: #28a745;
+      }
+
+      .result-grade.good {
+        color: var(--primary);
+      }
+
+      .result-grade.fair {
+        color: #ffc107;
+      }
+
+      .result-grade.poor {
+        color: #dc3545;
+      }
+
+      .feedback-message {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        background-color: #555;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: #ccc;
+      }
+
+      .hint-container {
+        background-color: rgba(32, 147, 164, 0.1);
+        border: 1px solid var(--primary);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin: 1rem 0;
+        display: none;
+      }
+
+      .hint-container.show {
+        display: block;
+      }
+
+      .timer-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      .timer {
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .timer.warning {
+        color: #ffc107;
+      }
+
+      .timer.danger {
+        color: #dc3545;
+      }
+
+      @media (max-width: 1024px) {
+        .levels-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.5rem;
+          max-width: 700px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem 5%;
+        }
+
+        .navbar {
+          padding: 1rem 5%;
+        }
+
+        .navbar-nav {
+          display: none;
+        }
+
+        .page-title {
+          font-size: 2rem;
+        }
+
+        .levels-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+          max-width: 100%;
+        }
+
+        .level-card {
+          padding: 1.5rem;
+        }
+
+        .game-container {
+          padding: 1rem;
+        }
+
+        .options-container {
+          grid-template-columns: 1fr;
+        }
+
+        .game-header {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .score-display {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .sundanese-char {
+          font-size: 4rem;
+        }
+
+        .character-display {
+          padding: 2rem;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="index.html" class="navbar-logo">SIKABAYAN</a>
+
+      <div class="navbar-nav">
+        <a href="index.html">Beranda</a>
+        <a href="index.html#about">Sejarah</a>
+        <a href="index.html#menu">Kebijakan</a>
+        <a href="materi.html">Materi</a>
+        <a href="latihan.html" class="active">Latihan</a>
+        <a href="index.html#contact">Kontak</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="login.html">Login</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Latihan Aksara Sunda</h1>
+        <p class="page-subtitle">
+          Pilih level latihan sesuai dengan kemampuan Anda
+        </p>
+      </div>
+
+      <!-- Level Selection Screen -->
+      <div class="level-selection" id="levelSelection">
+        <div class="levels-grid">
+          <!-- Level 1: Character Recognition -->
+          <div class="level-card" onclick="startLevel(1)">
+            <div class="level-header">
+              <div class="level-number">1</div>
+            </div>
+            <h3 class="level-title">Menebak Huruf</h3>
+            <p class="level-description">
+              Latihan dasar mengenali huruf aksara Sunda. Cocok untuk pemula
+              yang baru mulai belajar.
+            </p>
+            <div class="level-stats">
+              <span>20 Soal</span>
+              <span>⏱️ 30 detik/soal</span>
+            </div>
+            <div class="level-difficulty difficulty-easy">Mudah</div>
+          </div>
+
+          <!-- Level 2: Word Recognition -->
+          <div class="level-card" onclick="startLevel(2)">
+            <div class="level-header">
+              <div class="level-number">2</div>
+            </div>
+            <h3 class="level-title">Menebak Kata</h3>
+            <p class="level-description">
+              Latihan membaca kata dalam aksara Sunda. Tingkatkan kemampuan
+              membaca kata lengkap.
+            </p>
+            <div class="level-stats">
+              <span>15 Soal</span>
+              <span>⏱️ 45 detik/soal</span>
+            </div>
+            <div class="level-difficulty difficulty-medium">Sedang</div>
+          </div>
+
+          <!-- Level 3: Paragraph Reading -->
+          <div class="level-card" onclick="startLevel(3)">
+            <div class="level-header">
+              <div class="level-number">3</div>
+            </div>
+            <h3 class="level-title">Membaca Paragraf</h3>
+            <p class="level-description">
+              Latihan membaca dan memahami paragraf dalam aksara Sunda. Uji
+              pemahaman bacaan Anda.
+            </p>
+            <div class="level-stats">
+              <span>10 Soal</span>
+              <span>⏱️ 90 detik/soal</span>
+            </div>
+            <div class="level-difficulty difficulty-hard">Sulit</div>
+          </div>
+
+          <!-- Level 4: Creative Writing -->
+          <div class="level-card" onclick="startLevel(4)">
+            <div class="level-header">
+              <div class="level-number">4</div>
+            </div>
+            <h3 class="level-title">Menulis Cerita</h3>
+            <p class="level-description">
+              Tantangan tertinggi! Tulis cerita pendek menggunakan aksara Sunda
+              dengan tema yang diberikan.
+            </p>
+            <div class="level-stats">
+              <span>1 Tugas</span>
+              <span>⏱️ 15 menit</span>
+            </div>
+            <div class="level-difficulty difficulty-expert">Ahli</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Container for Level 1 -->
+      <div class="game-container" id="level1Container">
+        <div class="game-header">
+          <button class="back-btn" onclick="showLevelSelection()">
+            <i data-feather="arrow-left"></i>
+            Kembali
+          </button>
+          <div class="level-indicator">
+            <i data-feather="circle"></i>
+            Level 1: Menebak Huruf
+          </div>
+          <div class="game-progress">
+            <span>Progress:</span>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <span id="progressText">0/20</span>
+          </div>
+          <div class="timer-container">
+            <i data-feather="clock"></i>
+            <span>Waktu: <span class="timer" id="timer">30</span>s</span>
+          </div>
+          <div class="score-display">
+            <div class="score-item">
+              <i data-feather="check-circle"></i>
+              <span>Benar: <span id="correctCount">0</span></span>
+            </div>
+            <div class="score-item">
+              <i data-feather="x-circle"></i>
+              <span>Salah: <span id="incorrectCount">0</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-container" id="questionContainer">
+          <div class="question-number" id="questionNumber">
+            Pertanyaan 1 dari 20
+          </div>
+          <div class="question-text" id="questionText">
+            Aksara Sunda apakah yang ditampilkan di bawah ini?
+          </div>
+
+          <div class="character-display">
+            <div class="sundanese-char" id="characterDisplay">ᮃ</div>
+          </div>
+
+          <div class="hint-container" id="hintContainer">
+            <strong>Petunjuk:</strong> <span id="hintText"></span>
+          </div>
+
+          <div class="options-container" id="optionsContainer">
+            <!-- Options will be generated by JavaScript -->
+          </div>
+
+          <div class="game-controls">
+            <button class="btn btn-secondary" id="hintBtn">
+              <i data-feather="help-circle"></i>
+              Petunjuk
+            </button>
+            <button class="btn btn-primary" id="nextBtn" disabled>
+              <i data-feather="arrow-right"></i>
+              Selanjutnya
+            </button>
+          </div>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+          <div class="result-title">Latihan Selesai!</div>
+          <div class="result-grade" id="resultGrade">A+</div>
+          <div class="result-score" id="resultScore">Skor: 18/20 (90%)</div>
+
+          <div class="feedback-message" id="feedbackMessage">
+            Luar biasa! Anda memiliki pemahaman yang sangat baik tentang aksara
+            Sunda.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number" id="finalCorrect">18</div>
+              <div class="stat-label">Jawaban Benar</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="finalIncorrect">2</div>
+              <div class="stat-label">Jawaban Salah</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="finalAccuracy">90%</div>
+              <div class="stat-label">Akurasi</div>
+            </div>
+          </div>
+
+          <div class="game-controls">
+            <button
+              class="btn btn-secondary"
+              onclick="window.location.href='index.html'"
+            >
+              <i data-feather="home"></i>
+              Kembali ke Beranda
+            </button>
+            <button class="btn btn-primary" onclick="restartGame()">
+              <i data-feather="refresh-cw"></i>
+              Main Lagi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Container for Level 2 -->
+    <div class="game-container" id="level2Container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showLevelSelection()">
+          <i data-feather="arrow-left"></i>
+          Kembali
+        </button>
+        <div class="level-indicator">
+          <i data-feather="type"></i>
+          Level 2: Menebak Kata
+        </div>
+        <div class="game-progress">
+          <span>Progress:</span>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill2"></div>
+          </div>
+          <span id="progressText2">0/15</span>
+        </div>
+        <div class="timer-container">
+          <i data-feather="clock"></i>
+          <span>Waktu: <span class="timer" id="timer2">45</span>s</span>
+        </div>
+        <div class="score-display">
+          <div class="score-item">
+            <i data-feather="check-circle"></i>
+            <span>Benar: <span id="correctCount2">0</span></span>
+          </div>
+          <div class="score-item">
+            <i data-feather="x-circle"></i>
+            <span>Salah: <span id="incorrectCount2">0</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="question-container">
+        <div class="question-number" id="questionNumber2">
+          Pertanyaan 1 dari 15
+        </div>
+        <div class="question-text">
+          Kata apakah yang tertulis dalam aksara Sunda ini?
+        </div>
+
+        <div class="word-display">
+          <div class="sundanese-word" id="wordDisplay"></div>
+        </div>
+
+        <input
+          type="text"
+          class="answer-input"
+          id="wordInput"
+          placeholder="Ketik jawaban Anda..."
+        />
+
+        <div class="hint-container" id="hintContainer2">
+          <strong>Petunjuk:</strong> <span id="hintText2"></span>
+        </div>
+
+        <div class="game-controls">
+          <button class="btn btn-secondary" id="hintBtn2">
+            <i data-feather="help-circle"></i>
+            Petunjuk
+          </button>
+          <button class="btn btn-primary" id="checkBtn2">
+            <i data-feather="check"></i>
+            Periksa Jawaban
+          </button>
+          <button class="btn btn-primary" id="nextBtn2" disabled>
+            <i data-feather="arrow-right"></i>
+            Selanjutnya
+          </button>
+        </div>
+      </div>
+
+      <div class="result-container" id="resultContainer2">
+        <div class="result-title">Latihan Selesai!</div>
+        <div class="result-grade" id="resultGrade2">A+</div>
+        <div class="result-score" id="resultScore2">Skor: 13/15 (87%)</div>
+
+        <div class="feedback-message" id="feedbackMessage2">
+          Bagus! Anda sudah cukup baik dalam membaca kata aksara Sunda.
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="finalCorrect2">13</div>
+            <div class="stat-label">Jawaban Benar</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="finalIncorrect2">2</div>
+            <div class="stat-label">Jawaban Salah</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="finalAccuracy2">87%</div>
+            <div class="stat-label">Akurasi</div>
+          </div>
+        </div>
+
+        <div class="game-controls">
+          <button class="btn btn-secondary" onclick="showLevelSelection()">
+            <i data-feather="arrow-left"></i>
+            Pilih Level Lain
+          </button>
+          <button class="btn btn-primary" onclick="startLevel(2)">
+            <i data-feather="refresh-cw"></i>
+            Main Lagi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Container for Level 3 -->
+    <div class="game-container" id="level3Container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showLevelSelection()">
+          <i data-feather="arrow-left"></i>
+          Kembali
+        </button>
+        <div class="level-indicator">
+          <i data-feather="file-text"></i>
+          Level 3: Membaca Paragraf
+        </div>
+        <div class="game-progress">
+          <span>Progress:</span>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill3"></div>
+          </div>
+          <span id="progressText3">0/10</span>
+        </div>
+        <div class="timer-container">
+          <i data-feather="clock"></i>
+          <span>Waktu: <span class="timer" id="timer3">90</span>s</span>
+        </div>
+        <div class="score-display">
+          <div class="score-item">
+            <i data-feather="check-circle"></i>
+            <span>Benar: <span id="correctCount3">0</span></span>
+          </div>
+          <div class="score-item">
+            <i data-feather="x-circle"></i>
+            <span>Salah: <span id="incorrectCount3">0</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="question-container">
+        <div class="question-number" id="questionNumber3">
+          Pertanyaan 1 dari 10
+        </div>
+        <div class="question-text" id="questionText3">
+          Baca paragraf berikut dan jawab pertanyaan di bawahnya:
+        </div>
+
+        <div class="paragraph-display">
+          <div class="sundanese-paragraph" id="paragraphDisplay"></div>
+        </div>
+
+        <div class="question-text" id="comprehensionQuestion">
+          Apa tema utama dari paragraf di atas?
+        </div>
+
+        <div class="options-container" id="optionsContainer3">
+          <!-- Options will be generated by JavaScript -->
+        </div>
+
+        <div class="hint-container" id="hintContainer3">
+          <strong>Petunjuk:</strong> <span id="hintText3"></span>
+        </div>
+
+        <div class="game-controls">
+          <button class="btn btn-secondary" id="hintBtn3">
+            <i data-feather="help-circle"></i>
+            Petunjuk
+          </button>
+          <button class="btn btn-primary" id="nextBtn3" disabled>
+            <i data-feather="arrow-right"></i>
+            Selanjutnya
+          </button>
+        </div>
+      </div>
+
+      <div class="result-container" id="resultContainer3">
+        <div class="result-title">Latihan Selesai!</div>
+        <div class="result-grade" id="resultGrade3">B+</div>
+        <div class="result-score" id="resultScore3">Skor: 7/10 (70%)</div>
+
+        <div class="feedback-message" id="feedbackMessage3">
+          Baik! Terus berlatih untuk meningkatkan pemahaman bacaan Anda.
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="finalCorrect3">7</div>
+            <div class="stat-label">Jawaban Benar</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="finalIncorrect3">3</div>
+            <div class="stat-label">Jawaban Salah</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="finalAccuracy3">70%</div>
+            <div class="stat-label">Akurasi</div>
+          </div>
+        </div>
+
+        <div class="game-controls">
+          <button class="btn btn-secondary" onclick="showLevelSelection()">
+            <i data-feather="arrow-left"></i>
+            Pilih Level Lain
+          </button>
+          <button class="btn btn-primary" onclick="startLevel(3)">
+            <i data-feather="refresh-cw"></i>
+            Main Lagi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Container for Level 4 -->
+    <div class="game-container" id="level4Container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showLevelSelection()">
+          <i data-feather="arrow-left"></i>
+          Kembali
+        </button>
+        <div class="level-indicator">
+          <i data-feather="edit-3"></i>
+          Level 4: Menulis Cerita
+        </div>
+        <div class="timer-container">
+          <i data-feather="clock"></i>
+          <span>Waktu: <span class="timer" id="timer4">900</span>s</span>
+        </div>
+      </div>
+
+      <div class="question-container">
+        <div class="question-number">Tugas Menulis Cerita Pendek</div>
+        <div class="question-text" id="writingPrompt">
+          Tulis sebuah cerita pendek dalam aksara Sunda dengan tema
+          "Persahabatan" (minimal 100 kata).
+        </div>
+
+        <div class="writing-area">
+          <textarea
+            class="writing-textarea"
+            id="storyTextarea"
+            placeholder="Mulai menulis cerita Anda di sini menggunakan aksara Sunda..."
+          ></textarea>
+          <div class="word-count">
+            Jumlah kata: <span id="wordCount">0</span> / 100 minimum
+          </div>
+        </div>
+
+        <div class="game-controls">
+          <button class="btn btn-secondary" onclick="clearStory()">
+            <i data-feather="trash-2"></i>
+            Hapus Semua
+          </button>
+          <button class="btn btn-primary" onclick="submitStory()">
+            <i data-feather="send"></i>
+            Kirim Cerita
+          </button>
+        </div>
+      </div>
+
+      <div class="result-container" id="resultContainer4">
+        <div class="result-title">Cerita Berhasil Dikirim!</div>
+        <div class="result-grade" id="resultGrade4">A</div>
+
+        <div class="feedback-message" id="feedbackMessage4">
+          Luar biasa! Anda telah menyelesaikan tantangan tertinggi dalam
+          pembelajaran aksara Sunda.
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="finalWordCount">0</div>
+            <div class="stat-label">Jumlah Kata</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="timeUsed">0</div>
+            <div class="stat-label">Waktu Digunakan</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="completionStatus">✓</div>
+            <div class="stat-label">Status</div>
+          </div>
+        </div>
+
+        <div class="game-controls">
+          <button class="btn btn-secondary" onclick="showLevelSelection()">
+            <i data-feather="arrow-left"></i>
+            Pilih Level Lain
+          </button>
+          <button class="btn btn-primary" onclick="startLevel(4)">
+            <i data-feather="refresh-cw"></i>
+            Tulis Cerita Baru
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      feather.replace();
+
+      // Global variables
+      let currentLevel = 0;
+      let currentQuestion = 0;
+      let correctAnswers = 0;
+      let incorrectAnswers = 0;
+      let selectedAnswer = null;
+      let gameQuestions = [];
+      let timer = 30;
+      let timerInterval;
+      let hintsUsed = 0;
+      let startTime = 0;
+
+      // Game data for different levels
+      const level1Data = [
+        {
+          char: "ᮃ",
+          name: "A",
+          hint: "Huruf vokal pertama dalam aksara Sunda",
+          options: ["A", "I", "U", "E"],
+        },
+        {
+          char: "ᮄ",
+          name: "I",
+          hint: "Huruf vokal kedua dalam aksara Sunda",
+          options: ["A", "I", "U", "O"],
+        },
+        {
+          char: "ᮅ",
+          name: "U",
+          hint: "Huruf vokal ketiga dalam aksara Sunda",
+          options: ["U", "O", "E", "I"],
+        },
+        {
+          char: "ᮆ",
+          name: "E",
+          hint: "Huruf vokal keempat dalam aksara Sunda",
+          options: ["E", "A", "I", "U"],
+        },
+        {
+          char: "ᮇ",
+          name: "O",
+          hint: "Huruf vokal kelima dalam aksara Sunda",
+          options: ["O", "A", "E", "I"],
+        },
+        {
+          char: "ᮊ",
+          name: "KA",
+          hint: "Konsonan yang sama dengan huruf K dalam Latin",
+          options: ["KA", "GA", "PA", "BA"],
+        },
+        {
+          char: "ᮌ",
+          name: "GA",
+          hint: "Konsonan yang sama dengan huruf G dalam Latin",
+          options: ["GA", "KA", "CA", "JA"],
+        },
+        {
+          char: "ᮔ",
+          name: "NA",
+          hint: "Konsonan yang sama dengan huruf N dalam Latin",
+          options: ["NA", "MA", "LA", "RA"],
+        },
+        {
+          char: "ᮕ",
+          name: "PA",
+          hint: "Konsonan yang sama dengan huruf P dalam Latin",
+          options: ["PA", "BA", "MA", "WA"],
+        },
+        {
+          char: "ᮘ",
+          name: "BA",
+          hint: "Konsonan yang sama dengan huruf B dalam Latin",
+          options: ["BA", "PA", "WA", "MA"],
+        },
+        {
+          char: "ᮙ",
+          name: "MA",
+          hint: "Konsonan yang sama dengan huruf M dalam Latin",
+          options: ["MA", "BA", "PA", "WA"],
+        },
+        {
+          char: "ᮚ",
+          name: "YA",
+          hint: "Konsonan yang sama dengan huruf Y dalam Latin",
+          options: ["YA", "WA", "RA", "LA"],
+        },
+        {
+          char: "ᮛ",
+          name: "RA",
+          hint: "Konsonan yang sama dengan huruf R dalam Latin",
+          options: ["RA", "LA", "WA", "YA"],
+        },
+        {
+          char: "ᮜ",
+          name: "LA",
+          hint: "Konsonan yang sama dengan huruf L dalam Latin",
+          options: ["LA", "RA", "WA", "YA"],
+        },
+        {
+          char: "ᮝ",
+          name: "WA",
+          hint: "Konsonan yang sama dengan huruf W dalam Latin",
+          options: ["WA", "YA", "RA", "LA"],
+        },
+        {
+          char: "ᮞ",
+          name: "SA",
+          hint: "Konsonan yang sama dengan huruf S dalam Latin",
+          options: ["SA", "HA", "CA", "JA"],
+        },
+        {
+          char: "ᮠ",
+          name: "HA",
+          hint: "Konsonan yang sama dengan huruf H dalam Latin",
+          options: ["HA", "SA", "KA", "GA"],
+        },
+        {
+          char: "ᮎ",
+          name: "CA",
+          hint: 'Konsonan yang diucapkan seperti "CHA"',
+          options: ["CA", "JA", "SA", "HA"],
+        },
+        {
+          char: "ᮏ",
+          name: "JA",
+          hint: "Konsonan yang sama dengan huruf J dalam Latin",
+          options: ["JA", "CA", "GA", "KA"],
+        },
+        {
+          char: "ᮒ",
+          name: "TA",
+          hint: "Konsonan yang sama dengan huruf T dalam Latin",
+          options: ["TA", "DA", "NA", "LA"],
+        },
+      ];
+
+      const level2Data = [
+        {
+          word: "ᮃᮚ",
+          answer: "ayu",
+          hint: "Kata untuk menyebut seseorang yang cantik",
+          options: ["ayu", "anu", "eta", "ieu"],
+        },
+        {
+          word: "ᮊᮥᮛᮔ",
+          answer: "kuran",
+          hint: 'Kata yang berarti "kurang"',
+          options: ["kuran", "keuran", "koret", "keren"],
+        },
+        {
+          word: "ᮘᮥᮜᮔ",
+          answer: "bulan",
+          hint: "Benda langit yang bersinar di malam hari",
+          options: ["bulan", "batu", "bulu", "biru"],
+        },
+        {
+          word: "ᮞᮥᮔᮔ",
+          answer: "sunda",
+          hint: "Nama daerah dan budaya dari Jawa Barat",
+          options: ["sunda", "senda", "sinta", "sonde"],
+        },
+        {
+          word: "ᮘᮞ",
+          answer: "basa",
+          hint: 'Kata untuk "bahasa"',
+          options: ["basa", "biso", "bese", "busa"],
+        },
+        {
+          word: "ᮙᮔᮥᮞ",
+          answer: "manus",
+          hint: 'Kata untuk "manusia"',
+          options: ["manus", "manis", "monas", "menes"],
+        },
+        {
+          word: "ᮃᮝᮤ",
+          answer: "awi",
+          hint: "Tumbuhan yang biasa digunakan untuk membuat keranjang",
+          options: ["awi", "awu", "owa", "ewe"],
+        },
+        {
+          word: "ᮀᮙ",
+          answer: "imah",
+          hint: 'Kata untuk "rumah"',
+          options: ["imah", "amah", "emoh", "omah"],
+        },
+        {
+          word: "ᮞᮞᮔ",
+          answer: "sesa",
+          hint: 'Kata yang berarti "sisa"',
+          options: ["sesa", "sosa", "susi", "sese"],
+        },
+        {
+          word: "ᮞᮢᮀ",
+          answer: "sareah",
+          hint: 'Kata yang berarti "semua"',
+          options: ["sareah", "sarehna", "sarena", "sarina"],
+        },
+        {
+          word: "ᮁᮔ",
+          answer: "ikan",
+          hint: "Hewan yang hidup di air",
+          options: ["ikan", "akan", "oken", "uken"],
+        },
+        {
+          word: "ᮌᮊ",
+          answer: "goak",
+          hint: "Suara yang dikeluarkan burung gagak",
+          options: ["goak", "gaok", "goek", "giak"],
+        },
+        {
+          word: "ᮂᮜᮙ",
+          answer: "ulam",
+          hint: 'Kata untuk "lauk pauk"',
+          options: ["ulam", "alam", "elam", "olam"],
+        },
+        {
+          word: "ᮀᮔ",
+          answer: "ina",
+          hint: 'Kata untuk "ibu"',
+          options: ["ina", "ana", "ena", "ona"],
+        },
+        {
+          word: "ᮘᮕ",
+          answer: "bapa",
+          hint: 'Kata untuk "ayah"',
+          options: ["bapa", "papa", "pepa", "popo"],
+        },
+      ];
+
+      const level3Data = [
+        {
+          paragraph: "ᮞᮥᮔᮔ ᮁᮜᮩ ᮊᮥᮜᮏᮔ ᮞᮊᮁᮜ ᮞᮁᮔ ᮔᮍᮔ ᮏᮃᮘ ᮞᮞᮛᮀ",
+          question: "Apa tema utama paragraf di atas?",
+          options: [
+            "Keluarga Sunda",
+            "Makanan tradisional",
+            "Kesenian daerah",
+            "Adat istiadat",
+          ],
+          answer: "Keluarga Sunda",
+          hint: "Paragraf membahas tentang keluarga dan tradisi",
+        },
+        {
+          paragraph: "ᮘᮞ ᮞᮥᮔᮔ ᮔᮀᮩᮔ ᮞᮁᮔ ᮊᮞᮤᮘᮔ ᮔᮢᮊᮤᮙ ᮔᮢᮊᮀᮩᮔ",
+          question: "Apa yang dibahas dalam paragraf ini?",
+          options: [
+            "Bahasa Sunda",
+            "Tarian tradisional",
+            "Makanan khas",
+            "Pakaian adat",
+          ],
+          answer: "Bahasa Sunda",
+          hint: "Teks membahas tentang penggunaan bahasa",
+        },
+      ];
+
+      const writingPrompts = [
+        "Tulis cerita tentang persahabatan di lingkungan sekolah",
+        "Ceritakan pengalaman liburan yang berkesan",
+        "Tuliskan dongeng tentang hewan yang bijaksana",
+        "Ceritakan tentang tradisi keluarga yang unik",
+      ];
+
+      // Utility functions
+      function shuffleArray(array) {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
+      }
+
+      function showLevelSelection() {
+        document.getElementById("levelSelection").style.display = "block";
+        document.getElementById("level1Container").style.display = "none";
+        document.getElementById("level2Container").style.display = "none";
+        document.getElementById("level3Container").style.display = "none";
+        document.getElementById("level4Container").style.display = "none";
+        clearInterval(timerInterval);
+      }
+
+      function startLevel(level) {
+        currentLevel = level;
+        currentQuestion = 0;
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        hintsUsed = 0;
+        selectedAnswer = null;
+
+        // Hide level selection
+        document.getElementById("levelSelection").style.display = "none";
+
+        // Show appropriate container
+        for (let i = 1; i <= 4; i++) {
+          document.getElementById(`level${i}Container`).style.display =
+            i === level ? "block" : "none";
+        }
+
+        switch (level) {
+          case 1:
+            initLevel1();
+            break;
+          case 2:
+            initLevel2();
+            break;
+          case 3:
+            initLevel3();
+            break;
+          case 4:
+            initLevel4();
+            break;
+        }
+      }
+
+      // Level 1: Character Recognition
+      function initLevel1() {
+        gameQuestions = shuffleArray(level1Data);
+        timer = 30;
+        startTime = Date.now();
+        loadLevel1Question();
+        startTimer(1);
+      }
+
+      function loadLevel1Question() {
+        if (currentQuestion >= gameQuestions.length) {
+          endLevel1();
+          return;
+        }
+
+        const question = gameQuestions[currentQuestion];
+
+        document.getElementById("questionNumber").textContent = `Pertanyaan ${
+          currentQuestion + 1
+        } dari ${gameQuestions.length}`;
+        document.getElementById("characterDisplay").textContent = question.char;
+        document.getElementById("hintText").textContent = question.hint;
+        document.getElementById("hintContainer").classList.remove("show");
+
+        const shuffledOptions = shuffleArray(question.options);
+        const optionsContainer = document.getElementById("optionsContainer");
+        optionsContainer.innerHTML = "";
+
+        shuffledOptions.forEach((option) => {
+          const button = document.createElement("button");
+          button.className = "option-btn";
+          button.textContent = option;
+          button.addEventListener("click", () => selectAnswer(option, button));
+          optionsContainer.appendChild(button);
+        });
+
+        updateProgress(1);
+        timer = 30;
+        document.getElementById("timer").textContent = timer;
+        document.getElementById("timer").className = "timer";
+        document.getElementById("nextBtn").disabled = true;
+        document.getElementById("hintBtn").disabled = false;
+        selectedAnswer = null;
+      }
+
+      function selectAnswer(answer, buttonElement) {
+        if (selectedAnswer !== null) return;
+
+        selectedAnswer = answer;
+        const correctAnswer = gameQuestions[currentQuestion].name;
+
+        const allButtons = document.querySelectorAll(".option-btn");
+        allButtons.forEach((btn) => {
+          btn.disabled = true;
+          if (btn.textContent === correctAnswer) {
+            btn.classList.add("correct");
+          } else if (btn === buttonElement && answer !== correctAnswer) {
+            btn.classList.add("incorrect");
+          }
+        });
+
+        if (answer === correctAnswer) {
+          correctAnswers++;
+          document.getElementById("correctCount").textContent = correctAnswers;
+        } else {
+          incorrectAnswers++;
+          document.getElementById("incorrectCount").textContent =
+            incorrectAnswers;
+        }
+
+        document.getElementById("nextBtn").disabled = false;
+        clearInterval(timerInterval);
+      }
+
+      // Level 2: Word Recognition
+      function initLevel2() {
+        gameQuestions = shuffleArray(level2Data);
+        timer = 45;
+        loadLevel2Question();
+        startTimer(2);
+      }
+
+      function loadLevel2Question() {
+        if (currentQuestion >= gameQuestions.length) {
+          endLevel2();
+          return;
+        }
+
+        const question = gameQuestions[currentQuestion];
+
+        document.getElementById("questionNumber2").textContent = `Pertanyaan ${
+          currentQuestion + 1
+        } dari ${gameQuestions.length}`;
+        document.getElementById("wordDisplay").textContent = question.word;
+        document.getElementById("hintText2").textContent = question.hint;
+        document.getElementById("hintContainer2").classList.remove("show");
+        document.getElementById("wordInput").value = "";
+        document.getElementById("wordInput").className = "answer-input";
+
+        updateProgress(2);
+        timer = 45;
+        document.getElementById("timer2").textContent = timer;
+        document.getElementById("timer2").className = "timer";
+        document.getElementById("nextBtn2").disabled = true;
+        document.getElementById("checkBtn2").disabled = false;
+        document.getElementById("hintBtn2").disabled = false;
+      }
+
+      function checkLevel2Answer() {
+        const userAnswer = document
+          .getElementById("wordInput")
+          .value.trim()
+          .toLowerCase();
+        const correctAnswer =
+          gameQuestions[currentQuestion].answer.toLowerCase();
+        const inputElement = document.getElementById("wordInput");
+
+        if (userAnswer === correctAnswer) {
+          correctAnswers++;
+          document.getElementById("correctCount2").textContent = correctAnswers;
+          inputElement.classList.add("correct");
+        } else {
+          incorrectAnswers++;
+          document.getElementById("incorrectCount2").textContent =
+            incorrectAnswers;
+          inputElement.classList.add("incorrect");
+          inputElement.value = correctAnswer; // Show correct answer
+        }
+
+        document.getElementById("checkBtn2").disabled = true;
+        document.getElementById("nextBtn2").disabled = false;
+        clearInterval(timerInterval);
+      }
+
+      // Level 3: Paragraph Reading
+      function initLevel3() {
+        gameQuestions = shuffleArray(level3Data);
+        timer = 90;
+        loadLevel3Question();
+        startTimer(3);
+      }
+
+      function loadLevel3Question() {
+        if (currentQuestion >= gameQuestions.length) {
+          endLevel3();
+          return;
+        }
+
+        const question = gameQuestions[currentQuestion];
+
+        document.getElementById("questionNumber3").textContent = `Pertanyaan ${
+          currentQuestion + 1
+        } dari ${gameQuestions.length}`;
+        document.getElementById("paragraphDisplay").textContent =
+          question.paragraph;
+        document.getElementById("comprehensionQuestion").textContent =
+          question.question;
+        document.getElementById("hintText3").textContent = question.hint;
+        document.getElementById("hintContainer3").classList.remove("show");
+
+        const optionsContainer = document.getElementById("optionsContainer3");
+        optionsContainer.innerHTML = "";
+
+        question.options.forEach((option) => {
+          const button = document.createElement("button");
+          button.className = "option-btn";
+          button.textContent = option;
+          button.addEventListener("click", () =>
+            selectLevel3Answer(option, button)
+          );
+          optionsContainer.appendChild(button);
+        });
+
+        updateProgress(3);
+        timer = 90;
+        document.getElementById("timer3").textContent = timer;
+        document.getElementById("timer3").className = "timer";
+        document.getElementById("nextBtn3").disabled = true;
+        document.getElementById("hintBtn3").disabled = false;
+        selectedAnswer = null;
+      }
+
+      function selectLevel3Answer(answer, buttonElement) {
+        if (selectedAnswer !== null) return;
+
+        selectedAnswer = answer;
+        const correctAnswer = gameQuestions[currentQuestion].answer;
+
+        const allButtons = document.querySelectorAll(
+          "#optionsContainer3 .option-btn"
+        );
+        allButtons.forEach((btn) => {
+          btn.disabled = true;
+          if (btn.textContent === correctAnswer) {
+            btn.classList.add("correct");
+          } else if (btn === buttonElement && answer !== correctAnswer) {
+            btn.classList.add("incorrect");
+          }
+        });
+
+        if (answer === correctAnswer) {
+          correctAnswers++;
+          document.getElementById("correctCount3").textContent = correctAnswers;
+        } else {
+          incorrectAnswers++;
+          document.getElementById("incorrectCount3").textContent =
+            incorrectAnswers;
+        }
+
+        document.getElementById("nextBtn3").disabled = false;
+        clearInterval(timerInterval);
+      }
+
+      // Level 4: Creative Writing
+      function initLevel4() {
+        const randomPrompt =
+          writingPrompts[Math.floor(Math.random() * writingPrompts.length)];
+        document.getElementById("writingPrompt").textContent = randomPrompt;
+        document.getElementById("storyTextarea").value = "";
+        document.getElementById("wordCount").textContent = "0";
+        timer = 900; // 15 minutes
+        startTime = Date.now();
+        startTimer(4);
+
+        // Add word count listener
+        document
+          .getElementById("storyTextarea")
+          .addEventListener("input", updateWordCount);
+      }
+
+      function updateWordCount() {
+        const text = document.getElementById("storyTextarea").value;
+        const words = text
+          .trim()
+          .split(/\s+/)
+          .filter((word) => word.length > 0);
+        document.getElementById("wordCount").textContent = words.length;
+      }
+
+      function clearStory() {
+        if (confirm("Apakah Anda yakin ingin menghapus semua tulisan?")) {
+          document.getElementById("storyTextarea").value = "";
+          updateWordCount();
+        }
+      }
+
+      function submitStory() {
+        const text = document.getElementById("storyTextarea").value.trim();
+        const words = text.split(/\s+/).filter((word) => word.length > 0);
+
+        if (words.length < 100) {
+          alert(
+            "Cerita harus minimal 100 kata. Saat ini: " +
+              words.length +
+              " kata."
+          );
+          return;
+        }
+
+        endLevel4();
+      }
+
+      // Timer functions
+      function startTimer(level) {
+        const timerElement = document.getElementById(
+          `timer${level === 1 ? "" : level}`
+        );
+
+        timerInterval = setInterval(() => {
+          timer--;
+          timerElement.textContent = timer;
+
+          if (timer <= 10) {
+            timerElement.className = "timer danger";
+          } else if (timer <= 20) {
+            timerElement.className = "timer warning";
+          }
+
+          if (timer <= 0) {
+            clearInterval(timerInterval);
+            handleTimeOut(level);
+          }
+        }, 1000);
+      }
+
+      function handleTimeOut(level) {
+        switch (level) {
+          case 1:
+            if (selectedAnswer === null) {
+              incorrectAnswers++;
+              document.getElementById("incorrectCount").textContent =
+                incorrectAnswers;
+              const correctAnswer = gameQuestions[currentQuestion].name;
+              const allButtons = document.querySelectorAll(".option-btn");
+              allButtons.forEach((btn) => {
+                btn.disabled = true;
+                if (btn.textContent === correctAnswer) {
+                  btn.classList.add("correct");
+                }
+              });
+              selectedAnswer = "timeout";
+              document.getElementById("nextBtn").disabled = false;
+            }
+            break;
+          case 2:
+            if (document.getElementById("checkBtn2").disabled === false) {
+              checkLevel2Answer();
+            }
+            break;
+          case 3:
+            if (selectedAnswer === null) {
+              incorrectAnswers++;
+              document.getElementById("incorrectCount3").textContent =
+                incorrectAnswers;
+              document.getElementById("nextBtn3").disabled = false;
+              selectedAnswer = "timeout";
+            }
+            break;
+          case 4:
+            submitStory();
+            break;
+        }
+      }
+
+      function updateProgress(level) {
+        const total = level === 1 ? 20 : level === 2 ? 15 : 10;
+        const progress = (currentQuestion / total) * 100;
+        document.getElementById(
+          `progressFill${level === 1 ? "" : level}`
+        ).style.width = progress + "%";
+        document.getElementById(
+          `progressText${level === 1 ? "" : level}`
+        ).textContent = `${currentQuestion}/${total}`;
+      }
+
+      // Hint functions
+      function showHint() {
+        document.getElementById("hintContainer").classList.add("show");
+        document.getElementById("hintBtn").disabled = true;
+        hintsUsed++;
+      }
+
+      function showHint2() {
+        document.getElementById("hintContainer2").classList.add("show");
+        document.getElementById("hintBtn2").disabled = true;
+        hintsUsed++;
+      }
+
+      function showHint3() {
+        document.getElementById("hintContainer3").classList.add("show");
+        document.getElementById("hintBtn3").disabled = true;
+        hintsUsed++;
+      }
+
+      // Next question functions
+      function nextQuestion() {
+        currentQuestion++;
+        loadLevel1Question();
+        startTimer(1);
+      }
+
+      function nextQuestion2() {
+        currentQuestion++;
+        loadLevel2Question();
+        startTimer(2);
+      }
+
+      function nextQuestion3() {
+        currentQuestion++;
+        loadLevel3Question();
+        startTimer(3);
+      }
+
+      // End game functions
+      function endLevel1() {
+        clearInterval(timerInterval);
+        document.getElementById("questionContainer").style.display = "none";
+        document.getElementById("resultContainer").classList.add("show");
+        showResults(1, 20);
+      }
+
+      function endLevel2() {
+        clearInterval(timerInterval);
+        document.querySelector(
+          "#level2Container .question-container"
+        ).style.display = "none";
+        document.getElementById("resultContainer2").classList.add("show");
+        showResults(2, 15);
+      }
+
+      function endLevel3() {
+        clearInterval(timerInterval);
+        document.querySelector(
+          "#level3Container .question-container"
+        ).style.display = "none";
+        document.getElementById("resultContainer3").classList.add("show");
+        showResults(3, 10);
+      }
+
+      function endLevel4() {
+        clearInterval(timerInterval);
+        const timeUsed = Math.floor((Date.now() - startTime) / 1000);
+        const text = document.getElementById("storyTextarea").value.trim();
+        const words = text.split(/\s+/).filter((word) => word.length > 0);
+
+        document.querySelector(
+          "#level4Container .question-container"
+        ).style.display = "none";
+        document.getElementById("resultContainer4").classList.add("show");
+
+        document.getElementById("finalWordCount").textContent = words.length;
+        document.getElementById("timeUsed").textContent =
+          Math.floor(timeUsed / 60) + "m " + (timeUsed % 60) + "s";
+        document.getElementById("completionStatus").textContent =
+          words.length >= 100 ? "✓ Selesai" : "✗ Belum Selesai";
+
+        let grade =
+          words.length >= 150 ? "A+" : words.length >= 100 ? "A" : "B";
+        document.getElementById("resultGrade4").textContent = grade;
+        document.getElementById("resultGrade4").className = `result-grade ${
+          words.length >= 100 ? "excellent" : "good"
+        }`;
+
+        let feedback =
+          words.length >= 150
+            ? "Luar biasa! Cerita Anda sangat bagus dan panjang."
+            : words.length >= 100
+            ? "Bagus! Anda telah menyelesaikan tugas dengan baik."
+            : "Cerita perlu diperpanjang lagi untuk memenuhi syarat minimal.";
+        document.getElementById("feedbackMessage4").textContent = feedback;
+      }
+
+      function showResults(level, total) {
+        const accuracy = Math.round((correctAnswers / total) * 100);
+
+        document.getElementById(
+          `finalCorrect${level === 1 ? "" : level}`
+        ).textContent = correctAnswers;
+        document.getElementById(
+          `finalIncorrect${level === 1 ? "" : level}`
+        ).textContent = incorrectAnswers;
+        document.getElementById(
+          `finalAccuracy${level === 1 ? "" : level}`
+        ).textContent = accuracy + "%";
+        document.getElementById(
+          `resultScore${level === 1 ? "" : level}`
+        ).textContent = `Skor: ${correctAnswers}/${total} (${accuracy}%)`;
+
+        let grade, gradeClass, feedback;
+        if (accuracy >= 90) {
+          grade = "A+";
+          gradeClass = "excellent";
+          feedback = "Luar biasa! Anda memiliki pemahaman yang sangat baik.";
+        } else if (accuracy >= 80) {
+          grade = "A";
+          gradeClass = "excellent";
+          feedback = "Sangat baik! Anda sudah menguasai materi dengan baik.";
+        } else if (accuracy >= 70) {
+          grade = "B+";
+          gradeClass = "good";
+          feedback = "Baik! Terus berlatih untuk meningkatkan pemahaman.";
+        } else if (accuracy >= 60) {
+          grade = "B";
+          gradeClass = "good";
+          feedback = "Cukup baik! Pelajari kembali materi dan coba lagi.";
+        } else if (accuracy >= 50) {
+          grade = "C";
+          gradeClass = "fair";
+          feedback =
+            "Perlu peningkatan. Luangkan waktu lebih banyak untuk belajar.";
+        } else {
+          grade = "D";
+          gradeClass = "poor";
+          feedback = "Jangan menyerah! Mulai dari materi dasar dan berlatih.";
+        }
+
+        document.getElementById(
+          `resultGrade${level === 1 ? "" : level}`
+        ).textContent = grade;
+        document.getElementById(
+          `resultGrade${level === 1 ? "" : level}`
+        ).className = `result-grade ${gradeClass}`;
+        document.getElementById(
+          `feedbackMessage${level === 1 ? "" : level}`
+        ).textContent = feedback;
+      }
+
+      // Event listeners
+      document.getElementById("hintBtn").addEventListener("click", showHint);
+      document
+        .getElementById("nextBtn")
+        .addEventListener("click", nextQuestion);
+      document.getElementById("hintBtn2").addEventListener("click", showHint2);
+      document
+        .getElementById("checkBtn2")
+        .addEventListener("click", checkLevel2Answer);
+      document
+        .getElementById("nextBtn2")
+        .addEventListener("click", nextQuestion2);
+      document.getElementById("hintBtn3").addEventListener("click", showHint3);
+      document
+        .getElementById("nextBtn3")
+        .addEventListener("click", nextQuestion3);
+
+      // Initialize on page load
+      window.addEventListener("load", function () {
+        showLevelSelection();
+      });
+    </script>
+  </body>
+</html>

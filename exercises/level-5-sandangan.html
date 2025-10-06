@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 5: Sandangan - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .exercise-header h1 {
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .exercise-header h1 span {
+        color: var(--primary);
+      }
+
+      .level-info {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .progress-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .progress-text {
+        color: var(--text-color);
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .question-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: none;
+      }
+
+      .question-card.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .question-number {
+        color: var(--primary);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .question-text {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .sandangan-demo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        margin: 2rem 0;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        flex-wrap: wrap;
+      }
+
+      .char-demo {
+        text-align: center;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.5rem;
+        border: 2px solid var(--primary);
+        min-width: 120px;
+      }
+
+      .base-char {
+        font-size: 3rem;
+        color: var(--text-color);
+        font-family: "Times New Roman", serif;
+        margin-bottom: 0.5rem;
+      }
+
+      .with-sandangan {
+        font-size: 3rem;
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        margin-bottom: 0.5rem;
+      }
+
+      .char-label {
+        color: var(--text-color);
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      .plus-sign {
+        font-size: 2rem;
+        color: var(--primary);
+        font-weight: bold;
+      }
+
+      .equals-sign {
+        font-size: 2rem;
+        color: var(--secondary);
+        font-weight: bold;
+      }
+
+      .sandangan-reference {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .sandangan-item {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.3rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .sandangan-char {
+        font-size: 2rem;
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        margin-bottom: 0.5rem;
+      }
+
+      .sandangan-name {
+        color: var(--text-color);
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .sandangan-function {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: 0.8rem;
+      }
+
+      .options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .option {
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .option:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+      }
+
+      .option.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+      }
+
+      .option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+      }
+
+      .option-char {
+        font-size: 2.5rem;
+        font-family: "Times New Roman", serif;
+        margin-bottom: 0.5rem;
+      }
+
+      .option-text {
+        color: var(--text-color);
+        font-weight: 600;
+      }
+
+      .construction-area {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+      }
+
+      .construction-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+
+      .construction-parts {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .part-selector {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.3rem;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        min-width: 80px;
+      }
+
+      .part-selector:hover {
+        border-color: var(--primary);
+      }
+
+      .part-selector.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .part-char {
+        font-size: 2rem;
+        font-family: "Times New Roman", serif;
+        color: var(--text-color);
+      }
+
+      .part-label {
+        font-size: 0.8rem;
+        color: var(--text-color);
+        opacity: 0.7;
+        margin-top: 0.3rem;
+      }
+
+      .result-display {
+        text-align: center;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.3rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .result-char {
+        font-size: 3rem;
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        margin-bottom: 0.5rem;
+      }
+
+      .result-reading {
+        color: var(--text-color);
+        font-weight: 600;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(32, 147, 164, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+      }
+
+      .feedback.correct {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid #10b981;
+        color: #10b981;
+      }
+
+      .feedback.incorrect {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        color: #ef4444;
+      }
+
+      .result-screen {
+        display: none;
+        text-align: center;
+      }
+
+      .result-screen.show {
+        display: block;
+      }
+
+      .score-display {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1rem 0;
+      }
+
+      .result-message {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+        }
+
+        .level-info {
+          gap: 1rem;
+        }
+
+        .sandangan-demo {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .construction-parts {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .controls {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .options {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="exercise-container">
+      <!-- Exercise Header -->
+      <div class="exercise-header">
+        <h1><span>Level 5:</span> Sandangan Aksara Sunda</h1>
+        <p>
+          Pelajari tanda-tanda diakritik (sandangan) yang mengubah bunyi huruf
+          aksara Sunda
+        </p>
+        <div class="level-info">
+          <div class="info-item">
+            <i data-feather="target"></i>
+            <span>Target: 80% untuk lulus</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="clock"></i>
+            <span>Waktu: ~20 menit</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="layers"></i>
+            <span>10 Soal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Soal 1 dari 10</div>
+      </div>
+
+      <!-- Quiz Container -->
+      <div id="quizContainer">
+        <!-- Questions will be generated by JavaScript -->
+      </div>
+
+      <!-- Result Screen -->
+      <div class="result-screen" id="resultScreen">
+        <div class="question-card">
+          <h2>🎉 Level 5 Selesai!</h2>
+          <div class="score-display" id="finalScore">85/100</div>
+          <div class="result-message" id="resultMessage">
+            Bagus! Anda sudah memahami penggunaan sandangan dalam aksara Sunda.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" id="correctAnswers">8</div>
+              <div class="stat-label">Jawaban Benar</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="incorrectAnswers">2</div>
+              <div class="stat-label">Jawaban Salah</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="timeTaken">18:30</div>
+              <div class="stat-label">Waktu</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="accuracy">85%</div>
+              <div class="stat-label">Akurasi</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button
+              class="btn btn-secondary"
+              onclick="window.location.href='../latihan.html'"
+            >
+              <i data-feather="arrow-left"></i> Kembali ke Menu
+            </button>
+            <button class="btn btn-primary" onclick="nextLevel()">
+              Level Selanjutnya <i data-feather="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Quiz data
+      const quizData = [
+        {
+          question:
+            "Lihat demonstrasi berikut. Apa yang terjadi ketika huruf 'ka' (ᮊ) diberi sandangan panghulu ( ◌ᮤ)?",
+          type: "demonstration",
+          demo: {
+            base: "ᮊ",
+            baseLabel: "ka",
+            sandangan: "◌ᮤ",
+            sandanganLabel: "panghulu",
+            result: "ᮊᮤ",
+            resultLabel: "ki",
+          },
+          options: [
+            { char: "ᮊᮤ", text: "ki", correct: true },
+            { char: "ᮊᮥ", text: "ku", correct: false },
+            { char: "ᮊᮦ", text: "ké", correct: false },
+            { char: "ᮊᮧ", text: "ko", correct: false },
+          ],
+          explanation:
+            "Sandangan panghulu (ᮤ) mengubah bunyi vokal 'a' menjadi 'i', sehingga 'ka' menjadi 'ki'.",
+        },
+        {
+          question:
+            "Pilih sandangan yang tepat untuk mengubah bunyi 'ba' (ᮘ) menjadi 'bu':",
+          type: "sandangan_selection",
+          baseChar: "ᮘ",
+          targetSound: "bu",
+          options: [
+            { char: "◌ᮤ", text: "panghulu (i)", correct: false },
+            { char: "◌ᮥ", text: "panyuku (u)", correct: true },
+            { char: "◌ᮦ", text: "panéléng (é)", correct: false },
+            { char: "◌ᮧ", text: "panolong (o)", correct: false },
+          ],
+          explanation:
+            "Sandangan panyuku (ᮥ) digunakan untuk mengubah bunyi vokal menjadi 'u'.",
+        },
+        {
+          question:
+            "Susun huruf 'sa' (ᮞ) dengan sandangan panéléng untuk membentuk bunyi 'sé':",
+          type: "construction",
+          baseChar: "ᮞ",
+          baseName: "sa",
+          targetResult: "ᮞᮦ",
+          targetSound: "sé",
+          parts: [
+            { char: "ᮞ", label: "sa", type: "base" },
+            { char: "◌ᮤ", label: "panghulu", type: "sandangan" },
+            { char: "◌ᮥ", label: "panyuku", type: "sandangan" },
+            { char: "◌ᮦ", label: "panéléng", type: "sandangan" },
+          ],
+          correctParts: ["ᮞ", "◌ᮦ"],
+          explanation:
+            "Untuk bunyi 'sé', gunakan huruf dasar 'sa' (ᮞ) dengan sandangan panéléng (ᮦ).",
+        },
+        {
+          question: "Apa fungsi sandangan panolong (◌ᮧ) dalam aksara Sunda?",
+          type: "function_identification",
+          reference: [
+            {
+              char: "◌ᮤ",
+              name: "panghulu",
+              function: "mengubah vokal menjadi 'i'",
+            },
+            {
+              char: "◌ᮥ",
+              name: "panyuku",
+              function: "mengubah vokal menjadi 'u'",
+            },
+            {
+              char: "◌ᮦ",
+              name: "panéléng",
+              function: "mengubah vokal menjadi 'é'",
+            },
+            {
+              char: "◌ᮧ",
+              name: "panolong",
+              function: "mengubah vokal menjadi 'o'",
+            },
+          ],
+          options: [
+            { char: "◌ᮧ", text: "mengubah vokal menjadi 'o'", correct: true },
+            { char: "◌ᮧ", text: "mengubah vokal menjadi 'u'", correct: false },
+            { char: "◌ᮧ", text: "mengubah vokal menjadi 'é'", correct: false },
+            { char: "◌ᮧ", text: "menghilangkan vokal", correct: false },
+          ],
+          explanation:
+            "Sandangan panolong (ᮧ) berfungsi mengubah bunyi vokal dasar 'a' menjadi 'o'.",
+        },
+        {
+          question:
+            "Lihat demonstrasi: huruf 'na' (ᮔ) + sandangan panyuku (◌ᮥ). Apa hasilnya?",
+          type: "demonstration",
+          demo: {
+            base: "ᮔ",
+            baseLabel: "na",
+            sandangan: "◌ᮥ",
+            sandanganLabel: "panyuku",
+            result: "ᮔᮥ",
+            resultLabel: "nu",
+          },
+          options: [
+            { char: "ᮔᮤ", text: "ni", correct: false },
+            { char: "ᮔᮥ", text: "nu", correct: true },
+            { char: "ᮔᮦ", text: "né", correct: false },
+            { char: "ᮔᮧ", text: "no", correct: false },
+          ],
+          explanation:
+            "Sandangan panyuku (ᮥ) mengubah bunyi 'na' menjadi 'nu'.",
+        },
+        {
+          question:
+            "Identifikasi sandangan yang digunakan dalam huruf 'ᮛᮦ' (ré):",
+          type: "sandangan_identification",
+          targetChar: "ᮛᮦ",
+          targetSound: "ré",
+          baseChar: "ᮛ",
+          options: [
+            { char: "◌ᮤ", text: "panghulu", correct: false },
+            { char: "◌ᮥ", text: "panyuku", correct: false },
+            { char: "◌ᮦ", text: "panéléng", correct: true },
+            { char: "◌ᮧ", text: "panolong", correct: false },
+          ],
+          explanation:
+            "Huruf 'ᮛᮦ' menggunakan sandangan panéléng (ᮦ) untuk bunyi 'é'.",
+        },
+        {
+          question:
+            "Susun huruf 'la' (ᮜ) dengan sandangan yang tepat untuk membentuk bunyi 'lo':",
+          type: "construction",
+          baseChar: "ᮜ",
+          baseName: "la",
+          targetResult: "ᮜᮧ",
+          targetSound: "lo",
+          parts: [
+            { char: "ᮜ", label: "la", type: "base" },
+            { char: "◌ᮤ", label: "panghulu", type: "sandangan" },
+            { char: "◌ᮥ", label: "panyuku", type: "sandangan" },
+            { char: "◌ᮧ", label: "panolong", type: "sandangan" },
+          ],
+          correctParts: ["ᮜ", "◌ᮧ"],
+          explanation:
+            "Untuk bunyi 'lo', gunakan huruf dasar 'la' (ᮜ) dengan sandangan panolong (ᮧ).",
+        },
+        {
+          question:
+            "Manakah pasangan huruf dan sandangan yang menghasilkan bunyi 'hu'?",
+          type: "pair_matching",
+          options: [
+            { char: "ᮠᮤ", text: "hi", correct: false },
+            { char: "ᮠᮥ", text: "hu", correct: true },
+            { char: "ᮠᮦ", text: "hé", correct: false },
+            { char: "ᮠᮧ", text: "ho", correct: false },
+          ],
+          explanation:
+            "Huruf 'ha' (ᮠ) dengan sandangan panyuku (ᮥ) menghasilkan bunyi 'hu'.",
+        },
+        {
+          question: "Identifikasi semua sandangan dalam kata 'ᮊᮥᮓᮤ' (kudi):",
+          type: "multiple_sandangan",
+          targetWord: "ᮊᮥᮓᮤ",
+          targetReading: "kudi",
+          breakdown: [
+            { char: "ᮊᮥ", sound: "ku", sandangan: "◌ᮥ" },
+            { char: "ᮓᮤ", sound: "di", sandangan: "◌ᮤ" },
+          ],
+          options: [
+            { text: "panyuku (ᮥ) dan panghulu (ᮤ)", correct: true },
+            { text: "panghulu (ᮤ) dan panéléng (ᮦ)", correct: false },
+            { text: "panolong (ᮧ) dan panyuku (ᮥ)", correct: false },
+            { text: "panéléng (ᮦ) dan panolong (ᮧ)", correct: false },
+          ],
+          explanation:
+            "Kata 'kudi' menggunakan sandangan panyuku (ᮥ) pada 'ku' dan panghulu (ᮤ) pada 'di'.",
+        },
+        {
+          question:
+            "Susun kata 'moré' menggunakan huruf dan sandangan yang tepat:",
+          type: "word_construction",
+          targetWord: "ᮙᮧᮛᮦ",
+          targetReading: "moré",
+          syllables: [
+            { sound: "mo", base: "ᮙ", sandangan: "◌ᮧ", result: "ᮙᮧ" },
+            { sound: "ré", base: "ᮛ", sandangan: "◌ᮦ", result: "ᮛᮦ" },
+          ],
+          options: [
+            { char: "ᮙᮧᮛᮦ", text: "mo-ré", correct: true },
+            { char: "ᮙᮥᮛᮤ", text: "mu-ri", correct: false },
+            { char: "ᮙᮤᮛᮧ", text: "mi-ro", correct: false },
+            { char: "ᮙᮦᮛᮥ", text: "mé-ru", correct: false },
+          ],
+          explanation:
+            "Kata 'moré' dibentuk dari 'ma' (ᮙ) + panolong (ᮧ) = 'mo', dan 'ra' (ᮛ) + panéléng (ᮦ) = 'ré'.",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let userAnswers = [];
+      let startTime = Date.now();
+      let selectedParts = [];
+
+      function initializeQuiz() {
+        generateQuizHTML();
+        showQuestion(0);
+        updateProgress();
+      }
+
+      function generateQuizHTML() {
+        const container = document.getElementById("quizContainer");
+        container.innerHTML = "";
+
+        quizData.forEach((question, index) => {
+          let questionHTML = `
+                    <div class="question-card" id="question-${index}">
+                        <div class="question-number">Soal ${index + 1} dari ${
+            quizData.length
+          }</div>
+                        <div class="question-text">${question.question}</div>
+                `;
+
+          // Add specific content based on question type
+          if (question.type === "demonstration") {
+            questionHTML += `
+                        <div class="sandangan-demo">
+                            <div class="char-demo">
+                                <div class="base-char">${question.demo.base}</div>
+                                <div class="char-label">${question.demo.baseLabel}</div>
+                            </div>
+                            <div class="plus-sign">+</div>
+                            <div class="char-demo">
+                                <div class="base-char">${question.demo.sandangan}</div>
+                                <div class="char-label">${question.demo.sandanganLabel}</div>
+                            </div>
+                            <div class="equals-sign">=</div>
+                            <div class="char-demo">
+                                <div class="with-sandangan">${question.demo.result}</div>
+                                <div class="char-label">${question.demo.resultLabel}</div>
+                            </div>
+                        </div>
+                    `;
+          }
+
+          if (
+            question.type === "function_identification" &&
+            question.reference
+          ) {
+            questionHTML += `
+                        <div class="sandangan-reference">
+                            ${question.reference
+                              .map(
+                                (ref) => `
+                                <div class="sandangan-item">
+                                    <div class="sandangan-char">${ref.char}</div>
+                                    <div class="sandangan-name">${ref.name}</div>
+                                    <div class="sandangan-function">${ref.function}</div>
+                                </div>
+                            `
+                              )
+                              .join("")}
+                        </div>
+                    `;
+          }
+
+          if (
+            question.type === "construction" ||
+            question.type === "word_construction"
+          ) {
+            questionHTML += `
+                        <div class="construction-area">
+                            <div class="construction-title">Pilih bagian yang tepat:</div>
+                            <div class="construction-parts" id="construction-${index}">
+                                ${
+                                  question.parts
+                                    ? question.parts
+                                        .map(
+                                          (part, partIndex) => `
+                                    <div class="part-selector" onclick="selectPart(${index}, ${partIndex}, '${part.char}')">
+                                        <div class="part-char">${part.char}</div>
+                                        <div class="part-label">${part.label}</div>
+                                    </div>
+                                `
+                                        )
+                                        .join("")
+                                    : ""
+                                }
+                            </div>
+                            <div class="result-display" id="result-${index}">
+                                <div class="result-char" id="result-char-${index}">?</div>
+                                <div class="result-reading" id="result-reading-${index}">Pilih bagian di atas</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="checkConstruction(${index})" style="margin-top: 1rem;">
+                                <i data-feather="check"></i> Periksa Hasil
+                            </button>
+                        </div>
+                    `;
+          } else {
+            // Regular options for other question types
+            questionHTML += `
+                        <div class="options" id="options-${index}">
+                            ${question.options
+                              .map(
+                                (option, optionIndex) => `
+                                <div class="option" onclick="selectAnswer(${index}, ${optionIndex})">
+                                    <div class="option-char">${option.char}</div>
+                                    <div class="option-text">${option.text}</div>
+                                </div>
+                            `
+                              )
+                              .join("")}
+                        </div>
+                    `;
+          }
+
+          questionHTML += `
+                        <div class="feedback" id="feedback-${index}"></div>
+                        
+                        <div class="controls">
+                            <button class="btn btn-secondary" onclick="previousQuestion()" ${
+                              index === 0 ? 'style="visibility: hidden"' : ""
+                            }>
+                                <i data-feather="arrow-left"></i> Sebelumnya
+                            </button>
+                            <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                                ${
+                                  index === quizData.length - 1
+                                    ? "Selesai"
+                                    : "Selanjutnya"
+                                } 
+                                <i data-feather="arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+          container.innerHTML += questionHTML;
+        });
+      }
+
+      function selectPart(questionIndex, partIndex, char) {
+        if (!selectedParts[questionIndex]) {
+          selectedParts[questionIndex] = [];
+        }
+
+        // Toggle selection
+        const partElement = document.querySelectorAll(
+          `#construction-${questionIndex} .part-selector`
+        )[partIndex];
+
+        if (partElement.classList.contains("selected")) {
+          partElement.classList.remove("selected");
+          selectedParts[questionIndex] = selectedParts[questionIndex].filter(
+            (p) => p !== char
+          );
+        } else {
+          partElement.classList.add("selected");
+          selectedParts[questionIndex].push(char);
+        }
+
+        // Update result display
+        updateConstructionResult(questionIndex);
+      }
+
+      function updateConstructionResult(questionIndex) {
+        const parts = selectedParts[questionIndex] || [];
+        const resultChar = document.getElementById(
+          `result-char-${questionIndex}`
+        );
+        const resultReading = document.getElementById(
+          `result-reading-${questionIndex}`
+        );
+
+        if (parts.length === 0) {
+          resultChar.textContent = "?";
+          resultReading.textContent = "Pilih bagian di atas";
+        } else if (parts.length === 1) {
+          resultChar.textContent = parts[0];
+          resultReading.textContent = "Pilih sandangan";
+        } else {
+          const combined = parts.join("");
+          resultChar.textContent = combined;
+          resultReading.textContent = "Hasil konstruksi";
+        }
+      }
+
+      function checkConstruction(questionIndex) {
+        const question = quizData[questionIndex];
+        const userParts = selectedParts[questionIndex] || [];
+        const correctParts = question.correctParts || [];
+
+        const isCorrect =
+          userParts.length === correctParts.length &&
+          userParts.every((part) => correctParts.includes(part));
+
+        if (isCorrect) {
+          score += Math.round(100 / quizData.length);
+          showFeedback(
+            questionIndex,
+            "correct",
+            "✓ Benar! " + question.explanation
+          );
+        } else {
+          showFeedback(
+            questionIndex,
+            "incorrect",
+            "✗ Salah. " + question.explanation
+          );
+        }
+
+        // Enable next button
+        document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+      }
+
+      function selectAnswer(questionIndex, answerIndex) {
+        const options = document.querySelectorAll(
+          `#options-${questionIndex} .option`
+        );
+        const question = quizData[questionIndex];
+
+        // Remove previous selections
+        options.forEach((option) => {
+          option.classList.remove("selected", "correct", "incorrect");
+        });
+
+        // Mark selected answer
+        options[answerIndex].classList.add("selected");
+
+        // Store user answer
+        userAnswers[questionIndex] = answerIndex;
+
+        // Check if correct
+        const isCorrect = question.options[answerIndex].correct;
+
+        if (isCorrect) {
+          options[answerIndex].classList.add("correct");
+          score += Math.round(100 / quizData.length);
+          showFeedback(
+            questionIndex,
+            "correct",
+            "✓ Benar! " + question.explanation
+          );
+        } else {
+          options[answerIndex].classList.add("incorrect");
+          // Show correct answer
+          question.options.forEach((option, index) => {
+            if (option.correct) {
+              options[index].classList.add("correct");
+            }
+          });
+          showFeedback(
+            questionIndex,
+            "incorrect",
+            "✗ Salah. " + question.explanation
+          );
+        }
+
+        // Enable next button
+        document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+      }
+
+      function showFeedback(questionIndex, type, message) {
+        const feedback = document.getElementById(`feedback-${questionIndex}`);
+        feedback.className = `feedback ${type}`;
+        feedback.innerHTML = message;
+        feedback.style.display = "block";
+      }
+
+      function showQuestion(index) {
+        // Hide all questions
+        document.querySelectorAll(".question-card").forEach((card) => {
+          card.classList.remove("active");
+        });
+
+        // Show current question
+        document.getElementById(`question-${index}`).classList.add("active");
+
+        // Update progress
+        updateProgress();
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextQuestion() {
+        if (currentQuestion < quizData.length - 1) {
+          currentQuestion++;
+          showQuestion(currentQuestion);
+        } else {
+          showResults();
+        }
+      }
+
+      function previousQuestion() {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          showQuestion(currentQuestion);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (currentQuestion / quizData.length) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+        document.getElementById("progressText").textContent = `Soal ${
+          currentQuestion + 1
+        } dari ${quizData.length}`;
+      }
+
+      function showResults() {
+        const endTime = Date.now();
+        const timeTaken = Math.floor((endTime - startTime) / 1000);
+        const minutes = Math.floor(timeTaken / 60);
+        const seconds = timeTaken % 60;
+
+        const correctCount = Math.round(score / (100 / quizData.length));
+        const incorrectCount = quizData.length - correctCount;
+
+        // Hide quiz container
+        document.getElementById("quizContainer").style.display = "none";
+        document.querySelector(".progress-container").style.display = "none";
+
+        // Show results
+        document.getElementById("resultScreen").classList.add("show");
+        document.getElementById("finalScore").textContent = score + "/100";
+        document.getElementById("correctAnswers").textContent = correctCount;
+        document.getElementById("incorrectAnswers").textContent =
+          incorrectCount;
+        document.getElementById("timeTaken").textContent = `${minutes}:${seconds
+          .toString()
+          .padStart(2, "0")}`;
+        document.getElementById("accuracy").textContent = score + "%";
+
+        // Update result message
+        let message = "";
+        if (score >= 90) {
+          message =
+            "🌟 Luar biasa! Anda sangat menguasai penggunaan sandangan!";
+        } else if (score >= 80) {
+          message =
+            "👏 Bagus! Anda sudah memahami penggunaan sandangan dalam aksara Sunda.";
+        } else if (score >= 70) {
+          message =
+            "👍 Cukup baik! Terus berlatih menggunakan sandangan dengan benar.";
+        } else {
+          message =
+            "💪 Jangan menyerah! Sandangan adalah kunci penting dalam membaca aksara Sunda.";
+        }
+
+        document.getElementById("resultMessage").textContent = message;
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextLevel() {
+        window.location.href = "level-6-angka.html";
+      }
+
+      // Initialize quiz when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeQuiz();
+        feather.replace();
+      });
+    </script>
+  </body>
+</html>

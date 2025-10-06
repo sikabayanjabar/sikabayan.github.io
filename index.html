@@ -47,6 +47,13 @@
 
       <div class="navbar-extra">
         <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <div class="theme-toggle-container">
+          <span class="theme-toggle-label">Dark</span>
+          <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+          </label>
+        </div>
         <a href="login.html" class="login-btn">Login</a>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
@@ -437,11 +444,11 @@
             </div>
             <div class="input-grup">
               <i data-feather="mail"></i>
-              <input type="email" placeholder="Email" required>
+              <input type="email" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Masukkan format email yang valid (contoh: nama@domain.com)">
             </div>
             <div class="input-grup">
               <i data-feather="phone"></i>
-              <input type="tel" placeholder="No HP">
+              <input type="tel" placeholder="No HP" pattern="[0-9]{10,13}" title="Masukkan nomor HP yang valid (10-13 digit angka)" maxlength="13">
             </div>
             <div class="input-grup">
               <i data-feather="message-square"></i>
@@ -510,6 +517,41 @@
     <!-- Feather Icons -->
     <script>
       feather.replace();
+    </script>
+
+    <!-- Theme Toggle Script -->
+    <script>
+      // Theme Toggle Functionality
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeLabel = document.querySelector('.theme-toggle-label');
+      const body = document.body;
+      
+      // Get saved theme from localStorage or default to 'dark'
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      body.setAttribute('data-theme', savedTheme);
+      
+      // Update toggle state and label based on current theme
+      function updateThemeToggle(theme) {
+        if (theme === 'light') {
+          themeToggle.checked = true;
+          themeLabel.textContent = 'Light';
+        } else {
+          themeToggle.checked = false;
+          themeLabel.textContent = 'Dark';
+        }
+      }
+      
+      // Initialize toggle
+      updateThemeToggle(savedTheme);
+      
+      // Theme toggle event listener
+      themeToggle.addEventListener('change', function() {
+        const newTheme = this.checked ? 'light' : 'dark';
+        
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeToggle(newTheme);
+      });
     </script>
 
     <!-- My Javascript -->

@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 9: Teks Sederhana - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .exercise-header h1 {
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .exercise-header h1 span {
+        color: var(--primary);
+      }
+
+      .level-info {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .progress-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .progress-text {
+        color: var(--text-color);
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .question-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: none;
+      }
+
+      .question-card.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .question-number {
+        color: var(--primary);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .question-text {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .text-showcase {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .text-title {
+        text-align: center;
+        color: var(--primary);
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+
+      .text-display {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.5rem;
+        border: 2px solid var(--primary);
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .sunda-text {
+        font-size: 1.8rem;
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        text-align: justify;
+      }
+
+      .latin-text {
+        color: var(--text-color);
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        text-align: justify;
+      }
+
+      .text-translation {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 1rem;
+        font-style: italic;
+        line-height: 1.6;
+        text-align: justify;
+      }
+
+      .text-analysis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .analysis-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.3rem;
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .analysis-title {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .analysis-content {
+        color: var(--text-color);
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
+
+      .reading-comprehension {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+      }
+
+      .comprehension-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+
+      .text-summary {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.3rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .summary-item {
+        display: flex;
+        margin-bottom: 0.8rem;
+        align-items: flex-start;
+      }
+
+      .summary-label {
+        color: var(--primary);
+        font-weight: 600;
+        min-width: 100px;
+        margin-right: 1rem;
+      }
+
+      .summary-value {
+        color: var(--text-color);
+        flex: 1;
+      }
+
+      .fill-blank {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+      }
+
+      .blank-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+
+      .text-with-blanks {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.3rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .blank-input {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.3rem;
+        padding: 0.3rem 0.8rem;
+        margin: 0 0.2rem;
+        color: var(--text-color);
+        min-width: 100px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .blank-input:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+      }
+
+      .blank-input.filled {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .word-choices {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .word-choice {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.3rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: var(--text-color);
+      }
+
+      .word-choice:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+      }
+
+      .word-choice.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .word-choice.used {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .option {
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .option:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+      }
+
+      .option.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+      }
+
+      .option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+      }
+
+      .option-content {
+        color: var(--text-color);
+        font-weight: 600;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(32, 147, 164, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+      }
+
+      .feedback.correct {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid #10b981;
+        color: #10b981;
+      }
+
+      .feedback.incorrect {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        color: #ef4444;
+      }
+
+      .result-screen {
+        display: none;
+        text-align: center;
+      }
+
+      .result-screen.show {
+        display: block;
+      }
+
+      .score-display {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1rem 0;
+      }
+
+      .result-message {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+        }
+
+        .level-info {
+          gap: 1rem;
+        }
+
+        .sunda-text {
+          font-size: 1.4rem;
+        }
+
+        .text-analysis {
+          grid-template-columns: 1fr;
+        }
+
+        .word-choices {
+          flex-direction: column;
+        }
+
+        .controls {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .options {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="exercise-container">
+      <!-- Exercise Header -->
+      <div class="exercise-header">
+        <h1><span>Level 9:</span> Teks Sederhana Aksara Sunda</h1>
+        <p>Pelajari cara membaca dan memahami teks pendek dalam aksara Sunda</p>
+        <div class="level-info">
+          <div class="info-item">
+            <i data-feather="target"></i>
+            <span>Target: 80% untuk lulus</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="clock"></i>
+            <span>Waktu: ~30 menit</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="book-open"></i>
+            <span>7 Soal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Soal 1 dari 7</div>
+      </div>
+
+      <!-- Quiz Container -->
+      <div id="quizContainer">
+        <!-- Questions will be generated by JavaScript -->
+      </div>
+
+      <!-- Result Screen -->
+      <div class="result-screen" id="resultScreen">
+        <div class="question-card">
+          <h2>🎉 Level 9 Selesai!</h2>
+          <div class="score-display" id="finalScore">86/100</div>
+          <div class="result-message" id="resultMessage">
+            Excellent! Anda sudah mampu membaca dan memahami teks sederhana
+            dalam aksara Sunda.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" id="correctAnswers">6</div>
+              <div class="stat-label">Jawaban Benar</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="incorrectAnswers">1</div>
+              <div class="stat-label">Jawaban Salah</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="timeTaken">28:30</div>
+              <div class="stat-label">Waktu</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="accuracy">86%</div>
+              <div class="stat-label">Akurasi</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button
+              class="btn btn-secondary"
+              onclick="window.location.href='../latihan.html'"
+            >
+              <i data-feather="arrow-left"></i> Kembali ke Menu
+            </button>
+            <button class="btn btn-primary" onclick="nextLevel()">
+              Level Selanjutnya <i data-feather="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Quiz data
+      const quizData = [
+        {
+          question: "Bacalah teks pendek berikut dan pahami artinya:",
+          type: "text_reading",
+          text: {
+            title: "Di Sakola",
+            sunda:
+              "ᮃᮘᮓᮤ ᮔᮙ ᮃᮔᮤ. ᮃᮘᮓᮤ ᮞᮃᮁᮀ ᮞᮊᮧᮜᮂ. ᮃᮘᮓᮤ ᮞᮊᮧᮜᮂ ᮓᮤ ᮞᮥᮙᮊᮞᮂ. ᮃᮘᮓᮤ ᮞᮥᮊ ᮞᮎᮁ.",
+            latin:
+              "Abdi nami Ani. Abdi saenang sakola. Abdi sakola di Sumakasar. Abdi suka sacar.",
+            translation:
+              "Nama saya Ani. Saya suka bersekolah. Saya sekolah di Sumakasar. Saya suka belajar.",
+          },
+          analysis: {
+            "Tokoh Utama": "Ani",
+            Tempat: "Sekolah di Sumakasar",
+            Aktivitas: "Bersekolah dan belajar",
+            Sikap: "Senang dan suka belajar",
+          },
+          options: [
+            {
+              content:
+                "Ani adalah siswa yang senang belajar di sekolah Sumakasar",
+              correct: true,
+            },
+            { content: "Ani adalah guru di sekolah Sumakasar", correct: false },
+            { content: "Ani tidak suka bersekolah", correct: false },
+            { content: "Ani sekolah di rumah", correct: false },
+          ],
+          explanation:
+            "Teks menjelaskan bahwa Ani adalah siswa yang senang bersekolah dan suka belajar di sekolah Sumakasar.",
+        },
+        {
+          question: "Lengkapi teks berikut dengan kata yang tepat:",
+          type: "fill_blanks",
+          textWithBlanks:
+            "ᮞᮤ ᮃᮙᮤᮔ _____ ᮊᮥᮜ. ᮞᮤ ᮃᮙᮤᮔ ᮊᮥᮜ _____ ᮃᮜᮥᮔ᮪. ᮊᮧᮊᮤᮒᮩᮔ _____ ᮄᮚ. ᮞᮤ ᮃᮙᮤᮔ _____ ᮘᮥᮊᮥ.",
+          fullText: {
+            sunda:
+              "ᮞᮤ ᮃᮙᮤᮔ ᮞᮊᮧᮜᮂ ᮊᮥᮜ. ᮞᮤ ᮃᮙᮤᮔ ᮊᮥᮜ ᮞᮊᮧᮜᮂ ᮃᮜᮥᮔ᮪. ᮊᮧᮊᮤᮒᮩᮔ ᮞᮊᮧᮜᮂ ᮄᮚ. ᮞᮤ ᮃᮙᮤᮔ ᮘᮦᮜᮤ ᮘᮥᮊᮥ.",
+            latin:
+              "Si Amin sakola kul. Si Amin kul sakola alun. Kokitun sakola euy. Si Amin beli buku.",
+            translation:
+              "Si Amin berangkat sekolah. Si Amin berangkat sekolah tadi. Sekolah itu asyik. Si Amin membeli buku.",
+          },
+          blanks: [
+            { position: 1, correct: "ᮞᮊᮧᮜᮂ", latin: "sakola" },
+            { position: 2, correct: "ᮞᮊᮧᮜᮂ", latin: "sakola" },
+            { position: 3, correct: "ᮞᮊᮧᮜᮂ", latin: "sakola" },
+            { position: 4, correct: "ᮘᮦᮜᮤ", latin: "beli" },
+          ],
+          choices: ["ᮞᮊᮧᮜᮂ", "ᮘᮦᮜᮤ", "ᮘᮥᮊᮥ", "ᮊᮥᮜ", "ᮊᮧᮊᮤᮒᮩᮔ", "ᮞᮥᮊ"],
+          explanation:
+            "Kata yang tepat: sakola (sekolah), sakola (sekolah), sakola (sekolah), beli (membeli).",
+        },
+        {
+          question: "Berdasarkan teks berikut, jawab pertanyaan:",
+          type: "comprehension",
+          text: {
+            title: "Liburan ka Lembang",
+            sunda:
+              "ᮊᮙᮛᮤ ᮃᮘᮓᮤ ᮊᮥᮜ ᮊ ᮜᮨᮙᮘᮀ. ᮃᮘᮓᮤ ᮊᮥᮜ ᮞᮛᮨᮔ᮪ ᮞᮤᮙ. ᮓᮤ ᮜᮨᮙᮘᮀ ᮊᮛᮞᮔ ᮞᮦᮏᮥᮊ᮪. ᮃᮘᮓᮤ ᮞᮥᮊ ᮊᮛᮞᮔ ᮞᮦᮏᮥᮊ᮪.",
+            latin:
+              "Kamari abdi kul ka Lembang. Abdi kul saren sim. Di Lembang karasan sejuk. Abdi suka karasan sejuk.",
+            translation:
+              "Kemarin saya pergi ke Lembang. Saya pergi bersama keluarga. Di Lembang udara sejuk. Saya suka udara sejuk.",
+          },
+          summary: {
+            Waktu: "Kemarin",
+            Tujuan: "Lembang",
+            Bersama: "Keluarga",
+            Cuaca: "Sejuk",
+            Perasaan: "Suka",
+          },
+          options: [
+            {
+              content: "Penulis pergi ke Lembang kemarin bersama keluarga",
+              correct: true,
+            },
+            { content: "Penulis pergi ke Lembang sendirian", correct: false },
+            { content: "Cuaca di Lembang panas", correct: false },
+            { content: "Penulis tidak suka ke Lembang", correct: false },
+          ],
+          explanation:
+            "Teks menceritakan bahwa penulis pergi ke Lembang kemarin bersama keluarga dan menyukai udara sejuk di sana.",
+        },
+        {
+          question: "Pilih urutan peristiwa yang benar dari teks:",
+          type: "sequence",
+          text: {
+            title: "Isukan Kana Pagawean",
+            sunda:
+              "ᮃᮘᮓᮤ ᮊᮛᮩᮓᮤᮔ ᮔᮞᮤ. ᮃᮘᮓᮤ ᮙᮤᮔᮥᮙ᮪ ᮞᮥᮞᮥ. ᮚᮀ ᮃᮘᮓᮤ ᮞᮤᮕᮒ ᮊᮠᮤᮛ. ᮃᮘᮓᮤ ᮔᮞᮤ ᮘᮦᮞᮁ ᮘᮦᮞᮁ.",
+            latin:
+              "Abdi karudin nasi. Abdi minum susu. Pang abdi sipat kahir. Abdi nasi beser beser.",
+            translation:
+              "Saya makan nasi dulu. Saya minum susu. Kemudian saya sikat gigi. Saya makan nasi dengan lahap.",
+          },
+          events: [
+            "ᮃᮘᮓᮤ ᮊᮛᮩᮓᮤᮔ ᮔᮞᮤ (Makan nasi dulu)",
+            "ᮃᮘᮓᮤ ᮙᮤᮔᮥᮙ᮪ ᮞᮥᮞᮥ (Minum susu)",
+            "ᮃᮘᮓᮤ ᮞᮤᮕᮒ ᮊᮠᮤᮛ (Sikat gigi)",
+            "ᮔᮞᮤ ᮘᮦᮞᮁ ᮘᮦᮞᮁ (Makan dengan lahap)",
+          ],
+          correctSequence: [1, 2, 3, 4],
+          options: [
+            {
+              content: "Makan nasi → Minum susu → Sikat gigi → Makan lahap",
+              correct: true,
+            },
+            {
+              content: "Minum susu → Makan nasi → Sikat gigi → Makan lahap",
+              correct: false,
+            },
+            {
+              content: "Sikat gigi → Makan nasi → Minum susu → Makan lahap",
+              correct: false,
+            },
+            {
+              content: "Makan lahap → Sikat gigi → Minum susu → Makan nasi",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Urutan yang benar: makan nasi dulu, minum susu, sikat gigi, kemudian makan dengan lahap.",
+        },
+        {
+          question: "Tentukan pokok pikiran utama dari teks berikut:",
+          type: "main_idea",
+          text: {
+            title: "Pentingna Maca Buku",
+            sunda:
+              "ᮙᮎ ᮘᮥᮊᮥ ᮞᮀᮒ ᮔᮞᮧᮀ. ᮙᮎ ᮘᮥᮊᮥ ᮘᮤᮞ ᮔᮙᮘᮂ ᮝᮝᮀᮞᮔ. ᮙᮎ ᮘᮥᮊᮥ ᮞᮥᮕᮃᮚ ᮃᮔᮊ᮪ ᮞᮙᮊᮤᮔ ᮞᮎᮁ. ᮙᮎ ᮘᮥᮊᮥ ᮞᮥᮕᮃᮚ ᮞᮞᮤᮔ ᮄᮞᮤᮔ ᮊᮥᮜᮔ.",
+            latin:
+              "Maca buku saat naon. Maca buku bisa nambar wawasan. Maca buku supaya anak samakin sacar. Maca buku supaya sasin esin kulan.",
+            translation:
+              "Membaca buku itu penting. Membaca buku bisa menambah wawasan. Membaca buku supaya anak semakin pintar. Membaca buku supaya tidak bosan waktu senggang.",
+          },
+          benefits: [
+            "Menambah wawasan",
+            "Membuat anak semakin pintar",
+            "Mengisi waktu senggang",
+            "Aktivitas yang penting",
+          ],
+          options: [
+            {
+              content:
+                "Membaca buku memberikan banyak manfaat untuk menambah wawasan dan kecerdasan",
+              correct: true,
+            },
+            {
+              content: "Membaca buku hanya untuk mengisi waktu kosong",
+              correct: false,
+            },
+            {
+              content: "Membaca buku tidak memberikan manfaat apapun",
+              correct: false,
+            },
+            { content: "Membaca buku hanya untuk anak-anak", correct: false },
+          ],
+          explanation:
+            "Pokok pikiran utama adalah bahwa membaca buku memberikan banyak manfaat, termasuk menambah wawasan dan membuat anak semakin pintar.",
+        },
+        {
+          question: "Analisis struktur kalimat dalam teks ini:",
+          type: "sentence_structure",
+          text: {
+            title: "Analisis Struktur",
+            sunda:
+              "ᮞᮤ ᮘᮥᮓᮤ ᮔᮥᮜᮤᮞ ᮞᮥᮛᮒ. ᮘᮘ ᮞᮤ ᮘᮥᮓᮤ ᮃᮚᮂ ᮌᮥᮛᮥ. ᮞᮤ ᮘᮥᮓᮤ ᮔᮥᮜᮤᮞ ᮞᮥᮛᮒ ᮞᮧᮁ ᮞᮧᮁ.",
+            latin:
+              "Si Budi nulis surat. Bapak si Budi ayeuy guru. Si Budi nulis surat sor sor.",
+            translation:
+              "Si Budi menulis surat. Ayah si Budi adalah guru. Si Budi menulis surat dengan rapi.",
+          },
+          structures: [
+            {
+              sentence: "ᮞᮤ ᮘᮥᮓᮤ ᮔᮥᮜᮤᮞ ᮞᮥᮛᮒ",
+              pattern: "Subjek + Predikat + Objek",
+            },
+            {
+              sentence: "ᮘᮘ ᮞᮤ ᮘᮥᮓᮤ ᮃᮚᮂ ᮌᮥᮛᮥ",
+              pattern: "Subjek + Predikat + Pelengkap",
+            },
+            {
+              sentence: "ᮞᮤ ᮘᮥᮓᮤ ᮔᮥᮜᮤᮞ ᮞᮥᮛᮒ ᮞᮧᮁ ᮞᮧᮁ",
+              pattern: "Subjek + Predikat + Objek + Keterangan",
+            },
+          ],
+          options: [
+            {
+              content:
+                "Kalimat pertama dan ketiga memiliki struktur yang sama dengan tambahan keterangan",
+              correct: true,
+            },
+            {
+              content: "Semua kalimat memiliki struktur yang sama",
+              correct: false,
+            },
+            {
+              content: "Kalimat kedua tidak memiliki predikat",
+              correct: false,
+            },
+            {
+              content: "Tidak ada pola yang konsisten dalam struktur kalimat",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Kalimat pertama (S+P+O) dan ketiga (S+P+O+K) memiliki struktur dasar yang sama, dengan kalimat ketiga ditambah keterangan cara.",
+        },
+        {
+          question:
+            "Berdasarkan semua teks yang telah dibaca, manakah kesimpulan yang paling tepat?",
+          type: "conclusion",
+          summary:
+            "Teks-teks yang telah dibaca membahas tentang kehidupan sehari-hari dalam bahasa Sunda, meliputi aktivitas sekolah, liburan, kegiatan harian, dan pentingnya membaca.",
+          themes: [
+            "Pendidikan dan pembelajaran",
+            "Kehidupan keluarga",
+            "Aktivitas sehari-hari",
+            "Pentingnya literasi",
+          ],
+          options: [
+            {
+              content:
+                "Teks aksara Sunda menggambarkan kehidupan sehari-hari dan nilai-nilai positif masyarakat Sunda",
+              correct: true,
+            },
+            {
+              content: "Teks aksara Sunda hanya membahas tentang sekolah",
+              correct: false,
+            },
+            {
+              content: "Teks aksara Sunda sulit dipahami karena tidak relevan",
+              correct: false,
+            },
+            {
+              content: "Teks aksara Sunda hanya cocok untuk anak-anak",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Semua teks menunjukkan bahwa aksara Sunda digunakan untuk menggambarkan kehidupan sehari-hari dan menyampaikan nilai-nilai positif.",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let userAnswers = [];
+      let startTime = Date.now();
+      let selectedBlanks = {};
+
+      function initializeQuiz() {
+        generateQuizHTML();
+        showQuestion(0);
+        updateProgress();
+      }
+
+      function generateQuizHTML() {
+        const container = document.getElementById("quizContainer");
+        container.innerHTML = "";
+
+        quizData.forEach((question, index) => {
+          let questionHTML = `
+                    <div class="question-card" id="question-${index}">
+                        <div class="question-number">Soal ${index + 1} dari ${
+            quizData.length
+          }</div>
+                        <div class="question-text">${question.question}</div>
+                `;
+
+          // Text reading type
+          if (question.type === "text_reading") {
+            questionHTML += `
+                        <div class="text-showcase">
+                            <div class="text-title">${question.text.title}</div>
+                            <div class="text-display">
+                                <div class="sunda-text">${
+                                  question.text.sunda
+                                }</div>
+                                <div class="latin-text">${
+                                  question.text.latin
+                                }</div>
+                                <div class="text-translation">${
+                                  question.text.translation
+                                }</div>
+                            </div>
+                            <div class="text-analysis">
+                                ${Object.entries(question.analysis)
+                                  .map(
+                                    ([key, value]) => `
+                                    <div class="analysis-item">
+                                        <div class="analysis-title">${key}:</div>
+                                        <div class="analysis-content">${value}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Fill blanks type
+          if (question.type === "fill_blanks") {
+            let textWithInputs = question.textWithBlanks;
+            question.blanks.forEach((blank, blankIndex) => {
+              textWithInputs = textWithInputs.replace(
+                "_____",
+                `<span class="blank-input" onclick="selectBlank(${index}, ${blankIndex})" id="blank-${index}-${blankIndex}">___</span>`
+              );
+            });
+
+            questionHTML += `
+                        <div class="fill-blank">
+                            <div class="blank-title">Lengkapi kalimat berikut:</div>
+                            <div class="text-with-blanks">${textWithInputs}</div>
+                            <div class="word-choices">
+                                ${question.choices
+                                  .map(
+                                    (choice, choiceIndex) => `
+                                    <div class="word-choice" onclick="fillBlank(${index}, '${choice}')" id="choice-${index}-${choiceIndex}">
+                                        ${choice}
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                            <button class="btn btn-secondary" onclick="checkBlanks(${index})" style="margin-top: 1rem;">
+                                <i data-feather="check"></i> Periksa Jawaban
+                            </button>
+                        </div>
+                    `;
+          }
+
+          // Comprehension type
+          if (question.type === "comprehension") {
+            questionHTML += `
+                        <div class="reading-comprehension">
+                            <div class="comprehension-title">${
+                              question.text.title
+                            }</div>
+                            <div class="text-display">
+                                <div class="sunda-text">${
+                                  question.text.sunda
+                                }</div>
+                                <div class="latin-text">${
+                                  question.text.latin
+                                }</div>
+                                <div class="text-translation">${
+                                  question.text.translation
+                                }</div>
+                            </div>
+                            <div class="text-summary">
+                                ${Object.entries(question.summary)
+                                  .map(
+                                    ([key, value]) => `
+                                    <div class="summary-item">
+                                        <div class="summary-label">${key}:</div>
+                                        <div class="summary-value">${value}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Sequence type
+          if (question.type === "sequence") {
+            questionHTML += `
+                        <div class="text-showcase">
+                            <div class="text-title">${question.text.title}</div>
+                            <div class="text-display">
+                                <div class="sunda-text">${
+                                  question.text.sunda
+                                }</div>
+                                <div class="latin-text">${
+                                  question.text.latin
+                                }</div>
+                                <div class="text-translation">${
+                                  question.text.translation
+                                }</div>
+                            </div>
+                            <div class="text-analysis">
+                                <div class="analysis-item">
+                                    <div class="analysis-title">Peristiwa dalam teks:</div>
+                                    <div class="analysis-content">
+                                        ${question.events
+                                          .map(
+                                            (event, i) => `${i + 1}. ${event}`
+                                          )
+                                          .join("<br>")}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Main idea type
+          if (question.type === "main_idea") {
+            questionHTML += `
+                        <div class="text-showcase">
+                            <div class="text-title">${question.text.title}</div>
+                            <div class="text-display">
+                                <div class="sunda-text">${
+                                  question.text.sunda
+                                }</div>
+                                <div class="latin-text">${
+                                  question.text.latin
+                                }</div>
+                                <div class="text-translation">${
+                                  question.text.translation
+                                }</div>
+                            </div>
+                            <div class="text-analysis">
+                                <div class="analysis-item">
+                                    <div class="analysis-title">Manfaat membaca buku:</div>
+                                    <div class="analysis-content">
+                                        ${question.benefits
+                                          .map((benefit, i) => `• ${benefit}`)
+                                          .join("<br>")}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Sentence structure type
+          if (question.type === "sentence_structure") {
+            questionHTML += `
+                        <div class="text-showcase">
+                            <div class="text-title">${question.text.title}</div>
+                            <div class="text-display">
+                                <div class="sunda-text">${
+                                  question.text.sunda
+                                }</div>
+                                <div class="latin-text">${
+                                  question.text.latin
+                                }</div>
+                                <div class="text-translation">${
+                                  question.text.translation
+                                }</div>
+                            </div>
+                            <div class="text-analysis">
+                                ${question.structures
+                                  .map(
+                                    (struct, i) => `
+                                    <div class="analysis-item">
+                                        <div class="analysis-title">Kalimat ${
+                                          i + 1
+                                        }:</div>
+                                        <div class="analysis-content">${
+                                          struct.pattern
+                                        }</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Conclusion type
+          if (question.type === "conclusion") {
+            questionHTML += `
+                        <div class="reading-comprehension">
+                            <div class="comprehension-title">Rangkuman Pembelajaran</div>
+                            <div class="text-summary">
+                                <div class="summary-item">
+                                    <div class="summary-label">Ringkasan:</div>
+                                    <div class="summary-value">${
+                                      question.summary
+                                    }</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Tema Utama:</div>
+                                    <div class="summary-value">${question.themes.join(
+                                      ", "
+                                    )}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Options for non-fill-blank questions
+          if (question.type !== "fill_blanks") {
+            questionHTML += `
+                        <div class="options" id="options-${index}">
+                            ${question.options
+                              .map(
+                                (option, optionIndex) => `
+                                <div class="option" onclick="selectAnswer(${index}, ${optionIndex})">
+                                    <div class="option-content">${option.content}</div>
+                                </div>
+                            `
+                              )
+                              .join("")}
+                        </div>
+                    `;
+          }
+
+          questionHTML += `
+                        <div class="feedback" id="feedback-${index}"></div>
+                        
+                        <div class="controls">
+                            <button class="btn btn-secondary" onclick="previousQuestion()" ${
+                              index === 0 ? 'style="visibility: hidden"' : ""
+                            }>
+                                <i data-feather="arrow-left"></i> Sebelumnya
+                            </button>
+                            <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                                ${
+                                  index === quizData.length - 1
+                                    ? "Selesai"
+                                    : "Selanjutnya"
+                                } 
+                                <i data-feather="arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+          container.innerHTML += questionHTML;
+        });
+      }
+
+      let currentBlank = null;
+
+      function selectBlank(questionIndex, blankIndex) {
+        // Reset previous selections
+        document.querySelectorAll(".blank-input").forEach((blank) => {
+          blank.classList.remove("selected");
+        });
+
+        // Select current blank
+        const blankElement = document.getElementById(
+          `blank-${questionIndex}-${blankIndex}`
+        );
+        blankElement.classList.add("selected");
+        currentBlank = { questionIndex, blankIndex };
+      }
+
+      function fillBlank(questionIndex, word) {
+        if (!currentBlank || currentBlank.questionIndex !== questionIndex) {
+          return;
+        }
+
+        const blankElement = document.getElementById(
+          `blank-${questionIndex}-${currentBlank.blankIndex}`
+        );
+        blankElement.textContent = word;
+        blankElement.classList.add("filled");
+        blankElement.classList.remove("selected");
+
+        // Mark choice as used
+        document
+          .querySelectorAll(
+            `[onclick="fillBlank(${questionIndex}, '${word}')"]`
+          )
+          .forEach((choice) => {
+            choice.classList.add("used");
+          });
+
+        // Store answer
+        if (!selectedBlanks[questionIndex]) {
+          selectedBlanks[questionIndex] = {};
+        }
+        selectedBlanks[questionIndex][currentBlank.blankIndex] = word;
+
+        currentBlank = null;
+      }
+
+      function checkBlanks(questionIndex) {
+        const question = quizData[questionIndex];
+        let correctCount = 0;
+
+        question.blanks.forEach((blank, index) => {
+          const userAnswer =
+            selectedBlanks[questionIndex] &&
+            selectedBlanks[questionIndex][index];
+          if (userAnswer === blank.correct) {
+            correctCount++;
+          }
+        });
+
+        const isCorrect = correctCount === question.blanks.length;
+
+        if (isCorrect) {
+          score += Math.round(100 / quizData.length);
+          showFeedback(
+            questionIndex,
+            "correct",
+            "✓ Benar! " + question.explanation
+          );
+        } else {
+          showFeedback(
+            questionIndex,
+            "incorrect",
+            "✗ Salah. " + question.explanation
+          );
+        }
+
+        // Enable next button
+        document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+      }
+
+      function selectAnswer(questionIndex, answerIndex) {
+        const options = document.querySelectorAll(
+          `#options-${questionIndex} .option`
+        );
+        const question = quizData[questionIndex];
+
+        // Remove previous selections
+        options.forEach((option) => {
+          option.classList.remove("selected", "correct", "incorrect");
+        });
+
+        // Mark selected answer
+        options[answerIndex].classList.add("selected");
+
+        // Store user answer
+        userAnswers[questionIndex] = answerIndex;
+
+        // Check if correct
+        const isCorrect = question.options[answerIndex].correct;
+
+        if (isCorrect) {
+          options[answerIndex].classList.add("correct");
+          score += Math.round(100 / quizData.length);
+          showFeedback(
+            questionIndex,
+            "correct",
+            "✓ Benar! " + question.explanation
+          );
+        } else {
+          options[answerIndex].classList.add("incorrect");
+          // Show correct answer
+          question.options.forEach((option, index) => {
+            if (option.correct) {
+              options[index].classList.add("correct");
+            }
+          });
+          showFeedback(
+            questionIndex,
+            "incorrect",
+            "✗ Salah. " + question.explanation
+          );
+        }
+
+        // Enable next button
+        document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+      }
+
+      function showFeedback(questionIndex, type, message) {
+        const feedback = document.getElementById(`feedback-${questionIndex}`);
+        feedback.className = `feedback ${type}`;
+        feedback.innerHTML = message;
+        feedback.style.display = "block";
+      }
+
+      function showQuestion(index) {
+        // Hide all questions
+        document.querySelectorAll(".question-card").forEach((card) => {
+          card.classList.remove("active");
+        });
+
+        // Show current question
+        document.getElementById(`question-${index}`).classList.add("active");
+
+        // Update progress
+        updateProgress();
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextQuestion() {
+        if (currentQuestion < quizData.length - 1) {
+          currentQuestion++;
+          showQuestion(currentQuestion);
+        } else {
+          showResults();
+        }
+      }
+
+      function previousQuestion() {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          showQuestion(currentQuestion);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (currentQuestion / quizData.length) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+        document.getElementById("progressText").textContent = `Soal ${
+          currentQuestion + 1
+        } dari ${quizData.length}`;
+      }
+
+      function showResults() {
+        const endTime = Date.now();
+        const timeTaken = Math.floor((endTime - startTime) / 1000);
+        const minutes = Math.floor(timeTaken / 60);
+        const seconds = timeTaken % 60;
+
+        const correctCount = Math.round(score / (100 / quizData.length));
+        const incorrectCount = quizData.length - correctCount;
+
+        // Hide quiz container
+        document.getElementById("quizContainer").style.display = "none";
+        document.querySelector(".progress-container").style.display = "none";
+
+        // Show results
+        document.getElementById("resultScreen").classList.add("show");
+        document.getElementById("finalScore").textContent = score + "/100";
+        document.getElementById("correctAnswers").textContent = correctCount;
+        document.getElementById("incorrectAnswers").textContent =
+          incorrectCount;
+        document.getElementById("timeTaken").textContent = `${minutes}:${seconds
+          .toString()
+          .padStart(2, "0")}`;
+        document.getElementById("accuracy").textContent = score + "%";
+
+        // Update result message
+        let message = "";
+        if (score >= 90) {
+          message =
+            "🌟 Luar biasa! Anda sangat mahir membaca teks aksara Sunda!";
+        } else if (score >= 80) {
+          message =
+            "👏 Excellent! Anda sudah mampu memahami teks sederhana dengan baik.";
+        } else if (score >= 70) {
+          message =
+            "👍 Bagus! Terus berlatih membaca teks yang lebih kompleks.";
+        } else {
+          message =
+            "💪 Jangan menyerah! Latihan membaca teks akan meningkatkan pemahaman Anda.";
+        }
+
+        document.getElementById("resultMessage").textContent = message;
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextLevel() {
+        window.location.href = "level-10-percakapan.html";
+      }
+
+      // Initialize quiz when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeQuiz();
+        feather.replace();
+      });
+    </script>
+  </body>
+</html>
