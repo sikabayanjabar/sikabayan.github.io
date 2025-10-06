@@ -1262,9 +1262,9 @@ footer .credits a {
   .navbar .navbar-nav {
     position: absolute;
     top: 100%;
-    right: -100%;
+    right: -50%;
     background-color: rgba(1, 1, 1, 0.95);
-    width: 30rem;
+    width: 50%;
     height: 100vh;
     transition: 0.3s;
     flex-direction: column;
@@ -1538,8 +1538,8 @@ footer .credits a {
   }
 
   .navbar .navbar-nav {
-    width: 100vw;
-    right: -100vw;
+    width: 50%;
+    right: -50%;
   }
 
   .navbar .navbar-nav a {
