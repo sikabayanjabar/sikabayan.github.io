@@ -741,7 +741,8 @@ body {
   font-size: 1.2rem;
   color: var(--primary);
   margin: 0;
-  font-style: italic;
+  font-style: normal;
+  font-weight: bold;
 }
 
 /* Contact Information Section */
