@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 18: Teks Kontemporer Aksara Sunda - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        padding-top: 8rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .exercise-header h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .exercise-description {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        opacity: 0.9;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 1rem 0;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.5s ease;
+      }
+
+      .progress-text {
+        text-align: center;
+        margin-top: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .exercise-content {
+        display: grid;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .exercise-section {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .section-title {
+        color: var(--primary);
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      /* Modern Text Examples */
+      .modern-texts {
+        background: linear-gradient(
+          135deg,
+          rgba(32, 147, 164, 0.1),
+          rgba(52, 167, 184, 0.1)
+        );
+        border-left: 4px solid var(--primary);
+      }
+
+      .text-examples {
+        display: grid;
+        gap: 2rem;
+        margin-top: 1.5rem;
+      }
+
+      .text-example {
+        background: white;
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .text-category {
+        background: var(--primary);
+        color: white;
+        padding: 0.3rem 1rem;
+        border-radius: 1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      .sunda-text {
+        font-size: 1.3rem;
+        line-height: 1.8;
+        color: #2d4a78;
+        font-family: "Sundanese Unicode", serif;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: rgba(245, 247, 250, 0.8);
+        border-radius: 0.5rem;
+        border-left: 3px solid var(--primary);
+      }
+
+      .text-translation {
+        font-size: 1rem;
+        color: #666;
+        font-style: italic;
+        padding: 0.8rem;
+        background: rgba(243, 244, 246, 0.5);
+        border-radius: 0.5rem;
+      }
+
+      /* Translation Exercise */
+      .translation-section {
+        background: linear-gradient(
+          135deg,
+          rgba(139, 92, 246, 0.1),
+          rgba(124, 58, 237, 0.1)
+        );
+        border-left: 4px solid #8b5cf6;
+      }
+
+      .translation-exercise {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        margin-top: 1.5rem;
+      }
+
+      .source-text {
+        background: white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .translation-input {
+        width: 100%;
+        min-height: 120px;
+        padding: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        font-size: 1rem;
+        font-family: "Sundanese Unicode", serif;
+        resize: vertical;
+      }
+
+      .translation-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* Writing Practice */
+      .writing-section {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.1),
+          rgba(34, 197, 94, 0.1)
+        );
+        border-left: 4px solid #10b981;
+      }
+
+      .writing-prompts {
+        display: grid;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .prompt-card {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .prompt-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .prompt-description {
+        color: var(--text-color);
+        opacity: 0.8;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+
+      .writing-area {
+        width: 100%;
+        min-height: 100px;
+        padding: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        font-size: 1rem;
+        font-family: "Sundanese Unicode", serif;
+        resize: vertical;
+      }
+
+      .writing-area:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* Context Understanding */
+      .context-section {
+        background: linear-gradient(
+          135deg,
+          rgba(236, 72, 153, 0.1),
+          rgba(219, 39, 119, 0.1)
+        );
+        border-left: 4px solid #ec4899;
+      }
+
+      .context-questions {
+        margin-top: 1.5rem;
+      }
+
+      .question-item {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .question-text {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+
+      .multiple-choice {
+        display: grid;
+        gap: 0.8rem;
+      }
+
+      .choice-option {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .choice-option:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+      }
+
+      .choice-option.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .choice-option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+      }
+
+      .choice-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      .choice-letter {
+        background: var(--primary);
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+
+      /* Results */
+      .results-section {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.1),
+          rgba(34, 197, 94, 0.1)
+        );
+        border-left: 4px solid #10b981;
+        text-align: center;
+        display: none;
+      }
+
+      .results-section.show {
+        display: block;
+      }
+
+      .score-display {
+        font-size: 3rem;
+        color: #10b981;
+        font-weight: 900;
+        margin: 1rem 0;
+      }
+
+      .score-message {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+          padding-top: 7rem;
+        }
+
+        .exercise-header h1 {
+          font-size: 2rem;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .sunda-text {
+          font-size: 1.1rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="exercise-container">
+      <!-- Header -->
+      <div class="exercise-header">
+        <h1>
+          <i data-feather="users"></i>
+          Level 18: Teks Kontemporer Aksara Sunda
+        </h1>
+        <div class="exercise-description">
+          Pelajari penggunaan aksara Sunda dalam konteks modern, termasuk media
+          sosial, teknologi, dan komunikasi masa kini. Pahami adaptasi bahasa
+          tradisional untuk era digital.
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% Selesai</div>
+      </div>
+
+      <!-- Exercise Content -->
+      <div class="exercise-content">
+        <!-- Modern Text Examples -->
+        <div class="exercise-section modern-texts">
+          <h2 class="section-title">
+            <i data-feather="smartphone"></i>
+            Contoh Teks Modern
+          </h2>
+
+          <div class="text-examples">
+            <div class="text-example">
+              <div class="text-category">Media Sosial</div>
+              <div class="sunda-text">
+                ᮞᮤᮜᮃᮀ ᮔᮥᮔᮥᮒᮔ᮪ ᮃᮊ᮪ᮞᮛ ᮞᮥᮔ᮪ᮓ ᮓᮤ ᮞᮙᮂᮨᮓ᮪ ᮞᮦᮁᮔ᮪! 🌍 #ᮞᮥᮔ᮪ᮓᮃ
+                #ᮃᮊ᮪ᮞᮛᮞᮥᮔ᮪ᮓ
+              </div>
+              <div class="text-translation">
+                "Silahkan gunakan aksara Sunda di media sosial! 🌍 #Sunda
+                #AksaraSunda"
+              </div>
+            </div>
+
+            <div class="text-example">
+              <div class="text-category">Teknologi</div>
+              <div class="sunda-text">
+                ᮃᮕ᮪ᮜᮤᮊᮞᮤ ᮠᮔ᮪ᮓᮖᮤ ᮃᮊ᮪ᮞᮛ ᮞᮥᮔ᮪ᮓ ᮞᮙᮕᮥᮔ᮪ ᮓᮤᮓᮩᮔ᮪ᮓᮥᮂ ᮌᮛᮤᮞ᮪!
+              </div>
+              <div class="text-translation">
+                "Aplikasi handphone aksara Sunda sampun didunuh gratis!"
+                <br /><em
+                  >(Aplikasi handphone aksara Sunda sudah bisa diunduh
+                  gratis!)</em
+                >
+              </div>
+            </div>
+
+            <div class="text-example">
+              <div class="text-category">Berita</div>
+              <div class="sunda-text">
+                ᮕᮨᮙᮨᮛᮤᮔ᮪ᮒᮃᮂ ᮏᮝ ᮘᮛᮒ᮪ ᮔᮦᮒᮀ ᮓᮤᮔ ᮓᮥᮔᮤᮃ ᮞᮤᮘᮨᮁ ᮞᮔ ᮄᮔ᮪ᮒᮥᮔ᮪ ᮞᮥᮔ᮪ᮓ.
+              </div>
+              <div class="text-translation">
+                "Pemerintah Jawa Barat netapkeun dinten dunia siber san éntun
+                Sunda."
+                <br /><em
+                  >(Pemerintah Jawa Barat menetapkan hari dunia siber dan hari
+                  Sunda.)</em
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Translation Exercise -->
+        <div class="exercise-section translation-section">
+          <h2 class="section-title">
+            <i data-feather="shuffle"></i>
+            Latihan Terjemahan Modern
+          </h2>
+
+          <div class="translation-exercise">
+            <p
+              style="
+                color: var(--text-color);
+                opacity: 0.8;
+                margin-bottom: 1.5rem;
+              "
+            >
+              Terjemahkan kalimat modern berikut ke dalam aksara Sunda:
+            </p>
+
+            <div class="source-text">
+              <strong>Bahasa Indonesia:</strong><br />
+              "Selamat pagi! Jangan lupa untuk menggunakan masker dan mencuci
+              tangan. Kita harus menjaga kesehatan bersama-sama di era digital
+              ini."
+            </div>
+
+            <textarea
+              class="translation-input"
+              id="translationInput"
+              placeholder="Tulis terjemahan dalam aksara Sunda di sini..."
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Writing Practice -->
+        <div class="exercise-section writing-section">
+          <h2 class="section-title">
+            <i data-feather="edit"></i>
+            Praktik Menulis Kontemporer
+          </h2>
+
+          <div class="writing-prompts">
+            <div class="prompt-card">
+              <div class="prompt-title">
+                <i data-feather="message-circle"></i>
+                Pesan WhatsApp
+              </div>
+              <div class="prompt-description">
+                Tulis pesan WhatsApp untuk mengundang teman ke acara ulang tahun
+                dalam aksara Sunda:
+              </div>
+              <textarea
+                class="writing-area"
+                id="whatsappMsg"
+                placeholder="Tulis pesan WhatsApp dalam aksara Sunda..."
+              ></textarea>
+            </div>
+
+            <div class="prompt-card">
+              <div class="prompt-title">
+                <i data-feather="instagram"></i>
+                Caption Instagram
+              </div>
+              <div class="prompt-description">
+                Buat caption Instagram untuk foto makanan tradisional Sunda:
+              </div>
+              <textarea
+                class="writing-area"
+                id="instagramCaption"
+                placeholder="Tulis caption Instagram dalam aksara Sunda..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Context Understanding -->
+        <div class="exercise-section context-section">
+          <h2 class="section-title">
+            <i data-feather="help-circle"></i>
+            Pemahaman Konteks Modern
+          </h2>
+
+          <div class="context-questions">
+            <div class="question-item">
+              <div class="question-text">
+                1. Dalam konteks media sosial, apa manfaat utama menggunakan
+                aksara Sunda?
+              </div>
+              <div class="multiple-choice">
+                <div class="choice-option" onclick="selectChoice(this, false)">
+                  <div class="choice-letter">A</div>
+                  <div>Agar terlihat lebih keren</div>
+                </div>
+                <div class="choice-option" onclick="selectChoice(this, true)">
+                  <div class="choice-letter">B</div>
+                  <div>Melestarikan budaya dan identitas Sunda</div>
+                </div>
+                <div class="choice-option" onclick="selectChoice(this, false)">
+                  <div class="choice-letter">C</div>
+                  <div>Membuat orang bingung</div>
+                </div>
+                <div class="choice-option" onclick="selectChoice(this, false)">
+                  <div class="choice-letter">D</div>
+                  <div>Menghemat kuota internet</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="question-item">
+              <div class="question-text">
+                2. Bagaimana cara yang tepat menulis kata-kata teknologi modern
+                dalam aksara Sunda?
+              </div>
+              <div class="multiple-choice">
+                <div class="choice-option" onclick="selectChoice(this, false)">
+                  <div class="choice-letter">A</div>
+                  <div>Menggunakan bahasa Inggris saja</div>
+                </div>
+                <div class="choice-option" onclick="selectChoice(this, true)">
+                  <div class="choice-letter">B</div>
+                  <div>Adaptasi fonetik ke dalam aksara Sunda</div>
+                </div>
+                <div class="choice-option" onclick="selectChoice(this, false)">
+                  <div class="choice-letter">C</div>
+                  <div>Tidak perlu ditulis</div>
+                </div>
+                <div class="choice-option" onclick="selectChoice(this, false)">
+                  <div class="choice-letter">D</div>
+                  <div>Menggunakan angka saja</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="question-item">
+              <div class="question-text">
+                3. Apa tantangan utama dalam menggunakan aksara Sunda di era
+                digital?
+              </div>
+              <div class="multiple-choice">
+                <div class="choice-option" onclick="selectChoice(this, false)">
+                  <div class="choice-letter">A</div>
+                  <div>Aksara Sunda tidak bagus</div>
+                </div>
+                <div class="choice-option" onclick="selectChoice(this, false)">
+                  <div class="choice-letter">B</div>
+                  <div>Terlalu mudah dipelajari</div>
+                </div>
+                <div class="choice-option" onclick="selectChoice(this, true)">
+                  <div class="choice-letter">C</div>
+                  <div>Dukungan teknologi dan kesadaran masyarakat</div>
+                </div>
+                <div class="choice-option" onclick="selectChoice(this, false)">
+                  <div class="choice-letter">D</div>
+                  <div>Tidak ada masalah sama sekali</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="exercise-section results-section" id="results">
+          <h2 class="section-title">
+            <i data-feather="award"></i>
+            Hasil Latihan
+          </h2>
+
+          <div class="score-display" id="scoreDisplay">0/6</div>
+          <div class="score-message" id="scoreMessage"></div>
+
+          <div class="action-buttons">
+            <a href="../latihan.html" class="btn btn-secondary">
+              <i data-feather="arrow-left"></i> Kembali ke Daftar Level
+            </a>
+            <a
+              href="level-19-karya-tulis.html"
+              class="btn btn-primary"
+              id="nextLevelBtn"
+              style="display: none"
+            >
+              <i data-feather="arrow-right"></i> Level Berikutnya
+            </a>
+            <button class="btn btn-primary" onclick="resetExercise()">
+              <i data-feather="refresh-cw"></i> Ulangi Latihan
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div style="text-align: center; margin-top: 2rem">
+        <button
+          class="btn btn-primary"
+          onclick="submitExercise()"
+          style="font-size: 1.1rem; padding: 1.2rem 2.5rem"
+        >
+          <i data-feather="check"></i> Submit Latihan
+        </button>
+      </div>
+    </div>
+
+    <script>
+      let selectedAnswers = [];
+      let writingScore = 0;
+
+      function selectChoice(element, isCorrect) {
+        // Remove previous selection in the same question
+        const questionItem = element.closest(".question-item");
+        const choices = questionItem.querySelectorAll(".choice-option");
+        choices.forEach((choice) => choice.classList.remove("selected"));
+
+        // Select current choice
+        element.classList.add("selected");
+
+        // Store answer
+        const questionIndex = Array.from(
+          document.querySelectorAll(".question-item")
+        ).indexOf(questionItem);
+        selectedAnswers[questionIndex] = isCorrect;
+      }
+
+      function submitExercise() {
+        // Check multiple choice answers
+        if (selectedAnswers.length < 3 || selectedAnswers.includes(undefined)) {
+          alert("Mohon jawab semua pertanyaan pilihan ganda terlebih dahulu!");
+          return;
+        }
+
+        // Calculate writing score
+        writingScore = 0;
+        const translation = document
+          .getElementById("translationInput")
+          .value.trim();
+        const whatsapp = document.getElementById("whatsappMsg").value.trim();
+        const instagram = document
+          .getElementById("instagramCaption")
+          .value.trim();
+
+        if (translation.length > 20) writingScore++;
+        if (whatsapp.length > 15) writingScore++;
+        if (instagram.length > 15) writingScore++;
+
+        // Calculate total score
+        const mcScore = selectedAnswers.filter(
+          (answer) => answer === true
+        ).length;
+        const totalScore = mcScore + writingScore;
+
+        // Show correct answers
+        const questionItems = document.querySelectorAll(".question-item");
+        questionItems.forEach((item, index) => {
+          const choices = item.querySelectorAll(".choice-option");
+          choices.forEach((choice) => {
+            if (choice.classList.contains("selected")) {
+              if (selectedAnswers[index]) {
+                choice.classList.add("correct");
+              } else {
+                choice.classList.add("incorrect");
+              }
+            }
+          });
+        });
+
+        updateProgress(100);
+        showResults(totalScore);
+        saveProgress(totalScore);
+      }
+
+      function showResults(score) {
+        const resultsSection = document.getElementById("results");
+        const scoreDisplay = document.getElementById("scoreDisplay");
+        const scoreMessage = document.getElementById("scoreMessage");
+        const nextLevelBtn = document.getElementById("nextLevelBtn");
+
+        scoreDisplay.textContent = `${score}/6`;
+
+        let message = "";
+        if (score >= 5) {
+          message =
+            "🎉 Sempurna! Anda menguasai penggunaan aksara Sunda dalam konteks modern!";
+          nextLevelBtn.style.display = "inline-flex";
+        } else if (score >= 4) {
+          message =
+            "👍 Bagus! Anda sudah memahami adaptasi aksara Sunda ke era digital.";
+          nextLevelBtn.style.display = "inline-flex";
+        } else if (score >= 2) {
+          message =
+            "📖 Cukup baik! Masih perlu latihan menggunakan aksara Sunda modern.";
+        } else {
+          message =
+            "💪 Jangan menyerah! Pelajari lagi cara menggunakan aksara Sunda di era digital.";
+        }
+
+        scoreMessage.textContent = message;
+        resultsSection.classList.add("show");
+        resultsSection.scrollIntoView({ behavior: "smooth" });
+      }
+
+      function updateProgress(percentage) {
+        const progressFill = document.getElementById("progressFill");
+        const progressText = document.getElementById("progressText");
+
+        progressFill.style.width = percentage + "%";
+        progressText.textContent = percentage + "% Selesai";
+      }
+
+      function resetExercise() {
+        // Reset answers
+        selectedAnswers = [];
+        writingScore = 0;
+
+        // Reset UI
+        document.querySelectorAll(".choice-option").forEach((choice) => {
+          choice.classList.remove("selected", "correct", "incorrect");
+        });
+
+        // Reset text areas
+        document.querySelectorAll("textarea").forEach((textarea) => {
+          textarea.value = "";
+        });
+
+        document.getElementById("results").classList.remove("show");
+        updateProgress(0);
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function saveProgress(score) {
+        // Save to localStorage
+        const progress = {
+          level: 18,
+          completed: score >= 4,
+          score: score,
+          timestamp: new Date().toISOString(),
+        };
+
+        localStorage.setItem("level-18-progress", JSON.stringify(progress));
+
+        // Update overall progress
+        const overallProgress = JSON.parse(
+          localStorage.getItem("sikabayan-progress") || "{}"
+        );
+        overallProgress.level18 = progress;
+        localStorage.setItem(
+          "sikabayan-progress",
+          JSON.stringify(overallProgress)
+        );
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        feather.replace();
+
+        // Load saved progress
+        const savedProgress = localStorage.getItem("level-18-progress");
+        if (savedProgress) {
+          const progress = JSON.parse(savedProgress);
+          if (progress.completed) {
+            updateProgress(100);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -87,7 +87,7 @@ body {
 }
 
 .navbar .navbar-logo span {
-  color: #ffd700 !important;
+  color: var(--primary);
   vertical-align: middle;
 }
 
@@ -1283,7 +1283,7 @@ section p {
     font-size: clamp(2.5rem, 7vw, 6rem); /* Smaller title on mobile */
     line-height: 1.2;
     margin-bottom: 0.8rem;
-    color: #4c2a2a;
+    color: #2093a4;
   }
 
   .hero .content .hero-subtitle {
@@ -1409,7 +1409,7 @@ section p {
 
 .hero .content .hero-title {
   font-size: clamp(3rem, 8vw, 8rem);
-  color: #4c2a2a;
+  color: #2093a4;
   text-shadow: 2px 2px 4px rgba(1, 1, 3, 0.7);
   line-height: 1.1;
   margin-bottom: 1rem;

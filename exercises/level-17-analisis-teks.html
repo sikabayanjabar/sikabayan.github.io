@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 17: Analisis Teks Aksara Sunda - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        padding-top: 8rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .exercise-header h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .exercise-description {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        opacity: 0.9;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 1rem 0;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.5s ease;
+      }
+
+      .progress-text {
+        text-align: center;
+        margin-top: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .exercise-content {
+        display: grid;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .exercise-section {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .section-title {
+        color: var(--primary);
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      /* Text Analysis */
+      .text-analysis {
+        background: linear-gradient(
+          135deg,
+          rgba(32, 147, 164, 0.1),
+          rgba(52, 167, 184, 0.1)
+        );
+        border-left: 4px solid var(--primary);
+      }
+
+      .text-sample {
+        background: white;
+        border-radius: 0.8rem;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .text-content {
+        font-size: 1.5rem;
+        line-height: 2;
+        color: #2d4a78;
+        font-family: "Sundanese Unicode", serif;
+        text-align: center;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #f8fafc, #e2e8f0);
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+      }
+
+      .text-translation {
+        font-size: 1.1rem;
+        color: #666;
+        font-style: italic;
+        text-align: center;
+        padding: 1rem;
+        background: rgba(243, 244, 246, 0.5);
+        border-radius: 0.5rem;
+        border-left: 3px solid var(--primary);
+      }
+
+      .analysis-questions {
+        margin-top: 2rem;
+      }
+
+      .question-item {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .question-text {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+
+      .answer-input {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        font-size: 1rem;
+        min-height: 80px;
+        resize: vertical;
+      }
+
+      .answer-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* Vocabulary Section */
+      .vocabulary-section {
+        background: linear-gradient(
+          135deg,
+          rgba(139, 92, 246, 0.1),
+          rgba(124, 58, 237, 0.1)
+        );
+        border-left: 4px solid #8b5cf6;
+      }
+
+      .vocabulary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .vocabulary-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .vocabulary-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      .sunda-word {
+        font-size: 1.8rem;
+        color: var(--primary);
+        font-family: "Sundanese Unicode", serif;
+        margin-bottom: 0.5rem;
+        text-align: center;
+      }
+
+      .latin-word {
+        font-size: 1rem;
+        color: var(--text-color);
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .word-meaning {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        opacity: 0.8;
+        text-align: center;
+        font-style: italic;
+      }
+
+      /* Interactive Elements */
+      .interactive-section {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.1),
+          rgba(34, 197, 94, 0.1)
+        );
+        border-left: 4px solid #10b981;
+      }
+
+      .word-matching {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-top: 1rem;
+      }
+
+      .words-column {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+      }
+
+      .column-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .word-item {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .word-item:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+      }
+
+      .word-item.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .word-item.matched {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+        cursor: default;
+      }
+
+      .word-item.wrong {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      /* Results */
+      .results-section {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.1),
+          rgba(34, 197, 94, 0.1)
+        );
+        border-left: 4px solid #10b981;
+        text-align: center;
+        display: none;
+      }
+
+      .results-section.show {
+        display: block;
+      }
+
+      .score-display {
+        font-size: 3rem;
+        color: #10b981;
+        font-weight: 900;
+        margin: 1rem 0;
+      }
+
+      .score-message {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+          padding-top: 7rem;
+        }
+
+        .exercise-header h1 {
+          font-size: 2rem;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .text-content {
+          font-size: 1.2rem;
+        }
+
+        .vocabulary-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .word-matching {
+          grid-template-columns: 1fr;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="exercise-container">
+      <!-- Header -->
+      <div class="exercise-header">
+        <h1>
+          <i data-feather="trending-up"></i>
+          Level 17: Analisis Teks Aksara Sunda
+        </h1>
+        <div class="exercise-description">
+          Kembangkan kemampuan memahami makna mendalam teks aksara Sunda melalui
+          analisis konteks, struktur kalimat, dan interpretasi pesan yang
+          terkandung dalam teks.
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% Selesai</div>
+      </div>
+
+      <!-- Exercise Content -->
+      <div class="exercise-content">
+        <!-- Text Analysis Section -->
+        <div class="exercise-section text-analysis">
+          <h2 class="section-title">
+            <i data-feather="file-text"></i>
+            Analisis Teks Sunda
+          </h2>
+
+          <div class="text-sample">
+            <div class="text-content">
+              ᮞᮥᮔ᮪ᮓ ᮒᮦᮃ ᮃᮞᮜ᮪ ᮔᮥ ᮃᮓᮒ᮪ ᮄᮔ᮪ᮒᮥᮔ᮪ ᮞᮥᮔ᮪ᮓᮃ᮹ ᮔᮥ ᮠᮜᮥᮞ᮪᮹ ᮙᮥᮜᮦᮃ. ᮃᮞᮜ᮪ ᮞᮥᮔ᮪ᮓ
+              ᮒᮦᮃ ᮃᮞᮤ ᮓᮤ ᮞᮥᮔ᮪ᮓ ᮓᮃᮔ᮪ ᮙᮥᮔ᮪ᮓᮃ ᮊᮜᮤᮀ ᮌᮥᮔᮥᮀ.
+            </div>
+
+            <div class="text-translation">
+              "Sunda tea asal nu adat éntun Sunda nu halus mulia. Asal Sunda tea
+              asi di Sunda dan munda kalih gunung."
+              <br /><em
+                >(Bahasa Indonesia: "Sunda adalah asal dari adat yang luhur
+                Sunda yang halus dan mulia. Asal Sunda berada di antara Sunda
+                dan dikelilingi oleh gunung.")</em
+              >
+            </div>
+          </div>
+
+          <div class="analysis-questions">
+            <div class="question-item">
+              <div class="question-text">
+                1. Apa makna filosofis dari frasa "nu halus mulia" dalam konteks
+                budaya Sunda?
+              </div>
+              <textarea
+                class="answer-input"
+                id="answer1"
+                placeholder="Tuliskan analisis Anda di sini..."
+              ></textarea>
+            </div>
+
+            <div class="question-item">
+              <div class="question-text">
+                2. Mengapa geografis (gunung) disebutkan dalam teks ini? Apa
+                hubungannya dengan identitas Sunda?
+              </div>
+              <textarea
+                class="answer-input"
+                id="answer2"
+                placeholder="Tuliskan analisis Anda di sini..."
+              ></textarea>
+            </div>
+
+            <div class="question-item">
+              <div class="question-text">
+                3. Identifikasi struktur kalimat dalam teks dan jelaskan pola
+                penggunaan kata kerja!
+              </div>
+              <textarea
+                class="answer-input"
+                id="answer3"
+                placeholder="Tuliskan analisis Anda di sini..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vocabulary Section -->
+        <div class="exercise-section vocabulary-section">
+          <h2 class="section-title">
+            <i data-feather="book-open"></i>
+            Kosakata Penting
+          </h2>
+
+          <div class="vocabulary-grid">
+            <div class="vocabulary-card">
+              <div class="sunda-word">ᮃᮞᮜ᮪</div>
+              <div class="latin-word">asal</div>
+              <div class="word-meaning">asal-usul, sumber</div>
+            </div>
+            <div class="vocabulary-card">
+              <div class="sunda-word">ᮃᮓᮒ᮪</div>
+              <div class="latin-word">adat</div>
+              <div class="word-meaning">tradisi, kebiasaan</div>
+            </div>
+            <div class="vocabulary-card">
+              <div class="sunda-word">ᮠᮜᮥᮞ᮪</div>
+              <div class="latin-word">halus</div>
+              <div class="word-meaning">sopan, santun, lembut</div>
+            </div>
+            <div class="vocabulary-card">
+              <div class="sunda-word">ᮙᮥᮜᮦᮃ</div>
+              <div class="latin-word">mulia</div>
+              <div class="word-meaning">terhormat, agung</div>
+            </div>
+            <div class="vocabulary-card">
+              <div class="sunda-word">ᮌᮥᮔᮥᮀ</div>
+              <div class="latin-word">gunung</div>
+              <div class="word-meaning">pegunungan</div>
+            </div>
+            <div class="vocabulary-card">
+              <div class="sunda-word">ᮙᮥᮔ᮪ᮓᮃ</div>
+              <div class="latin-word">munda</div>
+              <div class="word-meaning">dikelilingi</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Matching -->
+        <div class="exercise-section interactive-section">
+          <h2 class="section-title">
+            <i data-feather="shuffle"></i>
+            Latihan Mencocokkan Makna
+          </h2>
+
+          <p
+            style="color: var(--text-color); opacity: 0.8; margin-bottom: 2rem"
+          >
+            Cocokkan kata-kata aksara Sunda dengan maknanya yang tepat:
+          </p>
+
+          <div class="word-matching">
+            <div class="words-column">
+              <div class="column-title">Aksara Sunda</div>
+              <div class="word-item sunda-item" data-word="adat">ᮃᮓᮒ᮪</div>
+              <div class="word-item sunda-item" data-word="halus">ᮠᮜᮥᮞ᮪</div>
+              <div class="word-item sunda-item" data-word="mulia">ᮙᮥᮜᮦᮃ</div>
+              <div class="word-item sunda-item" data-word="gunung">ᮌᮥᮔᮥᮀ</div>
+              <div class="word-item sunda-item" data-word="asal">ᮃᮞᮜ᮪</div>
+            </div>
+
+            <div class="words-column">
+              <div class="column-title">Makna</div>
+              <div class="word-item meaning-item" data-meaning="asal">
+                Sumber, asal-usul
+              </div>
+              <div class="word-item meaning-item" data-meaning="gunung">
+                Pegunungan tinggi
+              </div>
+              <div class="word-item meaning-item" data-meaning="halus">
+                Sopan dan santun
+              </div>
+              <div class="word-item meaning-item" data-meaning="adat">
+                Tradisi leluhur
+              </div>
+              <div class="word-item meaning-item" data-meaning="mulia">
+                Terhormat dan agung
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="exercise-section results-section" id="results">
+          <h2 class="section-title">
+            <i data-feather="award"></i>
+            Hasil Analisis
+          </h2>
+
+          <div class="score-display" id="scoreDisplay">0/8</div>
+          <div class="score-message" id="scoreMessage"></div>
+
+          <div class="action-buttons">
+            <a href="../latihan.html" class="btn btn-secondary">
+              <i data-feather="arrow-left"></i> Kembali ke Daftar Level
+            </a>
+            <a
+              href="level-18-teks-kontemporer.html"
+              class="btn btn-primary"
+              id="nextLevelBtn"
+              style="display: none"
+            >
+              <i data-feather="arrow-right"></i> Level Berikutnya
+            </a>
+            <button class="btn btn-primary" onclick="resetExercise()">
+              <i data-feather="refresh-cw"></i> Ulangi Latihan
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div style="text-align: center; margin-top: 2rem">
+        <button
+          class="btn btn-primary"
+          onclick="submitAnalysis()"
+          style="font-size: 1.1rem; padding: 1.2rem 2.5rem"
+        >
+          <i data-feather="check"></i> Submit Analisis
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Matching game functionality
+      let selectedSunda = null;
+      let selectedMeaning = null;
+      let matches = 0;
+      let totalMatches = 5;
+      let answersProvided = 0;
+
+      // Add event listeners to word items
+      document.addEventListener("DOMContentLoaded", function () {
+        feather.replace();
+
+        // Sunda words
+        document.querySelectorAll(".sunda-item").forEach((item) => {
+          item.addEventListener("click", function () {
+            if (this.classList.contains("matched")) return;
+
+            // Clear previous selection
+            document
+              .querySelectorAll(".sunda-item")
+              .forEach((i) => i.classList.remove("selected"));
+
+            // Select current
+            this.classList.add("selected");
+            selectedSunda = this;
+
+            // Check for match
+            if (selectedMeaning) {
+              checkMatch();
+            }
+          });
+        });
+
+        // Meaning words
+        document.querySelectorAll(".meaning-item").forEach((item) => {
+          item.addEventListener("click", function () {
+            if (this.classList.contains("matched")) return;
+
+            // Clear previous selection
+            document
+              .querySelectorAll(".meaning-item")
+              .forEach((i) => i.classList.remove("selected"));
+
+            // Select current
+            this.classList.add("selected");
+            selectedMeaning = this;
+
+            // Check for match
+            if (selectedSunda) {
+              checkMatch();
+            }
+          });
+        });
+      });
+
+      function checkMatch() {
+        const sundaWord = selectedSunda.dataset.word;
+        const meaningWord = selectedMeaning.dataset.meaning;
+
+        if (sundaWord === meaningWord) {
+          // Correct match
+          selectedSunda.classList.remove("selected");
+          selectedMeaning.classList.remove("selected");
+          selectedSunda.classList.add("matched");
+          selectedMeaning.classList.add("matched");
+
+          matches++;
+
+          // Reset selections
+          selectedSunda = null;
+          selectedMeaning = null;
+
+          // Check if all matches are done
+          if (matches === totalMatches) {
+            updateProgress(40); // 40% for matching
+          }
+        } else {
+          // Wrong match
+          selectedSunda.classList.add("wrong");
+          selectedMeaning.classList.add("wrong");
+
+          setTimeout(() => {
+            selectedSunda.classList.remove("selected", "wrong");
+            selectedMeaning.classList.remove("selected", "wrong");
+            selectedSunda = null;
+            selectedMeaning = null;
+          }, 1000);
+        }
+      }
+
+      function submitAnalysis() {
+        // Check text analysis answers
+        const answer1 = document.getElementById("answer1").value.trim();
+        const answer2 = document.getElementById("answer2").value.trim();
+        const answer3 = document.getElementById("answer3").value.trim();
+
+        answersProvided = 0;
+        if (answer1.length > 20) answersProvided++;
+        if (answer2.length > 20) answersProvided++;
+        if (answer3.length > 20) answersProvided++;
+
+        if (answersProvided === 0 && matches === 0) {
+          alert(
+            "Mohon isi analisis teks dan selesaikan latihan mencocokkan terlebih dahulu!"
+          );
+          return;
+        }
+
+        // Calculate total score
+        const totalScore = matches + answersProvided;
+        updateProgress(100);
+        showResults(totalScore);
+        saveProgress(totalScore);
+      }
+
+      function showResults(score) {
+        const resultsSection = document.getElementById("results");
+        const scoreDisplay = document.getElementById("scoreDisplay");
+        const scoreMessage = document.getElementById("scoreMessage");
+        const nextLevelBtn = document.getElementById("nextLevelBtn");
+
+        scoreDisplay.textContent = `${score}/8`;
+
+        let message = "";
+        if (score >= 7) {
+          message =
+            "🎉 Luar biasa! Anda menguasai analisis teks aksara Sunda dengan sangat baik!";
+          nextLevelBtn.style.display = "inline-flex";
+        } else if (score >= 5) {
+          message = "👍 Bagus! Kemampuan analisis teks Anda sudah cukup baik.";
+          nextLevelBtn.style.display = "inline-flex";
+        } else if (score >= 3) {
+          message =
+            "📖 Cukup baik! Masih perlu latihan lebih banyak dalam menganalisis teks.";
+        } else {
+          message =
+            "💪 Jangan menyerah! Coba pelajari lagi cara menganalisis teks Sunda.";
+        }
+
+        scoreMessage.textContent = message;
+        resultsSection.classList.add("show");
+        resultsSection.scrollIntoView({ behavior: "smooth" });
+      }
+
+      function updateProgress(percentage) {
+        const progressFill = document.getElementById("progressFill");
+        const progressText = document.getElementById("progressText");
+
+        progressFill.style.width = percentage + "%";
+        progressText.textContent = percentage + "% Selesai";
+      }
+
+      function resetExercise() {
+        // Reset matching
+        matches = 0;
+        answersProvided = 0;
+        selectedSunda = null;
+        selectedMeaning = null;
+
+        // Reset UI
+        document.querySelectorAll(".word-item").forEach((item) => {
+          item.classList.remove("selected", "matched", "wrong");
+        });
+
+        // Reset text answers
+        document.querySelectorAll(".answer-input").forEach((input) => {
+          input.value = "";
+        });
+
+        document.getElementById("results").classList.remove("show");
+        updateProgress(0);
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function saveProgress(score) {
+        // Save to localStorage
+        const progress = {
+          level: 17,
+          completed: score >= 5,
+          score: score,
+          timestamp: new Date().toISOString(),
+        };
+
+        localStorage.setItem("level-17-progress", JSON.stringify(progress));
+
+        // Update overall progress
+        const overallProgress = JSON.parse(
+          localStorage.getItem("sikabayan-progress") || "{}"
+        );
+        overallProgress.level17 = progress;
+        localStorage.setItem(
+          "sikabayan-progress",
+          JSON.stringify(overallProgress)
+        );
+      }
+
+      // Load saved progress
+      window.addEventListener("load", function () {
+        const savedProgress = localStorage.getItem("level-17-progress");
+        if (savedProgress) {
+          const progress = JSON.parse(savedProgress);
+          if (progress.completed) {
+            updateProgress(100);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

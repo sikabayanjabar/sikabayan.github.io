@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 19: Karya Tulis Aksara Sunda - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        padding-top: 8rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .exercise-header h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .exercise-description {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        opacity: 0.9;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 1rem 0;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.5s ease;
+      }
+
+      .progress-text {
+        text-align: center;
+        margin-top: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .exercise-content {
+        display: grid;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .exercise-section {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .section-title {
+        color: var(--primary);
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      /* Guidelines Section */
+      .guidelines-section {
+        background: linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.1),
+          rgba(37, 99, 235, 0.1)
+        );
+        border-left: 4px solid #3b82f6;
+      }
+
+      .guideline-cards {
+        display: grid;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .guideline-card {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .guideline-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .guideline-content {
+        color: var(--text-color);
+        opacity: 0.8;
+        line-height: 1.6;
+      }
+
+      .guideline-example {
+        background: rgba(32, 147, 164, 0.1);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-family: "Sundanese Unicode", serif;
+        font-size: 1.1rem;
+        border-left: 3px solid var(--primary);
+      }
+
+      /* Writing Templates */
+      .templates-section {
+        background: linear-gradient(
+          135deg,
+          rgba(139, 92, 246, 0.1),
+          rgba(124, 58, 237, 0.1)
+        );
+        border-left: 4px solid #8b5cf6;
+      }
+
+      .template-tabs {
+        display: flex;
+        gap: 1rem;
+        margin: 1.5rem 0;
+        flex-wrap: wrap;
+      }
+
+      .template-tab {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        padding: 0.8rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .template-tab.active {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+        color: var(--primary);
+      }
+
+      .template-content {
+        display: none;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        margin-top: 1rem;
+      }
+
+      .template-content.active {
+        display: block;
+      }
+
+      .template-structure {
+        background: white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .structure-item {
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .structure-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      .structure-label {
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .structure-description {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      /* Writing Area */
+      .writing-section {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.1),
+          rgba(34, 197, 94, 0.1)
+        );
+        border-left: 4px solid #10b981;
+      }
+
+      .writing-workspace {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        margin-top: 1.5rem;
+      }
+
+      .work-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .info-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .info-label {
+        font-weight: 600;
+        color: var(--text-color);
+      }
+
+      .info-input {
+        padding: 0.8rem 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        font-size: 1rem;
+      }
+
+      .info-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .writing-editor {
+        width: 100%;
+        min-height: 400px;
+        padding: 1.5rem;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        font-size: 1.1rem;
+        font-family: "Sundanese Unicode", serif;
+        line-height: 1.8;
+        resize: vertical;
+      }
+
+      .writing-editor:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .word-count {
+        text-align: right;
+        margin-top: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.6;
+        font-size: 0.9rem;
+      }
+
+      .writing-tools {
+        display: flex;
+        gap: 1rem;
+        margin: 1rem 0;
+        flex-wrap: wrap;
+      }
+
+      .tool-btn {
+        padding: 0.5rem 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.3rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .tool-btn:hover {
+        background: rgba(32, 147, 164, 0.2);
+        border-color: var(--primary);
+      }
+
+      /* Review Section */
+      .review-section {
+        background: linear-gradient(
+          135deg,
+          rgba(236, 72, 153, 0.1),
+          rgba(219, 39, 119, 0.1)
+        );
+        border-left: 4px solid #ec4899;
+      }
+
+      .review-criteria {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .criteria-item {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .criteria-title {
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .criteria-description {
+        color: var(--text-color);
+        opacity: 0.8;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+
+      .rating-scale {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .rating-btn {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .rating-btn:hover,
+      .rating-btn.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.3);
+        color: var(--primary);
+      }
+
+      /* Results */
+      .results-section {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.1),
+          rgba(34, 197, 94, 0.1)
+        );
+        border-left: 4px solid #10b981;
+        text-align: center;
+        display: none;
+      }
+
+      .results-section.show {
+        display: block;
+      }
+
+      .score-display {
+        font-size: 3rem;
+        color: #10b981;
+        font-weight: 900;
+        margin: 1rem 0;
+      }
+
+      .score-message {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+          padding-top: 7rem;
+        }
+
+        .exercise-header h1 {
+          font-size: 2rem;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .work-info {
+          grid-template-columns: 1fr;
+        }
+
+        .writing-tools {
+          justify-content: center;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="exercise-container">
+      <!-- Header -->
+      <div class="exercise-header">
+        <h1>
+          <i data-feather="edit-3"></i>
+          Level 19: Karya Tulis Aksara Sunda
+        </h1>
+        <div class="exercise-description">
+          Buat karya tulis lengkap menggunakan aksara Sunda. Pelajari struktur
+          penulisan formal, dari esai hingga artikel ilmiah dalam aksara dan
+          bahasa Sunda.
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% Selesai</div>
+      </div>
+
+      <!-- Exercise Content -->
+      <div class="exercise-content">
+        <!-- Writing Guidelines -->
+        <div class="exercise-section guidelines-section">
+          <h2 class="section-title">
+            <i data-feather="book-open"></i>
+            Panduan Penulisan
+          </h2>
+
+          <div class="guideline-cards">
+            <div class="guideline-card">
+              <div class="guideline-title">
+                <i data-feather="target"></i>
+                Tujuan Penulisan
+              </div>
+              <div class="guideline-content">
+                Tentukan tujuan karya tulis: informatif, persuasif, atau
+                naratif. Sesuaikan gaya bahasa dengan tujuan dan target pembaca.
+                <div class="guideline-example">
+                  ᮞᮥᮙᮚᮀᮔ᮪: ᮒᮥᮏᮥᮃᮔ᮪ ᮞᮤᮃᮠ ᮘᮚᮊ᮪ ᮠᮦᮔ᮪ᮒᮩ ᮔᮥᮜᮤᮞ᮪ ᮃᮁᮒᮤᮊᮦᮜ᮪
+                  <br /><em>(Contoh: Tujuan naskah untuk menulis artikel)</em>
+                </div>
+              </div>
+            </div>
+
+            <div class="guideline-card">
+              <div class="guideline-title">
+                <i data-feather="layers"></i>
+                Struktur Karangan
+              </div>
+              <div class="guideline-content">
+                Gunakan struktur tiga bagian: bubuka (pendahuluan), eusi (isi),
+                dan kacindekan (kesimpulan). Setiap paragraf harus memiliki
+                gagasan utama yang jelas.
+                <div class="guideline-example">
+                  ᮘᮥᮘᮥᮊ → ᮄᮞᮤ → ᮊᮎᮤᮔ᮪ᮓᮨᮊᮔ᮪
+                  <br /><em>(Bubuka → Eusi → Kacindekan)</em>
+                </div>
+              </div>
+            </div>
+
+            <div class="guideline-card">
+              <div class="guideline-title">
+                <i data-feather="type"></i>
+                Penggunaan Bahasa
+              </div>
+              <div class="guideline-content">
+                Gunakan bahasa Sunda yang baku dan formal. Hindari kata-kata
+                kasar atau tidak pantas. Gunakan istilah teknis dalam aksara
+                Sunda jika diperlukan.
+                <div class="guideline-example">
+                  ᮘᮞ ᮞᮥᮔ᮪ᮓ ᮘᮊᮥ: ᮊᮤᮒᮥ ᮠᮁᮊ᮪ ᮔᮥᮜᮤᮞ᮪ ᮃᮁᮒᮤᮊᮦᮜ᮪
+                  <br /><em>(Bahasa Sunda baku: Kita harus menulis artikel)</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Writing Templates -->
+        <div class="exercise-section templates-section">
+          <h2 class="section-title">
+            <i data-feather="layout"></i>
+            Template Karya Tulis
+          </h2>
+
+          <div class="template-tabs">
+            <div class="template-tab active" onclick="showTemplate('essay')">
+              Esai
+            </div>
+            <div class="template-tab" onclick="showTemplate('article')">
+              Artikel
+            </div>
+            <div class="template-tab" onclick="showTemplate('report')">
+              Laporan
+            </div>
+            <div class="template-tab" onclick="showTemplate('story')">
+              Carita
+            </div>
+          </div>
+
+          <!-- Essay Template -->
+          <div class="template-content active" id="template-essay">
+            <h3 style="color: var(--primary); margin-bottom: 1rem">
+              Template Esai
+            </h3>
+            <div class="template-structure">
+              <div class="structure-item">
+                <div class="structure-label">1. Bubuka (Pendahuluan)</div>
+                <div class="structure-description">
+                  Perkenalkan topik dan nyatakan pendapat utama (thesis
+                  statement)
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">2. Paragraf Argumentasi 1</div>
+                <div class="structure-description">
+                  Berikan argumen pertama dengan bukti dan contoh
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">3. Paragraf Argumentasi 2</div>
+                <div class="structure-description">
+                  Berikan argumen kedua dengan bukti dan contoh
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">4. Paragraf Argumentasi 3</div>
+                <div class="structure-description">
+                  Berikan argumen ketiga atau tanggapi argumen lawan
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">5. Kacindekan (Kesimpulan)</div>
+                <div class="structure-description">
+                  Simpulkan argumen dan tegaskan kembali pendapat utama
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Article Template -->
+          <div class="template-content" id="template-article">
+            <h3 style="color: var(--primary); margin-bottom: 1rem">
+              Template Artikel
+            </h3>
+            <div class="template-structure">
+              <div class="structure-item">
+                <div class="structure-label">1. Judul (Judul)</div>
+                <div class="structure-description">
+                  Judul yang menarik dan informatif
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">2. Lead/Bubuka</div>
+                <div class="structure-description">
+                  Paragraf pembuka yang menarik perhatian pembaca
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">3. Eusi Utama</div>
+                <div class="structure-description">
+                  Informasi utama dengan data dan fakta pendukung
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">4. Subtopik</div>
+                <div class="structure-description">
+                  Pembahasan detail dengan subjudul yang jelas
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">5. Panutup</div>
+                <div class="structure-description">
+                  Kesimpulan atau call-to-action
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Report Template -->
+          <div class="template-content" id="template-report">
+            <h3 style="color: var(--primary); margin-bottom: 1rem">
+              Template Laporan
+            </h3>
+            <div class="template-structure">
+              <div class="structure-item">
+                <div class="structure-label">1. Judul Laporan</div>
+                <div class="structure-description">
+                  Judul yang spesifik dan formal
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">2. Tujuan</div>
+                <div class="structure-description">
+                  Tujuan pembuatan laporan
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">3. Metodologi</div>
+                <div class="structure-description">
+                  Cara pengumpulan data dan informasi
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">4. Hasil</div>
+                <div class="structure-description">
+                  Temuan dan data yang diperoleh
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">5. Rekomendasi</div>
+                <div class="structure-description">
+                  Saran berdasarkan hasil temuan
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Story Template -->
+          <div class="template-content" id="template-story">
+            <h3 style="color: var(--primary); margin-bottom: 1rem">
+              Template Carita
+            </h3>
+            <div class="template-structure">
+              <div class="structure-item">
+                <div class="structure-label">1. Orientasi</div>
+                <div class="structure-description">
+                  Perkenalan tokoh, waktu, dan tempat
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">2. Komplikasi</div>
+                <div class="structure-description">
+                  Munculnya masalah atau konflik
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">3. Klimaks</div>
+                <div class="structure-description">
+                  Puncak ketegangan cerita
+                </div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">4. Resolusi</div>
+                <div class="structure-description">Penyelesaian masalah</div>
+              </div>
+              <div class="structure-item">
+                <div class="structure-label">5. Koda</div>
+                <div class="structure-description">Pesan moral atau hikmah</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Writing Workspace -->
+        <div class="exercise-section writing-section">
+          <h2 class="section-title">
+            <i data-feather="edit"></i>
+            Ruang Menulis
+          </h2>
+
+          <div class="writing-workspace">
+            <div class="work-info">
+              <div class="info-field">
+                <label class="info-label">Judul Karya</label>
+                <input
+                  type="text"
+                  class="info-input"
+                  id="workTitle"
+                  placeholder="Masukkan judul karya tulis..."
+                />
+              </div>
+              <div class="info-field">
+                <label class="info-label">Jenis Tulisan</label>
+                <select class="info-input" id="workType">
+                  <option value="essay">Esai</option>
+                  <option value="article">Artikel</option>
+                  <option value="report">Laporan</option>
+                  <option value="story">Carita</option>
+                </select>
+              </div>
+              <div class="info-field">
+                <label class="info-label">Target Kata</label>
+                <select class="info-input" id="wordTarget">
+                  <option value="300">300 kata</option>
+                  <option value="500">500 kata</option>
+                  <option value="750">750 kata</option>
+                  <option value="1000">1000 kata</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="writing-tools">
+              <button class="tool-btn" onclick="insertText('ᮘᮥᮘᮥᮊ:\n')">
+                Bubuka
+              </button>
+              <button class="tool-btn" onclick="insertText('ᮄᮞᮤ:\n')">
+                Eusi
+              </button>
+              <button class="tool-btn" onclick="insertText('ᮊᮎᮤᮔ᮪ᮓᮨᮊᮔ᮪:\n')">
+                Kacindekan
+              </button>
+              <button class="tool-btn" onclick="insertText('ᮞᮩᮙᮘᮦᮁ:\n')">
+                Sumber
+              </button>
+            </div>
+
+            <textarea
+              class="writing-editor"
+              id="mainEditor"
+              placeholder="Mulai menulis karya tulis Anda dalam aksara Sunda di sini...
+                              
+Contoh:
+ᮘᮥᮘᮥᮊ:
+ᮤᮩ ᮏᮙᮔ᮪ ᮞᮙᮃᮁᮃᮔ᮪, ᮃᮊ᮪ᮞᮛ ᮞᮥᮔ᮪ᮓ ᮉᮦᮔ᮪ᮒᮩ ᮃᮚᮚᮞᮥᮎᮤ ᮊᮥᮜᮤᮒ ᮓᮤ ᮏᮝ ᮘᮛᮒ᮪. ᮊᮎᮤᮔ᮪ᮓᮨᮊᮔ᮪ ᮞᮤᮊᮘᮚᮔ᮪ ᮞᮤᮞ᮪ᮒᮦᮙ᮪ ᮕᮦᮔ᮪ᮓᮤᮓᮤᮊᮔ᮪ ᮃᮊ᮪ᮞᮛ ᮞᮥᮔ᮪ᮓ ᮞᮚᮊ᮪ ᮓᮦᮔ᮪ᮌᮔ᮪ ᮒᮨᮊ᮪ᮔᮧᮜᮧᮌᮤ ᮙᮧᮓᮨᮁᮔ᮪..."
+            ></textarea>
+
+            <div class="word-count" id="wordCount">0 kata</div>
+          </div>
+        </div>
+
+        <!-- Review Criteria -->
+        <div class="exercise-section review-section">
+          <h2 class="section-title">
+            <i data-feather="check-circle"></i>
+            Kriteria Penilaian
+          </h2>
+
+          <div class="review-criteria">
+            <div class="criteria-item">
+              <div class="criteria-title">
+                <i data-feather="type"></i>
+                Penggunaan Aksara Sunda
+              </div>
+              <div class="criteria-description">
+                Ketepatan penggunaan aksara Sunda, termasuk pasangan dan virama
+              </div>
+              <div class="rating-scale">
+                <span style="margin-right: 1rem">Buruk</span>
+                <button class="rating-btn" onclick="setRating('aksara', 1)">
+                  1
+                </button>
+                <button class="rating-btn" onclick="setRating('aksara', 2)">
+                  2
+                </button>
+                <button class="rating-btn" onclick="setRating('aksara', 3)">
+                  3
+                </button>
+                <button class="rating-btn" onclick="setRating('aksara', 4)">
+                  4
+                </button>
+                <button class="rating-btn" onclick="setRating('aksara', 5)">
+                  5
+                </button>
+                <span style="margin-left: 1rem">Sempurna</span>
+              </div>
+            </div>
+
+            <div class="criteria-item">
+              <div class="criteria-title">
+                <i data-feather="layers"></i>
+                Struktur Tulisan
+              </div>
+              <div class="criteria-description">
+                Kejelasan struktur bubuka, eusi, dan kacindekan
+              </div>
+              <div class="rating-scale">
+                <span style="margin-right: 1rem">Buruk</span>
+                <button class="rating-btn" onclick="setRating('struktur', 1)">
+                  1
+                </button>
+                <button class="rating-btn" onclick="setRating('struktur', 2)">
+                  2
+                </button>
+                <button class="rating-btn" onclick="setRating('struktur', 3)">
+                  3
+                </button>
+                <button class="rating-btn" onclick="setRating('struktur', 4)">
+                  4
+                </button>
+                <button class="rating-btn" onclick="setRating('struktur', 5)">
+                  5
+                </button>
+                <span style="margin-left: 1rem">Sempurna</span>
+              </div>
+            </div>
+
+            <div class="criteria-item">
+              <div class="criteria-title">
+                <i data-feather="message-square"></i>
+                Isi dan Gagasan
+              </div>
+              <div class="criteria-description">
+                Kedalaman isi, kesesuaian dengan topik, dan originalitas gagasan
+              </div>
+              <div class="rating-scale">
+                <span style="margin-right: 1rem">Buruk</span>
+                <button class="rating-btn" onclick="setRating('isi', 1)">
+                  1
+                </button>
+                <button class="rating-btn" onclick="setRating('isi', 2)">
+                  2
+                </button>
+                <button class="rating-btn" onclick="setRating('isi', 3)">
+                  3
+                </button>
+                <button class="rating-btn" onclick="setRating('isi', 4)">
+                  4
+                </button>
+                <button class="rating-btn" onclick="setRating('isi', 5)">
+                  5
+                </button>
+                <span style="margin-left: 1rem">Sempurna</span>
+              </div>
+            </div>
+
+            <div class="criteria-item">
+              <div class="criteria-title">
+                <i data-feather="book"></i>
+                Bahasa dan Gaya
+              </div>
+              <div class="criteria-description">
+                Penggunaan bahasa Sunda yang baku, formal, dan sesuai konteks
+              </div>
+              <div class="rating-scale">
+                <span style="margin-right: 1rem">Buruk</span>
+                <button class="rating-btn" onclick="setRating('bahasa', 1)">
+                  1
+                </button>
+                <button class="rating-btn" onclick="setRating('bahasa', 2)">
+                  2
+                </button>
+                <button class="rating-btn" onclick="setRating('bahasa', 3)">
+                  3
+                </button>
+                <button class="rating-btn" onclick="setRating('bahasa', 4)">
+                  4
+                </button>
+                <button class="rating-btn" onclick="setRating('bahasa', 5)">
+                  5
+                </button>
+                <span style="margin-left: 1rem">Sempurna</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="exercise-section results-section" id="results">
+          <h2 class="section-title">
+            <i data-feather="award"></i>
+            Hasil Penilaian
+          </h2>
+
+          <div class="score-display" id="scoreDisplay">0/20</div>
+          <div class="score-message" id="scoreMessage"></div>
+
+          <div class="action-buttons">
+            <a href="../latihan.html" class="btn btn-secondary">
+              <i data-feather="arrow-left"></i> Kembali ke Daftar Level
+            </a>
+            <a
+              href="level-20-ujian-akhir.html"
+              class="btn btn-primary"
+              id="nextLevelBtn"
+              style="display: none"
+            >
+              <i data-feather="arrow-right"></i> Level Terakhir
+            </a>
+            <button class="btn btn-primary" onclick="resetExercise()">
+              <i data-feather="refresh-cw"></i> Tulis Ulang
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div style="text-align: center; margin-top: 2rem">
+        <button
+          class="btn btn-primary"
+          onclick="submitWork()"
+          style="font-size: 1.1rem; padding: 1.2rem 2.5rem"
+        >
+          <i data-feather="send"></i> Submit Karya Tulis
+        </button>
+      </div>
+    </div>
+
+    <script>
+      let ratings = {};
+      let wordCount = 0;
+
+      function showTemplate(templateType) {
+        // Remove active class from all tabs and contents
+        document
+          .querySelectorAll(".template-tab")
+          .forEach((tab) => tab.classList.remove("active"));
+        document
+          .querySelectorAll(".template-content")
+          .forEach((content) => content.classList.remove("active"));
+
+        // Add active class to selected tab and content
+        event.target.classList.add("active");
+        document
+          .getElementById(`template-${templateType}`)
+          .classList.add("active");
+      }
+
+      function insertText(text) {
+        const editor = document.getElementById("mainEditor");
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        const value = editor.value;
+
+        editor.value = value.slice(0, start) + text + value.slice(end);
+        editor.focus();
+        editor.selectionStart = editor.selectionEnd = start + text.length;
+
+        updateWordCount();
+      }
+
+      function updateWordCount() {
+        const editor = document.getElementById("mainEditor");
+        const text = editor.value.trim();
+        wordCount = text ? text.split(/\s+/).length : 0;
+
+        const wordCountElement = document.getElementById("wordCount");
+        const target = parseInt(document.getElementById("wordTarget").value);
+
+        wordCountElement.textContent = `${wordCount} kata (Target: ${target} kata)`;
+
+        if (wordCount >= target) {
+          wordCountElement.style.color = "#10b981";
+        } else if (wordCount >= target * 0.8) {
+          wordCountElement.style.color = "#f59e0b";
+        } else {
+          wordCountElement.style.color = "var(--text-color)";
+        }
+      }
+
+      function setRating(criteria, value) {
+        ratings[criteria] = value;
+
+        // Update UI
+        const criteriaElement = document
+          .querySelector(`[onclick*="${criteria}"]`)
+          .closest(".criteria-item");
+        const buttons = criteriaElement.querySelectorAll(".rating-btn");
+
+        buttons.forEach((btn, index) => {
+          if (index < value) {
+            btn.classList.add("selected");
+          } else {
+            btn.classList.remove("selected");
+          }
+        });
+      }
+
+      function submitWork() {
+        const title = document.getElementById("workTitle").value.trim();
+        const content = document.getElementById("mainEditor").value.trim();
+        const target = parseInt(document.getElementById("wordTarget").value);
+
+        // Validation
+        if (!title) {
+          alert("Mohon masukkan judul karya tulis!");
+          return;
+        }
+
+        if (!content || wordCount < 100) {
+          alert("Mohon tulis minimal 100 kata untuk karya tulis!");
+          return;
+        }
+
+        if (Object.keys(ratings).length < 4) {
+          alert("Mohon berikan penilaian untuk semua kriteria!");
+          return;
+        }
+
+        // Calculate scores
+        let contentScore = 0;
+
+        // Word count score (0-5)
+        if (wordCount >= target) {
+          contentScore += 5;
+        } else if (wordCount >= target * 0.8) {
+          contentScore += 4;
+        } else if (wordCount >= target * 0.6) {
+          contentScore += 3;
+        } else if (wordCount >= target * 0.4) {
+          contentScore += 2;
+        } else if (wordCount >= 100) {
+          contentScore += 1;
+        }
+
+        // Ratings score (0-15)
+        const ratingsScore = Object.values(ratings).reduce(
+          (sum, rating) => sum + rating,
+          0
+        );
+
+        const totalScore = contentScore + ratingsScore;
+
+        updateProgress(100);
+        showResults(totalScore);
+        saveWork(title, content, totalScore);
+      }
+
+      function showResults(score) {
+        const resultsSection = document.getElementById("results");
+        const scoreDisplay = document.getElementById("scoreDisplay");
+        const scoreMessage = document.getElementById("scoreMessage");
+        const nextLevelBtn = document.getElementById("nextLevelBtn");
+
+        scoreDisplay.textContent = `${score}/20`;
+
+        let message = "";
+        if (score >= 18) {
+          message = "🏆 Luar biasa! Karya tulis Anda sangat berkualitas!";
+          nextLevelBtn.style.display = "inline-flex";
+        } else if (score >= 15) {
+          message =
+            "⭐ Sangat bagus! Anda menguasai penulisan aksara Sunda dengan baik!";
+          nextLevelBtn.style.display = "inline-flex";
+        } else if (score >= 12) {
+          message =
+            "👍 Bagus! Karya tulis Anda sudah cukup baik, terus berlatih!";
+          nextLevelBtn.style.display = "inline-flex";
+        } else if (score >= 8) {
+          message =
+            "📝 Cukup! Masih perlu latihan lebih untuk meningkatkan kualitas tulisan.";
+        } else {
+          message =
+            "💪 Jangan menyerah! Pelajari lagi panduan penulisan dan berlatih lebih banyak.";
+        }
+
+        scoreMessage.textContent = message;
+        resultsSection.classList.add("show");
+        resultsSection.scrollIntoView({ behavior: "smooth" });
+      }
+
+      function updateProgress(percentage) {
+        const progressFill = document.getElementById("progressFill");
+        const progressText = document.getElementById("progressText");
+
+        progressFill.style.width = percentage + "%";
+        progressText.textContent = percentage + "% Selesai";
+      }
+
+      function resetExercise() {
+        // Reset form
+        document.getElementById("workTitle").value = "";
+        document.getElementById("mainEditor").value = "";
+        document.getElementById("workType").value = "essay";
+        document.getElementById("wordTarget").value = "300";
+
+        // Reset ratings
+        ratings = {};
+        document.querySelectorAll(".rating-btn").forEach((btn) => {
+          btn.classList.remove("selected");
+        });
+
+        // Reset UI
+        document.getElementById("results").classList.remove("show");
+        updateProgress(0);
+        updateWordCount();
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function saveWork(title, content, score) {
+        // Save to localStorage
+        const work = {
+          title: title,
+          content: content,
+          type: document.getElementById("workType").value,
+          wordCount: wordCount,
+          ratings: ratings,
+          score: score,
+          completed: score >= 12,
+          timestamp: new Date().toISOString(),
+        };
+
+        localStorage.setItem("level-19-work", JSON.stringify(work));
+
+        // Update overall progress
+        const overallProgress = JSON.parse(
+          localStorage.getItem("sikabayan-progress") || "{}"
+        );
+        overallProgress.level19 = {
+          level: 19,
+          completed: work.completed,
+          score: score,
+          timestamp: work.timestamp,
+        };
+        localStorage.setItem(
+          "sikabayan-progress",
+          JSON.stringify(overallProgress)
+        );
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        feather.replace();
+
+        // Set up word count listener
+        document
+          .getElementById("mainEditor")
+          .addEventListener("input", updateWordCount);
+        document
+          .getElementById("wordTarget")
+          .addEventListener("change", updateWordCount);
+
+        // Load saved work
+        const savedWork = localStorage.getItem("level-19-work");
+        if (savedWork) {
+          const work = JSON.parse(savedWork);
+          document.getElementById("workTitle").value = work.title || "";
+          document.getElementById("mainEditor").value = work.content || "";
+          document.getElementById("workType").value = work.type || "essay";
+
+          if (work.completed) {
+            updateProgress(100);
+          }
+
+          updateWordCount();
+        }
+
+        updateWordCount();
+      });
+    </script>
+  </body>
+</html>

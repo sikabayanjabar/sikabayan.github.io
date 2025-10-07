@@ -161,6 +161,26 @@
         border: none;
         background: transparent;
         cursor: crosshair;
+        position: relative;
+        z-index: 2;
+      }
+
+      .grid-canvas {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        width: calc(100% - 4rem);
+        height: calc(100% - 4rem);
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.3;
+        border-radius: 0.3rem;
+      }
+
+      .tool-btn[data-feather="grid"].active {
+        background: rgba(32, 147, 164, 0.3);
+        border-color: var(--primary);
+        color: var(--primary);
       }
 
       .stroke-guide {
@@ -379,7 +399,8 @@
         <h1><span>Level 2:</span> Menulis Dasar Aksara Sunda</h1>
         <p>
           Pelajari cara menulis huruf aksara Sunda dengan stroke order yang
-          benar
+          benar. Gunakan tombol <strong>Grid</strong> untuk menampilkan garis
+          koordinat yang membantu menulis dengan rapi dan proporsional.
         </p>
         <div class="level-info">
           <div class="info-item">
@@ -395,6 +416,119 @@
             <span>8 Huruf</span>
           </div>
         </div>
+      </div>
+
+      <!-- Grid Legend -->
+      <div
+        class="grid-legend"
+        style="
+          background: rgba(255, 255, 255, 0.03);
+          padding: 1.5rem;
+          border-radius: 0.8rem;
+          margin-bottom: 1.5rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        "
+      >
+        <h4
+          style="
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          "
+        >
+          <i data-feather="grid"></i> Panduan Grid Koordinat
+        </h4>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            font-size: 0.9rem;
+          "
+        >
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <div
+              style="
+                width: 20px;
+                height: 2px;
+                background: rgba(32, 147, 164, 0.4);
+                border-radius: 1px;
+              "
+            ></div>
+            <span style="color: var(--text-color); opacity: 0.8"
+              >Garis Tengah (Panduan Utama)</span
+            >
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <div
+              style="
+                width: 20px;
+                height: 1px;
+                background: rgba(255, 193, 7, 0.5);
+                border-radius: 1px;
+                border-top: 1px dashed rgba(255, 193, 7, 0.5);
+              "
+            ></div>
+            <span style="color: var(--text-color); opacity: 0.8"
+              >Garis Dasar Aksara</span
+            >
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <div
+              style="
+                width: 20px;
+                height: 1px;
+                background: rgba(32, 147, 164, 0.25);
+                border-radius: 1px;
+              "
+            ></div>
+            <span style="color: var(--text-color); opacity: 0.8"
+              >Grid Utama (30px)</span
+            >
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <div
+              style="
+                width: 20px;
+                height: 1px;
+                background: rgba(32, 147, 164, 0.15);
+                border-radius: 1px;
+              "
+            ></div>
+            <span style="color: var(--text-color); opacity: 0.8"
+              >Grid Halus (15px)</span
+            >
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem">
+            <div
+              style="
+                width: 20px;
+                height: 2px;
+                background: rgba(139, 92, 246, 0.6);
+                border-radius: 1px;
+              "
+            ></div>
+            <span style="color: var(--text-color); opacity: 0.8"
+              >Area Penulisan</span
+            >
+          </div>
+        </div>
+        <p
+          style="
+            margin-top: 1rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 0.85rem;
+          "
+        >
+          💡 <strong>Tips:</strong> Gunakan garis dasar kuning sebagai panduan
+          utama untuk menulis aksara. Grid yang lebih besar (30px) memudahkan
+          penulisan aksara yang rapi dan proporsional. Gunakan grid halus (15px)
+          untuk detail yang lebih presisi. Bagian atas aksara berada di atas
+          garis dasar, dan bagian bawah di bawah garis dasar.
+        </p>
       </div>
 
       <!-- Progress Bar -->
@@ -566,12 +700,16 @@
                             <button class="tool-btn active" onclick="setPenSize(2)" data-size="2">Tipis</button>
                             <button class="tool-btn" onclick="setPenSize(4)" data-size="4">Sedang</button>
                             <button class="tool-btn" onclick="setPenSize(6)" data-size="6">Tebal</button>
+                            <button class="tool-btn" onclick="toggleGrid(${index})" id="grid-btn-${index}">
+                                <i data-feather="grid"></i> Grid
+                            </button>
                             <button class="tool-btn" onclick="clearCanvas(${index})">
                                 <i data-feather="trash-2"></i> Hapus
                             </button>
                         </div>
                         
                         <div class="writing-area">
+                            <canvas class="grid-canvas" id="grid-${index}"></canvas>
                             <canvas class="writing-canvas" id="canvas-${index}"></canvas>
                         </div>
                         
@@ -609,18 +747,55 @@
       }
 
       function setupCanvas(index) {
+        console.log(`Setting up canvas ${index}`);
+
         const canvas = document.getElementById(`canvas-${index}`);
+        const gridCanvas = document.getElementById(`grid-${index}`);
+
+        if (!canvas || !gridCanvas) {
+          console.error(`Canvas elements not found for index ${index}`);
+          return;
+        }
+
         const context = canvas.getContext("2d");
 
-        // Set canvas size
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+        // Set canvas size - use timeout to ensure DOM is fully rendered
+        setTimeout(() => {
+          const rect = canvas.getBoundingClientRect();
+          console.log(`Canvas ${index} rect:`, rect);
 
-        // Set drawing style
-        context.strokeStyle = "#20a5b8";
-        context.lineWidth = 2;
-        context.lineCap = "round";
-        context.lineJoin = "round";
+          if (rect.width === 0 || rect.height === 0) {
+            console.warn(`Canvas ${index} has zero dimensions, retrying...`);
+            setupCanvas(index); // Retry
+            return;
+          }
+
+          canvas.width = rect.width;
+          canvas.height = rect.height;
+
+          // Set grid canvas size
+          gridCanvas.width = rect.width;
+          gridCanvas.height = rect.height;
+
+          // Set drawing style
+          context.strokeStyle = "#20a5b8";
+          context.lineWidth = 2;
+          context.lineCap = "round";
+          context.lineJoin = "round";
+
+          console.log(
+            `Canvas ${index} setup complete. Size: ${canvas.width}x${canvas.height}`
+          );
+
+          // Draw initial grid
+          drawGrid(index);
+
+          // Set grid button initial state as active
+          const gridBtn = document.getElementById(`grid-btn-${index}`);
+          if (gridBtn) {
+            gridBtn.classList.add("active");
+          }
+        }, 300);
 
         // Add event listeners
         canvas.addEventListener("mousedown", startDrawing);
@@ -635,21 +810,32 @@
       }
 
       function startDrawing(e) {
+        e.preventDefault();
         isDrawing = true;
-        const canvas = e.target;
-        const context = canvas.getContext("2d");
-        const rect = canvas.getBoundingClientRect();
+        currentCanvas = e.target;
+        currentContext = currentCanvas.getContext("2d");
+
+        // Debug logging
+        console.log("Start drawing on canvas:", currentCanvas.id);
+
+        const rect = currentCanvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        context.beginPath();
-        context.moveTo(x, y);
-        currentCanvas = canvas;
-        currentContext = context;
+        // Ensure drawing style is set
+        currentContext.strokeStyle = "#20a5b8";
+        currentContext.lineWidth = 2;
+        currentContext.lineCap = "round";
+        currentContext.lineJoin = "round";
+
+        currentContext.beginPath();
+        currentContext.moveTo(x, y);
       }
 
       function draw(e) {
         if (!isDrawing || !currentContext) return;
+
+        e.preventDefault();
 
         const rect = currentCanvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -657,10 +843,19 @@
 
         currentContext.lineTo(x, y);
         currentContext.stroke();
+
+        // Keep the path going
+        currentContext.beginPath();
+        currentContext.moveTo(x, y);
       }
 
-      function stopDrawing() {
+      function stopDrawing(e) {
+        if (!isDrawing) return;
+
         isDrawing = false;
+        if (currentContext) {
+          currentContext.beginPath(); // End the current path
+        }
         currentCanvas = null;
         currentContext = null;
       }
@@ -855,14 +1050,182 @@
         feather.replace();
       }
 
+      // Grid functions
+      function drawGrid(index) {
+        const gridCanvas = document.getElementById(`grid-${index}`);
+        if (!gridCanvas) {
+          console.error(`Grid canvas not found for index ${index}`);
+          return;
+        }
+
+        const gridContext = gridCanvas.getContext("2d");
+
+        // Clear previous grid
+        gridContext.clearRect(0, 0, gridCanvas.width, gridCanvas.height); // Set fine grid style (small squares)
+        gridContext.strokeStyle = "rgba(32, 147, 164, 0.15)";
+        gridContext.lineWidth = 0.5;
+
+        const fineGridSize = 15; // 15px fine grid (diperbesar dari 10px)
+
+        // Draw fine grid lines
+        for (let x = 0; x <= gridCanvas.width; x += fineGridSize) {
+          gridContext.beginPath();
+          gridContext.moveTo(x, 0);
+          gridContext.lineTo(x, gridCanvas.height);
+          gridContext.stroke();
+        }
+
+        for (let y = 0; y <= gridCanvas.height; y += fineGridSize) {
+          gridContext.beginPath();
+          gridContext.moveTo(0, y);
+          gridContext.lineTo(gridCanvas.width, y);
+          gridContext.stroke();
+        }
+
+        // Set major grid style (larger squares)
+        gridContext.strokeStyle = "rgba(32, 147, 164, 0.25)";
+        gridContext.lineWidth = 1;
+
+        const majorGridSize = 30; // 30px major grid (diperbesar dari 20px)
+
+        // Draw major grid lines
+        for (let x = 0; x <= gridCanvas.width; x += majorGridSize) {
+          gridContext.beginPath();
+          gridContext.moveTo(x, 0);
+          gridContext.lineTo(x, gridCanvas.height);
+          gridContext.stroke();
+        }
+
+        for (let y = 0; y <= gridCanvas.height; y += majorGridSize) {
+          gridContext.beginPath();
+          gridContext.moveTo(0, y);
+          gridContext.lineTo(gridCanvas.width, y);
+          gridContext.stroke();
+        }
+
+        // Draw center guides (stronger lines)
+        gridContext.strokeStyle = "rgba(32, 147, 164, 0.4)";
+        gridContext.lineWidth = 1.5;
+
+        // Vertical center line
+        const centerX = gridCanvas.width / 2;
+        gridContext.beginPath();
+        gridContext.moveTo(centerX, 0);
+        gridContext.lineTo(centerX, gridCanvas.height);
+        gridContext.stroke();
+
+        // Horizontal center line
+        const centerY = gridCanvas.height / 2;
+        gridContext.beginPath();
+        gridContext.moveTo(0, centerY);
+        gridContext.lineTo(gridCanvas.width, centerY);
+        gridContext.stroke();
+
+        // Draw baseline guides untuk aksara Sunda
+        gridContext.strokeStyle = "rgba(255, 193, 7, 0.5)";
+        gridContext.lineWidth = 1;
+        gridContext.setLineDash([5, 3]); // Dashed line
+
+        // Upper baseline (untuk bagian atas aksara)
+        const upperBaseline = gridCanvas.height * 0.2;
+        gridContext.beginPath();
+        gridContext.moveTo(0, upperBaseline);
+        gridContext.lineTo(gridCanvas.width, upperBaseline);
+        gridContext.stroke();
+
+        // Main baseline (garis dasar utama)
+        const mainBaseline = gridCanvas.height * 0.7;
+        gridContext.beginPath();
+        gridContext.moveTo(0, mainBaseline);
+        gridContext.lineTo(gridCanvas.width, mainBaseline);
+        gridContext.stroke();
+
+        // Lower baseline (untuk bagian bawah aksara)
+        const lowerBaseline = gridCanvas.height * 0.85;
+        gridContext.beginPath();
+        gridContext.moveTo(0, lowerBaseline);
+        gridContext.lineTo(gridCanvas.width, lowerBaseline);
+        gridContext.stroke();
+
+        // Reset line dash
+        gridContext.setLineDash([]);
+
+        // Add writing area indicators (corner marks)
+        gridContext.strokeStyle = "rgba(139, 92, 246, 0.6)";
+        gridContext.lineWidth = 2;
+        const cornerSize = 20; // Diperbesar dari 15px
+        const margin = 30; // Diperbesar dari 20px
+
+        // Top-left corner
+        gridContext.beginPath();
+        gridContext.moveTo(margin, margin);
+        gridContext.lineTo(margin + cornerSize, margin);
+        gridContext.moveTo(margin, margin);
+        gridContext.lineTo(margin, margin + cornerSize);
+        gridContext.stroke();
+
+        // Top-right corner
+        gridContext.beginPath();
+        gridContext.moveTo(gridCanvas.width - margin, margin);
+        gridContext.lineTo(gridCanvas.width - margin - cornerSize, margin);
+        gridContext.moveTo(gridCanvas.width - margin, margin);
+        gridContext.lineTo(gridCanvas.width - margin, margin + cornerSize);
+        gridContext.stroke();
+
+        // Bottom-left corner
+        gridContext.beginPath();
+        gridContext.moveTo(margin, gridCanvas.height - margin);
+        gridContext.lineTo(margin + cornerSize, gridCanvas.height - margin);
+        gridContext.moveTo(margin, gridCanvas.height - margin);
+        gridContext.lineTo(margin, gridCanvas.height - margin - cornerSize);
+        gridContext.stroke();
+
+        // Bottom-right corner
+        gridContext.beginPath();
+        gridContext.moveTo(
+          gridCanvas.width - margin,
+          gridCanvas.height - margin
+        );
+        gridContext.lineTo(
+          gridCanvas.width - margin - cornerSize,
+          gridCanvas.height - margin
+        );
+        gridContext.moveTo(
+          gridCanvas.width - margin,
+          gridCanvas.height - margin
+        );
+        gridContext.lineTo(
+          gridCanvas.width - margin,
+          gridCanvas.height - margin - cornerSize
+        );
+        gridContext.stroke();
+      }
+
+      function toggleGrid(index) {
+        const gridCanvas = document.getElementById(`grid-${index}`);
+        const gridBtn = document.getElementById(`grid-btn-${index}`);
+
+        if (gridCanvas.style.opacity === "0") {
+          gridCanvas.style.opacity = "0.3";
+          gridBtn.classList.add("active");
+          drawGrid(index);
+        } else {
+          gridCanvas.style.opacity = "0";
+          gridBtn.classList.remove("active");
+        }
+      }
+
       function nextLevel() {
         window.location.href = "level-3-vokal.html";
       }
 
       // Initialize exercise when page loads
       document.addEventListener("DOMContentLoaded", function () {
-        initializeExercise();
-        feather.replace();
+        // Add delay to ensure all DOM elements are fully rendered
+        setTimeout(() => {
+          initializeExercise();
+          feather.replace();
+        }, 200);
       });
     </script>
   </body>

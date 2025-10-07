@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 20: Ujian Akhir Aksara Sunda - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        padding-top: 8rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 215, 0, 0.1),
+          rgba(255, 193, 7, 0.1)
+        );
+        border-radius: 1rem;
+        border: 2px solid rgba(255, 215, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .exercise-header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 215, 0, 0.1),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+        100% {
+          transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+      }
+
+      .exercise-header h1 {
+        color: #ffb000;
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .exercise-description {
+        font-size: 1.3rem;
+        color: var(--text-color);
+        opacity: 0.9;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+        position: relative;
+        z-index: 1;
+      }
+
+      .exam-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+        position: relative;
+        z-index: 1;
+      }
+
+      .info-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.8rem;
+        padding: 1rem;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .info-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #ffb000;
+        display: block;
+      }
+
+      .info-label {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+        margin: 1rem 0;
+        position: relative;
+        z-index: 1;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ffb000, #ff8500);
+        width: 0%;
+        transition: width 0.5s ease;
+      }
+
+      .progress-text {
+        text-align: center;
+        margin-top: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+        position: relative;
+        z-index: 1;
+      }
+
+      .timer {
+        position: fixed;
+        top: 5rem;
+        right: 2rem;
+        background: rgba(255, 180, 0, 0.9);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 1rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .timer.warning {
+        background: rgba(239, 68, 68, 0.9);
+        animation: pulse 1s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .exercise-content {
+        display: grid;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .exercise-section {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+      }
+
+      .section-title {
+        color: var(--primary);
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .section-number {
+        background: #ffb000;
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      /* Reading Comprehension */
+      .reading-section {
+        background: linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.1),
+          rgba(37, 99, 235, 0.1)
+        );
+        border-left: 4px solid #3b82f6;
+      }
+
+      .passage {
+        background: white;
+        border-radius: 0.8rem;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .passage-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #2d4a78;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .sunda-text {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #2d4a78;
+        font-family: "Sundanese Unicode", serif;
+        margin-bottom: 1rem;
+        text-align: justify;
+      }
+
+      /* Questions */
+      .questions-section {
+        background: linear-gradient(
+          135deg,
+          rgba(139, 92, 246, 0.1),
+          rgba(124, 58, 237, 0.1)
+        );
+        border-left: 4px solid #8b5cf6;
+      }
+
+      .question-item {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .question-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .question-number {
+        background: #8b5cf6;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+
+      .question-text {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        font-weight: 500;
+        line-height: 1.5;
+      }
+
+      .multiple-choice {
+        display: grid;
+        gap: 0.8rem;
+        margin-top: 1rem;
+      }
+
+      .choice-option {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .choice-option:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+      }
+
+      .choice-option.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .choice-option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+      }
+
+      .choice-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      .choice-letter {
+        background: var(--primary);
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+
+      /* Writing Section */
+      .writing-section {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.1),
+          rgba(34, 197, 94, 0.1)
+        );
+        border-left: 4px solid #10b981;
+      }
+
+      .writing-prompt {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        margin: 1.5rem 0;
+      }
+
+      .writing-area {
+        width: 100%;
+        min-height: 200px;
+        padding: 1.5rem;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        font-size: 1.1rem;
+        font-family: "Sundanese Unicode", serif;
+        line-height: 1.8;
+        resize: vertical;
+      }
+
+      .writing-area:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* Translation Section */
+      .translation-section {
+        background: linear-gradient(
+          135deg,
+          rgba(236, 72, 153, 0.1),
+          rgba(219, 39, 119, 0.1)
+        );
+        border-left: 4px solid #ec4899;
+      }
+
+      .translation-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .source-text,
+      .target-text {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+      }
+
+      .text-label {
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .translation-input {
+        width: 100%;
+        min-height: 120px;
+        padding: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        font-size: 1rem;
+        font-family: "Sundanese Unicode", serif;
+        resize: vertical;
+      }
+
+      .translation-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* Results */
+      .results-section {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 215, 0, 0.1),
+          rgba(255, 193, 7, 0.1)
+        );
+        border-left: 4px solid #ffb000;
+        text-align: center;
+        display: none;
+      }
+
+      .results-section.show {
+        display: block;
+      }
+
+      .final-score {
+        font-size: 4rem;
+        color: #ffb000;
+        font-weight: 900;
+        margin: 1rem 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .grade-display {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 1rem 0;
+        padding: 1rem 2rem;
+        border-radius: 1rem;
+        display: inline-block;
+      }
+
+      .grade-a {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+      }
+
+      .grade-b {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: white;
+      }
+
+      .grade-c {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+      }
+
+      .grade-d {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+      }
+
+      .certificate-preview {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        border: 3px solid #ffb000;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        color: #92400e;
+      }
+
+      .certificate-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      .certificate-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+
+      .score-breakdown {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .score-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.8rem;
+        padding: 1rem;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .score-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffb000;
+      }
+
+      .score-label {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-success {
+        background: #10b981;
+        color: white;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+          padding-top: 7rem;
+        }
+
+        .exercise-header h1 {
+          font-size: 2.2rem;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .timer {
+          position: static;
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+
+        .translation-pair {
+          grid-template-columns: 1fr;
+        }
+
+        .exam-info {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .action-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Timer -->
+    <div class="timer" id="timer">
+      <i data-feather="clock"></i>
+      <span id="timerText">60:00</span>
+    </div>
+
+    <div class="exercise-container">
+      <!-- Header -->
+      <div class="exercise-header">
+        <h1>
+          <i data-feather="award"></i>
+          Level 20: Ujian Akhir Aksara Sunda
+        </h1>
+        <div class="exercise-description">
+          Ujian komprehensif untuk menguji pemahaman dan kemampuan Anda dalam
+          membaca, menulis, dan memahami aksara Sunda secara menyeluruh.
+        </div>
+
+        <div class="exam-info">
+          <div class="info-card">
+            <span class="info-number">25</span>
+            <span class="info-label">Soal</span>
+          </div>
+          <div class="info-card">
+            <span class="info-number">60</span>
+            <span class="info-label">Menit</span>
+          </div>
+          <div class="info-card">
+            <span class="info-number">100</span>
+            <span class="info-label">Poin</span>
+          </div>
+          <div class="info-card">
+            <span class="info-number">70</span>
+            <span class="info-label">Lulus</span>
+          </div>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% Selesai</div>
+      </div>
+
+      <!-- Exercise Content -->
+      <div class="exercise-content">
+        <!-- Reading Comprehension -->
+        <div class="exercise-section reading-section">
+          <h2 class="section-title">
+            <div class="section-number">1</div>
+            Pemahaman Bacaan (25 poin)
+          </h2>
+
+          <div class="passage">
+            <div class="passage-title">ᮊᮧᮒ ᮘᮔ᮪ᮓᮥᮀ ᮃᮚᮒᮩ ᮏᮃᮚᮔ ᮘᮛᮒ᮪</div>
+            <div class="sunda-text">
+              ᮊᮧᮒ ᮘᮔ᮪ᮓᮥᮀ ᮙᮔ᮪ᮌᮀ ᮞᮜᮔ᮪ᮞᮤᮉᮔ᮪ ᮞᮩᮚᮔ᮪ ᮁᮔ᮪ᮒᮧ ᮠᮁᮝᮒ᮪ ᮔᮥᮞᮔ᮪ᮒᮛ. ᮓᮤ ᮏᮙᮔ᮪ ᮃᮚᮥᮔ
+              ᮒᮦᮂ, ᮞᮥᮔ᮪ᮓ ᮔᮡᮛ ᮞᮛᮦᮚ-ᮞᮛᮦᮚ ᮞᮤᮠ ᮞᮎᮛ ᮃᮣᮊ ᮃᮜᮦᮙ᮪. ᮊᮧᮒ ᮘᮔ᮪ᮓᮥᮀ ᮏᮧᮌ ᮙᮔ᮪ᮌᮀ
+              ᮊᮒ ᮔᮀ ᮞᮥᮔ᮪ᮓ ᮊᮥᮔ ᮞᮊᮤᮒ ᮒᮥᮂ ᮠᮁᮝᮒ᮪-ᮠᮁᮝᮒ᮪ ᮃᮜᮦᮙ᮪. ᮞᮨᮕᮂ ᮏᮃᮙᮔ᮪ ᮃᮗ ᮊᮤᮒᮥ
+              ᮠᮁᮝᮒ᮪ ᮔᮥᮞᮔ᮪ᮒᮛ ᮒᮔᮤᮊᮔ ᮊᮙᮧᮛᮥᮞ᮪ ᮞᮩᮚᮔ᮪ ᮔᮧᮥᮛ ᮞᮦᮊ ᮔᮃᮛᮚ. ᮎᮮᮒ ᮛᮙᮧᮛᮝ-ᮛᮩᮞᮤᮕ
+              ᮝᮀ ᮊᮀ ᮒᮛᮦᮚ ᮞᮞᮛᮀ ᮦᮁᮒ ᮃᮜᮦᮙ᮪ ᮒᮦᮂ ᮉᮦᮔ᮪ᮒᮩ ᮠᮁᮝᮒ᮪ ᮃᮥᮚ ᮞᮤᮔ. ᮠᮁᮝᮒ᮪ ᮏᮧᮌ
+              ᮉᮦᮔ᮪ᮒᮩ ᮞᮔ᮪ᮒᮥᮔᮔ᮪ ᮞᮥᮔ᮪ᮓ ᮊᮔ ᮊᮤᮒᮥ ᮞᮊᮤᮒ ᮒᮥᮂ ᮞᮎᮛ ᮃᮣᮊ ᮃᮜᮦᮙ᮪.
+            </div>
+          </div>
+
+          <div class="question-item">
+            <div class="question-header">
+              <div class="question-number">1</div>
+              <div class="question-text">
+                Naon tema utama dina bacaan di luhur?
+              </div>
+            </div>
+            <div class="multiple-choice">
+              <div class="choice-option" onclick="selectChoice(this, false, 0)">
+                <div class="choice-letter">A</div>
+                <div>Sejarah kota Bandung</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, true, 0)">
+                <div class="choice-letter">B</div>
+                <div>Pentingnya melestarikan hewan dan tumbuhan</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 0)">
+                <div class="choice-letter">C</div>
+                <div>Perkembangan teknologi modern</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 0)">
+                <div class="choice-letter">D</div>
+                <div>Keindahan alam Jawa Barat</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-item">
+            <div class="question-header">
+              <div class="question-number">2</div>
+              <div class="question-text">
+                Nurutkeun bacaan, naon anu ngabalukarkeun kamurtadan hewan jeung
+                tutuwuhan?
+              </div>
+            </div>
+            <div class="multiple-choice">
+              <div class="choice-option" onclick="selectChoice(this, false, 1)">
+                <div class="choice-letter">A</div>
+                <div>Parobahan iklim</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 1)">
+                <div class="choice-letter">B</div>
+                <div>Kakurangan pangan</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, true, 1)">
+                <div class="choice-letter">C</div>
+                <div>Karusakan habitat alami</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 1)">
+                <div class="choice-letter">D</div>
+                <div>Serangan panyakit</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grammar and Vocabulary -->
+        <div class="exercise-section questions-section">
+          <h2 class="section-title">
+            <div class="section-number">2</div>
+            Tata Basa jeung Kosakata (30 poin)
+          </h2>
+
+          <div class="question-item">
+            <div class="question-header">
+              <div class="question-number">3</div>
+              <div class="question-text">
+                Kumaha cara nulis "ngajarkeun" dina aksara Sunda?
+              </div>
+            </div>
+            <div class="multiple-choice">
+              <div class="choice-option" onclick="selectChoice(this, false, 2)">
+                <div class="choice-letter">A</div>
+                <div>ᮔᮀᮏᮛᮊᮥᮔ᮪</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, true, 2)">
+                <div class="choice-letter">B</div>
+                <div>ᮍᮏᮛᮊᮥᮔ᮪</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 2)">
+                <div class="choice-letter">C</div>
+                <div>ᮔᮌᮏᮛᮊᮥᮔ᮪</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 2)">
+                <div class="choice-letter">D</div>
+                <div>ᮔᮌᮏᮛᮊᮩᮔ᮪</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-item">
+            <div class="question-header">
+              <div class="question-number">4</div>
+              <div class="question-text">
+                Naon hartina kecap "ᮞᮘᮊ᮪ᮒᮤ" dina basa Indonesia?
+              </div>
+            </div>
+            <div class="multiple-choice">
+              <div class="choice-option" onclick="selectChoice(this, false, 3)">
+                <div class="choice-letter">A</div>
+                <div>Kebahagiaan</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, true, 3)">
+                <div class="choice-letter">B</div>
+                <div>Kesabaran</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 3)">
+                <div class="choice-letter">C</div>
+                <div>Kekuatan</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 3)">
+                <div class="choice-letter">D</div>
+                <div>Kebijaksanaan</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-item">
+            <div class="question-header">
+              <div class="question-number">5</div>
+              <div class="question-text">
+                Kumaha cara ngagunakeun pasangan "ᮘ᮪" dina kecap "subuh"?
+              </div>
+            </div>
+            <div class="multiple-choice">
+              <div class="choice-option" onclick="selectChoice(this, true, 4)">
+                <div class="choice-letter">A</div>
+                <div>ᮞᮥᮘ᮪ᮍ</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 4)">
+                <div class="choice-letter">B</div>
+                <div>ᮞᮥᮘᮍ</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 4)">
+                <div class="choice-letter">C</div>
+                <div>ᮞᮥᮘ᮪ᮚ</div>
+              </div>
+              <div class="choice-option" onclick="selectChoice(this, false, 4)">
+                <div class="choice-letter">D</div>
+                <div>ᮞᮥᮘᮚ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Translation -->
+        <div class="exercise-section translation-section">
+          <h2 class="section-title">
+            <div class="section-number">3</div>
+            Tarjamahan (25 poin)
+          </h2>
+
+          <div class="translation-pair">
+            <div class="source-text">
+              <div class="text-label">
+                <i data-feather="book"></i>
+                Basa Indonesia:
+              </div>
+              <p
+                style="
+                  background: #f8f9fa;
+                  padding: 1rem;
+                  border-radius: 0.5rem;
+                  margin: 0;
+                  line-height: 1.6;
+                "
+              >
+                "Pendidikan adalah kunci untuk membuka pintu masa depan. Dengan
+                belajar aksara Sunda, kita tidak hanya mempelajari cara menulis,
+                tetapi juga melestarikan budaya nenek moyang kita."
+              </p>
+            </div>
+            <div class="target-text">
+              <div class="text-label">
+                <i data-feather="edit-3"></i>
+                Aksara Sunda:
+              </div>
+              <textarea
+                class="translation-input"
+                id="translation1"
+                placeholder="Tarjamahkeun ka aksara Sunda..."
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="translation-pair">
+            <div class="source-text">
+              <div class="text-label">
+                <i data-feather="edit-3"></i>
+                Aksara Sunda:
+              </div>
+              <p
+                style="
+                  background: #f0f4f7;
+                  padding: 1rem;
+                  border-radius: 0.5rem;
+                  margin: 0;
+                  font-family: 'Sundanese Unicode', serif;
+                  font-size: 1.1rem;
+                  line-height: 1.8;
+                  color: #2d4a78;
+                "
+              >
+                ᮒᮦᮊ᮪ᮔᮧᮜᮧᮌᮤ ᮙᮧᮓᮨᮁᮔ᮪ ᮔᮦᮂᮤᮘᮔ ᮞᮦᮥᮁ ᮊᮤᮒᮥ ᮞᮤᮔ ᮙᮔᮙᮔᮔ᮪. ᮞᮙᮂᮤᮜ ᮔᮡᮔ᮪ᮒᮥᮔ᮪
+                ᮊᮛᮦᮂ ᮃᮊ᮪ᮞᮛ ᮞᮥᮔ᮪ᮓ, ᮊᮤᮒᮥ ᮞᮓᮀ ᮔᮡᮔ᮪ᮒᮥᮔ᮪ ᮓᮥᮔᮤᮃ ᮓᮤᮌᮤᮒᮜ᮪.
+              </p>
+            </div>
+            <div class="target-text">
+              <div class="text-label">
+                <i data-feather="book"></i>
+                Basa Indonesia:
+              </div>
+              <textarea
+                class="translation-input"
+                id="translation2"
+                placeholder="Tarjamahkeun ka basa Indonesia..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Writing Section -->
+        <div class="exercise-section writing-section">
+          <h2 class="section-title">
+            <div class="section-number">4</div>
+            Nulis Karangan (20 poin)
+          </h2>
+
+          <div class="writing-prompt">
+            <h3 style="color: var(--primary); margin-bottom: 1rem">
+              Topik Karangan:
+            </h3>
+            <p
+              style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem"
+            >
+              Tulis karangan pendek (minimal 150 kata) dalam aksara Sunda
+              tentang:
+              <strong
+                >"Pentingnya Melestarikan Aksara Sunda di Era Digital"</strong
+              >
+            </p>
+            <p
+              style="
+                color: var(--text-color);
+                opacity: 0.8;
+                margin-bottom: 1.5rem;
+              "
+            >
+              Jelaskan mengapa aksara Sunda perlu dilestarikan, tantangan yang
+              dihadapi, dan solusi yang dapat dilakukan di era digital ini.
+            </p>
+
+            <textarea
+              class="writing-area"
+              id="essay"
+              placeholder="Tulis karangan Anda dalam aksara Sunda di sini...
+
+Contoh struktur:
+ᮘᮥᮘᮥᮊ: (Pendahuluan)
+ᮄᮞᮤ: (Isi - jelaskan pentingnya, tantangan, dan solusi)
+ᮊᮎᮤᮔ᮪ᮓᮨᮊᮔ᮪: (Kesimpulan)"
+            ></textarea>
+
+            <div
+              style="
+                text-align: right;
+                margin-top: 0.5rem;
+                color: var(--text-color);
+                opacity: 0.6;
+                font-size: 0.9rem;
+              "
+              id="essayWordCount"
+            >
+              0 kata
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="exercise-section results-section" id="results">
+          <h2 class="section-title">
+            <div class="section-number">🏆</div>
+            Hasil Ujian Akhir
+          </h2>
+
+          <div class="final-score" id="finalScore">0/100</div>
+          <div class="grade-display" id="gradeDisplay">-</div>
+
+          <div class="score-breakdown">
+            <div class="score-item">
+              <div class="score-value" id="readingScore">0/25</div>
+              <div class="score-label">Pemahaman Bacaan</div>
+            </div>
+            <div class="score-item">
+              <div class="score-value" id="grammarScore">0/30</div>
+              <div class="score-label">Tata Basa & Kosakata</div>
+            </div>
+            <div class="score-item">
+              <div class="score-value" id="translationScore">0/25</div>
+              <div class="score-label">Tarjamahan</div>
+            </div>
+            <div class="score-item">
+              <div class="score-value" id="writingScore">0/20</div>
+              <div class="score-label">Nulis Karangan</div>
+            </div>
+          </div>
+
+          <div
+            class="certificate-preview"
+            id="certificate"
+            style="display: none"
+          >
+            <div class="certificate-title">🎓 SERTIFIKAT KELULUSAN</div>
+            <div class="certificate-text">
+              Piagam ieu dipasihan ka anjeun anu parantos lulus ujian aksara
+              Sunda sareng berhak nyandak gelar
+              <strong>"Ahli Aksara Sunda"</strong>. <br /><br />
+              <em
+                >Mugi-mugi pangaweruh ieu mangpaat pikeun ngajaga warisan budaya
+                Sunda.</em
+              >
+            </div>
+          </div>
+
+          <div
+            style="font-size: 1.2rem; margin: 2rem 0; line-height: 1.6"
+            id="resultMessage"
+          ></div>
+
+          <div class="action-buttons">
+            <a href="../latihan.html" class="btn btn-secondary">
+              <i data-feather="arrow-left"></i> Balik ka Daftar Level
+            </a>
+            <a href="../dashboard.html" class="btn btn-primary">
+              <i data-feather="home"></i> Dashboard
+            </a>
+            <button
+              class="btn btn-success"
+              onclick="downloadCertificate()"
+              id="certificateBtn"
+              style="display: none"
+            >
+              <i data-feather="download"></i> Unduh Sertifikat
+            </button>
+            <button class="btn btn-primary" onclick="resetExam()">
+              <i data-feather="refresh-cw"></i> Ulangi Ujian
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div style="text-align: center; margin-top: 2rem" id="submitSection">
+        <button
+          class="btn btn-primary"
+          onclick="submitExam()"
+          style="
+            font-size: 1.2rem;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, #ffb000, #ff8500);
+          "
+        >
+          <i data-feather="send"></i> Submit Ujian Akhir
+        </button>
+      </div>
+    </div>
+
+    <script>
+      let selectedAnswers = [];
+      let examStartTime = Date.now();
+      let examDuration = 60 * 60 * 1000; // 60 minutes in milliseconds
+      let timerInterval;
+      let examSubmitted = false;
+
+      function selectChoice(element, isCorrect, questionIndex) {
+        // Remove previous selection in the same question
+        const questionItem = element.closest(".question-item");
+        const choices = questionItem.querySelectorAll(".choice-option");
+        choices.forEach((choice) => choice.classList.remove("selected"));
+
+        // Select current choice
+        element.classList.add("selected");
+
+        // Store answer
+        selectedAnswers[questionIndex] = isCorrect;
+
+        updateProgress();
+      }
+
+      function updateProgress() {
+        const totalQuestions = 5; // Reading + Grammar questions
+        const answeredQuestions = selectedAnswers.filter(
+          (answer) => answer !== undefined
+        ).length;
+
+        // Check translation and essay inputs
+        const translation1 = document
+          .getElementById("translation1")
+          .value.trim();
+        const translation2 = document
+          .getElementById("translation2")
+          .value.trim();
+        const essay = document.getElementById("essay").value.trim();
+
+        let completedSections = answeredQuestions;
+        if (translation1.length > 20) completedSections += 0.5;
+        if (translation2.length > 20) completedSections += 0.5;
+        if (essay.length > 100) completedSections += 1;
+
+        const progress = Math.min(
+          (completedSections / (totalQuestions + 2)) * 100,
+          100
+        );
+
+        const progressFill = document.getElementById("progressFill");
+        const progressText = document.getElementById("progressText");
+
+        progressFill.style.width = progress + "%";
+        progressText.textContent = Math.round(progress) + "% Selesai";
+      }
+
+      function startTimer() {
+        timerInterval = setInterval(() => {
+          const elapsed = Date.now() - examStartTime;
+          const remaining = examDuration - elapsed;
+
+          if (remaining <= 0) {
+            clearInterval(timerInterval);
+            if (!examSubmitted) {
+              alert("Waktu ujian habis! Ujian akan otomatis disubmit.");
+              submitExam();
+            }
+            return;
+          }
+
+          const minutes = Math.floor(remaining / (1000 * 60));
+          const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+          const timerElement = document.getElementById("timer");
+          const timerText = document.getElementById("timerText");
+
+          timerText.textContent = `${minutes}:${seconds
+            .toString()
+            .padStart(2, "0")}`;
+
+          // Warning when less than 10 minutes
+          if (remaining < 10 * 60 * 1000) {
+            timerElement.classList.add("warning");
+          }
+        }, 1000);
+      }
+
+      function updateEssayWordCount() {
+        const essay = document.getElementById("essay").value.trim();
+        const wordCount = essay ? essay.split(/\s+/).length : 0;
+        document.getElementById(
+          "essayWordCount"
+        ).textContent = `${wordCount} kata`;
+        updateProgress();
+      }
+
+      function submitExam() {
+        if (examSubmitted) return;
+
+        // Validate minimum requirements
+        const translation1 = document
+          .getElementById("translation1")
+          .value.trim();
+        const translation2 = document
+          .getElementById("translation2")
+          .value.trim();
+        const essay = document.getElementById("essay").value.trim();
+
+        if (
+          selectedAnswers.filter((answer) => answer !== undefined).length < 5
+        ) {
+          alert("Mohon jawab semua pertanyaan pilihan ganda!");
+          return;
+        }
+
+        if (!translation1 || !translation2) {
+          alert("Mohon lengkapi kedua soal terjemahan!");
+          return;
+        }
+
+        if (!essay || essay.split(/\s+/).length < 50) {
+          alert("Mohon tulis karangan minimal 50 kata!");
+          return;
+        }
+
+        examSubmitted = true;
+        clearInterval(timerInterval);
+
+        // Calculate scores
+        const readingScore = calculateReadingScore();
+        const grammarScore = calculateGrammarScore();
+        const translationScore = calculateTranslationScore();
+        const writingScore = calculateWritingScore();
+
+        const totalScore =
+          readingScore + grammarScore + translationScore + writingScore;
+
+        // Show correct answers
+        showCorrectAnswers();
+
+        // Hide timer and submit button
+        document.getElementById("timer").style.display = "none";
+        document.getElementById("submitSection").style.display = "none";
+
+        showResults(
+          totalScore,
+          readingScore,
+          grammarScore,
+          translationScore,
+          writingScore
+        );
+        saveExamResults(totalScore);
+      }
+
+      function calculateReadingScore() {
+        // Questions 0 and 1 are reading comprehension (12.5 points each)
+        let score = 0;
+        if (selectedAnswers[0] === true) score += 12.5;
+        if (selectedAnswers[1] === true) score += 12.5;
+        return score;
+      }
+
+      function calculateGrammarScore() {
+        // Questions 2, 3, and 4 are grammar (10 points each)
+        let score = 0;
+        if (selectedAnswers[2] === true) score += 10;
+        if (selectedAnswers[3] === true) score += 10;
+        if (selectedAnswers[4] === true) score += 10;
+        return score;
+      }
+
+      function calculateTranslationScore() {
+        const translation1 = document
+          .getElementById("translation1")
+          .value.trim();
+        const translation2 = document
+          .getElementById("translation2")
+          .value.trim();
+
+        let score = 0;
+
+        // Basic scoring based on length and content
+        if (translation1.length > 50) score += 12.5;
+        else if (translation1.length > 20) score += 8;
+        else if (translation1.length > 0) score += 5;
+
+        if (translation2.length > 30) score += 12.5;
+        else if (translation2.length > 15) score += 8;
+        else if (translation2.length > 0) score += 5;
+
+        return score;
+      }
+
+      function calculateWritingScore() {
+        const essay = document.getElementById("essay").value.trim();
+        const wordCount = essay ? essay.split(/\s+/).length : 0;
+
+        let score = 0;
+
+        if (wordCount >= 150) score += 20;
+        else if (wordCount >= 100) score += 15;
+        else if (wordCount >= 50) score += 10;
+        else if (wordCount >= 20) score += 5;
+
+        return score;
+      }
+
+      function showCorrectAnswers() {
+        const questionItems = document.querySelectorAll(".question-item");
+        questionItems.forEach((item, index) => {
+          const choices = item.querySelectorAll(".choice-option");
+          choices.forEach((choice) => {
+            if (choice.classList.contains("selected")) {
+              if (selectedAnswers[index]) {
+                choice.classList.add("correct");
+              } else {
+                choice.classList.add("incorrect");
+              }
+            }
+            // Also highlight correct answers that weren't selected
+            if (!choice.classList.contains("selected")) {
+              const onclick = choice.getAttribute("onclick");
+              if (onclick && onclick.includes("true")) {
+                choice.style.borderColor = "#10b981";
+                choice.style.backgroundColor = "rgba(16, 185, 129, 0.1)";
+              }
+            }
+          });
+        });
+      }
+
+      function showResults(
+        totalScore,
+        readingScore,
+        grammarScore,
+        translationScore,
+        writingScore
+      ) {
+        const resultsSection = document.getElementById("results");
+        const finalScore = document.getElementById("finalScore");
+        const gradeDisplay = document.getElementById("gradeDisplay");
+        const certificate = document.getElementById("certificate");
+        const certificateBtn = document.getElementById("certificateBtn");
+        const resultMessage = document.getElementById("resultMessage");
+
+        // Update scores
+        finalScore.textContent = `${Math.round(totalScore)}/100`;
+        document.getElementById("readingScore").textContent = `${Math.round(
+          readingScore
+        )}/25`;
+        document.getElementById("grammarScore").textContent = `${Math.round(
+          grammarScore
+        )}/30`;
+        document.getElementById("translationScore").textContent = `${Math.round(
+          translationScore
+        )}/25`;
+        document.getElementById("writingScore").textContent = `${Math.round(
+          writingScore
+        )}/20`;
+
+        // Determine grade
+        let grade = "";
+        let gradeClass = "";
+        let passed = false;
+
+        if (totalScore >= 90) {
+          grade = "A (Istimewa)";
+          gradeClass = "grade-a";
+          passed = true;
+        } else if (totalScore >= 80) {
+          grade = "B (Alus Pisan)";
+          gradeClass = "grade-a";
+          passed = true;
+        } else if (totalScore >= 70) {
+          grade = "C (Alus)";
+          gradeClass = "grade-b";
+          passed = true;
+        } else if (totalScore >= 60) {
+          grade = "D (Cukup)";
+          gradeClass = "grade-c";
+          passed = false;
+        } else {
+          grade = "E (Kurang)";
+          gradeClass = "grade-d";
+          passed = false;
+        }
+
+        gradeDisplay.textContent = grade;
+        gradeDisplay.className = `grade-display ${gradeClass}`;
+
+        // Show certificate if passed
+        if (passed) {
+          certificate.style.display = "block";
+          certificateBtn.style.display = "inline-flex";
+          resultMessage.innerHTML = `
+                    🎉 <strong>Salamet! Anjeun lulus ujian aksara Sunda!</strong><br>
+                    Anjeun parantos réngsé sadaya level pembelajaran aksara Sunda sareng berhak nampi sertifikat kelulusan.
+                    Pangaweruh ieu mudah-mudahan mangpaat pikeun ngajaga warisan budaya Sunda.
+                `;
+        } else {
+          resultMessage.innerHTML = `
+                    😔 <strong>Hanjakal, anjeun teu lulus ujian ieu.</strong><br>
+                    Ulah patah haté! Anjeun tiasa ngulangi ujian deui saatos diajar langkung jero.
+                    Skor minimum pikeun lulus nyaéta 70 poin.
+                `;
+        }
+
+        resultsSection.classList.add("show");
+        resultsSection.scrollIntoView({ behavior: "smooth" });
+
+        updateProgress(100);
+      }
+
+      function downloadCertificate() {
+        // Simple implementation - in real app, this would generate a proper certificate
+        const certificateText = `
+SERTIFIKAT KELULUSAN
+AKSARA SUNDA
+
+Piagam ieu dipasihan ka anjeun anu parantos lulus ujian aksara Sunda
+sareng berhak nyandak gelar "Ahli Aksara Sunda".
+
+Tanggal: ${new Date().toLocaleDateString("id-ID")}
+Platform: Sikabayan - Sistem Pembelajaran Aksara Sunda
+
+Mugi-mugi pangaweruh ieu mangpaat pikeun ngajaga warisan budaya Sunda.
+            `;
+
+        const blob = new Blob([certificateText], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Sertifikat-Aksara-Sunda.txt";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetExam() {
+        if (
+          confirm(
+            "Anjeun yakin hoyong ngulangi ujian? Sadaya jawaban bakal dihapus."
+          )
+        ) {
+          // Reset all answers and inputs
+          selectedAnswers = [];
+          examSubmitted = false;
+          examStartTime = Date.now();
+
+          // Reset UI
+          document.querySelectorAll(".choice-option").forEach((choice) => {
+            choice.classList.remove("selected", "correct", "incorrect");
+            choice.style.borderColor = "";
+            choice.style.backgroundColor = "";
+          });
+
+          document.getElementById("translation1").value = "";
+          document.getElementById("translation2").value = "";
+          document.getElementById("essay").value = "";
+
+          document.getElementById("results").classList.remove("show");
+          document.getElementById("timer").style.display = "block";
+          document.getElementById("submitSection").style.display = "block";
+
+          updateProgress();
+          updateEssayWordCount();
+          startTimer();
+
+          // Scroll to top
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+
+      function saveExamResults(score) {
+        // Save to localStorage
+        const results = {
+          level: 20,
+          score: Math.round(score),
+          passed: score >= 70,
+          completedAt: new Date().toISOString(),
+          timeSpent: Date.now() - examStartTime,
+        };
+
+        localStorage.setItem("level-20-final-exam", JSON.stringify(results));
+
+        // Update overall progress
+        const overallProgress = JSON.parse(
+          localStorage.getItem("sikabayan-progress") || "{}"
+        );
+        overallProgress.level20 = results;
+        overallProgress.completed = results.passed;
+        localStorage.setItem(
+          "sikabayan-progress",
+          JSON.stringify(overallProgress)
+        );
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        feather.replace();
+
+        // Set up event listeners
+        document
+          .getElementById("translation1")
+          .addEventListener("input", updateProgress);
+        document
+          .getElementById("translation2")
+          .addEventListener("input", updateProgress);
+        document
+          .getElementById("essay")
+          .addEventListener("input", updateEssayWordCount);
+
+        // Start timer
+        startTimer();
+
+        // Load saved progress if exists
+        const savedResults = localStorage.getItem("level-20-final-exam");
+        if (savedResults) {
+          const results = JSON.parse(savedResults);
+          if (results.passed) {
+            updateProgress(100);
+          }
+        }
+
+        updateProgress();
+      });
+    </script>
+  </body>
+</html>
