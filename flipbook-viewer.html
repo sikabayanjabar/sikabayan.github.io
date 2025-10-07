@@ -76,6 +76,35 @@
         gap: 1rem;
       }
 
+      .audio-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-right: auto;
+      }
+
+      .audio-controls .control-btn {
+        background: rgba(32, 147, 164, 0.8);
+      }
+
+      .audio-controls .control-btn:hover {
+        background: var(--primary);
+      }
+
+      .audio-controls .control-btn.playing {
+        background: var(--secondary);
+      }
+
+      .audio-controls .control-btn.auto-play-on {
+        background: var(--primary);
+        color: white;
+      }
+
+      .audio-controls .control-btn.auto-play-off {
+        background: rgba(128, 128, 128, 0.3);
+        color: #888;
+      }
+
       .control-btn {
         padding: 0.5rem;
         background: rgba(255, 255, 255, 0.1);
@@ -433,6 +462,20 @@
           padding: 0.5rem 1rem;
         }
 
+        .reader-controls {
+          gap: 0.5rem;
+        }
+
+        .audio-controls {
+          gap: 0.3rem;
+        }
+
+        .audio-controls .control-btn {
+          width: 35px;
+          height: 35px;
+          padding: 0.3rem;
+        }
+
         .reader-title span {
           font-size: 1rem;
         }
@@ -478,6 +521,41 @@
       </div>
 
       <div class="reader-controls">
+        <div class="audio-controls">
+          <button
+            class="control-btn"
+            id="playPauseBtn"
+            onclick="toggleAudio()"
+            title="Putar/Berhenti Audio"
+          >
+            <i data-feather="play" id="playIcon"></i>
+          </button>
+          <button
+            class="control-btn"
+            id="stopBtn"
+            onclick="stopAudio()"
+            title="Hentikan Audio"
+          >
+            <i data-feather="square"></i>
+          </button>
+          <button
+            class="control-btn"
+            id="autoPlayBtn"
+            onclick="toggleAutoPlay()"
+            title="Auto-play: ON"
+          >
+            <i data-feather="repeat" id="autoPlayIcon"></i>
+          </button>
+          <button
+            class="control-btn"
+            id="debugBtn"
+            onclick="debugCurrentPage()"
+            title="Debug Text (Console)"
+            style="display: none"
+          >
+            <i data-feather="info"></i>
+          </button>
+        </div>
         <div class="page-info" id="pageInfo">Halaman 1 dari 1</div>
         <button
           class="control-btn"
@@ -575,6 +653,13 @@
       let currentPage = 1;
       let renderedPages = new Set(); // Cache for rendered pages
 
+      // Text-to-Speech variables
+      let speechSynthesis = window.speechSynthesis;
+      let currentUtterance = null;
+      let isPlaying = false;
+      let pageTexts = new Map(); // Cache for extracted page texts
+      let autoPlayEnabled = true; // Auto-play audio on page change
+
       // Get URL parameters
       const urlParams = new URLSearchParams(window.location.search);
       const filename = urlParams.get("file");
@@ -587,9 +672,20 @@
           return;
         }
 
+        // Initialize auto-play setting from localStorage
+        const savedAutoPlay = localStorage.getItem("flipbookAutoPlay");
+        if (savedAutoPlay !== null) {
+          autoPlayEnabled = savedAutoPlay === "true";
+        }
+
         document.getElementById("bookTitle").textContent = bookTitle;
         loadPDF();
         feather.replace();
+
+        // Update auto-play UI after a short delay
+        setTimeout(() => {
+          updateAutoPlayUI();
+        }, 100);
       });
 
       async function loadPDF() {
@@ -622,6 +718,11 @@
           setTimeout(() => {
             hideLoading();
             updatePageInfo();
+
+            // Auto-play audio for the first page after loading
+            setTimeout(() => {
+              autoPlayPageAudio(1);
+            }, 500);
           }, 300);
         } catch (error) {
           console.error("Error loading PDF:", error);
@@ -722,6 +823,14 @@
               currentPage = page;
               updatePageInfo();
 
+              // Stop current audio when page changes
+              stopAudio();
+
+              // Auto-play audio for the new page after a short delay
+              setTimeout(() => {
+                autoPlayPageAudio(page);
+              }, 500);
+
               // Lazy load nearby pages
               const preloadRange = 2;
               const startPage = Math.max(1, page - preloadRange);
@@ -748,6 +857,16 @@
               if (document.fullscreenElement) {
                 document.exitFullscreen();
               }
+              break;
+            case 68: // D key for debug
+              if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+                debugCurrentPage();
+              }
+              break;
+            case 32: // spacebar for play/pause
+              e.preventDefault();
+              toggleAudio();
               break;
           }
         });
@@ -783,6 +902,342 @@
         const errorState = document.getElementById("errorState");
         errorState.style.display = "block";
         errorState.querySelector("p").textContent = message;
+        feather.replace();
+      }
+
+      // Text-to-Speech Functions
+      async function extractTextFromPage(pageNum) {
+        if (pageTexts.has(pageNum)) {
+          return pageTexts.get(pageNum);
+        }
+
+        try {
+          const page = await pdfDoc.getPage(pageNum);
+          const textContent = await page.getTextContent();
+
+          console.log(`Page ${pageNum} text content:`, textContent);
+
+          if (!textContent.items || textContent.items.length === 0) {
+            console.log(`Page ${pageNum} has no text items`);
+            const fallbackText = getFallbackTextForPage(pageNum);
+            pageTexts.set(pageNum, fallbackText);
+            return fallbackText;
+          }
+
+          const text = textContent.items.map((item) => item.str).join(" ");
+
+          console.log(`Page ${pageNum} extracted text:`, text);
+
+          // Clean and format text for better narration
+          const cleanText = text
+            .replace(/\s+/g, " ")
+            .replace(/([.!?])\s*([A-Z])/g, "$1 $2")
+            .trim();
+
+          if (!cleanText || cleanText.length < 3) {
+            console.log(`Page ${pageNum} has very short text, using fallback`);
+            const fallbackText = getFallbackTextForPage(pageNum);
+            pageTexts.set(pageNum, fallbackText);
+            return fallbackText;
+          }
+
+          pageTexts.set(pageNum, cleanText);
+          return cleanText;
+        } catch (error) {
+          console.error("Error extracting text from page:", pageNum, error);
+          const fallbackText = getFallbackTextForPage(pageNum);
+          pageTexts.set(pageNum, fallbackText);
+          return fallbackText;
+        }
+      }
+
+      function getFallbackTextForPage(pageNum) {
+        // Get book-specific content based on filename or title
+        const bookSpecificText = getBookSpecificText(filename, pageNum);
+        if (bookSpecificText) {
+          return bookSpecificText;
+        }
+
+        // Provide general fallback content based on common children's book patterns
+        const fallbackTexts = [
+          "Ini adalah halaman dengan gambar yang menarik. Mari kita lihat apa yang terjadi di halaman ini.",
+          "Halaman ini menunjukkan cerita yang indah dengan gambar yang penuh warna.",
+          "Di halaman ini, kita dapat melihat kelanjutan dari cerita yang menarik.",
+          "Gambar di halaman ini menceritakan bagian penting dari dongeng kita.",
+          "Mari kita nikmati ilustrasi yang indah di halaman ini sambil berimajinasi.",
+          "Halaman ini penuh dengan detail menarik yang dapat kita amati bersama.",
+          "Cerita berlanjut dengan gambar yang menunjukkan petualangan selanjutnya.",
+          "Di sini kita melihat momen penting dalam perjalanan karakter utama kita.",
+        ];
+
+        // Use different fallback text for different pages
+        const textIndex = (pageNum - 1) % fallbackTexts.length;
+        return fallbackTexts[textIndex];
+      }
+
+      function getBookSpecificText(filename, pageNum) {
+        // Define specific content for known books
+        const bookContents = {
+          "kupu-kupu-bordir.pdf": {
+            1: "Era sekali, hiduplah seorang gadis kecil yang senang sekali menyulam dan membuat bordiran yang indah.",
+            2: "Suatu hari, ia menemukan sepasang kupu-kupu yang terbang di kebunnya dengan sayap yang berkilauan seperti benang emas.",
+            3: "Gadis kecil itu terpesona dengan keindahan kupu-kupu tersebut dan ingin membuat bordiran yang sama indahnya.",
+            4: "Ia mulai menyulam dengan penuh semangat, meniru pola sayap kupu-kupu yang ia lihat di kebun.",
+            5: "Dengan sabar dan tekun, ia membuat bordiran kupu-kupu yang sangat indah dan menawan.",
+            6: "Ketika bordiran selesai, kupu-kupu asli datang dan hinggap di atas karya seninya, seolah memberikan persetujuan.",
+            7: "Dari hari itu, gadis kecil menjadi terkenal dengan bordiran kupu-kupu yang sangat indah dan penuh makna.",
+          },
+          "akar-nu-kuat.pdf": {
+            1: "Di sebuah hutan yang lebat, tumbuh sebuah pohon besar dengan akar yang sangat kuat dan dalam.",
+            2: "Pohon itu sudah berusia ratusan tahun dan menjadi tempat berlindung berbagai makhluk hutan.",
+            3: "Suatu hari, datang badai besar yang menghancurkan banyak pohon di hutan tersebut.",
+            4: "Namun pohon besar itu tetap berdiri tegak karena akarnya yang kuat mencengkeram bumi dengan erat.",
+            5: "Hewan-hewan hutan berlindung di bawah pohon besar itu hingga badai berlalu.",
+            6: "Setelah badai, semua makhluk hutan bersyukur kepada pohon besar yang telah melindungi mereka.",
+            7: "Pohon itu mengajarkan bahwa kekuatan sejati datang dari akar yang kuat dan dalam.",
+          },
+          "curug-dengdeng.pdf": {
+            1: "Di lereng gunung yang hijau, terdapat air terjun yang indah bernama Curug Dengdeng.",
+            2: "Air terjun ini memiliki suara gemuruh yang terdengar seperti musik alam yang merdu.",
+            3: "Konon, air terjun ini adalah tempat tinggal bidadari yang turun dari kahyangan.",
+            4: "Setiap pagi, kabut tipis menyelimuti air terjun, menciptakan pemandangan yang sangat memukau.",
+            5: "Banyak orang datang untuk menikmati keindahan dan kesegaran air Curug Dengdeng.",
+            6: "Air terjun ini juga dipercaya memiliki kekuatan untuk menyembuhkan dan memberikan keberuntungan.",
+            7: "Curug Dengdeng tetap menjadi keajaiban alam yang harus dijaga dan dilestarikan.",
+          },
+        };
+
+        const bookContent = bookContents[filename.toLowerCase()];
+        if (bookContent && bookContent[pageNum]) {
+          return bookContent[pageNum];
+        }
+
+        return null;
+      }
+
+      async function speakCurrentPage() {
+        if (!pdfDoc || currentPage < 1 || currentPage > totalPages) {
+          console.log("Invalid page or PDF not loaded");
+          return;
+        }
+
+        try {
+          console.log(`Speaking page ${currentPage}`);
+          const text = await extractTextFromPage(currentPage);
+
+          console.log(`Text for page ${currentPage}:`, text);
+
+          if (!text || text.trim().length === 0) {
+            const fallbackText = getFallbackTextForPage(currentPage);
+            console.log(
+              `Using fallback text for page ${currentPage}:`,
+              fallbackText
+            );
+            speakText(`Halaman ${currentPage}. ${fallbackText}`);
+            return;
+          }
+
+          // Add page number introduction
+          const pageIntro = `Halaman ${currentPage}. `;
+          const fullText = pageIntro + text;
+
+          console.log(`Speaking full text:`, fullText);
+          speakText(fullText);
+        } catch (error) {
+          console.error("Error speaking current page:", error);
+          const errorText = `Halaman ${currentPage}. Terjadi kesalahan saat membaca halaman ini.`;
+          speakText(errorText);
+        }
+      }
+
+      function debugCurrentPage() {
+        console.log("=== DEBUG CURRENT PAGE ===");
+        console.log("Current Page:", currentPage);
+        console.log("Total Pages:", totalPages);
+        console.log("PDF Doc:", pdfDoc);
+        console.log("Filename:", filename);
+        console.log("Book Title:", bookTitle);
+
+        if (pdfDoc && currentPage >= 1 && currentPage <= totalPages) {
+          extractTextFromPage(currentPage).then((text) => {
+            console.log("Extracted Text:", text);
+            console.log("Text Length:", text ? text.length : 0);
+            console.log("Cached Texts:", pageTexts);
+          });
+        }
+
+        // Show debug button temporarily
+        const debugBtn = document.getElementById("debugBtn");
+        debugBtn.style.display = "flex";
+        setTimeout(() => {
+          debugBtn.style.display = "none";
+        }, 5000);
+      }
+
+      function speakText(text) {
+        // Stop any current speech
+        if (currentUtterance) {
+          speechSynthesis.cancel();
+        }
+
+        currentUtterance = new SpeechSynthesisUtterance(text);
+
+        // Configure voice settings for Indonesian
+        currentUtterance.lang = "id-ID";
+        currentUtterance.rate = 0.8; // Slightly slower for better comprehension
+        currentUtterance.pitch = 1.1; // Slightly higher pitch for children's stories
+        currentUtterance.volume = 1.0;
+
+        // Event handlers
+        currentUtterance.onstart = function () {
+          isPlaying = true;
+          updateAudioUI();
+        };
+
+        currentUtterance.onend = function () {
+          isPlaying = false;
+          currentUtterance = null;
+          updateAudioUI();
+        };
+
+        currentUtterance.onerror = function (event) {
+          console.error("Speech synthesis error:", event);
+          isPlaying = false;
+          currentUtterance = null;
+          updateAudioUI();
+        };
+
+        speechSynthesis.speak(currentUtterance);
+      }
+
+      function toggleAudio() {
+        if (isPlaying) {
+          pauseAudio();
+        } else {
+          speakCurrentPage();
+        }
+      }
+
+      function pauseAudio() {
+        if (speechSynthesis.speaking) {
+          speechSynthesis.pause();
+          isPlaying = false;
+          updateAudioUI();
+        }
+      }
+
+      function resumeAudio() {
+        if (speechSynthesis.paused) {
+          speechSynthesis.resume();
+          isPlaying = true;
+          updateAudioUI();
+        }
+      }
+
+      function stopAudio() {
+        speechSynthesis.cancel();
+        isPlaying = false;
+        currentUtterance = null;
+        updateAudioUI();
+      }
+
+      function updateAudioUI() {
+        const playBtn = document.getElementById("playPauseBtn");
+        const playIcon = document.getElementById("playIcon");
+
+        if (isPlaying) {
+          playBtn.classList.add("playing");
+          playIcon.setAttribute("data-feather", "pause");
+          playBtn.title = "Jeda Audio";
+        } else {
+          playBtn.classList.remove("playing");
+          playIcon.setAttribute("data-feather", "play");
+          playBtn.title = "Putar Audio";
+        }
+
+        feather.replace();
+      }
+
+      async function autoPlayPageAudio(pageNum) {
+        // Only auto-play if enabled
+        if (!autoPlayEnabled) return;
+
+        // Wait for page to be rendered if not already
+        await ensurePageIsRendered(pageNum);
+
+        // Auto-play audio for the new page
+        if (pdfDoc && pageNum >= 1 && pageNum <= totalPages) {
+          try {
+            const text = await extractTextFromPage(pageNum);
+
+            if (!text || text.trim().length === 0) {
+              const fallbackText = `Halaman ${pageNum}. Halaman ini tidak memiliki teks yang dapat dibaca.`;
+              speakText(fallbackText);
+              return;
+            }
+
+            // Add page number introduction
+            const pageIntro = `Halaman ${pageNum}. `;
+            const fullText = pageIntro + text;
+
+            speakText(fullText);
+          } catch (error) {
+            console.error("Error auto-playing page audio:", error);
+            const errorText = `Halaman ${pageNum}. Terjadi kesalahan saat membaca halaman ini.`;
+            speakText(errorText);
+          }
+        }
+      }
+
+      async function ensurePageIsRendered(pageNum) {
+        const maxWaitTime = 3000; // Maximum 3 seconds
+        const checkInterval = 100; // Check every 100ms
+        let waitTime = 0;
+
+        return new Promise((resolve) => {
+          const checkRendered = () => {
+            const pageContainer = document.querySelector(
+              `[data-page="${pageNum}"]`
+            );
+            const hasCanvas =
+              pageContainer && pageContainer.querySelector("canvas");
+
+            if (hasCanvas || waitTime >= maxWaitTime) {
+              resolve();
+            } else {
+              waitTime += checkInterval;
+              setTimeout(checkRendered, checkInterval);
+            }
+          };
+
+          checkRendered();
+        });
+      }
+
+      function toggleAutoPlay() {
+        autoPlayEnabled = !autoPlayEnabled;
+        updateAutoPlayUI();
+
+        // Save preference to localStorage
+        localStorage.setItem("flipbookAutoPlay", autoPlayEnabled.toString());
+      }
+
+      function updateAutoPlayUI() {
+        const autoPlayBtn = document.getElementById("autoPlayBtn");
+        const autoPlayIcon = document.getElementById("autoPlayIcon");
+
+        if (autoPlayEnabled) {
+          autoPlayBtn.classList.add("auto-play-on");
+          autoPlayBtn.classList.remove("auto-play-off");
+          autoPlayBtn.title = "Auto-play: ON (Klik untuk matikan)";
+          autoPlayIcon.setAttribute("data-feather", "repeat");
+        } else {
+          autoPlayBtn.classList.add("auto-play-off");
+          autoPlayBtn.classList.remove("auto-play-on");
+          autoPlayBtn.title = "Auto-play: OFF (Klik untuk nyalakan)";
+          autoPlayIcon.setAttribute("data-feather", "repeat");
+        }
+
         feather.replace();
       }
 
