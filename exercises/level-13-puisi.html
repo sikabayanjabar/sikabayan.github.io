@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 13: Puisi Aksara Sunda - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .exercise-header h1 {
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .exercise-header h1 span {
+        color: var(--primary);
+      }
+
+      .level-info {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .progress-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .progress-text {
+        color: var(--text-color);
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .question-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: none;
+      }
+
+      .question-card.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .question-number {
+        color: var(--primary);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .question-text {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .poem-container {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .poem-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+
+      .poem-title {
+        text-align: center;
+        color: var(--primary);
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .poem-author {
+        text-align: center;
+        color: var(--text-color);
+        font-size: 1rem;
+        opacity: 0.8;
+        font-style: italic;
+        margin-bottom: 2rem;
+      }
+
+      .poem-content {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.8rem;
+        padding: 3rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+      }
+
+      .poem-content::before {
+        content: "🌸";
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        font-size: 2rem;
+        opacity: 0.3;
+      }
+
+      .poem-content::after {
+        content: "🌸";
+        position: absolute;
+        bottom: 15px;
+        right: 20px;
+        font-size: 2rem;
+        opacity: 0.3;
+      }
+
+      .poem-sunda {
+        font-size: 1.4rem;
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        line-height: 2;
+        margin-bottom: 2rem;
+        text-align: center;
+        white-space: pre-line;
+      }
+
+      .poem-latin {
+        color: var(--text-color);
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        white-space: pre-line;
+      }
+
+      .poem-translation {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 1rem;
+        font-style: italic;
+        line-height: 1.6;
+        text-align: center;
+        white-space: pre-line;
+      }
+
+      .poem-analysis {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .analysis-title {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .analysis-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .analysis-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .analysis-item:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .analysis-label {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .analysis-value {
+        color: var(--text-color);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .literary-elements {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .elements-title {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+        text-align: center;
+      }
+
+      .elements-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+      }
+
+      .element-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        border-left: 4px solid var(--primary);
+      }
+
+      .element-name {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+        font-size: 1rem;
+      }
+
+      .element-description {
+        color: var(--text-color);
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      .element-example {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-style: italic;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+      }
+
+      .rhyme-pattern {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+      }
+
+      .rhyme-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+      }
+
+      .rhyme-analysis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .rhyme-line {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.3rem;
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+      }
+
+      .rhyme-text {
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        margin-bottom: 0.5rem;
+      }
+
+      .rhyme-pattern-label {
+        color: var(--text-color);
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .option {
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+        position: relative;
+      }
+
+      .option:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .option.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+      }
+
+      .option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+      }
+
+      .option-content {
+        color: var(--text-color);
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .option-letter {
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        background: var(--primary);
+        color: white;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(32, 147, 164, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+      }
+
+      .feedback.correct {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid #10b981;
+        color: #10b981;
+      }
+
+      .feedback.incorrect {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        color: #ef4444;
+      }
+
+      .result-screen {
+        display: none;
+        text-align: center;
+      }
+
+      .result-screen.show {
+        display: block;
+      }
+
+      .score-display {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1rem 0;
+      }
+
+      .result-message {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+        }
+
+        .level-info {
+          gap: 1rem;
+        }
+
+        .poem-sunda {
+          font-size: 1.2rem;
+        }
+
+        .analysis-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .elements-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .rhyme-analysis {
+          grid-template-columns: 1fr;
+        }
+
+        .controls {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .options {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="exercise-container">
+      <!-- Exercise Header -->
+      <div class="exercise-header">
+        <h1><span>Level 13:</span> Puisi Aksara Sunda</h1>
+        <p>Latihan membaca dan mengapresiasi puisi dalam aksara Sunda</p>
+        <div class="level-info">
+          <div class="info-item">
+            <i data-feather="target"></i>
+            <span>Target: 80% untuk lulus</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="clock"></i>
+            <span>Waktu: ~35 menit</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="feather"></i>
+            <span>7 Soal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Soal 1 dari 7</div>
+      </div>
+
+      <!-- Quiz Container -->
+      <div id="quizContainer">
+        <!-- Questions will be generated by JavaScript -->
+      </div>
+
+      <!-- Result Screen -->
+      <div class="result-screen" id="resultScreen">
+        <div class="question-card">
+          <h2>🎉 Level 13 Selesai!</h2>
+          <div class="score-display" id="finalScore">86/100</div>
+          <div class="result-message" id="resultMessage">
+            Luar biasa! Anda sudah mampu mengapresiasi puisi dalam aksara Sunda
+            dengan baik.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" id="correctAnswers">6</div>
+              <div class="stat-label">Jawaban Benar</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="incorrectAnswers">1</div>
+              <div class="stat-label">Jawaban Salah</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="timeTaken">33:45</div>
+              <div class="stat-label">Waktu</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="accuracy">86%</div>
+              <div class="stat-label">Akurasi</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button
+              class="btn btn-secondary"
+              onclick="window.location.href='../latihan.html'"
+            >
+              <i data-feather="arrow-left"></i> Kembali ke Menu
+            </button>
+            <button class="btn btn-primary" onclick="nextLevel()">
+              Level Selanjutnya <i data-feather="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Quiz data
+      const quizData = [
+        {
+          question:
+            "Bacalah puisi berikut dan pahami makna serta struktur puisinya:",
+          type: "poem_comprehension",
+          poem: {
+            title: "Panonpoé Subuh",
+            author: "Karya Tradisional Sunda",
+            sunda: `ᮕᮔᮧᮔ᮪ᮕᮦ ᮞᮥᮘᮥᮂ ᮙᮔᮎᮁ\nᮔᮦᮛᮀᮊᮔ᮪ ᮊᮀᮊᮥᮀ ᮞᮦᮏᮥᮊ᮪\nᮞᮤᮔᮁ ᮃᮇᮀ ᮔᮦᮔᮩᮛᮔ᮪\nᮓᮥᮔᮤᮃ ᮍᮔ ᮃᮜᮥᮞ ᮃᮚᮧᮔ`,
+            latin: `Panonpoé subuh mancar\nNerangkeun kangkung sejuk\nSinar agung nenturan\nDunia jeng alus ayon`,
+            translation: `Matahari subuh bersinar\nMenerangi udara sejuk\nSinar agung menenangkan\nDunia yang indah permai`,
+          },
+          analysis: {
+            Tema: "Keindahan alam di pagi hari",
+            Suasana: "Damai, tenang, dan penuh harapan",
+            "Gaya Bahasa": "Deskriptif dengan imagery yang kuat",
+            Pesan: "Apresiasi terhadap keindahan ciptaan Tuhan",
+          },
+          options: [
+            {
+              content:
+                "Puisi menggambarkan keindahan dan kedamaian pagi hari dengan matahari sebagai simbol harapan",
+              correct: true,
+            },
+            {
+              content:
+                "Puisi menceritakan tentang kesedihan dan keputusasaan hidup",
+              correct: false,
+            },
+            {
+              content: "Puisi menggambarkan cuaca buruk dan hari yang suram",
+              correct: false,
+            },
+            {
+              content: "Puisi bercerita tentang aktivitas malam hari",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Puisi menggambarkan keindahan matahari subuh yang menerangi dunia dengan kedamaian dan ketenangan.",
+        },
+        {
+          question: "Analisis pola rima dan struktur puisi di atas:",
+          type: "rhyme_analysis",
+          rhymePattern: [
+            { line: "ᮕᮔᮧᮔ᮪ᮕᮦ ᮞᮥᮘᮥᮂ ᮙᮔᮎᮁ", ending: "-ar", pattern: "A" },
+            { line: "ᮔᮦᮛᮀᮊᮔ᮪ ᮊᮀᮊᮥᮀ ᮞᮦᮏᮥᮊ᮪", ending: "-uk", pattern: "B" },
+            { line: "ᮞᮤᮔᮁ ᮃᮇᮀ ᮔᮦᮔᮩᮛᮔ᮪", ending: "-an", pattern: "C" },
+            { line: "ᮓᮥᮔᮤᮃ ᮍᮔ ᮃᮜᮥᮞ ᮃᮚᮧᮔ", ending: "-on", pattern: "D" },
+          ],
+          elements: [
+            {
+              name: "Jumlah Baris",
+              description: "4 baris (kuatren)",
+              example: "Struktur puisi pendek",
+            },
+            {
+              name: "Pola Rima",
+              description: "ABCD (rima bebas)",
+              example: "Setiap baris memiliki bunyi akhir berbeda",
+            },
+            {
+              name: "Meter",
+              description: "Tidak terikat meter ketat",
+              example: "Mengutamakan keindahan makna",
+            },
+            {
+              name: "Diksi",
+              description: "Pilihan kata yang indah dan bermakna",
+              example: "Panonpoé, nerangkeun, nenturan",
+            },
+          ],
+          options: [
+            {
+              content:
+                "Puisi menggunakan pola rima bebas (ABCD) dengan struktur 4 baris yang fokus pada keindahan makna",
+              correct: true,
+            },
+            {
+              content:
+                "Puisi menggunakan pola rima sempurna (AABB) dengan meter yang sangat ketat",
+              correct: false,
+            },
+            {
+              content: "Puisi tidak memiliki struktur dan pola rima yang jelas",
+              correct: false,
+            },
+            {
+              content:
+                "Puisi menggunakan pola rima silang (ABAB) dengan jumlah suku kata yang sama",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Puisi menggunakan pola rima bebas yang mengutamakan keindahan makna daripada keterikatan pada pola rima ketat.",
+        },
+        {
+          question: "Bacalah puisi kedua berikut:",
+          type: "poem_comprehension_2",
+          poem: {
+            title: "Kampung Halaman",
+            author: "Karya Tradisional Sunda",
+            sunda: `ᮊᮙᮕᮥᮀ ᮠᮜᮙᮔ᮪ ᮉᮛᮤᮀ\nᮒᮦᮙᮕᮒ᮪ ᮘᮩᮓᮊ᮪ ᮜᮇᮁ\nᮞᮞᮅᮞ ᮊᮀᮊᮥᮀ ᮒᮦᮓᮥᮂ\nᮃᮒᮤ ᮞᮤᮞᮤᮔ ᮞᮩᮊᮔ`,
+            latin: `Kampung halaman eureun\nTempat budak leeuy\nSasedeh kangkung teduh\nAti sisin sukan`,
+            translation: `Kampung halaman terkasih\nTempat anak bermanja\nPerindu udara teduh\nHati selalu senang`,
+          },
+          analysis: {
+            Tema: "Kerinduan pada kampung halaman",
+            Nada: "Nostalgia dan kasih sayang",
+            Personifikasi: "Kampung halaman yang 'eureun' (terkasih)",
+            Imagery: "Suasana teduh dan nyaman kampung",
+          },
+          options: [
+            {
+              content:
+                "Puisi mengekspresikan kerinduan dan kasih sayang terhadap kampung halaman",
+              correct: true,
+            },
+            {
+              content:
+                "Puisi menceritakan tentang keinginan meninggalkan kampung halaman",
+              correct: false,
+            },
+            {
+              content: "Puisi menggambarkan kehidupan keras di kampung halaman",
+              correct: false,
+            },
+            {
+              content:
+                "Puisi bercerita tentang modernisasi yang merusak kampung halaman",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Puisi mengungkapkan perasaan nostalgia dan kasih sayang yang mendalam terhadap kampung halaman.",
+        },
+        {
+          question:
+            "Identifikasi gaya bahasa (majas) yang digunakan dalam kedua puisi:",
+          type: "figurative_language",
+          examples: [
+            {
+              type: "Personifikasi",
+              example: "Panonpoé... nerangkeun",
+              meaning: "Matahari diberi sifat manusia yang menerangi",
+            },
+            {
+              type: "Imagery Visual",
+              example: "Sinar agung nenturan",
+              meaning: "Gambaran visual sinar yang menenangkan",
+            },
+            {
+              type: "Metafora",
+              example: "Kampung halaman eureun",
+              meaning: "Kampung halaman disamakan dengan sesuatu yang terkasih",
+            },
+            {
+              type: "Hiperbola",
+              example: "Ati sisin sukan",
+              meaning: "Perasaan senang yang berlebihan",
+            },
+          ],
+          options: [
+            {
+              content:
+                "Kedua puisi menggunakan personifikasi, imagery, dan metafora untuk memperkuat ekspresi perasaan",
+              correct: true,
+            },
+            {
+              content:
+                "Kedua puisi hanya menggunakan gaya bahasa sederhana tanpa majas",
+              correct: false,
+            },
+            {
+              content:
+                "Kedua puisi menggunakan ironi dan sarkasme sebagai gaya bahasa utama",
+              correct: false,
+            },
+            {
+              content:
+                "Kedua puisi tidak menggunakan gaya bahasa figuratif sama sekali",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Kedua puisi kaya akan gaya bahasa seperti personifikasi, imagery, dan metafora yang memperdalam makna puisi.",
+        },
+        {
+          question: "Bandingkan tema dan suasana kedua puisi:",
+          type: "comparative_analysis",
+          comparison: {
+            "Puisi 1": {
+              Tema: "Keindahan alam pagi hari",
+              Suasana: "Tenang, damai, penuh harapan",
+              Fokus: "Alam dan spiritualitas",
+              Waktu: "Subuh/pagi hari",
+            },
+            "Puisi 2": {
+              Tema: "Kerinduan kampung halaman",
+              Suasana: "Nostalgia, kasih sayang, melankolis",
+              Fokus: "Tempat dan kenangan",
+              Waktu: "Tidak spesifik (kenangan)",
+            },
+          },
+          similarities: [
+            "Keduanya menggunakan bahasa Sunda yang indah",
+            "Keduanya mengekspresikan perasaan positif",
+            "Keduanya menggunakan imagery alam",
+            "Keduanya memiliki nilai estetika tinggi",
+          ],
+          options: [
+            {
+              content:
+                "Kedua puisi memiliki tema berbeda namun sama-sama mengekspresikan perasaan positif dan menggunakan imagery alam",
+              correct: true,
+            },
+            {
+              content: "Kedua puisi memiliki tema dan suasana yang persis sama",
+              correct: false,
+            },
+            {
+              content: "Kedua puisi bertentangan dalam tema dan suasana",
+              correct: false,
+            },
+            {
+              content:
+                "Kedua puisi tidak memiliki kesamaan apapun dalam tema maupun suasana",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Meskipun tema berbeda, kedua puisi sama-sama positif dan menggunakan keindahan alam sebagai ekspresi perasaan.",
+        },
+        {
+          question:
+            "Analisis nilai budaya Sunda yang terkandung dalam kedua puisi:",
+          type: "cultural_analysis",
+          culturalValues: [
+            {
+              value: "Silih Asah",
+              manifestation: "Pembelajaran dari keindahan alam",
+            },
+            {
+              value: "Silih Asih",
+              manifestation: "Kasih sayang pada kampung halaman",
+            },
+            {
+              value: "Silih Asuh",
+              manifestation: "Pemeliharaan nilai-nilai tradisi melalui puisi",
+            },
+            {
+              value: "Cinta Alam",
+              manifestation: "Apresiasi terhadap keindahan alam Sunda",
+            },
+            {
+              value: "Cinta Tanah Air",
+              manifestation: "Kerinduan dan kasih sayang pada kampung halaman",
+            },
+          ],
+          options: [
+            {
+              content:
+                "Kedua puisi mencerminkan nilai-nilai Sunda seperti cinta alam, cinta tanah air, dan filosofi Silih Asah Asih Asuh",
+              correct: true,
+            },
+            {
+              content:
+                "Kedua puisi tidak mengandung nilai budaya Sunda yang signifikan",
+              correct: false,
+            },
+            {
+              content:
+                "Kedua puisi hanya fokus pada keindahan tanpa nilai budaya",
+              correct: false,
+            },
+            {
+              content:
+                "Kedua puisi bertentangan dengan nilai-nilai budaya Sunda",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Puisi-puisi tersebut merefleksikan nilai-nilai budaya Sunda yang mendalam, terutama hubungan harmonis dengan alam dan cinta tanah air.",
+        },
+        {
+          question:
+            "Berdasarkan analisis puisi-puisi tersebut, apa karakteristik puisi tradisional Sunda?",
+          type: "literary_characteristics",
+          characteristics: [
+            "Menggunakan bahasa Sunda yang indah dan bermakna",
+            "Tema yang dekat dengan kehidupan masyarakat Sunda",
+            "Penggunaan imagery alam yang kuat",
+            "Ekspresi perasaan yang tulus dan mendalam",
+            "Mengandung nilai-nilai budaya dan moral",
+            "Struktur yang sederhana namun bermakna",
+            "Gaya bahasa figuratif yang kaya",
+          ],
+          literaryTradition: {
+            "Fungsi Sosial": "Media ekspresi perasaan dan nilai budaya",
+            Gaya: "Sederhana namun mendalam",
+            "Tema Utama": "Alam, kampung halaman, kehidupan sehari-hari",
+            "Nilai Estetika": "Keindahan bahasa dan kedalaman makna",
+          },
+          options: [
+            {
+              content:
+                "Puisi tradisional Sunda memiliki ciri khas kesederhanaan struktur, kedalaman makna, dan keterkaitan erat dengan alam serta budaya Sunda",
+              correct: true,
+            },
+            {
+              content:
+                "Puisi tradisional Sunda hanya mengutamakan keindahan bunyi tanpa memperhatikan makna",
+              correct: false,
+            },
+            {
+              content:
+                "Puisi tradisional Sunda selalu menggunakan struktur yang rumit dan sulit dipahami",
+              correct: false,
+            },
+            {
+              content:
+                "Puisi tradisional Sunda tidak memiliki karakteristik khusus yang membedakannya",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Puisi tradisional Sunda memiliki karakteristik unik: sederhana namun bermakna dalam, dekat dengan alam dan budaya Sunda, serta kaya akan nilai-nilai kehidupan.",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let userAnswers = [];
+      let startTime = Date.now();
+
+      function initializeQuiz() {
+        generateQuizHTML();
+        showQuestion(0);
+        updateProgress();
+      }
+
+      function generateQuizHTML() {
+        const container = document.getElementById("quizContainer");
+        container.innerHTML = "";
+
+        quizData.forEach((question, index) => {
+          let questionHTML = `
+                    <div class="question-card" id="question-${index}">
+                        <div class="question-number">Soal ${index + 1} dari ${
+            quizData.length
+          }</div>
+                        <div class="question-text">${question.question}</div>
+                `;
+
+          // Poem comprehension
+          if (
+            question.type === "poem_comprehension" ||
+            question.type === "poem_comprehension_2"
+          ) {
+            questionHTML += `
+                        <div class="poem-container">
+                            <div class="poem-title">${question.poem.title}</div>
+                            <div class="poem-author">${
+                              question.poem.author
+                            }</div>
+                            <div class="poem-content">
+                                <div class="poem-sunda">${
+                                  question.poem.sunda
+                                }</div>
+                                <div class="poem-latin">${
+                                  question.poem.latin
+                                }</div>
+                                <div class="poem-translation">${
+                                  question.poem.translation
+                                }</div>
+                            </div>
+                            ${
+                              question.analysis
+                                ? `
+                                <div class="poem-analysis">
+                                    <div class="analysis-title"><i data-feather="search"></i> Analisis Puisi</div>
+                                    <div class="analysis-grid">
+                                        ${Object.entries(question.analysis)
+                                          .map(
+                                            ([key, value]) => `
+                                            <div class="analysis-item">
+                                                <div class="analysis-label">${key}:</div>
+                                                <div class="analysis-value">${value}</div>
+                                            </div>
+                                        `
+                                          )
+                                          .join("")}
+                                    </div>
+                                </div>
+                            `
+                                : ""
+                            }
+                        </div>
+                    `;
+          }
+
+          // Rhyme analysis
+          if (question.type === "rhyme_analysis") {
+            questionHTML += `
+                        <div class="rhyme-pattern">
+                            <div class="rhyme-title"><i data-feather="music"></i> Analisis Pola Rima</div>
+                            <div class="rhyme-analysis">
+                                ${question.rhymePattern
+                                  .map(
+                                    (rhyme) => `
+                                    <div class="rhyme-line">
+                                        <div class="rhyme-text">${rhyme.line}</div>
+                                        <div class="rhyme-pattern-label">Pola: ${rhyme.pattern} (${rhyme.ending})</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                        <div class="literary-elements">
+                            <div class="elements-title"><i data-feather="layers"></i> Unsur-Unsur Puisi</div>
+                            <div class="elements-grid">
+                                ${question.elements
+                                  .map(
+                                    (element) => `
+                                    <div class="element-item">
+                                        <div class="element-name">${element.name}</div>
+                                        <div class="element-description">${element.description}</div>
+                                        <div class="element-example">Contoh: ${element.example}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Figurative language
+          if (question.type === "figurative_language") {
+            questionHTML += `
+                        <div class="literary-elements">
+                            <div class="elements-title"><i data-feather="feather"></i> Gaya Bahasa dalam Puisi</div>
+                            <div class="elements-grid">
+                                ${question.examples
+                                  .map(
+                                    (example) => `
+                                    <div class="element-item">
+                                        <div class="element-name">${example.type}</div>
+                                        <div class="element-description">"${example.example}"</div>
+                                        <div class="element-example">${example.meaning}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Comparative analysis
+          if (question.type === "comparative_analysis") {
+            questionHTML += `
+                        <div class="poem-analysis">
+                            <div class="analysis-title"><i data-feather="git-compare"></i> Perbandingan Puisi</div>
+                            <div class="analysis-grid">
+                                ${Object.entries(question.comparison)
+                                  .map(
+                                    ([poemKey, poemData]) => `
+                                    <div class="analysis-item">
+                                        <div class="analysis-label">${poemKey}:</div>
+                                        <div class="analysis-value">
+                                            ${Object.entries(poemData)
+                                              .map(
+                                                ([key, value]) => `
+                                                <strong>${key}:</strong> ${value}<br>
+                                            `
+                                              )
+                                              .join("")}
+                                        </div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                        <div class="literary-elements">
+                            <div class="elements-title"><i data-feather="link"></i> Kesamaan Kedua Puisi</div>
+                            <div class="elements-grid">
+                                ${question.similarities
+                                  .map(
+                                    (similarity, index) => `
+                                    <div class="element-item">
+                                        <div class="element-name">Kesamaan ${
+                                          index + 1
+                                        }</div>
+                                        <div class="element-description">${similarity}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Cultural analysis
+          if (question.type === "cultural_analysis") {
+            questionHTML += `
+                        <div class="literary-elements">
+                            <div class="elements-title"><i data-feather="home"></i> Nilai Budaya Sunda</div>
+                            <div class="elements-grid">
+                                ${question.culturalValues
+                                  .map(
+                                    (cultural) => `
+                                    <div class="element-item">
+                                        <div class="element-name">${cultural.value}</div>
+                                        <div class="element-description">${cultural.manifestation}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Literary characteristics
+          if (question.type === "literary_characteristics") {
+            questionHTML += `
+                        <div class="literary-elements">
+                            <div class="elements-title"><i data-feather="book-open"></i> Karakteristik Puisi Tradisional Sunda</div>
+                            <div class="elements-grid">
+                                ${question.characteristics
+                                  .map(
+                                    (char, index) => `
+                                    <div class="element-item">
+                                        <div class="element-name">Karakteristik ${
+                                          index + 1
+                                        }</div>
+                                        <div class="element-description">${char}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                        <div class="poem-analysis">
+                            <div class="analysis-title"><i data-feather="award"></i> Tradisi Sastra Sunda</div>
+                            <div class="analysis-grid">
+                                ${Object.entries(question.literaryTradition)
+                                  .map(
+                                    ([key, value]) => `
+                                    <div class="analysis-item">
+                                        <div class="analysis-label">${key}:</div>
+                                        <div class="analysis-value">${value}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Options
+          questionHTML += `
+                    <div class="options" id="options-${index}">
+                        ${question.options
+                          .map(
+                            (option, optionIndex) => `
+                            <div class="option" onclick="selectAnswer(${index}, ${optionIndex})">
+                                <div class="option-letter">${String.fromCharCode(
+                                  65 + optionIndex
+                                )}</div>
+                                <div class="option-content">${
+                                  option.content
+                                }</div>
+                            </div>
+                        `
+                          )
+                          .join("")}
+                    </div>
+                `;
+
+          questionHTML += `
+                        <div class="feedback" id="feedback-${index}"></div>
+                        
+                        <div class="controls">
+                            <button class="btn btn-secondary" onclick="previousQuestion()" ${
+                              index === 0 ? 'style="visibility: hidden"' : ""
+                            }>
+                                <i data-feather="arrow-left"></i> Sebelumnya
+                            </button>
+                            <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                                ${
+                                  index === quizData.length - 1
+                                    ? "Selesai"
+                                    : "Selanjutnya"
+                                } 
+                                <i data-feather="arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+          container.innerHTML += questionHTML;
+        });
+      }
+
+      function selectAnswer(questionIndex, answerIndex) {
+        const options = document.querySelectorAll(
+          `#options-${questionIndex} .option`
+        );
+        const question = quizData[questionIndex];
+
+        // Remove previous selections
+        options.forEach((option) => {
+          option.classList.remove("selected", "correct", "incorrect");
+        });
+
+        // Mark selected answer
+        options[answerIndex].classList.add("selected");
+
+        // Store user answer
+        userAnswers[questionIndex] = answerIndex;
+
+        // Check if correct
+        const isCorrect = question.options[answerIndex].correct;
+
+        if (isCorrect) {
+          options[answerIndex].classList.add("correct");
+          score += Math.round(100 / quizData.length);
+          showFeedback(
+            questionIndex,
+            "correct",
+            "✓ Benar! " + question.explanation
+          );
+        } else {
+          options[answerIndex].classList.add("incorrect");
+          // Show correct answer
+          question.options.forEach((option, index) => {
+            if (option.correct) {
+              options[index].classList.add("correct");
+            }
+          });
+          showFeedback(
+            questionIndex,
+            "incorrect",
+            "✗ Salah. " + question.explanation
+          );
+        }
+
+        // Enable next button
+        document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+      }
+
+      function showFeedback(questionIndex, type, message) {
+        const feedback = document.getElementById(`feedback-${questionIndex}`);
+        feedback.className = `feedback ${type}`;
+        feedback.innerHTML = message;
+        feedback.style.display = "block";
+      }
+
+      function showQuestion(index) {
+        // Hide all questions
+        document.querySelectorAll(".question-card").forEach((card) => {
+          card.classList.remove("active");
+        });
+
+        // Show current question
+        document.getElementById(`question-${index}`).classList.add("active");
+
+        // Update progress
+        updateProgress();
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextQuestion() {
+        if (currentQuestion < quizData.length - 1) {
+          currentQuestion++;
+          showQuestion(currentQuestion);
+        } else {
+          showResults();
+        }
+      }
+
+      function previousQuestion() {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          showQuestion(currentQuestion);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (currentQuestion / quizData.length) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+        document.getElementById("progressText").textContent = `Soal ${
+          currentQuestion + 1
+        } dari ${quizData.length}`;
+      }
+
+      function showResults() {
+        const endTime = Date.now();
+        const timeTaken = Math.floor((endTime - startTime) / 1000);
+        const minutes = Math.floor(timeTaken / 60);
+        const seconds = timeTaken % 60;
+
+        const correctCount = Math.round(score / (100 / quizData.length));
+        const incorrectCount = quizData.length - correctCount;
+
+        // Hide quiz container
+        document.getElementById("quizContainer").style.display = "none";
+        document.querySelector(".progress-container").style.display = "none";
+
+        // Show results
+        document.getElementById("resultScreen").classList.add("show");
+        document.getElementById("finalScore").textContent = score + "/100";
+        document.getElementById("correctAnswers").textContent = correctCount;
+        document.getElementById("incorrectAnswers").textContent =
+          incorrectCount;
+        document.getElementById("timeTaken").textContent = `${minutes}:${seconds
+          .toString()
+          .padStart(2, "0")}`;
+        document.getElementById("accuracy").textContent = score + "%";
+
+        // Update result message
+        let message = "";
+        if (score >= 90) {
+          message =
+            "🌟 Luar biasa! Anda sangat mahir mengapresiasi puisi dalam aksara Sunda!";
+        } else if (score >= 80) {
+          message =
+            "👏 Excellent! Anda sudah mampu menganalisis puisi dengan baik.";
+        } else if (score >= 70) {
+          message =
+            "👍 Bagus! Terus berlatih mengapresiasi karya sastra yang lebih kompleks.";
+        } else {
+          message =
+            "💪 Jangan menyerah! Latihan apresiasi sastra akan meningkatkan kemampuan Anda.";
+        }
+
+        document.getElementById("resultMessage").textContent = message;
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextLevel() {
+        window.location.href = "level-14-teks-klasik.html";
+      }
+
+      // Initialize quiz when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeQuiz();
+        feather.replace();
+      });
+    </script>
+  </body>
+</html>

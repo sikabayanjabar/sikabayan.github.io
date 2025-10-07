@@ -42,6 +42,7 @@
         <a href="#menu">Kebijakan</a>
         <a href="#materi">Materi</a>
         <a href="latihan.html">Latihan</a>
+        <a href="buku-digital.html">Perpustakaan</a>
         <a href="#contact">Kontak</a>
       </div>
 
@@ -112,58 +113,11 @@
     <!-- Hero section start -->
     <section class="hero" id="home">
       <main class="content">
-      <h1 class="hero-title animate-fade-in">SIKABAYAN</h1>
-      <p class="hero-subtitle animate-slide-up">Literasi Kebudayaan Aksara Sunda</p>
-      <a href="latihan.html" class="cta animate-pop-in" id="mulai-belajar-btn">Mulai Belajar</a>
-      <style>
-        .flash-animate {
-          animation: flash 0.4s linear;
-        }
-        @keyframes flash {
-          0% { background: #ffe066; box-shadow: 0 0 0 0 #ffe066; }
-          50% { background: #fffbe6; box-shadow: 0 0 10px 5px #ffe066; }
-          100% { background: #ffe066; box-shadow: 0 0 0 0 #ffe066; }
-        }
-      </style>
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const btn = document.getElementById('mulai-belajar-btn');
-          btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        btn.classList.add('flash-animate');
-        setTimeout(() => {
-          window.location.href = btn.getAttribute('href');
-        }, 400);
-          });
-        });
-      </script>
+        <h1 class="hero-title">SIKABAYAN</h1>
+        <p class="hero-subtitle">Literasi Kebudayaan Aksara Sunda</p>
+        <a href="latihan.html" class="cta">Mulai Belajar</a>
       </main>
     </section>
-    <style>
-      .animate-fade-in {
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
-      }
-      .animate-slide-up {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: slideUp 1s 0.5s ease forwards;
-      }
-      .animate-pop-in {
-      opacity: 0;
-      transform: scale(0.8);
-      animation: popIn 0.7s 1s cubic-bezier(.68,-0.55,.27,1.55) forwards;
-      }
-      @keyframes fadeIn {
-      to { opacity: 1; }
-      }
-      @keyframes slideUp {
-      to { opacity: 1; transform: translateY(0); }
-      }
-      @keyframes popIn {
-      to { opacity: 1; transform: scale(1); }
-      }
-    </style>
 
     <!-- Hero section end -->
 
@@ -270,6 +224,53 @@
       </div>
     </section>
     <!-- Materi Section End -->
+
+    <!-- Perpustakaan Section Start -->
+    <section id="perpustakaan" class="perpustakaan">
+      <h2><span>Perpustakaan</span> Digital</h2>
+      <p>Koleksi cerita dan dongeng dalam aksara Sunda untuk memperkaya literasi budaya</p>
+      
+      <div class="row">
+        <div class="books-preview">
+          <div class="book-item">
+            <div class="book-cover">
+              <i data-feather="book"></i>
+            </div>
+            <h4>Payung Ineu</h4>
+            <p>Cerita tradisional dalam aksara Sunda</p>
+          </div>
+          
+          <div class="book-item">
+            <div class="book-cover">
+              <i data-feather="book"></i>
+            </div>
+            <h4>Galunggung</h4>
+            <p>Legenda Gunung Galunggung</p>
+          </div>
+          
+          <div class="book-item">
+            <div class="book-cover">
+              <i data-feather="book"></i>
+            </div>
+            <h4>Kampung Naga</h4>
+            <p>Kehidupan dan tradisi Kampung Naga</p>
+          </div>
+          
+          <div class="book-item">
+            <div class="book-cover">
+              <i data-feather="book"></i>
+            </div>
+            <h4>Kupu-kupu Bordir</h4>
+            <p>Dongeng kupu-kupu yang pandai membordir</p>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="buku-digital.html" class="cta">Jelajahi Perpustakaan</a>
+      </div>
+    </section>
+    <!-- Perpustakaan Section End -->
 
     <!-- Contack Section Start -->
     <section id="contact" class="contact">

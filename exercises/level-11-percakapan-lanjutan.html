@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 11: Percakapan Lanjutan - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .exercise-header h1 {
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .exercise-header h1 span {
+        color: var(--primary);
+      }
+
+      .level-info {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .progress-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .progress-text {
+        color: var(--text-color);
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .question-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: none;
+      }
+
+      .question-card.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .question-number {
+        color: var(--primary);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .question-text {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .dialogue-container {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .dialogue-title {
+        text-align: center;
+        color: var(--primary);
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+      }
+
+      .dialogue-scene {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .scene-info {
+        text-align: center;
+        color: var(--text-color);
+        font-style: italic;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+      }
+
+      .dialogue-line {
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 0.8rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .dialogue-line:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .speaker-info {
+        min-width: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .speaker-name {
+        font-weight: bold;
+        color: var(--primary);
+        margin-bottom: 0.3rem;
+      }
+
+      .speaker-avatar {
+        width: 40px;
+        height: 40px;
+        background: rgba(32, 147, 164, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      .dialogue-content {
+        flex: 1;
+      }
+
+      .dialogue-sunda {
+        font-size: 1.2rem;
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        margin-bottom: 0.5rem;
+        line-height: 1.4;
+      }
+
+      .dialogue-latin {
+        color: var(--text-color);
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+        font-weight: 600;
+      }
+
+      .dialogue-translation {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: 0.9rem;
+        font-style: italic;
+      }
+
+      .conversation-analysis {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .analysis-title {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .analysis-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .analysis-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.3rem;
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .analysis-label {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .analysis-value {
+        color: var(--text-color);
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
+
+      .dialogue-interactive {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+      }
+
+      .interactive-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+
+      .missing-dialogue {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin: 1rem 0;
+        text-align: center;
+        color: var(--text-color);
+        opacity: 0.7;
+      }
+
+      .dialogue-choices {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .dialogue-choice {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .dialogue-choice:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+      }
+
+      .dialogue-choice.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .dialogue-choice.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+      }
+
+      .dialogue-choice.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      .choice-sunda {
+        font-size: 1.1rem;
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        margin-bottom: 0.5rem;
+      }
+
+      .choice-latin {
+        color: var(--text-color);
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+
+      .choice-translation {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: 0.9rem;
+        font-style: italic;
+      }
+
+      .options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .option {
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .option:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+      }
+
+      .option.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+      }
+
+      .option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+      }
+
+      .option-content {
+        color: var(--text-color);
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(32, 147, 164, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+      }
+
+      .feedback.correct {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid #10b981;
+        color: #10b981;
+      }
+
+      .feedback.incorrect {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        color: #ef4444;
+      }
+
+      .result-screen {
+        display: none;
+        text-align: center;
+      }
+
+      .result-screen.show {
+        display: block;
+      }
+
+      .score-display {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1rem 0;
+      }
+
+      .result-message {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+        }
+
+        .level-info {
+          gap: 1rem;
+        }
+
+        .dialogue-line {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .speaker-info {
+          min-width: auto;
+          flex-direction: row;
+          gap: 0.5rem;
+        }
+
+        .dialogue-choices {
+          grid-template-columns: 1fr;
+        }
+
+        .controls {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .options {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="exercise-container">
+      <!-- Exercise Header -->
+      <div class="exercise-header">
+        <h1><span>Level 11:</span> Percakapan Lanjutan Aksara Sunda</h1>
+        <p>
+          Latihan memahami dan menganalisis dialog kompleks dalam aksara Sunda
+        </p>
+        <div class="level-info">
+          <div class="info-item">
+            <i data-feather="target"></i>
+            <span>Target: 80% untuk lulus</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="clock"></i>
+            <span>Waktu: ~35 menit</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="users"></i>
+            <span>8 Soal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Soal 1 dari 8</div>
+      </div>
+
+      <!-- Quiz Container -->
+      <div id="quizContainer">
+        <!-- Questions will be generated by JavaScript -->
+      </div>
+
+      <!-- Result Screen -->
+      <div class="result-screen" id="resultScreen">
+        <div class="question-card">
+          <h2>🎉 Level 11 Selesai!</h2>
+          <div class="score-display" id="finalScore">88/100</div>
+          <div class="result-message" id="resultMessage">
+            Luar biasa! Anda sudah mahir memahami percakapan kompleks dalam
+            aksara Sunda.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" id="correctAnswers">7</div>
+              <div class="stat-label">Jawaban Benar</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="incorrectAnswers">1</div>
+              <div class="stat-label">Jawaban Salah</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="timeTaken">32:15</div>
+              <div class="stat-label">Waktu</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="accuracy">88%</div>
+              <div class="stat-label">Akurasi</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button
+              class="btn btn-secondary"
+              onclick="window.location.href='../latihan.html'"
+            >
+              <i data-feather="arrow-left"></i> Kembali ke Menu
+            </button>
+            <button class="btn btn-primary" onclick="nextLevel()">
+              Level Selanjutnya <i data-feather="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Quiz data
+      const quizData = [
+        {
+          question:
+            "Bacalah percakapan di pasar berikut dan pahami konteksnya:",
+          type: "complex_dialogue",
+          scene: "Di Pasar Tradisional",
+          dialogue: [
+            {
+              speaker: "Ibu Ani",
+              avatar: "A",
+              sunda: "ᮆᮔ ᮞᮃᮚᮔ ᮃᮚᮩ ᮘᮩ?",
+              latin: "Ton sayur apa bu?",
+              translation: "Ada sayur apa Bu?",
+            },
+            {
+              speaker: "Pedagang",
+              avatar: "P",
+              sunda: "ᮃᮚ ᮊᮔᮊᮥᮀ, ᮊᮧᮜ, ᮒᮧᮙᮒ ᮘᮩ.",
+              latin: "Aya kangkung, kol, tomat bu.",
+              translation: "Ada kangkung, kol, tomat Bu.",
+            },
+            {
+              speaker: "Ibu Ani",
+              avatar: "A",
+              sunda: "ᮞᮔ ᮠᮁᮌ ᮊᮀᮊᮥᮀ ᮞᮥᮁ?",
+              latin: "Sabaraha harga kangkung sae?",
+              translation: "Berapa harga kangkung satu ikat?",
+            },
+            {
+              speaker: "Pedagang",
+              avatar: "P",
+              sunda: "ᮊᮀᮊᮥᮀ ᮘᮤᮘᮩ ᮛᮥᮘᮤᮃ ᮘᮩ.",
+              latin: "Kangkung bibi ruyupia bu.",
+              translation: "Kangkung dua ribu rupiah Bu.",
+            },
+          ],
+          analysis: {
+            Situasi: "Percakapan di pasar tradisional",
+            Peserta: "Pembeli (Ibu Ani) dan Pedagang",
+            Tujuan: "Membeli sayuran",
+            Nada: "Sopan dan ramah",
+          },
+          options: [
+            {
+              content:
+                "Ibu Ani sedang berbelanja sayur di pasar dan menanyakan harga kangkung",
+              correct: true,
+            },
+            {
+              content: "Ibu Ani sedang menjual sayur di pasar",
+              correct: false,
+            },
+            {
+              content: "Pedagang sedang membeli sayur dari Ibu Ani",
+              correct: false,
+            },
+            { content: "Ibu Ani sedang mencari alamat pasar", correct: false },
+          ],
+          explanation:
+            "Dialog menunjukkan Ibu Ani sebagai pembeli yang menanyakan jenis sayur dan harga kangkung kepada pedagang.",
+        },
+        {
+          question: "Lengkapi dialog berikut dengan respons yang tepat:",
+          type: "dialogue_completion",
+          scene: "Di Sekolah - Jam Istirahat",
+          dialogue: [
+            {
+              speaker: "Riska",
+              avatar: "R",
+              sunda: "ᮃᮁ, ᮔᮚᮧᮔ ᮞᮃᮚᮚᮤᮔ ᮔᮚᮧᮔ?",
+              latin: "Eh, naon saweran naon?",
+              translation: "Eh, apa tugas apa?",
+            },
+            {
+              speaker: "Diki",
+              avatar: "D",
+              sunda: "___________",
+              latin: "?",
+              translation: "?",
+            },
+          ],
+          choices: [
+            {
+              sunda: "ᮞᮃᮚᮚᮤᮔ ᮙᮒᮦᮙᮒᮤᮊ ᮊᮙᮁᮤ.",
+              latin: "Saweran matematik kamari.",
+              translation: "Tugas matematika kemarin.",
+              correct: true,
+            },
+            {
+              sunda: "ᮃᮘᮓᮤ ᮔᮚᮧᮔ ᮘᮦᮜᮤ ᮏᮏᮔ.",
+              latin: "Abdi naon beli jajan.",
+              translation: "Saya mau beli jajan.",
+              correct: false,
+            },
+            {
+              sunda: "ᮞᮃᮚᮚᮤᮔ ᮞᮥᮔᮓ ᮕᮤ.",
+              latin: "Saweran sunda pi.",
+              translation: "Tugas sunda juga.",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Respons yang tepat adalah menjawab pertanyaan Riska tentang tugas, yaitu tugas matematika kemarin.",
+        },
+        {
+          question: "Analisis hubungan antara pembicara dalam dialog berikut:",
+          type: "relationship_analysis",
+          scene: "Di Rumah - Sore Hari",
+          dialogue: [
+            {
+              speaker: "Kakek",
+              avatar: "K",
+              sunda: "ᮃᮔᮊ᮪ ᮔᮚᮧᮔ ᮞᮀᮒ ᮕᮥᮜᮀ ᮞᮊᮧᮜ?",
+              latin: "Anak naon seang pulang sakola?",
+              translation: "Anak kenapa baru pulang sekolah?",
+            },
+            {
+              speaker: "Cucu",
+              avatar: "C",
+              sunda: "ᮃᮘᮓᮤ ᮞᮀᮒ ᮄᮊᮞᮞᮩᮝ ᮃᮊᮤ.",
+              latin: "Abdi seang ekskur aki.",
+              translation: "Saya habis ekstrakurikuler Kek.",
+            },
+            {
+              speaker: "Kakek",
+              avatar: "K",
+              sunda: "ᮃᮞᮊᮧᮜ ᮃᮞᮊᮧᮜ. ᮒᮧᮀ ᮒᮅᮔ ᮞᮀᮒ ᮒᮩᮃᮔ᮪.",
+              latin: "Alus alus. Tong lapar seang tuan.",
+              translation: "Bagus bagus. Jangan lapar ya Nak.",
+            },
+          ],
+          options: [
+            {
+              content: "Hubungan kakek dan cucu yang penuh kasih sayang",
+              correct: true,
+            },
+            { content: "Hubungan guru dan murid", correct: false },
+            { content: "Hubungan teman sebaya", correct: false },
+            {
+              content: "Hubungan formal antara atasan dan bawahan",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Dialog menunjukkan hubungan kakek-cucu dengan panggilan 'aki' dan perhatian kakek terhadap aktivitas cucu.",
+        },
+        {
+          question: "Tentukan nada dan suasana dalam percakapan berikut:",
+          type: "tone_analysis",
+          scene: "Di Kelas - Saat Ujian",
+          dialogue: [
+            {
+              speaker: "Guru",
+              avatar: "G",
+              sunda: "ᮞᮁᮀ ᮒᮧᮀ ᮓᮥᮒ ᮓᮥᮒ ᮊᮤᮓ!",
+              latin: "Seuang tong dut dut kid!",
+              translation: "Sekarang jangan bicara dulu!",
+            },
+            {
+              speaker: "Siswa",
+              avatar: "S",
+              sunda: "ᮎᮔ ᮞᮀ ᮄᮛᮤᮌ ᮘᮩ.",
+              latin: "Can sang erig bu.",
+              translation: "Maaf Bu Guru.",
+            },
+            {
+              speaker: "Guru",
+              avatar: "G",
+              sunda: "ᮞᮀᮒ ᮚᮊ᮪ᮒᮩ ᮌᮞ ᮘᮩᮏᮔ.",
+              latin: "Seang waktu gas bujen.",
+              translation: "Masih ada waktu, tenang saja.",
+            },
+          ],
+          analysis: {
+            "Nada Awal": "Tegas dan disiplin",
+            "Respons Siswa": "Meminta maaf dengan sopan",
+            "Nada Akhir": "Menenangkan dan pengertian",
+            Suasana: "Formal namun penuh perhatian",
+          },
+          options: [
+            {
+              content:
+                "Nada berubah dari tegas menjadi pengertian dan menenangkan",
+              correct: true,
+            },
+            {
+              content: "Nada tetap marah dan kesal sepanjang dialog",
+              correct: false,
+            },
+            { content: "Nada santai dan bercanda dari awal", correct: false },
+            { content: "Nada formal dan kaku tanpa emosi", correct: false },
+          ],
+          explanation:
+            "Dialog menunjukkan perubahan nada dari tegas ke pengertian, menggambarkan guru yang disiplin namun peduli.",
+        },
+        {
+          question:
+            "Susun ulang dialog berikut agar menjadi percakapan yang logis:",
+          type: "dialogue_sequencing",
+          scene: "Di Warung - Siang Hari",
+          shuffledDialogue: [
+            {
+              speaker: "Pembeli",
+              avatar: "P",
+              sunda: "ᮔᮚᮧᮔ ᮌᮧᮛᮦᮀ ᮛᮤᮓᮞ?",
+              latin: "Naon gorang ridas?",
+              translation: "Ada gorengan apa?",
+              order: 1,
+            },
+            {
+              speaker: "Penjual",
+              avatar: "J",
+              sunda: "ᮓᮥᮄ ᮄᮝ ᮞᮀ ᮛᮥᮘᮤᮃ.",
+              latin: "Dua ewu sae rupiah.",
+              translation: "Dua ribu satu.",
+              order: 3,
+            },
+            {
+              speaker: "Penjual",
+              avatar: "J",
+              sunda: "ᮃᮚ ᮒᮃᮔ, ᮒᮨᮙᮕᮦ, ᮞᮙᮔ.",
+              latin: "Aya tahu, tempe, saman.",
+              translation: "Ada tahu, tempe, sambel.",
+              order: 2,
+            },
+            {
+              speaker: "Pembeli",
+              avatar: "P",
+              sunda: "ᮒᮃᮔ ᮞᮀ ᮞᮘᮁᮃ ᮠᮁᮌᮔ?",
+              latin: "Tahu sae sabaraha hargan?",
+              translation: "Tahu satu berapa harganya?",
+              order: 2.5,
+            },
+          ],
+          correctSequence: [1, 2, 2.5, 3],
+          options: [
+            {
+              content:
+                "Pembeli bertanya → Penjual menjawab → Pembeli tanya harga → Penjual sebut harga",
+              correct: true,
+            },
+            {
+              content:
+                "Penjual sebut harga → Pembeli bertanya → Penjual menjawab → Pembeli tanya harga",
+              correct: false,
+            },
+            {
+              content:
+                "Pembeli tanya harga → Pembeli bertanya → Penjual menjawab → Penjual sebut harga",
+              correct: false,
+            },
+            {
+              content: "Urutan tidak mempengaruhi makna percakapan",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Urutan logis: tanya jenis gorengan → jawab jenis → tanya harga → jawab harga.",
+        },
+        {
+          question:
+            "Identifikasi penggunaan ragam bahasa dalam dialog berikut:",
+          type: "language_register",
+          scene: "Pertemuan Formal - Kantor Desa",
+          dialogue: [
+            {
+              speaker: "Sekretaris",
+              avatar: "S",
+              sunda: "ᮞᮥᮌᮦᮀ ᮎᮤᮞ ᮊᮕᮓ ᮚᮤᮜᮔ᮪.",
+              latin: "Sugeng rawuh Bapak Kepada Wilon.",
+              translation: "Selamat datang Bapak Kepala Desa.",
+            },
+            {
+              speaker: "Kepala Desa",
+              avatar: "K",
+              sunda: "ᮠᮒᮥᮁ ᮔᮥᮢᮥᮔ ᮄᮃ ᮀᮌᮘᮊ.",
+              latin: "Hatur nuhun kang panghampura.",
+              translation: "Terima kasih atas sambutannya.",
+            },
+            {
+              speaker: "Warga",
+              avatar: "W",
+              sunda: "ᮙᮥᮠᮩᮔ ᮘᮕ ᮞᮥᮓ ᮘᮤᮞ ᮔᮌᮦᮒᮔ.",
+              latin: "Muhun bapa sumuhun bisa nageton.",
+              translation: "Mohon Bapak berkenan memberikan arahan.",
+            },
+          ],
+          analysis: {
+            "Ragam Bahasa": "Formal dan hormat",
+            "Ciri Khas": "Penggunaan kata-kata sopan dan resmi",
+            Konteks: "Pertemuan resmi pemerintahan",
+            Hubungan: "Hierarkis dengan penghormatan",
+          },
+          options: [
+            {
+              content:
+                "Ragam bahasa formal dengan tingkat kesopanan tinggi sesuai konteks resmi",
+              correct: true,
+            },
+            {
+              content: "Ragam bahasa santai seperti percakapan sehari-hari",
+              correct: false,
+            },
+            {
+              content:
+                "Ragam bahasa tidak konsisten antara formal dan informal",
+              correct: false,
+            },
+            {
+              content: "Ragam bahasa terlalu kaku dan tidak natural",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Dialog menggunakan ragam formal dengan kata-kata hormat yang sesuai untuk pertemuan resmi.",
+        },
+        {
+          question: "Analisis makna tersirat dalam percakapan berikut:",
+          type: "implicit_meaning",
+          scene: "Di Rumah - Malam Hari",
+          dialogue: [
+            {
+              speaker: "Ibu",
+              avatar: "I",
+              sunda: "ᮞᮥᮓ ᮊᮀᮚᮝᮔ ᮓᮍᮁ ᮞᮃᮚᮃᮔ?",
+              latin: "Suda kantar dadah saweran?",
+              translation: "Sudah selesai mengerjakan tugas?",
+            },
+            {
+              speaker: "Anak",
+              avatar: "A",
+              sunda: "ᮎᮔ᮪ ᮃᮘᮓᮤ ᮞᮃᮚᮃᮔ ᮄᮞᮥᮊ ᮞᮞᮤᮞᮔ.",
+              latin: "Can abdi saweran isuk sisisan.",
+              translation: "Sebentar, saya kerjakan tugas besok pagi saja.",
+            },
+            {
+              speaker: "Ibu",
+              avatar: "I",
+              sunda: "ᮔᮚᮧᮔ ᮒᮧᮀ ᮜᮉ ᮞᮞᮤ ᮄᮞᮥᮊ?",
+              latin: "Naon tong leuga sasa isuk?",
+              translation: "Kenapa tidak takut terlambat besok?",
+            },
+          ],
+          hiddenMeaning: {
+            "Makna Ibu":
+              "Mengingatkan pentingnya disiplin dan tidak menunda-nunda",
+            "Makna Anak": "Masih santai dan cenderung menunda pekerjaan",
+            "Pesan Moral": "Pentingnya mengerjakan tugas tepat waktu",
+          },
+          options: [
+            {
+              content:
+                "Ibu mengingatkan anak untuk tidak menunda tugas agar tidak terlambat",
+              correct: true,
+            },
+            {
+              content: "Ibu melarang anak mengerjakan tugas di pagi hari",
+              correct: false,
+            },
+            {
+              content: "Anak sudah menyelesaikan semua tugasnya",
+              correct: false,
+            },
+            {
+              content: "Ibu setuju dengan rencana anak mengerjakan tugas besok",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Makna tersirat: Ibu mengkhawatirkan kebiasaan anak menunda dan mengingatkan risiko terlambat.",
+        },
+        {
+          question:
+            "Berdasarkan semua dialog yang telah dipelajari, apa karakteristik utama percakapan dalam bahasa Sunda?",
+          type: "comprehensive_analysis",
+          characteristics: [
+            "Penggunaan tingkat kesopanan sesuai konteks",
+            "Ragam bahasa yang beragam dari santai hingga formal",
+            "Penggunaan kata sapaan yang tepat",
+            "Struktur dialog yang mengikuti norma sosial",
+            "Makna tersirat yang kaya budaya",
+          ],
+          options: [
+            {
+              content:
+                "Bahasa Sunda memiliki tingkat kesopanan yang beragam sesuai konteks dan hubungan sosial",
+              correct: true,
+            },
+            {
+              content:
+                "Bahasa Sunda hanya menggunakan satu tingkat kesopanan untuk semua situasi",
+              correct: false,
+            },
+            {
+              content:
+                "Percakapan bahasa Sunda tidak mempertimbangkan konteks sosial",
+              correct: false,
+            },
+            {
+              content:
+                "Struktur dialog bahasa Sunda sama dengan bahasa Indonesia",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Karakteristik utama: variasi tingkat kesopanan, ragam bahasa kontekstual, dan kekayaan makna budaya.",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let userAnswers = [];
+      let startTime = Date.now();
+
+      function initializeQuiz() {
+        generateQuizHTML();
+        showQuestion(0);
+        updateProgress();
+      }
+
+      function generateQuizHTML() {
+        const container = document.getElementById("quizContainer");
+        container.innerHTML = "";
+
+        quizData.forEach((question, index) => {
+          let questionHTML = `
+                    <div class="question-card" id="question-${index}">
+                        <div class="question-number">Soal ${index + 1} dari ${
+            quizData.length
+          }</div>
+                        <div class="question-text">${question.question}</div>
+                `;
+
+          // Complex dialogue with scene
+          if (
+            question.type === "complex_dialogue" ||
+            question.type === "relationship_analysis" ||
+            question.type === "tone_analysis" ||
+            question.type === "language_register" ||
+            question.type === "implicit_meaning"
+          ) {
+            questionHTML += `
+                        <div class="dialogue-container">
+                            <div class="dialogue-title">${question.scene}</div>
+                            <div class="dialogue-scene">
+                                <div class="scene-info">${question.scene}</div>
+                                ${question.dialogue
+                                  .map(
+                                    (line) => `
+                                    <div class="dialogue-line">
+                                        <div class="speaker-info">
+                                            <div class="speaker-name">${line.speaker}</div>
+                                            <div class="speaker-avatar">${line.avatar}</div>
+                                        </div>
+                                        <div class="dialogue-content">
+                                            <div class="dialogue-sunda">${line.sunda}</div>
+                                            <div class="dialogue-latin">${line.latin}</div>
+                                            <div class="dialogue-translation">${line.translation}</div>
+                                        </div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                            ${
+                              question.analysis
+                                ? `
+                                <div class="conversation-analysis">
+                                    <div class="analysis-title">Analisis Percakapan:</div>
+                                    <div class="analysis-grid">
+                                        ${Object.entries(question.analysis)
+                                          .map(
+                                            ([key, value]) => `
+                                            <div class="analysis-item">
+                                                <div class="analysis-label">${key}:</div>
+                                                <div class="analysis-value">${value}</div>
+                                            </div>
+                                        `
+                                          )
+                                          .join("")}
+                                    </div>
+                                </div>
+                            `
+                                : ""
+                            }
+                            ${
+                              question.hiddenMeaning
+                                ? `
+                                <div class="conversation-analysis">
+                                    <div class="analysis-title">Makna Tersirat:</div>
+                                    <div class="analysis-grid">
+                                        ${Object.entries(question.hiddenMeaning)
+                                          .map(
+                                            ([key, value]) => `
+                                            <div class="analysis-item">
+                                                <div class="analysis-label">${key}:</div>
+                                                <div class="analysis-value">${value}</div>
+                                            </div>
+                                        `
+                                          )
+                                          .join("")}
+                                    </div>
+                                </div>
+                            `
+                                : ""
+                            }
+                        </div>
+                    `;
+          }
+
+          // Dialogue completion with choices
+          if (question.type === "dialogue_completion") {
+            questionHTML += `
+                        <div class="dialogue-interactive">
+                            <div class="interactive-title">${
+                              question.scene
+                            }</div>
+                            <div class="dialogue-scene">
+                                ${question.dialogue
+                                  .map((line) => {
+                                    if (line.sunda === "___________") {
+                                      return `
+                                            <div class="dialogue-line">
+                                                <div class="speaker-info">
+                                                    <div class="speaker-name">${line.speaker}</div>
+                                                    <div class="speaker-avatar">${line.avatar}</div>
+                                                </div>
+                                                <div class="missing-dialogue">
+                                                    Pilih respons yang tepat di bawah ini
+                                                </div>
+                                            </div>
+                                        `;
+                                    } else {
+                                      return `
+                                            <div class="dialogue-line">
+                                                <div class="speaker-info">
+                                                    <div class="speaker-name">${line.speaker}</div>
+                                                    <div class="speaker-avatar">${line.avatar}</div>
+                                                </div>
+                                                <div class="dialogue-content">
+                                                    <div class="dialogue-sunda">${line.sunda}</div>
+                                                    <div class="dialogue-latin">${line.latin}</div>
+                                                    <div class="dialogue-translation">${line.translation}</div>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }
+                                  })
+                                  .join("")}
+                            </div>
+                            <div class="dialogue-choices" id="choices-${index}">
+                                ${question.choices
+                                  .map(
+                                    (choice, choiceIndex) => `
+                                    <div class="dialogue-choice" onclick="selectDialogueChoice(${index}, ${choiceIndex})">
+                                        <div class="choice-sunda">${choice.sunda}</div>
+                                        <div class="choice-latin">${choice.latin}</div>
+                                        <div class="choice-translation">${choice.translation}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Dialogue sequencing
+          if (question.type === "dialogue_sequencing") {
+            questionHTML += `
+                        <div class="dialogue-container">
+                            <div class="dialogue-title">${question.scene}</div>
+                            <div class="dialogue-scene">
+                                <div class="scene-info">Dialog yang perlu disusun ulang:</div>
+                                ${question.shuffledDialogue
+                                  .map(
+                                    (line, lineIndex) => `
+                                    <div class="dialogue-line">
+                                        <div class="speaker-info">
+                                            <div class="speaker-name">${line.speaker}</div>
+                                            <div class="speaker-avatar">${line.avatar}</div>
+                                        </div>
+                                        <div class="dialogue-content">
+                                            <div class="dialogue-sunda">${line.sunda}</div>
+                                            <div class="dialogue-latin">${line.latin}</div>
+                                            <div class="dialogue-translation">${line.translation}</div>
+                                        </div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Comprehensive analysis
+          if (question.type === "comprehensive_analysis") {
+            questionHTML += `
+                        <div class="conversation-analysis">
+                            <div class="analysis-title">Karakteristik Percakapan Bahasa Sunda:</div>
+                            <div class="analysis-grid">
+                                ${question.characteristics
+                                  .map(
+                                    (char, charIndex) => `
+                                    <div class="analysis-item">
+                                        <div class="analysis-label">Karakteristik ${
+                                          charIndex + 1
+                                        }:</div>
+                                        <div class="analysis-value">${char}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Regular options for non-choice questions
+          if (question.type !== "dialogue_completion") {
+            questionHTML += `
+                        <div class="options" id="options-${index}">
+                            ${question.options
+                              .map(
+                                (option, optionIndex) => `
+                                <div class="option" onclick="selectAnswer(${index}, ${optionIndex})">
+                                    <div class="option-content">${option.content}</div>
+                                </div>
+                            `
+                              )
+                              .join("")}
+                        </div>
+                    `;
+          }
+
+          questionHTML += `
+                        <div class="feedback" id="feedback-${index}"></div>
+                        
+                        <div class="controls">
+                            <button class="btn btn-secondary" onclick="previousQuestion()" ${
+                              index === 0 ? 'style="visibility: hidden"' : ""
+                            }>
+                                <i data-feather="arrow-left"></i> Sebelumnya
+                            </button>
+                            <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                                ${
+                                  index === quizData.length - 1
+                                    ? "Selesai"
+                                    : "Selanjutnya"
+                                } 
+                                <i data-feather="arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+          container.innerHTML += questionHTML;
+        });
+      }
+
+      function selectDialogueChoice(questionIndex, choiceIndex) {
+        const choices = document.querySelectorAll(
+          `#choices-${questionIndex} .dialogue-choice`
+        );
+        const question = quizData[questionIndex];
+
+        // Remove previous selections
+        choices.forEach((choice) => {
+          choice.classList.remove("selected", "correct", "incorrect");
+        });
+
+        // Mark selected choice
+        choices[choiceIndex].classList.add("selected");
+
+        // Store user answer
+        userAnswers[questionIndex] = choiceIndex;
+
+        // Check if correct
+        const isCorrect = question.choices[choiceIndex].correct;
+
+        if (isCorrect) {
+          choices[choiceIndex].classList.add("correct");
+          score += Math.round(100 / quizData.length);
+          showFeedback(
+            questionIndex,
+            "correct",
+            "✓ Benar! " + question.explanation
+          );
+        } else {
+          choices[choiceIndex].classList.add("incorrect");
+          // Show correct answer
+          question.choices.forEach((choice, index) => {
+            if (choice.correct) {
+              choices[index].classList.add("correct");
+            }
+          });
+          showFeedback(
+            questionIndex,
+            "incorrect",
+            "✗ Salah. " + question.explanation
+          );
+        }
+
+        // Enable next button
+        document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+      }
+
+      function selectAnswer(questionIndex, answerIndex) {
+        const options = document.querySelectorAll(
+          `#options-${questionIndex} .option`
+        );
+        const question = quizData[questionIndex];
+
+        // Remove previous selections
+        options.forEach((option) => {
+          option.classList.remove("selected", "correct", "incorrect");
+        });
+
+        // Mark selected answer
+        options[answerIndex].classList.add("selected");
+
+        // Store user answer
+        userAnswers[questionIndex] = answerIndex;
+
+        // Check if correct
+        const isCorrect = question.options[answerIndex].correct;
+
+        if (isCorrect) {
+          options[answerIndex].classList.add("correct");
+          score += Math.round(100 / quizData.length);
+          showFeedback(
+            questionIndex,
+            "correct",
+            "✓ Benar! " + question.explanation
+          );
+        } else {
+          options[answerIndex].classList.add("incorrect");
+          // Show correct answer
+          question.options.forEach((option, index) => {
+            if (option.correct) {
+              options[index].classList.add("correct");
+            }
+          });
+          showFeedback(
+            questionIndex,
+            "incorrect",
+            "✗ Salah. " + question.explanation
+          );
+        }
+
+        // Enable next button
+        document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+      }
+
+      function showFeedback(questionIndex, type, message) {
+        const feedback = document.getElementById(`feedback-${questionIndex}`);
+        feedback.className = `feedback ${type}`;
+        feedback.innerHTML = message;
+        feedback.style.display = "block";
+      }
+
+      function showQuestion(index) {
+        // Hide all questions
+        document.querySelectorAll(".question-card").forEach((card) => {
+          card.classList.remove("active");
+        });
+
+        // Show current question
+        document.getElementById(`question-${index}`).classList.add("active");
+
+        // Update progress
+        updateProgress();
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextQuestion() {
+        if (currentQuestion < quizData.length - 1) {
+          currentQuestion++;
+          showQuestion(currentQuestion);
+        } else {
+          showResults();
+        }
+      }
+
+      function previousQuestion() {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          showQuestion(currentQuestion);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (currentQuestion / quizData.length) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+        document.getElementById("progressText").textContent = `Soal ${
+          currentQuestion + 1
+        } dari ${quizData.length}`;
+      }
+
+      function showResults() {
+        const endTime = Date.now();
+        const timeTaken = Math.floor((endTime - startTime) / 1000);
+        const minutes = Math.floor(timeTaken / 60);
+        const seconds = timeTaken % 60;
+
+        const correctCount = Math.round(score / (100 / quizData.length));
+        const incorrectCount = quizData.length - correctCount;
+
+        // Hide quiz container
+        document.getElementById("quizContainer").style.display = "none";
+        document.querySelector(".progress-container").style.display = "none";
+
+        // Show results
+        document.getElementById("resultScreen").classList.add("show");
+        document.getElementById("finalScore").textContent = score + "/100";
+        document.getElementById("correctAnswers").textContent = correctCount;
+        document.getElementById("incorrectAnswers").textContent =
+          incorrectCount;
+        document.getElementById("timeTaken").textContent = `${minutes}:${seconds
+          .toString()
+          .padStart(2, "0")}`;
+        document.getElementById("accuracy").textContent = score + "%";
+
+        // Update result message
+        let message = "";
+        if (score >= 90) {
+          message =
+            "🌟 Luar biasa! Anda sangat mahir memahami percakapan kompleks dalam aksara Sunda!";
+        } else if (score >= 80) {
+          message =
+            "👏 Hebat! Anda sudah mampu menganalisis dialog dan percakapan dengan baik.";
+        } else if (score >= 70) {
+          message =
+            "👍 Bagus! Terus berlatih memahami nuansa dalam percakapan.";
+        } else {
+          message =
+            "💪 Jangan menyerah! Latihan percakapan akan meningkatkan kemampuan Anda.";
+        }
+
+        document.getElementById("resultMessage").textContent = message;
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextLevel() {
+        window.location.href = "level-12-cerita-pendek.html";
+      }
+
+      // Initialize quiz when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeQuiz();
+        feather.replace();
+      });
+    </script>
+  </body>
+</html>

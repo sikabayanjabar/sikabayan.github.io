@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 15: Dokumen Formal Sunda - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .exercise-header h1 {
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .exercise-header h1 span {
+        color: var(--primary);
+      }
+
+      .level-info {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .progress-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .progress-text {
+        color: var(--text-color);
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .question-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: none;
+      }
+
+      .question-card.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .question-number {
+        color: var(--primary);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .question-text {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .document-container {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 1rem;
+        padding: 3rem;
+        margin: 2rem 0;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .document-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+
+      .document-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .document-type {
+        color: var(--primary);
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
+
+      .document-institution {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        opacity: 0.9;
+        font-style: italic;
+      }
+
+      .official-seal {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border: 3px solid var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--primary);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .document-content {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 1rem;
+        padding: 3rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+      }
+
+      .formal-text {
+        font-size: 1.5rem;
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        line-height: 2.2;
+        margin-bottom: 2.5rem;
+        text-align: justify;
+        white-space: pre-line;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.8rem;
+      }
+
+      .transliteration {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.9;
+        margin-bottom: 2rem;
+        text-align: justify;
+        white-space: pre-line;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.8rem;
+      }
+
+      .translation {
+        color: var(--text-color);
+        opacity: 0.85;
+        font-size: 1.1rem;
+        font-style: italic;
+        line-height: 1.7;
+        text-align: justify;
+        white-space: pre-line;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.8rem;
+      }
+
+      .document-metadata {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .metadata-title {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 1.4rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .metadata-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .metadata-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .metadata-item:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .metadata-label {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .metadata-value {
+        color: var(--text-color);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .signature-section {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+      }
+
+      .signature-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 2rem;
+        font-size: 1.4rem;
+      }
+
+      .signature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .signature-block {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .signature-role {
+        color: var(--text-color);
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .signature-name {
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        font-size: 1.3rem;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 2px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .formal-terminology {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .terminology-title {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 2rem;
+        font-size: 1.3rem;
+        text-align: center;
+      }
+
+      .terminology-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .terminology-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.6rem;
+        padding: 1.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+      }
+
+      .formal-term {
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .term-meaning {
+        color: var(--text-color);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+
+      .term-usage {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: 0.9rem;
+        font-style: italic;
+      }
+
+      .document-structure {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .structure-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 2rem;
+        font-size: 1.4rem;
+      }
+
+      .structure-flow {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .structure-step {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+        border-left: 4px solid var(--primary);
+        position: relative;
+      }
+
+      .step-number {
+        position: absolute;
+        left: -2px;
+        top: -10px;
+        background: var(--primary);
+        color: white;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      .step-title {
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+        margin-left: 1rem;
+      }
+
+      .step-content {
+        color: var(--text-color);
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-left: 1rem;
+      }
+
+      .options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .option {
+        padding: 1.8rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+        position: relative;
+      }
+
+      .option:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .option.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+      }
+
+      .option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+      }
+
+      .option-content {
+        color: var(--text-color);
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .option-letter {
+        position: absolute;
+        top: -12px;
+        left: 18px;
+        background: var(--primary);
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(32, 147, 164, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+      }
+
+      .feedback.correct {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid #10b981;
+        color: #10b981;
+      }
+
+      .feedback.incorrect {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        color: #ef4444;
+      }
+
+      .result-screen {
+        display: none;
+        text-align: center;
+      }
+
+      .result-screen.show {
+        display: block;
+      }
+
+      .score-display {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1rem 0;
+      }
+
+      .result-message {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+        }
+
+        .level-info {
+          gap: 1rem;
+        }
+
+        .formal-text {
+          font-size: 1.2rem;
+        }
+
+        .metadata-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .signature-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .terminology-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .controls {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .options {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="exercise-container">
+      <!-- Exercise Header -->
+      <div class="exercise-header">
+        <h1><span>Level 15:</span> Dokumen Formal Sunda</h1>
+        <p>Memahami dan menganalisis dokumen resmi dalam aksara Sunda</p>
+        <div class="level-info">
+          <div class="info-item">
+            <i data-feather="target"></i>
+            <span>Target: 80% untuk lulus</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="clock"></i>
+            <span>Waktu: ~35 menit</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="file-text"></i>
+            <span>6 Soal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Soal 1 dari 6</div>
+      </div>
+
+      <!-- Quiz Container -->
+      <div id="quizContainer">
+        <!-- Questions will be generated by JavaScript -->
+      </div>
+
+      <!-- Result Screen -->
+      <div class="result-screen" id="resultScreen">
+        <div class="question-card">
+          <h2>📋 Level 15 Selesai!</h2>
+          <div class="score-display" id="finalScore">88/100</div>
+          <div class="result-message" id="resultMessage">
+            Bagus sekali! Anda telah menguasai pemahaman dokumen formal dalam
+            aksara Sunda.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" id="correctAnswers">5</div>
+              <div class="stat-label">Jawaban Benar</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="incorrectAnswers">1</div>
+              <div class="stat-label">Jawaban Salah</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="timeTaken">32:15</div>
+              <div class="stat-label">Waktu</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="accuracy">88%</div>
+              <div class="stat-label">Akurasi</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button
+              class="btn btn-secondary"
+              onclick="window.location.href='../latihan.html'"
+            >
+              <i data-feather="arrow-left"></i> Kembali ke Menu
+            </button>
+            <button class="btn btn-primary" onclick="nextLevel()">
+              Level Selanjutnya <i data-feather="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Quiz data
+      const quizData = [
+          {
+              question: "Bacalah dokumen formal berikut:",
+              type: "official_document",
+              document: {
+                  type: "Surat Keterangan",
+                  institution: "Kantor Desa Cikancung",
+                  sunda: `ᮞᮥᮛᮒ᮪ ᮊᮨᮒᮨᮛᮀᮔ᮪\n\nᮃᮘᮩᮔ᮪ ᮞᮤ ᮔᮩᮜᮤᮞ᮪ ᮞᮥᮛᮒ᮪ ᮤᮃ\nᮔᮀᮛᮔ᮪ : ᮃᮞᮦᮕ᮪ ᮞᮥᮒᮁᮞ᮪ᮔ\nᮃᮜᮙᮒ᮪ : ᮊᮙᮕᮥᮀ ᮞᮥᮊᮙᮉᮁ ᮁᮒ᮪ 12\nᮊᮙᮞ᮪ : ᮞᮞᮤᮧᮙᮛᮀ 30 ᮏᮩᮔᮤ 2023\n\nᮞᮥᮛᮒ᮪ ᮤᮃ ᮔᮌᮞ᮪ᮊᮔ᮪ ᮚᮨᮔ ᮃᮞᮦᮕ᮪ ᮞᮥᮒᮁᮞ᮪ᮔ\nᮃᮔᮊ᮪ ᮊᮙᮕᮥᮀ ᮞᮥᮊᮙᮉᮁ ᮆᮦᮔ ᮙᮤᮞᮝᮍᮤ\nᮃᮘᮩᮔ᮪ ᮄᮠ ᮛᮌᮞ᮪ᮊᮔ᮪ ᮃᮞᮜ᮪ ᮚᮨᮔ ᮃᮔᮊ᮪ ᮤᮔᮥ\nᮞᮨᮍᮤᮔ ᮞᮞᮤᮧᮙᮛᮀ 30 ᮏᮩᮔᮤ 2023.",
+                  transliteration: `Surat Keterangan\n\nAbun si nulis surat ia\nNaran: Asep Sutarasa\nAlamat: Kampung Sukamaju Rt 12\nKampas: Sasiomarang 30 Juni 2023\n\nSurat ia nageskeun yen Asep Sutarasa\nanak kampung Sukamaju uken miswagi\nabun eh nageskeun asal yen anak inu\nseguin sasiomarang 30 Juni 2023.`,
+                  translation: `Surat Keterangan\n\nYang menulis surat ini\nNama: Asep Sutarasa\nAlamat: Kampung Sukamaju RT 12\nTanggal: Sabtu 30 Juni 2023\n\nSurat ini menerangkan bahwa Asep Sutarasa\nwarga kampung Sukamaju dan memiliki\npekerjaan yang sah yang berasal dari anak ini\nsejak Sabtu 30 Juni 2023.`
+              },
+              metadata: {
+                  "Jenis Dokumen": "Surat Keterangan Domisili",
+                  "Instansi Penerbit": "Kantor Desa Cikancung",
+                  "Tanggal Terbit": "30 Juni 2023",
+                  "Nomor Surat": "142/SK-CD/VI/2023",
+                  "Keperluan": "Persyaratan administrasi"
+              },
+              options: [
+                  { content: "Dokumen ini adalah surat keterangan domisili yang menyatakan bahwa Asep Sutarasa adalah warga kampung Sukamaju", correct: true },
+                  { content: "Dokumen ini adalah surat izin usaha untuk mendirikan toko", correct: false },
+                  { content: "Dokumen ini adalah surat nikah dalam tradisi adat Sunda", correct: false },
+                  { content: "Dokumen ini adalah surat undangan pernikahan", correct: false }
+              ],
+              explanation: "Dokumen ini merupakan surat keterangan domisili yang menyatakan kewargaan seseorang di suatu daerah."
+          },
+          {
+              question: "Analisis struktur dan format dokumen formal tersebut:",
+              type: "document_structure",
+              structure: [
+                  { step: 1, title: "Kop Surat/Header", content: "Identitas instansi penerbit (Kantor Desa Cikancung)" },
+                  { step: 2, title: "Judul Dokumen", content: "Jenis surat yang diterbitkan (Surat Keterangan)" },
+                  { step: 3, title: "Pembuka", content: "Kalimat pembuka dengan identitas pemohon" },
+                  { step: 4, title: "Isi Pokok", content: "Pernyataan inti tentang keterangan yang diberikan" },
+                  { step: 5, title: "Penutup", content: "Tanggal berlaku dan keterangan tambahan" },
+                  { step: 6, title: "Tanda Tangan", content: "Pengesahan oleh pejabat berwenang" }
+              ],
+              terminology: [
+                  { formal: "ᮃᮘᮩᮔ᮪ ᮞᮤ ᮔᮩᮜᮤᮞ᮪", meaning: "Yang menulis", usage: "Pembuka formal dalam surat" },
+                  { formal: "ᮔᮌᮞ᮪ᮊᮔ᮪", meaning: "Menerangkan", usage: "Kata kerja formal untuk memberikan keterangan" },
+                  { formal: "ᮞᮨᮍᮤᮔ", meaning: "Sejak", usage: "Penanda waktu dalam dokumen resmi" },
+                  { formal: "ᮙᮤᮞᮝᮍᮤ", meaning: "Memiliki", usage: "Kata kerja kepemilikan formal" }
+              ],
+              options: [
+                  { content: "Dokumen mengikuti struktur formal standar dengan pembuka, isi pokok, dan penutup yang jelas", correct: true },
+                  { content: "Dokumen tidak memiliki struktur yang terorganisir", correct: false },
+                  { content: "Dokumen menggunakan format bebas tanpa aturan khusus", correct: false },
+                  { content: "Dokumen hanya berisi informasi tanpa struktur formal", correct: false }
+              ],
+              explanation: "Dokumen formal memiliki struktur baku yang harus diikuti untuk memastikan validitas dan profesionalitas."
+          },
+          {
+              question: "Bacalah dokumen formal kedua berikut:",
+              type: "official_letter",
+              document: {
+                  type: "Surat Keputusan",
+                  institution: "Bupati Kabupaten Bandung",
+                  sunda: `ᮞᮥᮛᮒ᮪ ᮊᮨᮕᮥᮒᮥᮞᮔ᮪ ᮘᮥᮕᮒᮤ\nᮔᮧᮙᮧᮁ : 45/SK-BP/VII/2023\n\nᮄᮔᮏᮤᮜ ᮞᮤ ᮞᮥᮊᮞᮙ ᮒᮁᮝᮔ᮪ ᮊᮥ ᮞᮝ ᮠᮢᮒᮤ\nᮔᮀᮛᮔ᮪ ᮊᮤᮞᮥᮔ᮪ ᮃᮓᮁ ᮊᮙᮕᮥᮀ ᮊᮤᮒᮒᮜᮦᮀ\nᮓᮤᮔ ᮞᮔᮞᮔ᮪ ᮞᮧᮞᮤᮃᮜ᮪ ᮏᮦᮔ ᮒᮃᮒ ᮒᮨᮛᮤᮘ\nᮞᮧᮞᮤᮃᮜ᮪ ᮏᮦᮔ ᮊᮨᮘᮥᮓᮄᮃᮔ᮪ ᮙᮞᮙᮁᮊᮒ᮪\n\nᮓᮤᮀᮀᮌᮒ᮪ ᮏᮃᮓᮤ ᮞᮀᮊᮦᮔ ᮞᮛᮦ ᮞᮧᮞᮤᮃᮜ᮪\nᮞᮤ ᮙᮤᮙᮤᮔ ᮊᮞᮙᮃᮔ᮪ ᮔᮩᮔᮔ ᮃᮞᮔ ᮒᮃᮔᮧᮞ\nᮏᮨᮔ ᮙᮞᮙᮁᮊᮒ᮪ ᮓᮤ ᮊᮩᮞᮔ᮪ ᮞᮞᮤᮧᮙᮛᮀ\n28 ᮏᮩᮜᮤ 2023 ᮏᮦᮔ ᮒᮨᮙᮕᮒ᮪ ᮒᮤᮔᮓᮩ.",
+                  transliteration: `Surat Keputusan Bupati\nNomor: 45/SK-BP/VII/2023\n\nEnjil si sukasama tawun ku saw harti\nnaran kisun ada kampung kitataleung\ndin sanasen sosial jen taat terib\nsosial jen kebudayaan masamakat\n\nDingangkat jadi sanken sare sosial\nsi mimin kasamaan nunan asan tanos\njen masamakat di kusan sasiomarang\n28 Juli 2023 jen tempat tindu.`,
+                  translation: `Surat Keputusan Bupati\nNomor: 45/SK-BP/VII/2023\n\nDengan ini yang bertanggung jawab atas semua hal\nyang bernama seseorang dari kampung tersebut\ndan urusan sosial yang patuh dan tertib\nsosial dan kebudayaan masyarakat\n\nDiangkat menjadi seluruh urusan sosial\nyang memimpin kesamaan untuk membantu\ndan masyarakat di wilayah pada\n28 Juli 2023 dan tempat tinggal.`
+              },
+              signatures: [
+                  { role: "Bupati Kabupaten Bandung", name: "H. Dadang Naser, S.H., M.Si" },
+                  { role: "Sekretaris Daerah", name: "Drs. Ahmad Syafii, M.M" }
+              ],
+              options: [
+                  { content: "Dokumen ini adalah surat keputusan pengangkatan seseorang dalam bidang sosial kemasyarakatan", correct: true },
+                  { content: "Dokumen ini adalah surat izin mendirikan bangunan", correct: false },
+                  { content: "Dokumen ini adalah surat pemberhentian pegawai", correct: false },
+                  { content: "Dokumen ini adalah surat undangan rapat", correct: false }
+              ],
+              explanation: "Surat Keputusan (SK) adalah dokumen formal yang berisi keputusan pejabat berwenang tentang pengangkatan atau penetapan."
+          },
+          {
+              question: "Identifikasi perbedaan karakteristik antara kedua jenis dokumen:",
+              type: "document_comparison",
+              comparison: {
+                  "Surat Keterangan": {
+                      "Tujuan": "Memberikan keterangan/informasi tentang seseorang",
+                      "Sifat": "Informatif, menyatakan fakta",
+                      "Kekuatan Hukum": "Sebagai bukti keterangan",
+                      "Struktur": "Lebih sederhana, langsung ke pokok masalah"
+                  },
+                  "Surat Keputusan": {
+                      "Tujuan": "Menetapkan keputusan/kebijakan",
+                      "Sifat": "Normatif, mengikat secara hukum",
+                      "Kekuatan Hukum": "Mengikat dan wajib dilaksanakan",
+                      "Struktur": "Lebih kompleks dengan pertimbangan dan diktum"
+                  }
+              },
+              formalLanguage: [
+                  "Penggunaan kata ganti orang ketiga ('si', 'anu')",
+                  "Struktur kalimat formal dan baku",
+                  "Terminologi administratif yang spesifik",
+                  "Pola kalimat pasif untuk objektivitas",
+                  "Penggunaan kata sambung formal"
+              ],
+              options: [
+                  { content: "Surat keterangan bersifat informatif sedangkan surat keputusan bersifat normatif dan mengikat", correct: true },
+                  { content: "Kedua jenis surat memiliki fungsi dan struktur yang sama persis", correct: false },
+                  { content: "Surat keputusan lebih sederhana daripada surat keterangan", correct: false },
+                  { content: "Tidak ada perbedaan signifikan antara kedua jenis dokumen", correct: false }
+              ],
+              explanation: "Setiap jenis dokumen formal memiliki karakteristik khusus sesuai dengan tujuan dan fungsinya dalam administrasi."
+          },
+          {
+              question: "Analisis penggunaan bahasa formal dalam dokumen-dokumen tersebut:",
+              type: "formal_language_analysis",
+              linguisticFeatures: [
+                  { feature: "Register Formal", description: "Penggunaan tingkat tutur yang tinggi dan hormat", example: "ᮃᮘᮩᮔ᮪ ᮞᮤ ᮔᮩᮜᮤᮞ᮪ (abun si nulis)" },
+                  { feature: "Struktur Pasif", description: "Kalimat pasif untuk objektivitas", example: "ᮓᮤᮀᮀᮌᮒ᮪ ᮏᮃᮓᮤ (diangkat jadi)" },
+                  { feature: "Terminologi Khusus", description: "Kosakata administratif yang spesifik", example: "ᮔᮌᮞ᮪ᮊᮔ᮪ (nageskeun)" },
+                  { feature: "Formula Baku", description: "Ungkapan standar dalam dokumen resmi", example: "ᮞᮥᮛᮒ᮪ ᮤᮃ ᮔᮌᮞ᮪ᮊᮔ᮪ (surat ia nageskeun)" }
+              ],
+              modernUsage: [
+                  "Masih digunakan dalam dokumen resmi modern",
+                  "Adaptasi dengan terminologi kontemporer",
+                  "Kombinasi dengan bahasa Indonesia formal",
+                  "Pelestarian dalam konteks budaya lokal",
+                  "Standardisasi dalam administrasi daerah"
+              ],
+              options: [
+                  { content: "Bahasa formal Sunda dalam dokumen menggunakan register tinggi dengan struktur dan terminologi yang khas", correct: true },
+                  { content: "Bahasa formal sama dengan bahasa sehari-hari tanpa perbedaan", correct: false },
+                  { content: "Dokumen formal tidak menggunakan aturan bahasa khusus", correct: false },
+                  { content: "Bahasa formal Sunda sudah tidak relevan untuk dokumen modern", correct: false }
+              ],
+              explanation: "Bahasa formal dalam dokumen Sunda memiliki karakteristik khusus yang mencerminkan kesopanan dan profesionalitas."
+          },
+          {
+              question: "Evaluasi pentingnya pemahaman dokumen formal dalam konteks modern:",
+              type: "modern_relevance",
+              importance: [
+                  "Pelestarian tradisi administrasi budaya Sunda",
+                  "Kompetensi literasi untuk masyarakat Sunda",
+                  "Pemahaman hak dan kewajiban warga",
+                  "Kemampuan berinteraksi dengan birokrasi lokal",
+                  "Apresiasi terhadap warisan dokumentasi budaya"
+              ],
+              challenges: [
+                  "Berkurangnya penggunaan aksara Sunda dalam dokumen",
+                  "Dominasi bahasa Indonesia dalam administrasi",
+                  "Kurangnya tenaga ahli yang kompeten",
+                  "Modernisasi sistem administrasi digital",
+                  "Generasi muda kurang terpapar dokumen tradisional"
+              ],
+              solutions: [
+                  "Program literasi aksara Sunda untuk PNS",
+                  "Digitalisasi dokumen dengan dua bahasa",
+                  "Pelatihan kepada pegawai administrasi",
+                  "Integrasi dalam kurikulum pendidikan lokal",
+                  "Aplikasi mobile untuk pembelajaran"
+              ],
+              options: [
+                  { content: "Pemahaman dokumen formal Sunda penting untuk pelestarian budaya dan kompetensi literasi masyarakat", correct: true },
+                  { content: "Dokumen formal Sunda sudah tidak diperlukan di era modern", correct: false },
+                  { content: "Cukup menggunakan bahasa Indonesia saja dalam semua dokumen", correct: false },
+                  { content: "Pemahaman dokumen formal tidak memiliki manfaat praktis", correct: false }
+              ],
+              explanation: "Kemampuan memahami dokumen formal dalam aksara Sunda tetap relevan untuk melestarikan budaya dan meningkatkan literasi masyarakat."
+          }
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let userAnswers = [];
+      let startTime = Date.now();
+
+      function initializeQuiz() {
+          generateQuizHTML();
+          showQuestion(0);
+          updateProgress();
+      }
+
+      function generateQuizHTML() {
+          const container = document.getElementById('quizContainer');
+          container.innerHTML = '';
+
+          quizData.forEach((question, index) => {
+              let questionHTML = `
+                  <div class="question-card" id="question-${index}">
+                      <div class="question-number">Soal ${index + 1} dari ${quizData.length}</div>
+                      <div class="question-text">${question.question}</div>
+              `;
+
+              // Official document / Official letter
+              if (question.type === 'official_document' || question.type === 'official_letter') {
+                  questionHTML += `
+                      <div class="document-container">
+                          <div class="official-seal">🏛️</div>
+                          <div class="document-header">
+                              <div class="document-type">${question.document.type}</div>
+                              <div class="document-institution">${question.document.institution}</div>
+                          </div>
+                          <div class="document-content">
+                              <div class="formal-text">${question.document.sunda}</div>
+                              <div class="transliteration">${question.document.transliteration}</div>
+                              <div class="translation">${question.document.translation}</div>
+                          </div>
+                      </div>
+                  `;
+
+                  if (question.metadata) {
+                      questionHTML += `
+                          <div class="document-metadata">
+                              <div class="metadata-title"><i data-feather="info"></i> Informasi Dokumen</div>
+                              <div class="metadata-grid">
+                                  ${Object.entries(question.metadata).map(([key, value]) => `
+                                      <div class="metadata-item">
+                                          <div class="metadata-label">${key}:</div>
+                                          <div class="metadata-value">${value}</div>
+                                      </div>
+                                  `).join('')}
+                              </div>
+                          </div>
+                      `;
+                  }
+
+                  if (question.signatures) {
+                      questionHTML += `
+                          <div class="signature-section">
+                              <div class="signature-title"><i data-feather="edit-3"></i> Penandatangan</div>
+                              <div class="signature-grid">
+                                  ${question.signatures.map(sig => `
+                                      <div class="signature-block">
+                                          <div class="signature-role">${sig.role}</div>
+                                          <div class="signature-name">${sig.name}</div>
+                                      </div>
+                                  `).join('')}
+                              </div>
+                          </div>
+                      `;
+                  }
+              }
+
+              // Document structure
+              if (question.type === 'document_structure') {
+                  questionHTML += `
+                      <div class="document-structure">
+                          <div class="structure-title"><i data-feather="layers"></i> Struktur Dokumen</div>
+                          <div class="structure-flow">
+                              ${question.structure.map(step => `
+                                  <div class="structure-step">
+                                      <div class="step-number">${step.step}</div>
+                                      <div class="step-title">${step.title}</div>
+                                      <div class="step-content">${step.content}</div>
+                                  </div>
+                              `).join('')}
+                          </div>
+                      </div>
+                      <div class="formal-terminology">
+                          <div class="terminology-title"><i data-feather="book"></i> Terminologi Formal</div>
+                          <div class="terminology-grid">
+                              ${question.terminology.map(term => `
+                                  <div class="terminology-item">
+                                      <div class="formal-term">${term.formal}</div>
+                                      <div class="term-meaning">${term.meaning}</div>
+                                      <div class="term-usage">${term.usage}</div>
+                                  </div>
+                              `).join('')}
+                          </div>
+                      </div>
+                  `;
+              }
+
+              // Document comparison
+              if (question.type === 'document_comparison') {
+                  questionHTML += `
+                      <div class="document-metadata">
+                          <div class="metadata-title"><i data-feather="git-compare"></i> Perbandingan Dokumen</div>
+                          <div class="metadata-grid">
+                              ${Object.entries(question.comparison).map(([docType, features]) => `
+                                  <div class="metadata-item">
+                                      <div class="metadata-label">${docType}:</div>
+                                      <div class="metadata-value">
+                                          ${Object.entries(features).map(([key, value]) => `
+                                              <strong>${key}:</strong> ${value}<br>
+                                          `).join('')}
+                                      </div>
+                                  </div>
+                              `).join('')}
+                          </div>
+                      </div>
+                      <div class="formal-terminology">
+                          <div class="terminology-title"><i data-feather="type"></i> Karakteristik Bahasa Formal</div>
+                          <div class="terminology-grid">
+                              ${question.formalLanguage.map((feature, index) => `
+                                  <div class="terminology-item">
+                                      <div class="formal-term">Ciri ${index + 1}</div>
+                                      <div class="term-meaning">${feature}</div>
+                                  </div>
+                              `).join('')}
+                          </div>
+                      </div>
+                  `;
+              }
+
+              // Formal language analysis
+              if (question.type === 'formal_language_analysis') {
+                  questionHTML += `
+                      <div class="formal-terminology">
+                          <div class="terminology-title"><i data-feather="search"></i> Fitur Linguistik</div>
+                          <div class="terminology-grid">
+                              ${question.linguisticFeatures.map(feature => `
+                                  <div class="terminology-item">
+                                      <div class="formal-term">${feature.feature}</div>
+                                      <div class="term-meaning">${feature.description}</div>
+                                      <div class="term-usage">Contoh: ${feature.example}</div>
+                                  </div>
+                              `).join('')}
+                          </div>
+                      </div>
+                      <div class="document-metadata">
+                          <div class="metadata-title"><i data-feather="calendar"></i> Penggunaan Modern</div>
+                          <div class="metadata-grid">
+                              ${question.modernUsage.map((usage, index) => `
+                                  <div class="metadata-item">
+                                      <div class="metadata-label">Aspek ${index + 1}:</div>
+                                      <div class="metadata-value">${usage}</div>
+                                  </div>
+                              `).join('')}
+                          </div>
+                      </div>
+                  `;
+              }
+
+              // Modern relevance
+              if (question.type === 'modern_relevance') {
+                  questionHTML += `
+                      <div class="document-metadata">
+                          <div class="metadata-title"><i data-feather="star"></i> Pentingnya Pemahaman</div>
+                          <div class="metadata-grid">
+                              ${question.importance.map((importance, index) => `
+                                  <div class="metadata-item">
+                                      <div class="metadata-label">Manfaat ${index + 1}:</div>
+                                      <div class="metadata-value">${importance}</div>
+                                  </div>
+                              `).join('')}
+                          </div>
+                      </div>
+                      <div class="formal-terminology">
+                          <div class="terminology-title"><i data-feather="alert-triangle"></i> Tantangan & Solusi</div>
+                          <div class="terminology-grid">
+                              ${question.challenges.map((challenge, index) => `
+                                  <div class="terminology-item">
+                                      <div class="formal-term">Tantangan ${index + 1}</div>
+                                      <div class="term-meaning">${challenge}</div>
+                                      <div class="term-usage">Solusi: ${question.solutions[index]}</div>
+                                  </div>
+                              `).join('')}
+                          </div>
+                      </div>
+                  `;
+              }
+
+              // Options
+              questionHTML += `
+                  <div class="options" id="options-${index}">
+                      ${question.options.map((option, optionIndex) => `
+                          <div class="option" onclick="selectAnswer(${index}, ${optionIndex})">
+                              <div class="option-letter">${String.fromCharCode(65 + optionIndex)}</div>
+                              <div class="option-content">${option.content}</div>
+                          </div>
+                      `).join('')}
+                  </div>
+              `;
+
+              questionHTML += `
+                      <div class="feedback" id="feedback-${index}"></div>
+
+                      <div class="controls">
+                          <button class="btn btn-secondary" onclick="previousQuestion()" ${index === 0 ? 'style="visibility: hidden"' : ''}>
+                              <i data-feather="arrow-left"></i> Sebelumnya
+                          </button>
+                          <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                              ${index === quizData.length - 1 ? 'Selesai' : 'Selanjutnya'}
+                              <i data-feather="arrow-right"></i>
+                          </button>
+                      </div>
+                  </div>
+              `;
+
+              container.innerHTML += questionHTML;
+          });
+      }
+
+      function selectAnswer(questionIndex, answerIndex) {
+          const options = document.querySelectorAll(`#options-${questionIndex} .option`);
+          const question = quizData[questionIndex];
+
+          // Remove previous selections
+          options.forEach(option => {
+              option.classList.remove('selected', 'correct', 'incorrect');
+          });
+
+          // Mark selected answer
+          options[answerIndex].classList.add('selected');
+
+          // Store user answer
+          userAnswers[questionIndex] = answerIndex;
+
+          // Check if correct
+          const isCorrect = question.options[answerIndex].correct;
+
+          if (isCorrect) {
+              options[answerIndex].classList.add('correct');
+              score += Math.round(100 / quizData.length);
+              showFeedback(questionIndex, 'correct', '✓ Benar! ' + question.explanation);
+          } else {
+              options[answerIndex].classList.add('incorrect');
+              // Show correct answer
+              question.options.forEach((option, index) => {
+                  if (option.correct) {
+                      options[index].classList.add('correct');
+                  }
+              });
+              showFeedback(questionIndex, 'incorrect', '✗ Salah. ' + question.explanation);
+          }
+
+          // Enable next button
+          document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+      }
+
+      function showFeedback(questionIndex, type, message) {
+          const feedback = document.getElementById(`feedback-${questionIndex}`);
+          feedback.className = `feedback ${type}`;
+          feedback.innerHTML = message;
+          feedback.style.display = 'block';
+      }
+
+      function showQuestion(index) {
+          // Hide all questions
+          document.querySelectorAll('.question-card').forEach(card => {
+              card.classList.remove('active');
+          });
+
+          // Show current question
+          document.getElementById(`question-${index}`).classList.add('active');
+
+          // Update progress
+          updateProgress();
+
+          // Re-initialize feather icons
+          feather.replace();
+      }
+
+      function nextQuestion() {
+          if (currentQuestion < quizData.length - 1) {
+              currentQuestion++;
+              showQuestion(currentQuestion);
+          } else {
+              showResults();
+          }
+      }
+
+      function previousQuestion() {
+          if (currentQuestion > 0) {
+              currentQuestion--;
+              showQuestion(currentQuestion);
+          }
+      }
+
+      function updateProgress() {
+          const progress = ((currentQuestion) / quizData.length) * 100;
+          document.getElementById('progressFill').style.width = progress + '%';
+          document.getElementById('progressText').textContent = `Soal ${currentQuestion + 1} dari ${quizData.length}`;
+      }
+
+      function showResults() {
+          const endTime = Date.now();
+          const timeTaken = Math.floor((endTime - startTime) / 1000);
+          const minutes = Math.floor(timeTaken / 60);
+          const seconds = timeTaken % 60;
+
+          const correctCount = Math.round(score / (100 / quizData.length));
+          const incorrectCount = quizData.length - correctCount;
+
+          // Hide quiz container
+          document.getElementById('quizContainer').style.display = 'none';
+          document.querySelector('.progress-container').style.display = 'none';
+
+          // Show results
+          document.getElementById('resultScreen').classList.add('show');
+          document.getElementById('finalScore').textContent = score + '/100';
+          document.getElementById('correctAnswers').textContent = correctCount;
+          document.getElementById('incorrectAnswers').textContent = incorrectCount;
+          document.getElementById('timeTaken').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+          document.getElementById('accuracy').textContent = score + '%';
+
+          // Update result message
+          let message = '';
+          if (score >= 90) {
+              message = '🌟 Sempurna! Anda ahli dalam memahami dokumen formal Sunda!';
+          } else if (score >= 80) {
+              message = '👏 Excellent! Kemampuan literasi dokumen Anda sangat baik.';
+          } else if (score >= 70) {
+              message = '👍 Bagus! Terus tingkatkan pemahaman dokumen formal.';
+          } else {
+              message = '💪 Terus berlatih! Dokumen formal memerlukan pemahaman yang teliti.';
+          }
+
+          document.getElementById('resultMessage').textContent = message;
+
+          // Re-initialize feather icons
+          feather.replace();
+      }
+
+      function nextLevel() {
+          window.location.href = 'level-16-teks-sejarah.html';
+      }
+
+      // Initialize quiz when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+          initializeQuiz();
+          feather.replace();
+      });
+    </script>
+  </body>
+</html>

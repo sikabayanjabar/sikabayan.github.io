@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pembaca Buku Digital - Perpustakaan Sunda</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.min.js"></script>
+
+    <!-- Turn.js for flipbook effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #2093a4;
+        --secondary: #4fb3d1;
+        --bg: #0a0f1c;
+        --text-color: #e2e8f0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--text-color);
+        overflow: hidden;
+      }
+
+      /* Header */
+      .reader-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: rgba(10, 15, 28, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        z-index: 1000;
+      }
+
+      .reader-title {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .reader-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .control-btn {
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.3rem;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+      }
+
+      .control-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: var(--primary);
+      }
+
+      .page-info {
+        color: var(--text-color);
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 0.3rem;
+      }
+
+      /* Main Container */
+      .reader-container {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #0a0f1c 0%, #1a1f2e 100%);
+        padding: 2rem;
+      }
+
+      /* Flipbook Container */
+      .flipbook-container {
+        position: relative;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      #flipbook {
+        width: 800px;
+        height: 600px;
+        margin: 0 auto;
+      }
+
+      .page {
+        background: white;
+        border: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .page canvas {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .page-number {
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 0.3rem 0.6rem;
+        border-radius: 0.3rem;
+        font-size: 0.8rem;
+      }
+
+      /* Navigation */
+      .nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        background: rgba(32, 147, 164, 0.8);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 100;
+      }
+
+      .nav-btn:hover {
+        background: var(--primary);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .nav-btn.prev {
+        left: -80px;
+      }
+
+      .nav-btn.next {
+        right: -80px;
+      }
+
+      /* Loading */
+      .loading-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 15, 28, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+      }
+
+      .loading-content {
+        text-align: center;
+        color: var(--text-color);
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-top: 3px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .progress-bar {
+        width: 200px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        margin: 1rem auto 0;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: var(--primary);
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      /* Error State */
+      .error-state {
+        text-align: center;
+        padding: 3rem;
+        color: var(--text-color);
+      }
+
+      .error-state i {
+        font-size: 4rem;
+        color: #ef4444;
+        margin-bottom: 1rem;
+      }
+
+      .error-state h3 {
+        margin-bottom: 1rem;
+        color: #ef4444;
+      }
+
+      .error-state p {
+        opacity: 0.8;
+        margin-bottom: 2rem;
+      }
+
+      .btn-back {
+        padding: 0.8rem 2rem;
+        background: var(--primary);
+        border: none;
+        border-radius: 0.5rem;
+        color: white;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .btn-back:hover {
+        background: var(--secondary);
+        transform: translateY(-1px);
+      }
+
+      /* Zoom Controls */
+      .zoom-controls {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        z-index: 1000;
+      }
+
+      .zoom-btn {
+        width: 40px;
+        height: 40px;
+        background: rgba(32, 147, 164, 0.8);
+        border: none;
+        border-radius: 0.3rem;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      .zoom-btn:hover {
+        background: var(--primary);
+      }
+
+      /* Fullscreen */
+      .fullscreen-btn {
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
+        width: 40px;
+        height: 40px;
+        background: rgba(32, 147, 164, 0.8);
+        border: none;
+        border-radius: 0.3rem;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .fullscreen-btn:hover {
+        background: var(--primary);
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .reader-header {
+          padding: 0 1rem;
+        }
+
+        .reader-title {
+          font-size: 1rem;
+        }
+
+        .reader-container {
+          padding: 1rem;
+        }
+
+        .flipbook-container {
+          padding: 1rem;
+        }
+
+        #flipbook {
+          width: 100%;
+          max-width: 600px;
+          height: 450px;
+        }
+
+        .nav-btn {
+          width: 40px;
+          height: 40px;
+        }
+
+        .nav-btn.prev {
+          left: -60px;
+        }
+
+        .nav-btn.next {
+          right: -60px;
+        }
+
+        .zoom-controls,
+        .fullscreen-btn {
+          bottom: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        #flipbook {
+          height: 350px;
+        }
+
+        .nav-btn.prev {
+          left: 10px;
+        }
+
+        .nav-btn.next {
+          right: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="reader-header">
+      <div class="reader-title">
+        <i data-feather="book-open"></i>
+        <span id="bookTitle">Memuat Buku...</span>
+      </div>
+
+      <div class="reader-controls">
+        <div class="page-info" id="pageInfo">Halaman 1 dari 1</div>
+        <button
+          class="control-btn"
+          onclick="toggleFullscreen()"
+          title="Layar Penuh"
+        >
+          <i data-feather="maximize"></i>
+        </button>
+        <button class="control-btn" onclick="window.close()" title="Tutup">
+          <i data-feather="x"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="reader-container">
+      <div class="flipbook-container">
+        <div id="flipbook">
+          <!-- Pages will be loaded here -->
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button
+          class="nav-btn prev"
+          onclick="previousPage()"
+          title="Halaman Sebelumnya"
+        >
+          <i data-feather="chevron-left"></i>
+        </button>
+        <button
+          class="nav-btn next"
+          onclick="nextPage()"
+          title="Halaman Selanjutnya"
+        >
+          <i data-feather="chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Zoom Controls -->
+    <div class="zoom-controls">
+      <button class="zoom-btn" onclick="zoomIn()" title="Perbesar">
+        <i data-feather="zoom-in"></i>
+      </button>
+      <button class="zoom-btn" onclick="zoomOut()" title="Perkecil">
+        <i data-feather="zoom-out"></i>
+      </button>
+      <button class="zoom-btn" onclick="resetZoom()" title="Reset Zoom">
+        <i data-feather="minimize-2"></i>
+      </button>
+    </div>
+
+    <!-- Fullscreen Button -->
+    <button
+      class="fullscreen-btn"
+      onclick="toggleFullscreen()"
+      title="Layar Penuh"
+    >
+      <i data-feather="maximize"></i>
+    </button>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-content">
+        <div class="spinner"></div>
+        <p>Memuat buku digital...</p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p id="loadingStatus">Menginisialisasi...</p>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" id="errorState" style="display: none">
+      <i data-feather="alert-circle"></i>
+      <h3>Gagal Memuat Buku</h3>
+      <p>
+        Maaf, terjadi kesalahan saat memuat buku digital. Silakan coba lagi atau
+        kembali ke perpustakaan.
+      </p>
+      <button class="btn-back" onclick="window.close()">
+        Kembali ke Perpustakaan
+      </button>
+    </div>
+
+    <script>
+      // PDF.js worker
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.min.js";
+
+      let pdfDoc = null;
+      let currentZoom = 1.5;
+      let totalPages = 0;
+      let currentPage = 1;
+
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const filename = urlParams.get("file");
+      const bookTitle = urlParams.get("title") || "Buku Digital";
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        if (!filename) {
+          showError("File tidak ditemukan");
+          return;
+        }
+
+        document.getElementById("bookTitle").textContent = bookTitle;
+        loadPDF();
+        feather.replace();
+      });
+
+      async function loadPDF() {
+        try {
+          updateLoadingStatus("Mengunduh file PDF...");
+          updateProgress(10);
+
+          const url = `materials/story-book/${filename}`;
+
+          updateLoadingStatus("Memproses dokumen...");
+          updateProgress(30);
+
+          pdfDoc = await pdfjsLib.getDocument(url).promise;
+          totalPages = pdfDoc.numPages;
+
+          updateLoadingStatus("Memuat halaman...");
+          updateProgress(50);
+
+          await renderAllPages();
+
+          updateLoadingStatus("Menginisialisasi flipbook...");
+          updateProgress(80);
+
+          initializeFlipbook();
+
+          updateLoadingStatus("Selesai!");
+          updateProgress(100);
+
+          setTimeout(() => {
+            hideLoading();
+            updatePageInfo();
+          }, 500);
+        } catch (error) {
+          console.error("Error loading PDF:", error);
+          showError("Gagal memuat file PDF");
+        }
+      }
+
+      async function renderAllPages() {
+        const flipbook = document.getElementById("flipbook");
+        flipbook.innerHTML = "";
+
+        for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+          updateProgress(50 + (pageNum / totalPages) * 25);
+
+          const page = await pdfDoc.getPage(pageNum);
+          const viewport = page.getViewport({ scale: currentZoom });
+
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d");
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          await page.render({
+            canvasContext: context,
+            viewport: viewport,
+          }).promise;
+
+          const pageDiv = document.createElement("div");
+          pageDiv.className = "page";
+          pageDiv.appendChild(canvas);
+
+          const pageNumber = document.createElement("div");
+          pageNumber.className = "page-number";
+          pageNumber.textContent = pageNum;
+          pageDiv.appendChild(pageNumber);
+
+          flipbook.appendChild(pageDiv);
+        }
+      }
+
+      function initializeFlipbook() {
+        $("#flipbook").turn({
+          width: 800,
+          height: 600,
+          autoCenter: true,
+          duration: 1000,
+          elevation: 50,
+          gradients: true,
+          when: {
+            turned: function (event, page, view) {
+              currentPage = page;
+              updatePageInfo();
+            },
+          },
+        });
+
+        // Keyboard navigation
+        $(document).keydown(function (e) {
+          switch (e.which) {
+            case 37: // left arrow
+              previousPage();
+              break;
+            case 39: // right arrow
+              nextPage();
+              break;
+            case 27: // escape
+              if (document.fullscreenElement) {
+                document.exitFullscreen();
+              }
+              break;
+          }
+        });
+      }
+
+      function previousPage() {
+        $("#flipbook").turn("previous");
+      }
+
+      function nextPage() {
+        $("#flipbook").turn("next");
+      }
+
+      function updatePageInfo() {
+        const pageInfo = document.getElementById("pageInfo");
+        pageInfo.textContent = `Halaman ${currentPage} dari ${totalPages}`;
+      }
+
+      function updateLoadingStatus(status) {
+        document.getElementById("loadingStatus").textContent = status;
+      }
+
+      function updateProgress(percent) {
+        document.getElementById("progressFill").style.width = percent + "%";
+      }
+
+      function hideLoading() {
+        document.getElementById("loadingOverlay").style.display = "none";
+      }
+
+      function showError(message) {
+        document.getElementById("loadingOverlay").style.display = "none";
+        const errorState = document.getElementById("errorState");
+        errorState.style.display = "block";
+        errorState.querySelector("p").textContent = message;
+        feather.replace();
+      }
+
+      function zoomIn() {
+        currentZoom = Math.min(currentZoom * 1.2, 3);
+        reloadPDF();
+      }
+
+      function zoomOut() {
+        currentZoom = Math.max(currentZoom / 1.2, 0.5);
+        reloadPDF();
+      }
+
+      function resetZoom() {
+        currentZoom = 1.5;
+        reloadPDF();
+      }
+
+      async function reloadPDF() {
+        if (!pdfDoc) return;
+
+        document.getElementById("loadingOverlay").style.display = "flex";
+        updateLoadingStatus("Mengatur ulang zoom...");
+
+        const currentPageNum = currentPage;
+
+        await renderAllPages();
+
+        $("#flipbook").turn("destroy");
+        initializeFlipbook();
+
+        $("#flipbook").turn("page", currentPageNum);
+
+        hideLoading();
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch((err) => {
+            console.log("Error attempting to enable fullscreen:", err);
+          });
+        } else {
+          document.exitFullscreen();
+        }
+      }
+
+      // Handle fullscreen changes
+      document.addEventListener("fullscreenchange", function () {
+        const fullscreenBtns = document.querySelectorAll(
+          ".control-btn i, .fullscreen-btn i"
+        );
+        fullscreenBtns.forEach((btn) => {
+          if (
+            btn.getAttribute("data-feather") === "maximize" ||
+            btn.getAttribute("data-feather") === "minimize"
+          ) {
+            btn.setAttribute(
+              "data-feather",
+              document.fullscreenElement ? "minimize" : "maximize"
+            );
+          }
+        });
+        feather.replace();
+      });
+
+      // Prevent context menu on right click
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+
+      // Handle window resize
+      window.addEventListener("resize", function () {
+        if ($("#flipbook").turn("is")) {
+          $("#flipbook").turn("resize");
+        }
+      });
+
+      // Clean up on window unload
+      window.addEventListener("beforeunload", function () {
+        if ($("#flipbook").turn("is")) {
+          $("#flipbook").turn("destroy");
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 14: Teks Klasik Sunda - Sikabayan</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+      /* Exercise specific styles */
+      .exercise-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: 100vh;
+        background: var(--bg);
+      }
+
+      .exercise-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .exercise-header h1 {
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .exercise-header h1 span {
+        color: var(--primary);
+      }
+
+      .level-info {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .progress-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .progress-text {
+        color: var(--text-color);
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .question-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: none;
+      }
+
+      .question-card.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .question-number {
+        color: var(--primary);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .question-text {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .classical-text-container {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 1rem;
+        padding: 3rem;
+        margin: 2rem 0;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .classical-text-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+
+      .text-title {
+        text-align: center;
+        color: var(--primary);
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
+
+      .text-subtitle {
+        text-align: center;
+        color: var(--text-color);
+        font-size: 1.2rem;
+        opacity: 0.9;
+        font-style: italic;
+        margin-bottom: 3rem;
+      }
+
+      .manuscript-style {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 1rem;
+        padding: 3rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+      }
+
+      .manuscript-style::before {
+        content: "📜";
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        font-size: 2rem;
+        opacity: 0.4;
+      }
+
+      .manuscript-style::after {
+        content: "📜";
+        position: absolute;
+        bottom: 15px;
+        right: 20px;
+        font-size: 2rem;
+        opacity: 0.4;
+      }
+
+      .sunda-text {
+        font-size: 1.6rem;
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        line-height: 2.2;
+        margin-bottom: 2.5rem;
+        text-align: center;
+        white-space: pre-line;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.8rem;
+      }
+
+      .latin-transliteration {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.9;
+        margin-bottom: 2rem;
+        text-align: center;
+        white-space: pre-line;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.8rem;
+      }
+
+      .modern-translation {
+        color: var(--text-color);
+        opacity: 0.85;
+        font-size: 1.1rem;
+        font-style: italic;
+        line-height: 1.7;
+        text-align: center;
+        white-space: pre-line;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.8rem;
+      }
+
+      .text-context {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .context-title {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 1.4rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .context-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .context-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .context-item:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .context-label {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .context-value {
+        color: var(--text-color);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .historical-timeline {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+      }
+
+      .timeline-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 2rem;
+        font-size: 1.4rem;
+      }
+
+      .timeline-items {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .timeline-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.8rem;
+        padding: 1.5rem;
+        border-left: 4px solid var(--primary);
+        position: relative;
+      }
+
+      .timeline-date {
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .timeline-event {
+        color: var(--text-color);
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      .linguistic-analysis {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .analysis-title {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 2rem;
+        font-size: 1.3rem;
+        text-align: center;
+      }
+
+      .linguistic-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .feature-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.6rem;
+        padding: 1.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .feature-name {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .feature-description {
+        color: var(--text-color);
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 0.8rem;
+      }
+
+      .feature-example {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-style: italic;
+        font-size: 0.9rem;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 0.8rem;
+        border-radius: 0.4rem;
+      }
+
+      .cultural-significance {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .significance-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 2rem;
+        font-size: 1.4rem;
+      }
+
+      .significance-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .significance-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.8rem;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .significance-category {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        font-size: 1.2rem;
+        text-align: center;
+      }
+
+      .significance-content {
+        color: var(--text-color);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .vocabulary-ancient {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .vocab-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 2rem;
+        font-size: 1.3rem;
+      }
+
+      .vocab-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .vocab-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+      }
+
+      .vocab-ancient {
+        color: var(--primary);
+        font-family: "Times New Roman", serif;
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .vocab-modern {
+        color: var(--text-color);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .vocab-meaning {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: 0.9rem;
+        font-style: italic;
+      }
+
+      .options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .option {
+        padding: 1.8rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+        position: relative;
+      }
+
+      .option:hover {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .option.selected {
+        border-color: var(--primary);
+        background: rgba(32, 147, 164, 0.2);
+      }
+
+      .option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+      }
+
+      .option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+      }
+
+      .option-content {
+        color: var(--text-color);
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .option-letter {
+        position: absolute;
+        top: -12px;
+        left: 18px;
+        background: var(--primary);
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(32, 147, 164, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+      }
+
+      .feedback.correct {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid #10b981;
+        color: #10b981;
+      }
+
+      .feedback.incorrect {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        color: #ef4444;
+      }
+
+      .result-screen {
+        display: none;
+        text-align: center;
+      }
+
+      .result-screen.show {
+        display: block;
+      }
+
+      .score-display {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1rem 0;
+      }
+
+      .result-message {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .exercise-container {
+          padding: 1rem;
+        }
+
+        .level-info {
+          gap: 1rem;
+        }
+
+        .sunda-text {
+          font-size: 1.3rem;
+        }
+
+        .context-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .linguistic-features {
+          grid-template-columns: 1fr;
+        }
+
+        .significance-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .vocab-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .controls {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .options {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="exercise-container">
+      <!-- Exercise Header -->
+      <div class="exercise-header">
+        <h1><span>Level 14:</span> Teks Klasik Sunda</h1>
+        <p>Memahami dan menganalisis teks-teks klasik dalam aksara Sunda</p>
+        <div class="level-info">
+          <div class="info-item">
+            <i data-feather="target"></i>
+            <span>Target: 80% untuk lulus</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="clock"></i>
+            <span>Waktu: ~40 menit</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="book"></i>
+            <span>6 Soal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Soal 1 dari 6</div>
+      </div>
+
+      <!-- Quiz Container -->
+      <div id="quizContainer">
+        <!-- Questions will be generated by JavaScript -->
+      </div>
+
+      <!-- Result Screen -->
+      <div class="result-screen" id="resultScreen">
+        <div class="question-card">
+          <h2>🏆 Level 14 Selesai!</h2>
+          <div class="score-display" id="finalScore">85/100</div>
+          <div class="result-message" id="resultMessage">
+            Hebat! Anda telah menguasai pemahaman teks klasik Sunda dengan baik.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" id="correctAnswers">5</div>
+              <div class="stat-label">Jawaban Benar</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="incorrectAnswers">1</div>
+              <div class="stat-label">Jawaban Salah</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="timeTaken">37:20</div>
+              <div class="stat-label">Waktu</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="accuracy">85%</div>
+              <div class="stat-label">Akurasi</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button
+              class="btn btn-secondary"
+              onclick="window.location.href='../latihan.html'"
+            >
+              <i data-feather="arrow-left"></i> Kembali ke Menu
+            </button>
+            <button class="btn btn-primary" onclick="nextLevel()">
+              Level Selanjutnya <i data-feather="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Quiz data
+      const quizData = [
+        {
+          question:
+            "Bacalah petikan teks klasik berikut dari naskah Sunda kuno:",
+          type: "classical_text_comprehension",
+          text: {
+            title: "Serat Darmagandul",
+            subtitle: "Petikan tentang kebijaksanaan hidup",
+            sunda: `ᮞᮤᮍᮤᮔ᮪ ᮞᮤᮔᮁ ᮠᮁᮞᮤᮔᮔ᮪ ᮞᮞᮤᮔᮔ᮪\nᮏᮥᮍᮔ᮪ ᮕᮨᮞᮔ᮪ ᮞᮘ ᮊᮤᮛᮊ᮪ ᮙᮊᮒᮤᮔ᮪\nᮞᮤᮍᮤᮔ᮪ ᮞᮤᮔᮁ ᮠᮨᮔᮘᮜᮤᮞ᮪ ᮘᮥᮒᮦᮂ\nᮄᮊᮜᮔ᮪ ᮝᮤᮍᮔ᮪ ᮞᮀᮊᮔ᮪ ᮙᮥᮜᮤᮔ᮪`,
+            latin: `Sigeun sina hasineun sasineun\nJugan pesan saba kirak makateun\nSigeun sina henablés buteu\nUekaleun wigan sankan muliun`,
+            translation: `Yang baik itu yang bermanfaat untuk sesama\nPerintah pesan semua cara hidup yang baik\nYang baik itu yang mulia dan bersih\nKehormatan hidup bergantung pada kemuliaan`,
+          },
+          context: {
+            Periode: "Abad ke-16-17 Masehi",
+            "Jenis Naskah": "Sastra didaktik (pengajaran moral)",
+            Bahasa: "Sunda Kuno dengan pengaruh Jawa Kuno",
+            "Tema Utama": "Ajaran moral dan etika kehidupan",
+            Fungsi: "Panduan hidup untuk masyarakat",
+          },
+          options: [
+            {
+              content:
+                "Teks ini mengajarkan bahwa kebaikan seseorang diukur dari manfaatnya bagi sesama dan kemuliaan akhlaknya",
+              correct: true,
+            },
+            {
+              content:
+                "Teks ini bercerita tentang sejarah kerajaan Sunda pada masa lampau",
+              correct: false,
+            },
+            {
+              content:
+                "Teks ini merupakan doa atau mantra untuk ritual keagamaan",
+              correct: false,
+            },
+            {
+              content:
+                "Teks ini menceritakan kisah percintaan dalam sastra klasik",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Teks klasik ini mengandung ajaran moral tentang pentingnya berbuat baik kepada sesama dan menjaga kemuliaan hidup.",
+        },
+        {
+          question: "Analisis konteks sejarah dan budaya dari teks tersebut:",
+          type: "historical_context",
+          timeline: [
+            {
+              date: "Abad ke-14-15",
+              event:
+                "Masa kejayaan Kerajaan Sunda, mulai berkembang tradisi sastra tulis",
+            },
+            {
+              date: "Abad ke-16-17",
+              event:
+                "Periode penulisan Serat Darmagandul, pengaruh Islam mulai masuk",
+            },
+            {
+              date: "Abad ke-18",
+              event:
+                "Penyebaran naskah-naskah didaktik di kalangan bangsawan Sunda",
+            },
+            {
+              date: "Abad ke-19-20",
+              event:
+                "Pelestarian naskah klasik oleh para pujangga dan budayawan",
+            },
+          ],
+          linguisticFeatures: [
+            {
+              name: "Bahasa Arkais",
+              description:
+                "Menggunakan kosakata Sunda kuno yang tidak umum digunakan sekarang",
+              example: "sigeun (yang), hasineun (bermanfaat), henablés (mulia)",
+            },
+            {
+              name: "Struktur Puitis",
+              description:
+                "Menggunakan pola metrum dan rima untuk memudahkan hafalan",
+              example: "Pola a-a-a-a dalam setiap bait",
+            },
+            {
+              name: "Diksi Formal",
+              description:
+                "Pilihan kata yang tinggi dan formal sesuai konteks istana",
+              example: "muliun (kemuliaan), wigan (kehormatan)",
+            },
+            {
+              name: "Pengaruh Sanskerta",
+              description: "Beberapa konsep dari tradisi Hindu-Buddha",
+              example: "Konsep karma dan dharma",
+            },
+          ],
+          options: [
+            {
+              content:
+                "Teks ini mencerminkan periode transisi budaya Sunda dengan pengaruh Hindu-Buddha dan mulai masuknya Islam",
+              correct: true,
+            },
+            {
+              content:
+                "Teks ini berasal dari periode modern tanpa pengaruh budaya asing",
+              correct: false,
+            },
+            {
+              content: "Teks ini tidak memiliki nilai sejarah yang signifikan",
+              correct: false,
+            },
+            {
+              content:
+                "Teks ini hanya digunakan untuk hiburan tanpa maksud pendidikan",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Teks ini mencerminkan periode penting dalam sejarah Sunda di mana terjadi perpaduan berbagai pengaruh budaya dan agama.",
+        },
+        {
+          question: "Bacalah teks klasik kedua berikut:",
+          type: "manuscript_analysis",
+          text: {
+            title: "Sanghyang Siksa Kandang Karesian",
+            subtitle: "Ajaran tentang tata cara hidup yang benar",
+            sunda: `ᮄᮊᮠᮔ᮪ ᮞᮧᮒᮎᮤ ᮓᮤᮔ᮪ ᮔᮍᮁ\nᮊᮤᮛᮀ ᮠᮢᮔ ᮙᮔᮧᮔ᮪ ᮤᮔ᮪ᮌ ᮜᮘᮩᮂ\nᮞᮧᮒᮎᮤ ᮔᮍᮔ᮪ ᮒᮥᮀᮌᮤᮔ᮪ ᮞᮊᮒᮤ\nᮊᮤᮛᮀ ᮞᮊᮒᮤ ᮓᮤᮔ᮪ ᮔᮍᮔ᮪ ᮞᮕᮒᮤ`,
+            latin: `Ukeuhan sotaci din ngayu\nKirang haran manon ing labu\nSotaci ngayan tunggin sakati\nKirang sakati din ngayan sapati`,
+            translation: `Kebenaran sejati ada pada diri\nKurang pengetahuan melihat pada lahir\nSejati mengajar dengan sungguh-sungguh\nKurang sungguh-sungguh tidak akan mencapai hasil`,
+          },
+          manuscript: {
+            Material: "Lontar (daun kelapa) dan kertas daluwang",
+            Aksara: "Aksara Sunda dengan pengaruh Pallava",
+            "Usia Naskah": "Diperkirakan abad ke-15-16",
+            Kondisi: "Beberapa bagian rusak, perlu restorasi",
+            Koleksi: "Museum Negeri Sri Baduga, Bandung",
+          },
+          vocabulary: [
+            { ancient: "ᮄᮊᮠᮔ᮪", modern: "ukeuhan", meaning: "kebenaran" },
+            { ancient: "ᮞᮧᮒᮎᮤ", modern: "sotaci", meaning: "sejati" },
+            { ancient: "ᮔᮍᮔ᮪", modern: "ngayan", meaning: "mengajar" },
+            {
+              ancient: "ᮒᮥᮀᮌᮤᮔ᮪",
+              modern: "tunggin",
+              meaning: "sungguh-sungguh",
+            },
+            {
+              ancient: "ᮞᮊᮒᮤ",
+              modern: "sakati",
+              meaning: "dengan keras/sungguh",
+            },
+            { ancient: "ᮞᮕᮒᮤ", modern: "sapati", meaning: "sampai/tercapai" },
+          ],
+          options: [
+            {
+              content:
+                "Teks ini mengajarkan bahwa kebenaran sejati berasal dari dalam diri dan memerlukan kesungguhan dalam belajar",
+              correct: true,
+            },
+            {
+              content:
+                "Teks ini bercerita tentang ritual keagamaan dalam tradisi Sunda kuno",
+              correct: false,
+            },
+            {
+              content:
+                "Teks ini merupakan catatan sejarah peperangan kerajaan Sunda",
+              correct: false,
+            },
+            {
+              content: "Teks ini hanya berisi pantun untuk hiburan",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Teks ini merupakan ajaran filosofis tentang pencarian kebenaran dan pentingnya kesungguhan dalam proses pembelajaran.",
+        },
+        {
+          question: "Bandingkan karakteristik bahasa pada kedua teks klasik:",
+          type: "linguistic_comparison",
+          comparison: {
+            "Serat Darmagandul": {
+              "Gaya Bahasa": "Didaktik, menggunakan perintah dan nasihat",
+              Kosakata: "Formal dengan pengaruh Jawa Kuno",
+              Struktur: "Puitis dengan pola rima teratur",
+              Fungsi: "Pendidikan moral masyarakat",
+            },
+            "Sanghyang Siksa": {
+              "Gaya Bahasa": "Filosofis, menggunakan pernyataan kebijaksanaan",
+              Kosakata: "Arkais dengan pengaruh Sanskerta",
+              Struktur: "Puitis dengan metafora mendalam",
+              Fungsi: "Panduan spiritual dan intelektual",
+            },
+          },
+          linguisticEvolution: [
+            "Penggunaan imbuhan yang kompleks (me-kan, pe-an, ke-an)",
+            "Struktur kalimat yang lebih panjang dan berimbang",
+            "Kosakata yang lebih abstrak untuk konsep filosofis",
+            "Pengaruh bahasa asing yang sudah terintegrasi",
+            "Variasi diksi untuk tingkatan sosial yang berbeda",
+          ],
+          options: [
+            {
+              content:
+                "Kedua teks menunjukkan evolusi bahasa Sunda klasik dengan tingkat kerumitan yang berbeda sesuai fungsi dan audiensnya",
+              correct: true,
+            },
+            {
+              content:
+                "Kedua teks menggunakan bahasa yang persis sama tanpa perbedaan",
+              correct: false,
+            },
+            {
+              content: "Hanya satu teks yang menggunakan bahasa Sunda asli",
+              correct: false,
+            },
+            {
+              content:
+                "Kedua teks tidak memiliki nilai linguistik yang berarti",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Kedua teks menunjukkan variasi penggunaan bahasa Sunda klasik yang disesuaikan dengan tujuan dan konteks penggunaannya.",
+        },
+        {
+          question:
+            "Analisis nilai-nilai budaya yang terkandung dalam teks-teks klasik tersebut:",
+          type: "cultural_values_analysis",
+          culturalSignificance: [
+            {
+              category: "Nilai Pendidikan",
+              content:
+                "Tradisi transfer ilmu dan kebijaksanaan melalui teks tertulis yang mencerminkan sistem pendidikan tradisional Sunda yang mengutamakan pembentukan karakter.",
+            },
+            {
+              category: "Nilai Spiritual",
+              content:
+                "Pencarian kebenaran dan kemuliaan hidup sebagai tujuan utama eksistensi manusia, menunjukkan dimensi spiritual yang tinggi dalam budaya Sunda.",
+            },
+            {
+              category: "Nilai Sosial",
+              content:
+                "Pentingnya berbuat baik kepada sesama dan menjaga kehormatan dalam masyarakat, mencerminkan sistem nilai komunal yang kuat.",
+            },
+            {
+              category: "Nilai Estetika",
+              content:
+                "Penggunaan bahasa yang indah dan bermetrum menunjukkan apresiasi tinggi terhadap keindahan bahasa sebagai seni.",
+            },
+          ],
+          modernRelevance: [
+            "Ajaran moral yang masih relevan untuk pendidikan karakter modern",
+            "Filosofi hidup yang dapat memperkaya wawasan spiritual kontemporer",
+            "Metode pembelajaran melalui sastra yang efektif",
+            "Pelestarian identitas budaya di era globalisasi",
+            "Sumber inspirasi untuk karya sastra modern",
+          ],
+          options: [
+            {
+              content:
+                "Teks-teks klasik ini mengandung nilai-nilai universal tentang moral, spiritualitas, dan estetika yang masih relevan hingga kini",
+              correct: true,
+            },
+            {
+              content:
+                "Teks-teks ini hanya memiliki nilai sejarah tanpa relevansi modern",
+              correct: false,
+            },
+            {
+              content:
+                "Nilai-nilai dalam teks ini bertentangan dengan nilai-nilai modern",
+              correct: false,
+            },
+            {
+              content:
+                "Teks-teks ini tidak mengandung nilai budaya yang signifikan",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Teks-teks klasik Sunda mengandung nilai-nilai universal yang tetap relevan dan dapat memperkaya kehidupan modern.",
+        },
+        {
+          question:
+            "Evaluasi kontribusi teks-teks klasik terhadap perkembangan sastra dan budaya Sunda:",
+          type: "literary_contribution",
+          contributions: [
+            "Meletakkan fondasi tradisi sastra tulis dalam aksara Sunda",
+            "Menjadi rujukan nilai-nilai moral dan etika masyarakat Sunda",
+            "Mempengaruhi gaya penulisan sastra Sunda periode selanjutnya",
+            "Menjadi sumber pembelajaran bahasa Sunda klasik",
+            "Menginspirasi karya-karya sastra modern berbasis tradisi",
+          ],
+          literaryTradition: {
+            Periodisasi:
+              "Sastra Sunda Klasik (abad 14-18) → Sastra Sunda Modern (abad 19-20) → Sastra Sunda Kontemporer (abad 21)",
+            Pengaruh: "Dari tradisi lisan → tradisi tulis → digitalisasi",
+            "Evolusi Tema":
+              "Religius-moral → sosial-politik → eksistensial-universal",
+            "Perkembangan Bentuk":
+              "Puisi tradisional → prosa modern → multimedia kontemporer",
+          },
+          preservation: [
+            "Digitalisasi naskah untuk pelestarian jangka panjang",
+            "Penelitian dan transliterasi oleh ahli bahasa dan sastra",
+            "Adaptasi dalam kurikulum pendidikan bahasa Sunda",
+            "Pengembangan aplikasi pembelajaran aksara Sunda",
+            "Program revitalisasi bahasa dan sastra daerah",
+          ],
+          options: [
+            {
+              content:
+                "Teks-teks klasik menjadi fondasi penting bagi perkembangan sastra Sunda dan perlu dilestarikan sebagai warisan budaya",
+              correct: true,
+            },
+            {
+              content:
+                "Teks-teks klasik tidak memiliki pengaruh terhadap sastra modern",
+              correct: false,
+            },
+            {
+              content:
+                "Pelestarian teks klasik tidak diperlukan di era digital",
+              correct: false,
+            },
+            {
+              content:
+                "Teks-teks klasik hanya memiliki nilai akademis tanpa manfaat praktis",
+              correct: false,
+            },
+          ],
+          explanation:
+            "Teks-teks klasik memiliki peran fundamental dalam membentuk identitas sastra Sunda dan perlu dilestarikan untuk generasi mendatang.",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let userAnswers = [];
+      let startTime = Date.now();
+
+      function initializeQuiz() {
+        generateQuizHTML();
+        showQuestion(0);
+        updateProgress();
+      }
+
+      function generateQuizHTML() {
+        const container = document.getElementById("quizContainer");
+        container.innerHTML = "";
+
+        quizData.forEach((question, index) => {
+          let questionHTML = `
+                    <div class="question-card" id="question-${index}">
+                        <div class="question-number">Soal ${index + 1} dari ${
+            quizData.length
+          }</div>
+                        <div class="question-text">${question.question}</div>
+                `;
+
+          // Classical text comprehension
+          if (
+            question.type === "classical_text_comprehension" ||
+            question.type === "manuscript_analysis"
+          ) {
+            questionHTML += `
+                        <div class="classical-text-container">
+                            <div class="text-title">${question.text.title}</div>
+                            <div class="text-subtitle">${question.text.subtitle}</div>
+                            <div class="manuscript-style">
+                                <div class="sunda-text">${question.text.sunda}</div>
+                                <div class="latin-transliteration">${question.text.latin}</div>
+                                <div class="modern-translation">${question.text.translation}</div>
+                            </div>
+                        </div>
+                    `;
+
+            if (question.context) {
+              questionHTML += `
+                            <div class="text-context">
+                                <div class="context-title"><i data-feather="info"></i> Konteks Historis</div>
+                                <div class="context-grid">
+                                    ${Object.entries(question.context)
+                                      .map(
+                                        ([key, value]) => `
+                                        <div class="context-item">
+                                            <div class="context-label">${key}:</div>
+                                            <div class="context-value">${value}</div>
+                                        </div>
+                                    `
+                                      )
+                                      .join("")}
+                                </div>
+                            </div>
+                        `;
+            }
+
+            if (question.manuscript) {
+              questionHTML += `
+                            <div class="text-context">
+                                <div class="context-title"><i data-feather="file-text"></i> Informasi Naskah</div>
+                                <div class="context-grid">
+                                    ${Object.entries(question.manuscript)
+                                      .map(
+                                        ([key, value]) => `
+                                        <div class="context-item">
+                                            <div class="context-label">${key}:</div>
+                                            <div class="context-value">${value}</div>
+                                        </div>
+                                    `
+                                      )
+                                      .join("")}
+                                </div>
+                            </div>
+                        `;
+            }
+
+            if (question.vocabulary) {
+              questionHTML += `
+                            <div class="vocabulary-ancient">
+                                <div class="vocab-title"><i data-feather="book"></i> Kosakata Kuno</div>
+                                <div class="vocab-grid">
+                                    ${question.vocabulary
+                                      .map(
+                                        (vocab) => `
+                                        <div class="vocab-item">
+                                            <div class="vocab-ancient">${vocab.ancient}</div>
+                                            <div class="vocab-modern">${vocab.modern}</div>
+                                            <div class="vocab-meaning">${vocab.meaning}</div>
+                                        </div>
+                                    `
+                                      )
+                                      .join("")}
+                                </div>
+                            </div>
+                        `;
+            }
+          }
+
+          // Historical context
+          if (question.type === "historical_context") {
+            questionHTML += `
+                        <div class="historical-timeline">
+                            <div class="timeline-title"><i data-feather="clock"></i> Garis Waktu Sejarah</div>
+                            <div class="timeline-items">
+                                ${question.timeline
+                                  .map(
+                                    (item) => `
+                                    <div class="timeline-item">
+                                        <div class="timeline-date">${item.date}</div>
+                                        <div class="timeline-event">${item.event}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                        <div class="linguistic-analysis">
+                            <div class="analysis-title"><i data-feather="search"></i> Analisis Linguistik</div>
+                            <div class="linguistic-features">
+                                ${question.linguisticFeatures
+                                  .map(
+                                    (feature) => `
+                                    <div class="feature-item">
+                                        <div class="feature-name">${feature.name}</div>
+                                        <div class="feature-description">${feature.description}</div>
+                                        <div class="feature-example">Contoh: ${feature.example}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Linguistic comparison
+          if (question.type === "linguistic_comparison") {
+            questionHTML += `
+                        <div class="text-context">
+                            <div class="context-title"><i data-feather="git-compare"></i> Perbandingan Linguistik</div>
+                            <div class="context-grid">
+                                ${Object.entries(question.comparison)
+                                  .map(
+                                    ([textName, features]) => `
+                                    <div class="context-item">
+                                        <div class="context-label">${textName}:</div>
+                                        <div class="context-value">
+                                            ${Object.entries(features)
+                                              .map(
+                                                ([key, value]) => `
+                                                <strong>${key}:</strong> ${value}<br>
+                                            `
+                                              )
+                                              .join("")}
+                                        </div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                        <div class="linguistic-analysis">
+                            <div class="analysis-title"><i data-feather="trending-up"></i> Evolusi Bahasa</div>
+                            <div class="linguistic-features">
+                                ${question.linguisticEvolution
+                                  .map(
+                                    (evolution, index) => `
+                                    <div class="feature-item">
+                                        <div class="feature-name">Karakteristik ${
+                                          index + 1
+                                        }</div>
+                                        <div class="feature-description">${evolution}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Cultural values analysis
+          if (question.type === "cultural_values_analysis") {
+            questionHTML += `
+                        <div class="cultural-significance">
+                            <div class="significance-title"><i data-feather="heart"></i> Signifikansi Budaya</div>
+                            <div class="significance-grid">
+                                ${question.culturalSignificance
+                                  .map(
+                                    (significance) => `
+                                    <div class="significance-item">
+                                        <div class="significance-category">${significance.category}</div>
+                                        <div class="significance-content">${significance.content}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                        <div class="linguistic-analysis">
+                            <div class="analysis-title"><i data-feather="calendar"></i> Relevansi Modern</div>
+                            <div class="linguistic-features">
+                                ${question.modernRelevance
+                                  .map(
+                                    (relevance, index) => `
+                                    <div class="feature-item">
+                                        <div class="feature-name">Aspek ${
+                                          index + 1
+                                        }</div>
+                                        <div class="feature-description">${relevance}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Literary contribution
+          if (question.type === "literary_contribution") {
+            questionHTML += `
+                        <div class="linguistic-analysis">
+                            <div class="analysis-title"><i data-feather="award"></i> Kontribusi Sastra</div>
+                            <div class="linguistic-features">
+                                ${question.contributions
+                                  .map(
+                                    (contribution, index) => `
+                                    <div class="feature-item">
+                                        <div class="feature-name">Kontribusi ${
+                                          index + 1
+                                        }</div>
+                                        <div class="feature-description">${contribution}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                        <div class="text-context">
+                            <div class="context-title"><i data-feather="layers"></i> Tradisi Sastra</div>
+                            <div class="context-grid">
+                                ${Object.entries(question.literaryTradition)
+                                  .map(
+                                    ([key, value]) => `
+                                    <div class="context-item">
+                                        <div class="context-label">${key}:</div>
+                                        <div class="context-value">${value}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                        <div class="linguistic-analysis">
+                            <div class="analysis-title"><i data-feather="shield"></i> Upaya Pelestarian</div>
+                            <div class="linguistic-features">
+                                ${question.preservation
+                                  .map(
+                                    (preserve, index) => `
+                                    <div class="feature-item">
+                                        <div class="feature-name">Upaya ${
+                                          index + 1
+                                        }</div>
+                                        <div class="feature-description">${preserve}</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Options
+          questionHTML += `
+                    <div class="options" id="options-${index}">
+                        ${question.options
+                          .map(
+                            (option, optionIndex) => `
+                            <div class="option" onclick="selectAnswer(${index}, ${optionIndex})">
+                                <div class="option-letter">${String.fromCharCode(
+                                  65 + optionIndex
+                                )}</div>
+                                <div class="option-content">${
+                                  option.content
+                                }</div>
+                            </div>
+                        `
+                          )
+                          .join("")}
+                    </div>
+                `;
+
+          questionHTML += `
+                        <div class="feedback" id="feedback-${index}"></div>
+                        
+                        <div class="controls">
+                            <button class="btn btn-secondary" onclick="previousQuestion()" ${
+                              index === 0 ? 'style="visibility: hidden"' : ""
+                            }>
+                                <i data-feather="arrow-left"></i> Sebelumnya
+                            </button>
+                            <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                                ${
+                                  index === quizData.length - 1
+                                    ? "Selesai"
+                                    : "Selanjutnya"
+                                } 
+                                <i data-feather="arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+          container.innerHTML += questionHTML;
+        });
+      }
+
+      function selectAnswer(questionIndex, answerIndex) {
+        const options = document.querySelectorAll(
+          `#options-${questionIndex} .option`
+        );
+        const question = quizData[questionIndex];
+
+        // Remove previous selections
+        options.forEach((option) => {
+          option.classList.remove("selected", "correct", "incorrect");
+        });
+
+        // Mark selected answer
+        options[answerIndex].classList.add("selected");
+
+        // Store user answer
+        userAnswers[questionIndex] = answerIndex;
+
+        // Check if correct
+        const isCorrect = question.options[answerIndex].correct;
+
+        if (isCorrect) {
+          options[answerIndex].classList.add("correct");
+          score += Math.round(100 / quizData.length);
+          showFeedback(
+            questionIndex,
+            "correct",
+            "✓ Benar! " + question.explanation
+          );
+        } else {
+          options[answerIndex].classList.add("incorrect");
+          // Show correct answer
+          question.options.forEach((option, index) => {
+            if (option.correct) {
+              options[index].classList.add("correct");
+            }
+          });
+          showFeedback(
+            questionIndex,
+            "incorrect",
+            "✗ Salah. " + question.explanation
+          );
+        }
+
+        // Enable next button
+        document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+      }
+
+      function showFeedback(questionIndex, type, message) {
+        const feedback = document.getElementById(`feedback-${questionIndex}`);
+        feedback.className = `feedback ${type}`;
+        feedback.innerHTML = message;
+        feedback.style.display = "block";
+      }
+
+      function showQuestion(index) {
+        // Hide all questions
+        document.querySelectorAll(".question-card").forEach((card) => {
+          card.classList.remove("active");
+        });
+
+        // Show current question
+        document.getElementById(`question-${index}`).classList.add("active");
+
+        // Update progress
+        updateProgress();
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextQuestion() {
+        if (currentQuestion < quizData.length - 1) {
+          currentQuestion++;
+          showQuestion(currentQuestion);
+        } else {
+          showResults();
+        }
+      }
+
+      function previousQuestion() {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          showQuestion(currentQuestion);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (currentQuestion / quizData.length) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+        document.getElementById("progressText").textContent = `Soal ${
+          currentQuestion + 1
+        } dari ${quizData.length}`;
+      }
+
+      function showResults() {
+        const endTime = Date.now();
+        const timeTaken = Math.floor((endTime - startTime) / 1000);
+        const minutes = Math.floor(timeTaken / 60);
+        const seconds = timeTaken % 60;
+
+        const correctCount = Math.round(score / (100 / quizData.length));
+        const incorrectCount = quizData.length - correctCount;
+
+        // Hide quiz container
+        document.getElementById("quizContainer").style.display = "none";
+        document.querySelector(".progress-container").style.display = "none";
+
+        // Show results
+        document.getElementById("resultScreen").classList.add("show");
+        document.getElementById("finalScore").textContent = score + "/100";
+        document.getElementById("correctAnswers").textContent = correctCount;
+        document.getElementById("incorrectAnswers").textContent =
+          incorrectCount;
+        document.getElementById("timeTaken").textContent = `${minutes}:${seconds
+          .toString()
+          .padStart(2, "0")}`;
+        document.getElementById("accuracy").textContent = score + "%";
+
+        // Update result message
+        let message = "";
+        if (score >= 90) {
+          message =
+            "🌟 Luar biasa! Anda telah menguasai teks klasik Sunda dengan sempurna!";
+        } else if (score >= 80) {
+          message =
+            "👏 Excellent! Pemahaman Anda terhadap sastra klasik sangat baik.";
+        } else if (score >= 70) {
+          message =
+            "👍 Bagus! Terus pelajari warisan sastra Sunda yang kaya ini.";
+        } else {
+          message =
+            "💪 Jangan menyerah! Teks klasik memang memerlukan pemahaman yang mendalam.";
+        }
+
+        document.getElementById("resultMessage").textContent = message;
+
+        // Re-initialize feather icons
+        feather.replace();
+      }
+
+      function nextLevel() {
+        window.location.href = "level-15-dokumen-formal.html";
+      }
+
+      // Initialize quiz when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeQuiz();
+        feather.replace();
+      });
+    </script>
+  </body>
+</html>
