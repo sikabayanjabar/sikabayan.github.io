@@ -494,9 +494,10 @@
         "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.min.js";
 
       let pdfDoc = null;
-      let currentZoom = 1.5;
+      let currentZoom = 1.2; // Reduced from 1.5 for faster loading
       let totalPages = 0;
       let currentPage = 1;
+      let renderedPages = new Set(); // Cache for rendered pages
 
       // Get URL parameters
       const urlParams = new URLSearchParams(window.location.search);
@@ -579,6 +580,11 @@
       }
 
       async function renderPage(pageNum) {
+        // Skip if already rendered
+        if (renderedPages.has(pageNum)) {
+          return;
+        }
+
         try {
           const page = await pdfDoc.getPage(pageNum);
           const viewport = page.getViewport({ scale: currentZoom });
@@ -596,10 +602,13 @@
           }).promise;
 
           // Replace placeholder with actual page
-          const pageContainer = document.querySelector(`[data-page="${pageNum}"]`);
+          const pageContainer = document.querySelector(
+            `[data-page="${pageNum}"]`
+          );
           if (pageContainer) {
             pageContainer.innerHTML = "";
             pageContainer.appendChild(canvas);
+            renderedPages.add(pageNum); // Mark as rendered
           }
         } catch (error) {
           console.error(`Error rendering page ${pageNum}:`, error);
@@ -608,12 +617,10 @@
 
       async function renderAdditionalPages(startPage, endPage) {
         for (let pageNum = startPage; pageNum <= endPage; pageNum++) {
-          const pageContainer = document.querySelector(`[data-page="${pageNum}"]`);
-          if (pageContainer && pageContainer.querySelector('canvas') === null) {
+          // Skip if already rendered
+          if (!renderedPages.has(pageNum)) {
             await renderPage(pageNum);
           }
-        }
-      }
         }
       }
 
@@ -629,6 +636,16 @@
             turned: function (event, page, view) {
               currentPage = page;
               updatePageInfo();
+
+              // Lazy load nearby pages
+              const preloadRange = 2;
+              const startPage = Math.max(1, page - preloadRange);
+              const endPage = Math.min(totalPages, page + preloadRange);
+
+              // Load pages in background without blocking UI
+              setTimeout(() => {
+                renderAdditionalPages(startPage, endPage);
+              }, 100);
             },
           },
         });
