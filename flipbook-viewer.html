@@ -129,9 +129,11 @@
       }
 
       #flipbook {
-        width: 800px;
-        height: 600px;
+        width: 1200px;
+        height: 800px;
         margin: 0 auto;
+        max-width: 95vw;
+        max-height: 85vh;
       }
 
       .page {
@@ -378,17 +380,91 @@
         }
       }
 
-      @media (max-width: 480px) {
+      /* Tablet styles */
+      @media (max-width: 1024px) and (min-width: 769px) {
         #flipbook {
-          height: 350px;
+          width: 90vw;
+          height: 70vh;
+          max-width: 900px;
+          max-height: 600px;
+        }
+
+        .flipbook-container {
+          padding: 1rem;
+        }
+
+        .nav-btn {
+          width: 50px;
+          height: 50px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .flipbook-container {
+          padding: 0.5rem;
+        }
+
+        #flipbook {
+          width: 95vw;
+          height: 60vh;
+          max-width: 600px;
+          max-height: 450px;
+        }
+
+        .nav-btn {
+          width: 45px;
+          height: 45px;
         }
 
         .nav-btn.prev {
-          left: 10px;
+          left: -55px;
         }
 
         .nav-btn.next {
-          right: 10px;
+          right: -55px;
+        }
+
+        .zoom-controls,
+        .fullscreen-btn {
+          bottom: 1rem;
+        }
+
+        .reader-header {
+          padding: 0.5rem 1rem;
+        }
+
+        .reader-title span {
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        #flipbook {
+          width: 98vw;
+          height: 55vh;
+          max-height: 350px;
+        }
+
+        .nav-btn.prev {
+          left: 5px;
+        }
+
+        .nav-btn.next {
+          right: 5px;
+        }
+
+        .zoom-controls button {
+          width: 35px;
+          height: 35px;
+          font-size: 0.9rem;
+        }
+
+        .reader-header {
+          padding: 0.5rem;
+        }
+
+        .reader-title span {
+          font-size: 0.9rem;
         }
       }
     </style>
@@ -494,7 +570,7 @@
         "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.min.js";
 
       let pdfDoc = null;
-      let currentZoom = 1.2; // Reduced from 1.5 for faster loading
+      let currentZoom = 1.8; // Increased from 1.2 for better clarity
       let totalPages = 0;
       let currentPage = 1;
       let renderedPages = new Set(); // Cache for rendered pages
@@ -562,13 +638,14 @@
           const pageDiv = document.createElement("div");
           pageDiv.className = "page-container";
           pageDiv.setAttribute("data-page", pageNum);
-          pageDiv.style.width = "400px";
-          pageDiv.style.height = "600px";
+          pageDiv.style.width = "100%";
+          pageDiv.style.height = "100%";
           pageDiv.style.backgroundColor = "#f5f5f5";
           pageDiv.style.display = "flex";
           pageDiv.style.alignItems = "center";
           pageDiv.style.justifyContent = "center";
-          pageDiv.innerHTML = `<div style="color: #666;">Loading page ${pageNum}...</div>`;
+          pageDiv.style.fontSize = "1rem";
+          pageDiv.innerHTML = `<div style="color: #666; text-align: center;">Loading page ${pageNum}...</div>`;
           flipbook.appendChild(pageDiv);
         }
 
@@ -625,9 +702,17 @@
       }
 
       function initializeFlipbook() {
+        const isDesktop = window.innerWidth > 768;
+        const flipbookWidth = isDesktop
+          ? 1200
+          : Math.min(window.innerWidth * 0.95, 600);
+        const flipbookHeight = isDesktop
+          ? 800
+          : Math.min(window.innerHeight * 0.7, 450);
+
         $("#flipbook").turn({
-          width: 800,
-          height: 600,
+          width: flipbookWidth,
+          height: flipbookHeight,
           autoCenter: true,
           duration: 1000,
           elevation: 50,
@@ -776,6 +861,21 @@
       });
 
       // Clean up on window unload
+      // Window resize handler
+      window.addEventListener("resize", function () {
+        if ($("#flipbook").turn("is")) {
+          const isDesktop = window.innerWidth > 768;
+          const flipbookWidth = isDesktop
+            ? 1200
+            : Math.min(window.innerWidth * 0.95, 600);
+          const flipbookHeight = isDesktop
+            ? 800
+            : Math.min(window.innerHeight * 0.7, 450);
+
+          $("#flipbook").turn("size", flipbookWidth, flipbookHeight);
+        }
+      });
+
       window.addEventListener("beforeunload", function () {
         if ($("#flipbook").turn("is")) {
           $("#flipbook").turn("destroy");
