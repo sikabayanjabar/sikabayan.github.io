@@ -20,7 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.min.js"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
 
     <!-- AlpineJS -->
     <script
@@ -29,10 +29,10 @@
     ></script>
 
     <!-- Auth Manager -->
-    <script src="js/auth.js"></script>
+    <script src="./js/auth.js"></script>
 
     <!-- APP -->
-    <script src="src/app.js" async></script>
+    <script src="./src/app.js" async></script>
 
     <style>
       /* Library specific styles */
@@ -1106,42 +1106,10 @@
       feather.replace();
     </script>
 
-    <!-- Theme Toggle Script -->
-    <script>
-      // Theme Toggle Functionality
-      const themeToggle = document.getElementById("theme-toggle");
-      const themeLabel = document.querySelector(".theme-toggle-label");
-      const body = document.body;
-
-      // Get saved theme from localStorage or default to 'dark'
-      const savedTheme = localStorage.getItem("theme") || "dark";
-      body.setAttribute("data-theme", savedTheme);
-
-      // Update toggle state and label based on current theme
-      function updateThemeToggle(theme) {
-        if (theme === "light") {
-          themeToggle.checked = true;
-          themeLabel.textContent = "Light";
-        } else {
-          themeToggle.checked = false;
-          themeLabel.textContent = "Dark";
-        }
-      }
-
-      // Initialize toggle
-      updateThemeToggle(savedTheme);
-
-      // Theme toggle event listener
-      themeToggle.addEventListener("change", function () {
-        const newTheme = this.checked ? "light" : "dark";
-
-        body.setAttribute("data-theme", newTheme);
-        localStorage.setItem("theme", newTheme);
-        updateThemeToggle(newTheme);
-      });
-    </script>
+    <!-- Universal Theme Manager -->
+    <script src="./js/theme.js"></script>
 
     <!-- My Javascript -->
-    <script src="js/script.js"></script>
+    <script src="./js/script.js"></script>
   </body>
 </html>

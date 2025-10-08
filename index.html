@@ -20,22 +20,100 @@
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- My Style -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    
+    <!-- Inline Theme CSS Fallback -->
+    <style>
+      /* Ensure theme works even if external CSS fails */
+      :root {
+        --primary: #2093a4;
+        --bg: #232222;
+        --text-color: #fff;
+        --text-secondary: #ccc;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --navbar-bg: rgba(1, 1, 1, 0.9);
+        --border-color: #21646e;
+      }
+
+      [data-theme="light"] {
+        --primary: #2093a4;
+        --bg: #ffffff;
+        --text-color: #333333;
+        --text-secondary: #666666;
+        --card-bg: rgba(0, 0, 0, 0.05);
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --navbar-bg: rgba(255, 255, 255, 0.95);
+        --border-color: #e0e0e0;
+      }
+
+      body {
+        background-color: var(--bg) !important;
+        color: var(--text-color) !important;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      /* Theme Switch Styling */
+      .theme-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+
+      .theme-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.3s;
+        border-radius: 24px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--primary);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+    </style>
 
     <!-- AlpineJS -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Auth Manager -->
-    <script src="js/auth.js"></script>
+    <script src="./js/auth.js"></script>
 
     <!-- APP -->
-    <script src="src/app.js" async></script>
+    <script src="./src/app.js" async></script>
   </head>
   <body>
     <!-- Nav bar start -->
     <nav class="navbar" x-data>
       <a href="#" class="navbar-logo">
-        <img src="img/logo-sikabayan.png" alt="Logo Sikabayan" style="height: 50px; margin-right: 10px;">
+        <img src="./img/logo-sikabayan.png" alt="Logo Sikabayan" style="height: 50px; margin-right: 10px;" onerror="this.style.display='none'">
         <span style="color: #2093a4;">SIKABAYAN</span>
       </a>
 
@@ -116,7 +194,9 @@
     <!-- Hero section start -->
     <section class="hero" id="home">
       <main class="content">
-        <h1 class="hero-title">SIKABAYAN</h1>
+        <h1 class="hero-title">
+          SIKABAYAN
+        </h1>
         <p class="hero-subtitle">Literasi Kebudayaan Aksara Sunda</p>
         <a href="latihan.html" class="cta">Mulai Belajar</a>
       </main>
@@ -570,42 +650,39 @@
       feather.replace();
     </script>
 
-    <!-- Theme Toggle Script -->
+    <!-- Universal Theme Manager -->
+    <script src="./js/theme.js"></script>
+
+    <!-- Debug Theme Toggle -->
     <script>
-      // Theme Toggle Functionality
-      const themeToggle = document.getElementById('theme-toggle');
-      const themeLabel = document.querySelector('.theme-toggle-label');
-      const body = document.body;
-      
-      // Get saved theme from localStorage or default to 'dark'
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      body.setAttribute('data-theme', savedTheme);
-      
-      // Update toggle state and label based on current theme
-      function updateThemeToggle(theme) {
-        if (theme === 'light') {
-          themeToggle.checked = true;
-          themeLabel.textContent = 'Light';
-        } else {
-          themeToggle.checked = false;
-          themeLabel.textContent = 'Dark';
-        }
-      }
-      
-      // Initialize toggle
-      updateThemeToggle(savedTheme);
-      
-      // Theme toggle event listener
-      themeToggle.addEventListener('change', function() {
-        const newTheme = this.checked ? 'light' : 'dark';
+      // Simple debug for theme toggle
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('=== THEME DEBUG START ===');
         
-        body.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeToggle(newTheme);
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeLabel = document.querySelector('.theme-toggle-label');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        console.log('Theme toggle element:', themeToggle);
+        console.log('Theme label element:', themeLabel);
+        console.log('Current theme:', currentTheme);
+        console.log('Body data-theme:', document.body.getAttribute('data-theme'));
+        console.log('HTML data-theme:', document.documentElement.getAttribute('data-theme'));
+        
+        if (themeToggle) {
+          console.log('Toggle checked state:', themeToggle.checked);
+          
+          // Add manual click test
+          themeToggle.addEventListener('click', function() {
+            console.log('Toggle clicked! New checked state:', this.checked);
+          });
+        }
+        
+        console.log('=== THEME DEBUG END ===');
       });
     </script>
 
     <!-- My Javascript -->
-    <script src="js/script.js"></script>
+    <script src="./js/script.js"></script>
   </body>
 </html>

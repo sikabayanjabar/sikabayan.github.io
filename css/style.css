@@ -1282,6 +1282,7 @@ section p {
   .hero .content .hero-title {
     font-size: clamp(2.5rem, 7vw, 6rem); /* Smaller title on mobile */
     line-height: 1.2;
+
     margin-bottom: 0.8rem;
     color: #2093a4;
   }
