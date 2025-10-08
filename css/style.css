@@ -421,23 +421,23 @@ section p {
 }
 
 [data-theme="light"] .perpustakaan .book-item {
-  background-color: #4a4a4a;
-  border: 1px solid #666666;
-  color: #ffffff;
+  background-color: #c0c0c0;
+  border: 1px solid #d0d0d0;
+  color: #333333;
 }
 
 [data-theme="light"] .perpustakaan .book-item:hover {
-  background-color: #3a3a3a;
+  background-color: #a0a0a0;
   border-color: var(--primary);
   box-shadow: 0 10px 20px rgba(32, 147, 164, 0.3);
 }
 
 [data-theme="light"] .perpustakaan .book-item h4 {
-  color: #ffffff;
+  color: #333333;
 }
 
 [data-theme="light"] .perpustakaan .book-item p {
-  color: #e0e0e0;
+  color: #555555;
   text-align: center;
 }
 

@@ -14,6 +14,19 @@
     />
     <title>Materi Pembelajaran - Sikabayan</title>
 
+    <!-- Cache Control Meta Tags -->
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000" />
+    <meta http-equiv="Expires" content="31536000" />
+    <meta http-equiv="Pragma" content="cache" />
+
+    <!-- PWA Support -->
+    <meta name="theme-color" content="#2093a4" />
+    <meta name="msapplication-navbutton-color" content="#2093a4" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
     <!-- Fonts  -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,25 +35,93 @@
       rel="stylesheet"
     />
 
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="./css/style.css?v=1.2.0" as="style" />
+    <link rel="preload" href="./js/theme.js?v=1.2.0" as="script" />
+
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- My Style -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=1.2.0" />
 
-    <!-- AlpineJS -->
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-    ></script>
-
-    <!-- Auth Manager -->
-    <script src="js/auth.js"></script>
-
-    <!-- APP -->
-    <script src="src/app.js" async></script>
-
+    <!-- Inline Theme CSS Fallback -->
     <style>
+      /* Ensure theme works even if external CSS fails */
+      :root {
+        --primary: #2093a4;
+        --bg: #232222;
+        --text-color: #fff;
+        --text-secondary: #ccc;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --navbar-bg: rgba(1, 1, 1, 0.9);
+        --border-color: #21646e;
+      }
+
+      [data-theme="light"] {
+        --primary: #2093a4;
+        --bg: #ffffff;
+        --text-color: #333333;
+        --text-secondary: #666666;
+        --card-bg: rgba(0, 0, 0, 0.05);
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --navbar-bg: rgba(255, 255, 255, 0.95);
+        --border-color: #e0e0e0;
+      }
+
+      body {
+        background-color: var(--bg) !important;
+        color: var(--text-color) !important;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* Theme Switch Styling */
+      .theme-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+
+      .theme-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.3s;
+        border-radius: 24px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--primary);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
       /* Custom styles for materi actions */
       .materi-actions {
         display: flex;
@@ -100,6 +181,18 @@
         }
       }
     </style>
+
+    <!-- AlpineJS -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <!-- Auth Manager -->
+    <script src="js/auth.js?v=1.2.0"></script>
+
+    <!-- APP -->
+    <script src="src/app.js?v=1.2.0" async></script>
   </head>
   <body>
     <!-- Nav bar start -->
@@ -119,6 +212,7 @@
         <a href="index.html#menu">Kebijakan</a>
         <a href="materi.html" class="active">Materi</a>
         <a href="latihan.html">Latihan</a>
+        <a href="buku-digital.html">Perpustakaan</a>
         <a href="index.html#contact">Kontak</a>
       </div>
 
@@ -264,42 +358,13 @@
       feather.replace();
     </script>
 
-    <!-- Theme Toggle Script -->
-    <script>
-      // Theme Toggle Functionality
-      const themeToggle = document.getElementById("theme-toggle");
-      const themeLabel = document.querySelector(".theme-toggle-label");
-      const body = document.body;
+    <!-- Universal Theme Manager -->
+    <script src="./js/theme.js?v=1.2.0"></script>
 
-      // Get saved theme from localStorage or default to 'dark'
-      const savedTheme = localStorage.getItem("theme") || "dark";
-      body.setAttribute("data-theme", savedTheme);
-
-      // Update toggle state and label based on current theme
-      function updateThemeToggle(theme) {
-        if (theme === "light") {
-          themeToggle.checked = true;
-          themeLabel.textContent = "Light";
-        } else {
-          themeToggle.checked = false;
-          themeLabel.textContent = "Dark";
-        }
-      }
-
-      // Initialize toggle
-      updateThemeToggle(savedTheme);
-
-      // Theme toggle event listener
-      themeToggle.addEventListener("change", function () {
-        const newTheme = this.checked ? "light" : "dark";
-
-        body.setAttribute("data-theme", newTheme);
-        localStorage.setItem("theme", newTheme);
-        updateThemeToggle(newTheme);
-      });
-    </script>
+    <!-- Cache Manager -->
+    <script src="./js/cache-manager.js?v=1.2.0"></script>
 
     <!-- My Javascript -->
-    <script src="js/script.js"></script>
+    <script src="js/script.js?v=1.2.0"></script>
   </body>
 </html>
