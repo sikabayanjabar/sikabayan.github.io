@@ -1,0 +1,23 @@
+{
+  "version": "1.2.0",
+  "buildDate": "2025-10-08",
+  "description": "Sikabayan dengan optimasi cache dan lazy loading",
+  "changes": [
+    "Implementasi Service Worker untuk caching",
+    "Optimasi loading gambar dengan lazy loading",
+    "Cache strategy yang adaptif",
+    "Auto-update detection",
+    "Improved performance"
+  ],
+  "assets": {
+    "css": "1.2.0",
+    "js": "1.2.0",
+    "images": "1.2.0"
+  },
+  "cacheStrategy": {
+    "images": "cache-first",
+    "css": "stale-while-revalidate",
+    "js": "stale-while-revalidate",
+    "html": "network-first"
+  }
+}

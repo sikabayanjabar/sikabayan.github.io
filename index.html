@@ -6,6 +6,17 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Cache Control Meta Tags -->
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000" />
+    <meta http-equiv="Expires" content="31536000" />
+    <meta http-equiv="Pragma" content="cache" />
+    
+    <!-- PWA Support -->
+    <meta name="theme-color" content="#2093a4" />
+    <meta name="msapplication-navbutton-color" content="#2093a4" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
     <title>Sikabayan - Literasi Kebudayaan Aksara Sunda</title>
 
     <!-- Fonts  -->
@@ -16,11 +27,16 @@
       rel="stylesheet"
     />
 
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="./css/style.css?v=1.2.0" as="style" />
+    <link rel="preload" href="./js/theme.js?v=1.2.0" as="script" />
+    <link rel="preload" href="./img/logo-sikabayan.png?v=1.2.0" as="image" />
+
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- My Style -->
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/style.css?v=1.2.0" />
     
     <!-- Inline Theme CSS Fallback -->
     <style>
@@ -104,16 +120,16 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Auth Manager -->
-    <script src="./js/auth.js"></script>
+    <script src="./js/auth.js?v=1.2.0"></script>
 
     <!-- APP -->
-    <script src="./src/app.js" async></script>
+    <script src="./src/app.js?v=1.2.0" async></script>
   </head>
   <body>
     <!-- Nav bar start -->
     <nav class="navbar" x-data>
       <a href="#" class="navbar-logo">
-        <img src="./img/logo-sikabayan.png" alt="Logo Sikabayan" style="height: 50px; margin-right: 10px;" onerror="this.style.display='none'">
+        <img src="./img/logo-sikabayan.png?v=1.2.0" alt="Logo Sikabayan" loading="eager" style="height: 50px; margin-right: 10px;" onerror="this.style.display='none'">
         <span style="color: #2093a4;">SIKABAYAN</span>
       </a>
 
@@ -377,7 +393,7 @@
           
           <div class="team-card">
             <div class="team-photo">
-              <img src="img/tim/angga.jpg?w=300&h=300&fit=crop&crop=face" alt="Angga Maulana">
+              <img src="img/tim/angga.jpg?v=1.2.0&w=300&h=300&fit=crop&crop=face" alt="Angga Maulana" loading="lazy">
             </div>
             <div class="team-info">
               <h4>Angga Maulana, M.Pd</h4>
@@ -387,7 +403,7 @@
 
           <div class="team-card">
             <div class="team-photo">
-              <img src="img/tim/emaa.jpg?w=300&h=300&fit=crop&crop=face" alt="Ema Astri Muliasari">
+              <img src="img/tim/emaa.jpg?v=1.2.0&w=300&h=300&fit=crop&crop=face" alt="Ema Astri Muliasari" loading="lazy">
             </div>
             <div class="team-info">
               <h4>Ema Astri Muliasari, M.Pd</h4>
@@ -397,7 +413,7 @@
 
           <div class="team-card">
             <div class="team-photo">
-              <img src="img/tim/chita.jpg?w=300&h=300&fit=crop&crop=face" alt="Chita Yunita">
+              <img src="img/tim/chita.jpg?v=1.2.0&w=300&h=300&fit=crop&crop=face" alt="Chita Yunita" loading="lazy">
             </div>
             <div class="team-info">
               <h4>Chita Yunita, S.Pd</h4>
@@ -407,7 +423,7 @@
 
           <div class="team-card">
             <div class="team-photo">
-              <img src="img/tim/adel.jpg?w=300&h=300&fit=crop&crop=face" alt="Ade Irma Tripani">
+              <img src="img/tim/adel.jpg?v=1.2.0&w=300&h=300&fit=crop&crop=face" alt="Ade Irma Tripani" loading="lazy">
             </div>
             <div class="team-info">
               <h4>Ade Irma Tripani, S.Pd</h4>
@@ -417,7 +433,7 @@
           
           <div class="team-card">
             <div class="team-photo">
-              <img src="img/tim/miftah.jpg?w=300&h=300&fit=crop&crop=face" alt="Miftah Nurjamil">
+              <img src="img/tim/miftah.jpg?v=1.2.0&w=300&h=300&fit=crop&crop=face" alt="Miftah Nurjamil" loading="lazy">
             </div>
             <div class="team-info">
               <h4>Miftah Nurjamil, A.Md</h4>
@@ -427,7 +443,7 @@
 
           <div class="team-card">
             <div class="team-photo">
-              <img src="img/tim/iman.jpg?w=300&h=300&fit=crop&crop=face" alt="Iman Ahmad Bunyamin">
+              <img src="img/tim/iman.jpg?v=1.2.0&w=300&h=300&fit=crop&crop=face" alt="Iman Ahmad Bunyamin" loading="lazy">
             </div>
             <div class="team-info">
               <h4>Iman Ahmad Bunyamin, S.T</h4>
@@ -437,7 +453,7 @@
 
           <div class="team-card">
             <div class="team-photo">
-              <img src="img/tim/nurul.jpg?w=300&h=300&fit=crop&crop=face" alt="Nurul Iman">
+              <img src="img/tim/nurul.jpg?v=1.2.0&w=300&h=300&fit=crop&crop=face" alt="Nurul Iman" loading="lazy">
             </div>
             <div class="team-info">
               <h4>Nurul Iman, S.Pd</h4>
@@ -447,7 +463,7 @@
 
           <div class="team-card">
             <div class="team-photo">
-              <img src="img/tim/hidayat.jpg?w=300&h=300&fit=crop&crop=face" alt="Hidayatul Anwar">
+              <img src="img/tim/hidayat.jpg?v=1.2.0&w=300&h=300&fit=crop&crop=face" alt="Hidayatul Anwar" loading="lazy">
             </div>
             <div class="team-info">
               <h4>Hidayatul Anwar, S.Pd</h4>
@@ -651,7 +667,10 @@
     </script>
 
     <!-- Universal Theme Manager -->
-    <script src="./js/theme.js"></script>
+    <script src="./js/theme.js?v=1.2.0"></script>
+
+    <!-- Cache Manager -->
+    <script src="./js/cache-manager.js?v=1.2.0"></script>
 
     <!-- Debug Theme Toggle -->
     <script>
@@ -683,6 +702,6 @@
     </script>
 
     <!-- My Javascript -->
-    <script src="./js/script.js"></script>
+    <script src="./js/script.js?v=1.2.0"></script>
   </body>
 </html>
