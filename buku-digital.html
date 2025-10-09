@@ -564,6 +564,107 @@
           font-size: 0.9rem;
         }
       }
+
+      /* User Menu Styles */
+      .user-menu {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      .user-info:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(32, 147, 164, 0.2);
+      }
+
+      .user-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1rem;
+        color: var(--text-color);
+        box-shadow: 0 2px 8px rgba(32, 147, 164, 0.3);
+      }
+
+      #userName {
+        font-weight: 600;
+        color: var(--text-color);
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        background-color: var(--card-bg);
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px var(--shadow-color);
+        min-width: 220px;
+        display: none;
+        z-index: 1000;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+      }
+
+      .dropdown-menu::before {
+        content: "";
+        position: absolute;
+        top: -6px;
+        right: 1rem;
+        width: 12px;
+        height: 12px;
+        background-color: var(--card-bg);
+        transform: rotate(45deg);
+        border-left: 1px solid var(--border-color);
+        border-top: 1px solid var(--border-color);
+      }
+
+      .dropdown-menu a {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .dropdown-menu a:last-child {
+        border-bottom: none;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: var(--primary);
+        color: #fff;
+        transform: translateX(5px);
+      }
+
+      .dropdown-menu a i {
+        width: 18px;
+        height: 18px;
+      }
     </style>
   </head>
   <body>
@@ -591,13 +692,39 @@
       <div class="navbar-extra">
         <a href="#" id="search-button"><i data-feather="search"></i></a>
         <div class="theme-toggle-container">
-          <span class="theme-toggle-label">Dark</span>
+          <span class="theme-toggle-label">🌙</span>
           <label class="theme-switch">
-            <input type="checkbox" id="theme-toggle" />
+            <input type="checkbox" id="themeToggle" />
             <span class="slider"></span>
           </label>
+          <span class="theme-toggle-label">☀️</span>
         </div>
-        <a href="login.html" class="login-btn">Login</a>
+
+        <!-- User Menu for authenticated users -->
+        <div class="user-menu" id="userMenu" style="display: none">
+          <div class="user-info" onclick="toggleDropdown()">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <span id="userName">User</span>
+            <i data-feather="chevron-down"></i>
+          </div>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="profile.html">
+              <i data-feather="user"></i>
+              Profil Saya
+            </a>
+            <a href="settings.html">
+              <i data-feather="settings"></i>
+              Pengaturan
+            </a>
+            <a href="#" onclick="logout()">
+              <i data-feather="log-out"></i>
+              Keluar
+            </a>
+          </div>
+        </div>
+
+        <!-- Login button for unauthenticated users -->
+        <a href="login.html" class="login-btn" id="loginBtn">Login</a>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
 
@@ -1118,5 +1245,65 @@
 
     <!-- My Javascript -->
     <script src="./js/script.js?v=1.2.0"></script>
+
+    <!-- User Menu Script -->
+    <script>
+      // User Menu Functions
+      function initializeUserMenu() {
+        const isLoggedIn = localStorage.getItem("user_logged_in") === "true";
+        const userMenu = document.getElementById("userMenu");
+        const loginBtn = document.getElementById("loginBtn");
+
+        if (isLoggedIn) {
+          // Show user menu, hide login button
+          if (userMenu) {
+            userMenu.style.display = "flex";
+            const userName = localStorage.getItem("user_name") || "User";
+            document.getElementById("userName").textContent = userName;
+            document.getElementById("userAvatar").textContent = userName
+              .charAt(0)
+              .toUpperCase();
+          }
+          if (loginBtn) {
+            loginBtn.style.display = "none";
+          }
+        } else {
+          // Show login button, hide user menu
+          if (userMenu) {
+            userMenu.style.display = "none";
+          }
+          if (loginBtn) {
+            loginBtn.style.display = "block";
+          }
+        }
+      }
+
+      function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      }
+
+      function logout() {
+        localStorage.removeItem("user_logged_in");
+        localStorage.removeItem("user_name");
+        initializeUserMenu();
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function (event) {
+        const userMenu = document.querySelector(".user-menu");
+        const dropdown = document.getElementById("dropdownMenu");
+
+        if (userMenu && !userMenu.contains(event.target)) {
+          dropdown.style.display = "none";
+        }
+      });
+
+      // Initialize on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeUserMenu();
+      });
+    </script>
   </body>
 </html>

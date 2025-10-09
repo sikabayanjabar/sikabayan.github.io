@@ -561,6 +561,32 @@
       <div class="signup-link">
         <p>Belum punya akun? <a href="signup.html">Daftar sekarang</a></p>
       </div>
+
+      <!-- Test Credentials Info -->
+      <div
+        style="
+          margin-top: 2rem;
+          padding: 1rem;
+          background: rgba(32, 147, 164, 0.1);
+          border-radius: 0.5rem;
+          border: 1px solid rgba(32, 147, 164, 0.3);
+        "
+      >
+        <h4
+          style="
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+          "
+        >
+          🧪 Test Accounts:
+        </h4>
+        <div style="font-size: 0.8rem; line-height: 1.4">
+          <p><strong>Admin:</strong> admin@sikabayan.com / admin123</p>
+          <p><strong>User:</strong> user@sikabayan.com / user123</p>
+          <p><strong>Test:</strong> test@sikabayan.com / test123</p>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -568,7 +594,12 @@
 
       // Check if already logged in
       if (localStorage.getItem("isLoggedIn") === "true") {
-        window.location.href = "dashboard.html";
+        const userEmail = localStorage.getItem("userEmail");
+        if (userEmail === "admin@sikabayan.com") {
+          window.location.href = "dashboard.html";
+        } else {
+          window.location.href = "index.html";
+        }
       }
 
       // Handle form submission
@@ -586,6 +617,25 @@
 
           // Simple validation (in real app, this would be server-side)
           const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+          // Add default test users if none exist
+          if (users.length === 0) {
+            const testUsers = [
+              {
+                email: "user@sikabayan.com",
+                password: "user123",
+                name: "User Demo",
+              },
+              {
+                email: "test@sikabayan.com",
+                password: "test123",
+                name: "Test User",
+              },
+            ];
+            localStorage.setItem("users", JSON.stringify(testUsers));
+            users.push(...testUsers);
+          }
+
           const user = users.find(
             (u) => u.email === email && u.password === password
           );
@@ -595,10 +645,22 @@
             (email === "admin@sikabayan.com" && password === "admin123")
           ) {
             document.getElementById("successMessage").style.display = "block";
+
             setTimeout(() => {
               localStorage.setItem("isLoggedIn", "true");
               localStorage.setItem("userEmail", email);
-              window.location.href = "dashboard.html";
+
+              // Determine redirect based on user type
+              if (email === "admin@sikabayan.com") {
+                // Admin goes to dashboard
+                window.location.href = "dashboard.html";
+              } else {
+                // Regular users go to homepage with login success parameter
+                const userName = user ? user.name : email.split("@")[0];
+                localStorage.setItem("user_logged_in", "true");
+                localStorage.setItem("user_name", userName);
+                window.location.href = "index.html?login=success";
+              }
             }, 1500);
           } else {
             document.getElementById("errorMessage").style.display = "block";

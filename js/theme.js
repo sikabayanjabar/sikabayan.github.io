@@ -19,8 +19,7 @@ applyTheme(savedTheme);
 function initializeTheme() {
   console.log("Initializing theme system...");
 
-  const themeToggle = document.getElementById("theme-toggle");
-  const themeLabel = document.querySelector(".theme-toggle-label");
+  const themeToggle = document.getElementById("themeToggle");
 
   if (!themeToggle) {
     console.error("Theme toggle not found!");
@@ -29,15 +28,13 @@ function initializeTheme() {
 
   console.log("Theme toggle found:", themeToggle);
 
-  // Update toggle state and label
+  // Update toggle state with emoji
   function updateToggle(theme) {
     console.log("Updating toggle for theme:", theme);
     if (theme === "light") {
-      themeToggle.checked = true;
-      if (themeLabel) themeLabel.textContent = "Light";
+      themeToggle.textContent = "☀️";
     } else {
-      themeToggle.checked = false;
-      if (themeLabel) themeLabel.textContent = "Dark";
+      themeToggle.textContent = "🌙";
     }
   }
 
@@ -45,9 +42,11 @@ function initializeTheme() {
   updateToggle(savedTheme);
 
   // Add click event listener
-  themeToggle.addEventListener("change", function () {
-    console.log("Toggle clicked, checked:", this.checked);
-    const newTheme = this.checked ? "light" : "dark";
+  themeToggle.addEventListener("click", function () {
+    console.log("Toggle clicked");
+    const currentTheme =
+      document.documentElement.getAttribute("data-theme") || "dark";
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
 
     // Apply theme
     applyTheme(newTheme);
