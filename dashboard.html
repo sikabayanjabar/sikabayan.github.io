@@ -261,9 +261,9 @@
         top: 100%;
         right: 7%;
         background-color: var(--card-bg);
-        width: 50rem;
+        width: 25rem;
         max-width: 90vw;
-        height: 5rem;
+        height: 3rem;
         display: flex;
         align-items: center;
         transform: scaleY(0);
@@ -283,9 +283,9 @@
       .search-form input {
         height: 100%;
         width: 100%;
-        font-size: 1.6rem;
+        font-size: 1rem;
         color: var(--text-color);
-        padding: 1rem;
+        padding: 0.5rem 0.8rem;
         border: none;
         outline: none;
         border-radius: 0.5rem;
@@ -298,8 +298,8 @@
 
       .search-form label {
         cursor: pointer;
-        font-size: 2rem;
-        margin-right: 1.5rem;
+        font-size: 1.2rem;
+        margin-right: 0.8rem;
         color: var(--text-color);
         transition: color 0.3s ease;
       }
@@ -366,6 +366,27 @@
         overflow: hidden;
         border: 1px solid var(--border-color);
         backdrop-filter: blur(10px);
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      .dropdown-menu.show {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+        animation: dropdownFadeIn 0.3s ease-out;
+      }
+
+      @keyframes dropdownFadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-15px) scale(0.95);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
       }
 
       .dropdown-menu::before {
@@ -406,6 +427,52 @@
       .dropdown-menu a i {
         width: 18px;
         height: 18px;
+      }
+
+      /* Language Toggle Styling */
+      .language-toggle-container {
+        display: flex;
+        align-items: center;
+        margin: 0 0.5rem;
+      }
+
+      .language-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(32, 147, 164, 0.1);
+        border: 1px solid rgba(32, 147, 164, 0.3);
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.8rem;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.85rem;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+      }
+
+      .language-toggle:hover {
+        background: rgba(32, 147, 164, 0.2);
+        border-color: var(--primary);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(32, 147, 164, 0.3);
+      }
+
+      .language-toggle:active {
+        transform: translateY(0);
+      }
+
+      .language-toggle span {
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--primary);
+      }
+
+      .language-toggle i {
+        width: 16px;
+        height: 16px;
+        color: var(--primary);
       }
 
       .container {
@@ -490,7 +557,7 @@
         margin-bottom: 3rem;
       }
 
-      .main-content {
+      .dashboard-main-content {
         background-color: var(--card-bg);
         border-radius: 1rem;
         padding: 2rem;
@@ -498,7 +565,15 @@
         backdrop-filter: blur(10px);
       }
 
-      .sidebar {
+      .dashboard-sidebar-content {
+        background-color: var(--card-bg);
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+      }
+
+      .dashboard-sidebar {
         background-color: var(--card-bg);
         border-radius: 1rem;
         padding: 2rem;
@@ -790,17 +865,17 @@
         .search-form {
           right: 5%;
           width: 90vw;
-          height: 4rem;
+          height: 2.8rem;
         }
 
         .search-form input {
-          font-size: 1.2rem;
-          padding: 0.75rem;
+          font-size: 0.9rem;
+          padding: 0.4rem 0.6rem;
         }
 
         .search-form label {
-          font-size: 1.5rem;
-          margin-right: 1rem;
+          font-size: 1rem;
+          margin-right: 0.6rem;
         }
 
         .welcome-section h1 {
@@ -811,47 +886,473 @@
           grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         }
       }
+
+      /* Dashboard Layout with Sidebar */
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      .navbar-top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background-color: var(--navbar-bg);
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+      }
+
+      .navbar-top .navbar-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+      }
+
+      .navbar-top .navbar-extra {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .mobile-only {
+        display: none;
+      }
+
+      /* Sidebar Toggle Button */
+      .sidebar-toggle-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 0.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--card-bg) 0%,
+          rgba(32, 147, 164, 0.1) 100%
+        );
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .sidebar-toggle-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      .sidebar-toggle-btn:hover::before {
+        opacity: 1;
+      }
+
+      .sidebar-toggle-btn:hover {
+        color: white;
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(32, 147, 164, 0.3);
+        border-color: var(--primary);
+      }
+
+      .sidebar-toggle-btn:active {
+        transform: scale(0.95);
+      }
+
+      .sidebar-toggle-btn i {
+        width: 22px;
+        height: 22px;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar-toggle-btn:hover i {
+        transform: rotate(180deg);
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 280px;
+        height: calc(100vh - 70px);
+        background: linear-gradient(
+          135deg,
+          var(--navbar-bg) 0%,
+          rgba(32, 147, 164, 0.05) 100%
+        );
+        border-right: 1px solid var(--border-color);
+        z-index: 999;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        backdrop-filter: blur(10px);
+        box-shadow: 2px 0 20px rgba(32, 147, 164, 0.1);
+      }
+
+      .sidebar-toggle-container {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      .sidebar-toggle-container .sidebar-toggle-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sidebar-toggle-container .sidebar-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: var(--primary);
+        transform: scale(1.05);
+      }
+
+      .sidebar.hidden {
+        transform: translateX(-100%);
+      }
+
+      .sidebar-nav {
+        padding: 1rem 0;
+      }
+
+      .sidebar-nav::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 1rem;
+        right: 1rem;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border-color),
+          transparent
+        );
+        margin-bottom: 1rem;
+      }
+
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.2rem 1.5rem;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border-left: 4px solid transparent;
+        margin: 0.3rem 0.5rem;
+        border-radius: 0 1rem 1rem 0;
+        position: relative;
+        font-weight: 500;
+        overflow: hidden;
+      }
+
+      .sidebar-link::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: -1;
+      }
+
+      .sidebar-link::after {
+        content: "";
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+        width: 6px;
+        height: 6px;
+        border: 2px solid transparent;
+        border-right-color: var(--primary);
+        border-bottom-color: var(--primary);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar-link:hover::before {
+        width: 100%;
+      }
+
+      .sidebar-link:hover::after {
+        opacity: 0;
+        transform: translateY(-50%) translateX(5px) rotate(45deg);
+      }
+
+      .sidebar-link:hover {
+        color: white;
+        transform: translateX(8px);
+        border-left-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 8px 25px rgba(32, 147, 164, 0.3);
+      }
+
+      .sidebar-link.active {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        border-left-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 8px 30px rgba(32, 147, 164, 0.4);
+        transform: translateX(5px);
+      }
+
+      .sidebar-link.active::before {
+        width: 100%;
+      }
+
+      .sidebar-link.active::after {
+        opacity: 1;
+        border-right-color: white;
+        border-bottom-color: white;
+      }
+
+      .sidebar-link i {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar-link:hover i {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .sidebar-link.active i {
+        transform: scale(1.1);
+      }
+
+      .sidebar-link span {
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .sidebar-link:hover span,
+      .sidebar-link.active span {
+        font-weight: 600;
+      }
+
+      .dashboard-main-layout {
+        margin-left: 280px;
+        margin-top: 70px;
+        padding: 2rem;
+        min-height: calc(100vh - 70px);
+        background-color: var(--bg);
+        transition: margin-left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      .dashboard-main-layout.expanded {
+        margin-left: 0;
+      }
+
+      /* Collapsed Sidebar Styles */
+      .sidebar.collapsed {
+        width: 70px;
+      }
+
+      .sidebar.collapsed .sidebar-toggle-container {
+        padding: 0.5rem;
+      }
+
+      .sidebar.collapsed .sidebar-toggle-container .sidebar-toggle-btn {
+        padding: 0.5rem;
+        border-radius: 50%;
+      }
+
+      .sidebar.collapsed .sidebar-link {
+        padding: 1.2rem 1rem;
+        justify-content: center;
+        border-radius: 0.5rem;
+        margin: 0.3rem 0.5rem;
+        border-left: none;
+        position: relative;
+      }
+
+      .sidebar.collapsed .sidebar-link span {
+        opacity: 0;
+        transform: translateX(-20px);
+        pointer-events: none;
+        position: absolute;
+        left: -9999px;
+      }
+
+      .sidebar.collapsed .sidebar-link::after {
+        display: none;
+      }
+
+      /* Tooltip for collapsed sidebar */
+      .sidebar.collapsed .sidebar-link:hover::before {
+        content: attr(data-tooltip);
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--primary);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        white-space: nowrap;
+        font-size: 0.9rem;
+        font-weight: 500;
+        z-index: 1000;
+        margin-left: 0.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .sidebar.collapsed .sidebar-link:hover::after {
+        content: "";
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%) translateX(-8px);
+        border: 4px solid transparent;
+        border-right-color: var(--primary);
+        z-index: 1000;
+      }
+
+      .dashboard-main-layout.sidebar-collapsed {
+        margin-left: 70px;
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 768px) {
+        .mobile-only {
+          display: block;
+        }
+
+        .navbar-top {
+          padding: 0 1rem;
+        }
+
+        .navbar-top .navbar-logo span {
+          display: none;
+        }
+
+        .navbar-top .navbar-logo img {
+          height: 35px;
+        }
+
+        .sidebar {
+          transform: translateX(-100%);
+          width: 300px;
+        }
+
+        .sidebar.active {
+          transform: translateX(0);
+        }
+
+        .sidebar.hidden {
+          transform: translateX(-100%);
+        }
+
+        .dashboard-main-layout {
+          margin-left: 0;
+          padding: 1rem;
+        }
+
+        .dashboard-main-layout.expanded {
+          margin-left: 0;
+        }
+
+        .navbar-extra {
+          gap: 0.5rem;
+        }
+
+        .theme-toggle-container {
+          scale: 0.9;
+        }
+
+        .language-toggle-container {
+          scale: 0.9;
+        }
+
+        .user-avatar {
+          width: 30px;
+          height: 30px;
+          font-size: 0.8rem;
+        }
+
+        #userName {
+          display: none;
+        }
+      }
+
+      @media (max-width: 450px) {
+        .navbar-top {
+          padding: 0 0.5rem;
+        }
+
+        .navbar-extra {
+          gap: 0.3rem;
+        }
+
+        .theme-toggle-container {
+          scale: 0.8;
+        }
+
+        .language-toggle-container {
+          scale: 0.8;
+        }
+
+        .theme-toggle-label {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
-    <nav class="navbar">
+    <!-- Top Navbar -->
+    <nav class="navbar-top">
       <a href="index.html" class="navbar-logo">
-        <img src="img/Logo-sikabayan.png" alt="Logo Sikabayan" />
-        <span>SIKABAYAN</span>
+        <img
+          src="img/Logo-sikabayan.png"
+          alt="Logo Sikabayan"
+          style="height: 40px; margin-right: 10px; vertical-align: middle"
+        />
+        <span style="color: #2093a4; vertical-align: middle">SIKABAYAN</span>
       </a>
 
-      <div class="navbar-nav" id="navbarNav">
-        <a href="dashboard.html" class="active">
-          <i data-feather="home"></i>
-          Dashboard
-        </a>
-        <a href="materi.html">
-          <i data-feather="book-open"></i>
-          Materi
-        </a>
-        <a href="latihan.html">
-          <i data-feather="edit-3"></i>
-          Latihan
-        </a>
-        <a href="buku-digital.html">
-          <i data-feather="library"></i>
-          Perpustakaan
-        </a>
-        <a href="progress.html">
-          <i data-feather="trending-up"></i>
-          Progress
-        </a>
-      </div>
-
       <div class="navbar-extra">
-        <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <button class="search-button" id="search-button">
-          <i data-feather="search"></i>
-        </button>
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
         <div class="theme-toggle-container">
           <span class="theme-toggle-label">🌙</span>
           <label class="theme-switch">
@@ -860,6 +1361,19 @@
           </label>
           <span class="theme-toggle-label">☀️</span>
         </div>
+
+        <!-- Language Toggle -->
+        <div class="language-toggle-container">
+          <button
+            id="languageToggle"
+            class="language-toggle"
+            aria-label="Switch language"
+          >
+            <span id="languageToggleText">ID</span>
+            <i data-feather="globe"></i>
+          </button>
+        </div>
+
         <div class="user-menu">
           <div class="user-info" onclick="toggleDropdown()">
             <div class="user-avatar" id="userAvatar">U</div>
@@ -869,432 +1383,665 @@
           <div class="dropdown-menu" id="dropdownMenu">
             <a href="profile.html">
               <i data-feather="user"></i>
-              Profil Saya
+              <span data-lang="user.profile">Profil Saya</span>
             </a>
             <a href="settings.html">
               <i data-feather="settings"></i>
-              Pengaturan
+              <span data-lang="user.settings">Pengaturan</span>
             </a>
             <a href="#" onclick="logout()">
               <i data-feather="log-out"></i>
-              Keluar
+              <span data-lang="user.logout">Keluar</span>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- Search form start -->
+      <!-- Search form -->
       <div class="search-form">
         <input type="search" id="search-box" placeholder="Cari materi..." />
         <label for="search-box"><i data-feather="search"></i></label>
       </div>
-      <!-- Search form end -->
     </nav>
 
-    <div class="container">
-      <div class="welcome-section">
-        <h1>Selamat Datang di Dashboard!</h1>
-        <p>
-          Lanjutkan perjalanan pembelajaran aksara Sunda Anda. Anda telah
-          menyelesaikan beberapa materi dan siap untuk tantangan selanjutnya.
-        </p>
-        <div class="quick-actions">
-          <a href="materi.html" class="action-btn">
-            <i data-feather="book-open"></i>
-            Lanjut Belajar
-          </a>
-          <a href="latihan.html" class="action-btn">
-            <i data-feather="edit-3"></i>
-            Mulai Latihan
-          </a>
-          <a href="progress.html" class="action-btn">
-            <i data-feather="trending-up"></i>
-            Lihat Progress
-          </a>
-        </div>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Hamburger Toggle Button -->
+      <div class="sidebar-toggle-container">
+        <button
+          id="sidebar-toggle"
+          class="sidebar-toggle-btn"
+          aria-label="Toggle sidebar"
+        >
+          <i data-feather="menu"></i>
+        </button>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i data-feather="book"></i>
-          </div>
-          <div class="stat-number" id="completedLessons">3</div>
-          <div class="stat-label">Materi Selesai</div>
-        </div>
+      <nav class="sidebar-nav">
+        <a
+          href="dashboard.html"
+          class="sidebar-link active"
+          data-lang="nav.dashboard"
+          data-tooltip="Dashboard"
+        >
+          <i data-feather="home"></i>
+          <span>Dashboard</span>
+        </a>
+        <a
+          href="index.html"
+          class="sidebar-link"
+          data-lang="nav.home"
+          data-tooltip="Beranda"
+        >
+          <i data-feather="globe"></i>
+          <span>Beranda</span>
+        </a>
+        <a
+          href="materi.html"
+          class="sidebar-link"
+          data-lang="nav.materials"
+          data-tooltip="Materi"
+        >
+          <i data-feather="book-open"></i>
+          <span>Materi</span>
+        </a>
+        <a
+          href="latihan.html"
+          class="sidebar-link"
+          data-lang="nav.exercises"
+          data-tooltip="Latihan"
+        >
+          <i data-feather="edit-3"></i>
+          <span>Latihan</span>
+        </a>
+        <a
+          href="buku-digital.html"
+          class="sidebar-link"
+          data-lang="nav.library"
+          data-tooltip="Perpustakaan"
+        >
+          <i data-feather="book"></i>
+          <span>Perpustakaan</span>
+        </a>
+        <a
+          href="progress.html"
+          class="sidebar-link"
+          data-lang="nav.progress"
+          data-tooltip="Progress"
+        >
+          <i data-feather="trending-up"></i>
+          <span>Progress</span>
+        </a>
+      </nav>
+    </aside>
 
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i data-feather="clock"></i>
-          </div>
-          <div class="stat-number" id="studyTime">12</div>
-          <div class="stat-label">Jam Belajar</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i data-feather="award"></i>
-          </div>
-          <div class="stat-number" id="achievements">5</div>
-          <div class="stat-label">Pencapaian</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i data-feather="target"></i>
-          </div>
-          <div class="stat-number" id="streakDays">7</div>
-          <div class="stat-label">Hari Beruntun</div>
-        </div>
-      </div>
-
-      <div class="dashboard-grid">
-        <div class="main-content">
-          <h2 class="section-title">
-            <i data-feather="trending-up"></i>
-            Progress Pembelajaran
-          </h2>
-
-          <div class="progress-item">
-            <div class="progress-header">
-              <span class="progress-title">Materi Dasar Aksara Sunda</span>
-              <span class="progress-percentage">100%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 100%"></div>
-            </div>
-          </div>
-
-          <div class="progress-item">
-            <div class="progress-header">
-              <span class="progress-title">Sejarah Aksara Sunda</span>
-              <span class="progress-percentage">85%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 85%"></div>
-            </div>
-          </div>
-
-          <div class="progress-item">
-            <div class="progress-header">
-              <span class="progress-title">Latihan Menulis</span>
-              <span class="progress-percentage">60%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 60%"></div>
-            </div>
-          </div>
-
-          <div class="progress-item">
-            <div class="progress-header">
-              <span class="progress-title">Quiz dan Evaluasi</span>
-              <span class="progress-percentage">25%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 25%"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="sidebar">
-          <h3 class="section-title">
-            <i data-feather="activity"></i>
-            Aktivitas Terkini
-          </h3>
-
-          <div class="activity-item">
-            <div class="activity-icon">
-              <i data-feather="check"></i>
-            </div>
-            <div class="activity-content">
-              <div class="activity-title">Menyelesaikan Materi Dasar</div>
-              <div class="activity-time">2 jam yang lalu</div>
-            </div>
-          </div>
-
-          <div class="activity-item">
-            <div class="activity-icon">
-              <i data-feather="edit"></i>
-            </div>
-            <div class="activity-content">
-              <div class="activity-title">Latihan Menulis Level 3</div>
-              <div class="activity-time">1 hari yang lalu</div>
-            </div>
-          </div>
-
-          <div class="activity-item">
-            <div class="activity-icon">
-              <i data-feather="star"></i>
-            </div>
-            <div class="activity-content">
-              <div class="activity-title">Mendapat Badge Pemula</div>
-              <div class="activity-time">2 hari yang lalu</div>
-            </div>
-          </div>
-
-          <div class="activity-item">
-            <div class="activity-icon">
+    <!-- Main Content -->
+    <main class="dashboard-main-layout">
+      <div class="container">
+        <div class="welcome-section">
+          <h1>Selamat Datang di Dashboard!</h1>
+          <p>
+            Lanjutkan perjalanan pembelajaran aksara Sunda Anda. Anda telah
+            menyelesaikan beberapa materi dan siap untuk tantangan selanjutnya.
+          </p>
+          <div class="quick-actions">
+            <a href="materi.html" class="action-btn">
               <i data-feather="book-open"></i>
+              Lanjut Belajar
+            </a>
+            <a href="latihan.html" class="action-btn">
+              <i data-feather="edit-3"></i>
+              Mulai Latihan
+            </a>
+            <a href="progress.html" class="action-btn">
+              <i data-feather="trending-up"></i>
+              Lihat Progress
+            </a>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i data-feather="book"></i>
             </div>
-            <div class="activity-content">
-              <div class="activity-title">Membaca Sejarah Aksara</div>
-              <div class="activity-time">3 hari yang lalu</div>
+            <div class="stat-number" id="completedLessons">3</div>
+            <div class="stat-label">Materi Selesai</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i data-feather="clock"></i>
+            </div>
+            <div class="stat-number" id="studyTime">12</div>
+            <div class="stat-label">Jam Belajar</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i data-feather="award"></i>
+            </div>
+            <div class="stat-number" id="achievements">5</div>
+            <div class="stat-label">Pencapaian</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i data-feather="target"></i>
+            </div>
+            <div class="stat-number" id="streakDays">7</div>
+            <div class="stat-label">Hari Beruntun</div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="dashboard-main-content">
+            <h2 class="section-title">
+              <i data-feather="trending-up"></i>
+              Progress Pembelajaran
+            </h2>
+
+            <div class="progress-item">
+              <div class="progress-header">
+                <span class="progress-title">Materi Dasar Aksara Sunda</span>
+                <span class="progress-percentage">100%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%"></div>
+              </div>
+            </div>
+
+            <div class="progress-item">
+              <div class="progress-header">
+                <span class="progress-title">Sejarah Aksara Sunda</span>
+                <span class="progress-percentage">85%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 85%"></div>
+              </div>
+            </div>
+
+            <div class="progress-item">
+              <div class="progress-header">
+                <span class="progress-title">Latihan Menulis</span>
+                <span class="progress-percentage">60%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%"></div>
+              </div>
+            </div>
+
+            <div class="progress-item">
+              <div class="progress-header">
+                <span class="progress-title">Quiz dan Evaluasi</span>
+                <span class="progress-percentage">25%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 25%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-sidebar-content">
+            <h3 class="section-title">
+              <i data-feather="activity"></i>
+              Aktivitas Terkini
+            </h3>
+
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i data-feather="check"></i>
+              </div>
+              <div class="activity-content">
+                <div class="activity-title">Menyelesaikan Materi Dasar</div>
+                <div class="activity-time">2 jam yang lalu</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i data-feather="edit"></i>
+              </div>
+              <div class="activity-content">
+                <div class="activity-title">Latihan Menulis Level 3</div>
+                <div class="activity-time">1 hari yang lalu</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i data-feather="star"></i>
+              </div>
+              <div class="activity-content">
+                <div class="activity-title">Mendapat Badge Pemula</div>
+                <div class="activity-time">2 hari yang lalu</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i data-feather="book-open"></i>
+              </div>
+              <div class="activity-content">
+                <div class="activity-title">Membaca Sejarah Aksara</div>
+                <div class="activity-time">3 hari yang lalu</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <script>
-      feather.replace();
+      <script>
+        feather.replace();
 
-      // Initialize dashboard
-      document.addEventListener("DOMContentLoaded", function () {
-        // Check if user is logged in
-        if (localStorage.getItem("isLoggedIn") !== "true") {
-          window.location.href = "login.html";
-          return;
-        }
-
-        // Load user data
-        const userEmail = localStorage.getItem("userEmail");
-        if (userEmail) {
-          const users = JSON.parse(localStorage.getItem("users") || "[]");
-          const currentUser = users.find(
-            (user) => user.email === userEmail
-          ) || { firstName: "User", email: userEmail };
-
-          document.getElementById("userName").textContent =
-            currentUser.firstName;
-          document.getElementById("userAvatar").textContent =
-            currentUser.firstName.charAt(0).toUpperCase();
-        }
-
-        // Initialize navbar functionality
-        initializeNavbar();
-
-        // Simulate progress loading
-        setTimeout(updateStats, 500);
-      });
-
-      function initializeNavbar() {
-        // Set active menu item based on current page
-        const currentPage = window.location.pathname.split("/").pop();
-        const navLinks = document.querySelectorAll(".navbar-nav a");
-
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === currentPage) {
-            link.classList.add("active");
-          }
-        });
-
-        // Add smooth scrolling to anchor links
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-          anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute("href"));
-            if (target) {
-              target.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-            }
-          });
-        });
-
-        // Show/hide navbar on scroll
-        let lastScrollTop = 0;
-        const navbar = document.querySelector(".navbar");
-
-        window.addEventListener("scroll", function () {
-          let scrollTop =
-            window.pageYOffset || document.documentElement.scrollTop;
-
-          if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // Scrolling down
-            navbar.style.transform = "translateY(-100%)";
-          } else {
-            // Scrolling up
-            navbar.style.transform = "translateY(0)";
+        // Initialize dashboard
+        document.addEventListener("DOMContentLoaded", function () {
+          // Check if user is logged in
+          if (localStorage.getItem("isLoggedIn") !== "true") {
+            window.location.href = "login.html";
+            return;
           }
 
-          lastScrollTop = scrollTop;
+          // Load user data
+          const userEmail = localStorage.getItem("userEmail");
+          if (userEmail) {
+            const users = JSON.parse(localStorage.getItem("users") || "[]");
+            const currentUser = users.find(
+              (user) => user.email === userEmail
+            ) || { firstName: "User", email: userEmail };
+
+            document.getElementById("userName").textContent =
+              currentUser.firstName;
+            document.getElementById("userAvatar").textContent =
+              currentUser.firstName.charAt(0).toUpperCase();
+          }
+
+          // Initialize navbar functionality
+          initializeNavbar();
+
+          // Simulate progress loading
+          setTimeout(updateStats, 500);
         });
 
-        // Initialize search functionality
-        initializeSearch();
-      }
+        function initializeNavbar() {
+          // Set active menu item based on current page
+          const currentPage = window.location.pathname.split("/").pop();
+          const navLinks = document.querySelectorAll(".navbar-nav a");
 
-      function initializeSearch() {
-        const searchButton = document.querySelector("#search-button");
-        const searchForm = document.querySelector(".search-form");
-        const searchBox = document.querySelector("#search-box");
-
-        if (searchButton && searchForm && searchBox) {
-          searchButton.addEventListener("click", (e) => {
-            e.preventDefault();
-            searchForm.classList.toggle("active");
-            searchBox.focus();
-          });
-
-          // Hide search form when clicking outside
-          document.addEventListener("click", (e) => {
-            if (
-              !searchButton.contains(e.target) &&
-              !searchForm.contains(e.target)
-            ) {
-              searchForm.classList.remove("active");
+          navLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === currentPage) {
+              link.classList.add("active");
             }
           });
 
-          // Handle search
-          searchBox.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
+          // Add smooth scrolling to anchor links
+          document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", function (e) {
               e.preventDefault();
-              const searchTerm = searchBox.value.trim();
-              if (searchTerm) {
-                // Redirect to search results
-                window.location.href = `materi.html?search=${encodeURIComponent(
-                  searchTerm
-                )}`;
-                searchForm.classList.remove("active");
-                searchBox.value = "";
+              const target = document.querySelector(this.getAttribute("href"));
+              if (target) {
+                target.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
               }
-            }
+            });
           });
+
+          // Show/hide navbar on scroll
+          let lastScrollTop = 0;
+          const navbar = document.querySelector(".navbar");
+
+          window.addEventListener("scroll", function () {
+            let scrollTop =
+              window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+              // Scrolling down
+              navbar.style.transform = "translateY(-100%)";
+            } else {
+              // Scrolling up
+              navbar.style.transform = "translateY(0)";
+            }
+
+            lastScrollTop = scrollTop;
+          });
+
+          // Initialize search functionality
+          initializeSearch();
         }
-      }
 
-      // Mobile menu functionality
-      function toggleMobileMenu() {
-        const navbarNav = document.getElementById("navbarNav");
-        const hamburger = document.getElementById("hamburger");
+        function initializeSearch() {
+          const searchButton = document.querySelector("#search-button");
+          const searchForm = document.querySelector(".search-form");
+          const searchBox = document.querySelector("#search-box");
 
-        if (navbarNav && hamburger) {
-          navbarNav.classList.toggle("active");
-          hamburger.classList.toggle("active");
+          if (searchButton && searchForm && searchBox) {
+            searchButton.addEventListener("click", (e) => {
+              e.preventDefault();
+              searchForm.classList.toggle("active");
+              searchBox.focus();
+            });
+
+            // Hide search form when clicking outside
+            document.addEventListener("click", (e) => {
+              if (
+                !searchButton.contains(e.target) &&
+                !searchForm.contains(e.target)
+              ) {
+                searchForm.classList.remove("active");
+              }
+            });
+
+            // Handle search
+            searchBox.addEventListener("keydown", (e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                const searchTerm = searchBox.value.trim();
+                if (searchTerm) {
+                  // Redirect to search results
+                  window.location.href = `materi.html?search=${encodeURIComponent(
+                    searchTerm
+                  )}`;
+                  searchForm.classList.remove("active");
+                  searchBox.value = "";
+                }
+              }
+            });
+          }
         }
-      }
 
-      // Close mobile menu when clicking on a link
-      document.querySelectorAll(".navbar-nav a").forEach((link) => {
-        link.addEventListener("click", () => {
+        // Mobile menu functionality
+        function toggleMobileMenu() {
           const navbarNav = document.getElementById("navbarNav");
           const hamburger = document.getElementById("hamburger");
 
           if (navbarNav && hamburger) {
-            navbarNav.classList.remove("active");
-            hamburger.classList.remove("active");
+            navbarNav.classList.toggle("active");
+            hamburger.classList.toggle("active");
+          }
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll(".navbar-nav a").forEach((link) => {
+          link.addEventListener("click", () => {
+            const navbarNav = document.getElementById("navbarNav");
+            const hamburger = document.getElementById("hamburger");
+
+            if (navbarNav && hamburger) {
+              navbarNav.classList.remove("active");
+              hamburger.classList.remove("active");
+            }
+          });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener("click", (e) => {
+          const navbarNav = document.getElementById("navbarNav");
+          const hamburger = document.getElementById("hamburger");
+          const navbar = document.querySelector(".navbar");
+
+          if (navbar && !navbar.contains(e.target)) {
+            if (navbarNav && hamburger) {
+              navbarNav.classList.remove("active");
+              hamburger.classList.remove("active");
+            }
           }
         });
-      });
 
-      // Close mobile menu when clicking outside
-      document.addEventListener("click", (e) => {
-        const navbarNav = document.getElementById("navbarNav");
-        const hamburger = document.getElementById("hamburger");
-        const navbar = document.querySelector(".navbar");
+        function toggleDropdown() {
+          const dropdownMenu = document.getElementById("dropdownMenu");
+          if (dropdownMenu) {
+            const isVisible = dropdownMenu.classList.contains("show");
 
-        if (navbar && !navbar.contains(e.target)) {
-          if (navbarNav && hamburger) {
-            navbarNav.classList.remove("active");
-            hamburger.classList.remove("active");
+            if (isVisible) {
+              dropdownMenu.classList.remove("show");
+              console.log("🔽 Dropdown closed");
+            } else {
+              dropdownMenu.classList.add("show");
+              console.log("🔼 Dropdown opened");
+            }
           }
         }
-      });
 
-      function toggleDropdown() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdown.style.display =
-          dropdown.style.display === "block" ? "none" : "block";
-      }
+        // Close dropdown when clicking outside
+        document.addEventListener("click", function (event) {
+          const userMenu = document.querySelector(".user-menu");
+          const dropdownMenu = document.getElementById("dropdownMenu");
 
-      // Close dropdown when clicking outside
-      document.addEventListener("click", function (event) {
-        const userMenu = document.querySelector(".user-menu");
-        const dropdown = document.getElementById("dropdownMenu");
-
-        if (!userMenu.contains(event.target)) {
-          dropdown.style.display = "none";
-        }
-      });
-
-      function updateStats() {
-        // Animate numbers
-        animateCounter("completedLessons", 0, 3, 1000);
-        animateCounter("studyTime", 0, 12, 1200);
-        animateCounter("achievements", 0, 5, 1400);
-        animateCounter("streakDays", 0, 7, 1600);
-      }
-
-      function animateCounter(elementId, start, end, duration) {
-        const element = document.getElementById(elementId);
-        const range = end - start;
-        const minTimer = 50;
-        const stepTime = Math.abs(Math.floor(duration / range));
-        const timer = stepTime < minTimer ? minTimer : stepTime;
-
-        let current = start;
-        const increment = end > start ? 1 : -1;
-
-        const obj = setInterval(() => {
-          current += increment;
-          element.textContent = current;
-
-          if (current === end) {
-            clearInterval(obj);
+          if (dropdownMenu && userMenu) {
+            // Check if click is outside the user menu
+            if (!userMenu.contains(event.target)) {
+              if (dropdownMenu.classList.contains("show")) {
+                dropdownMenu.classList.remove("show");
+                console.log("🔽 Dropdown closed by outside click");
+              }
+            }
           }
-        }, timer);
-      }
+        });
 
-      function showProfile() {
-        window.location.href = "profile.html";
-      }
-
-      function showSettings() {
-        window.location.href = "settings.html";
-      }
-
-      function logout() {
-        if (confirm("Apakah Anda yakin ingin keluar?")) {
-          localStorage.removeItem("isLoggedIn");
-          localStorage.removeItem("userEmail");
-          window.location.href = "index.html";
+        function updateStats() {
+          // Animate numbers
+          animateCounter("completedLessons", 0, 3, 1000);
+          animateCounter("studyTime", 0, 12, 1200);
+          animateCounter("achievements", 0, 5, 1400);
+          animateCounter("streakDays", 0, 7, 1600);
         }
-      }
 
-      function startQuiz() {
-        window.location.href = "latihan.html";
-      }
+        function animateCounter(elementId, start, end, duration) {
+          const element = document.getElementById(elementId);
+          const range = end - start;
+          const minTimer = 50;
+          const stepTime = Math.abs(Math.floor(duration / range));
+          const timer = stepTime < minTimer ? minTimer : stepTime;
 
-      function viewProgress() {
-        window.location.href = "progress.html";
-      }
+          let current = start;
+          const increment = end > start ? 1 : -1;
 
-      // Theme Toggle Functionality
-      const themeToggle = document.getElementById("themeToggle");
-      const body = document.body;
+          const obj = setInterval(() => {
+            current += increment;
+            element.textContent = current;
 
-      // Load saved theme preference or default to dark
-      const savedTheme = localStorage.getItem("theme") || "dark";
-      body.setAttribute("data-theme", savedTheme);
+            if (current === end) {
+              clearInterval(obj);
+            }
+          }, timer);
+        }
 
-      // Update toggle position based on current theme
-      function updateThemeToggle() {
-        const currentTheme = body.getAttribute("data-theme");
-        themeToggle.checked = currentTheme === "light";
-      }
+        function showProfile() {
+          window.location.href = "profile.html";
+        }
 
-      // Initialize toggle position
-      updateThemeToggle();
+        function showSettings() {
+          window.location.href = "settings.html";
+        }
 
-      // Theme toggle event listener
-      themeToggle.addEventListener("change", function () {
-        const newTheme = this.checked ? "light" : "dark";
-        body.setAttribute("data-theme", newTheme);
-        localStorage.setItem("theme", newTheme);
-      });
-    </script>
+        // Use unified logout function
+        function logout() {
+          AuthManager.logoutWithConfirm();
+        }
+
+        // Enhanced Sidebar Toggle functionality
+        const sidebarToggle = document.querySelector("#sidebar-toggle");
+        const sidebar = document.querySelector(".sidebar");
+        const mainContent = document.querySelector(".dashboard-main-layout");
+        let sidebarState = "expanded"; // "expanded" or "collapsed"
+
+        if (sidebarToggle) {
+          sidebarToggle.addEventListener("click", () => {
+            if (window.innerWidth <= 768) {
+              // Mobile behavior - show/hide
+              sidebar.classList.toggle("active");
+            } else {
+              // Desktop behavior - expand/collapse only
+              if (sidebarState === "expanded") {
+                sidebarState = "collapsed";
+                sidebar.classList.add("collapsed");
+                mainContent.classList.add("sidebar-collapsed");
+              } else {
+                sidebarState = "expanded";
+                sidebar.classList.remove("collapsed");
+                mainContent.classList.remove("sidebar-collapsed");
+              }
+            }
+
+            // Store sidebar state
+            localStorage.setItem("sidebarState", sidebarState);
+          });
+        }
+
+        // Restore sidebar state from localStorage
+        const savedSidebarState = localStorage.getItem("sidebarState");
+        if (savedSidebarState && window.innerWidth > 768) {
+          sidebarState = savedSidebarState;
+
+          if (sidebarState === "collapsed") {
+            sidebar.classList.add("collapsed");
+            mainContent.classList.add("sidebar-collapsed");
+          }
+        }
+
+        // Handle mobile behavior
+        if (window.innerWidth <= 768) {
+          sidebar.classList.add("hidden");
+          mainContent.classList.add("expanded");
+          sidebarState = "hidden";
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener("click", (e) => {
+          if (window.innerWidth <= 768) {
+            if (
+              !sidebarToggle.contains(e.target) &&
+              !sidebar.contains(e.target)
+            ) {
+              sidebar.classList.remove("active");
+            }
+          }
+        });
+
+        // Close sidebar when clicking on a link (mobile)
+        const sidebarLinks = document.querySelectorAll(".sidebar-link");
+        sidebarLinks.forEach((link) => {
+          link.addEventListener("click", () => {
+            if (window.innerWidth <= 768) {
+              sidebar.classList.remove("active");
+            }
+          });
+        });
+
+        // Handle window resize
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 768) {
+            sidebar.classList.remove("active");
+
+            // Reset to saved desktop state
+            const savedState =
+              localStorage.getItem("sidebarState") || "expanded";
+            sidebarState = savedState;
+
+            sidebar.classList.remove("hidden", "collapsed");
+            mainContent.classList.remove("expanded", "sidebar-collapsed");
+
+            if (sidebarState === "collapsed") {
+              sidebar.classList.add("collapsed");
+              mainContent.classList.add("sidebar-collapsed");
+            } else if (sidebarState === "hidden") {
+              sidebar.classList.add("hidden");
+              mainContent.classList.add("expanded");
+            }
+          } else {
+            // Mobile: always start hidden
+            sidebar.classList.remove("collapsed");
+            sidebar.classList.add("hidden");
+            mainContent.classList.add("expanded");
+            mainContent.classList.remove("sidebar-collapsed");
+            sidebarState = "hidden";
+          }
+        });
+
+        // Add smooth scroll to top for sidebar links
+        sidebarLinks.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            // Add active state animation
+            sidebarLinks.forEach((l) => l.classList.remove("active"));
+            link.classList.add("active");
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        });
+
+        function startQuiz() {
+          window.location.href = "latihan.html";
+        }
+
+        function viewProgress() {
+          window.location.href = "progress.html";
+        }
+
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById("themeToggle");
+        const body = document.body;
+
+        // Load saved theme preference or default to dark
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        body.setAttribute("data-theme", savedTheme);
+
+        // Update toggle position based on current theme
+        function updateThemeToggle() {
+          const currentTheme = body.getAttribute("data-theme");
+          themeToggle.checked = currentTheme === "light";
+        }
+
+        // Initialize toggle position
+        updateThemeToggle();
+
+        // Theme toggle event listener
+        themeToggle.addEventListener("change", function () {
+          const newTheme = this.checked ? "light" : "dark";
+          body.setAttribute("data-theme", newTheme);
+          localStorage.setItem("theme", newTheme);
+        });
+
+        // Language toggle functionality
+        const languageToggle = document.getElementById("languageToggle");
+        const languageToggleText =
+          document.getElementById("languageToggleText");
+
+        if (languageToggle && languageToggleText) {
+          languageToggle.addEventListener("click", () => {
+            const currentLang = languageToggleText.textContent;
+            const newLang = currentLang === "ID" ? "SU" : "ID";
+            languageToggleText.textContent = newLang;
+
+            // Here you would typically call a language manager
+            if (typeof LanguageManager !== "undefined") {
+              LanguageManager.switchLanguage(newLang.toLowerCase());
+            }
+          });
+        }
+
+        // Check authentication and update UI
+        document.addEventListener("DOMContentLoaded", function () {
+          if (typeof AuthManager !== "undefined") {
+            // Require auth for dashboard
+            if (!AuthManager.requireAuth()) {
+              return;
+            }
+
+            // Update navbar with user info
+            AuthManager.updateNavbar();
+          }
+        });
+      </script>
+
+      <!-- Auth Manager -->
+      <script src="./js/auth.js"></script>
+
+      <!-- Performance Optimization -->
+      <script src="./js/performance.js"></script>
+    </main>
   </body>
 </html>

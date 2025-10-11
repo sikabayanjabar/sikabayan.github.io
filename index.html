@@ -52,12 +52,13 @@
         --border-color: #21646e;
       }
 
-      [data-theme="light"] {
+            [data-theme="light"] {
         --primary: #2093a4;
         --bg: #ffffff;
+        --secondary: #1a7a85;
         --text-color: #333333;
         --text-secondary: #666666;
-        --card-bg: rgba(0, 0, 0, 0.05);
+        --card-bg: #ffffff;
         --shadow-color: rgba(0, 0, 0, 0.1);
         --navbar-bg: rgba(255, 255, 255, 0.95);
         --border-color: #e0e0e0;
@@ -113,6 +114,72 @@
 
       input:checked + .slider:before {
         transform: translateX(26px);
+      }
+
+      /* Language Toggle Styling */
+      .language-toggle-container {
+        display: flex;
+        align-items: center;
+        margin: 0 1rem;
+      }
+
+      .language-toggle {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        padding: 0.5rem 1rem;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+      }
+
+      .language-toggle:hover {
+        background: rgba(32, 147, 164, 0.2);
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(32, 147, 164, 0.3);
+      }
+
+      .language-toggle:active {
+        transform: translateY(0);
+      }
+
+      #languageToggleText {
+        font-weight: bold;
+        min-width: 20px;
+        text-align: center;
+      }
+
+      .language-toggle i {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Mobile responsiveness for language toggle */
+      @media (max-width: 768px) {
+        .language-toggle-container {
+          margin: 0 0.5rem;
+        }
+        
+        .language-toggle {
+          padding: 0.4rem 0.8rem;
+          font-size: 0.8rem;
+        }
+        
+        #languageToggleText {
+          min-width: 18px;
+        }
+        
+        .language-toggle i {
+          width: 14px;
+          height: 14px;
+        }
       }
 
       /* User Menu Styles */
@@ -215,6 +282,420 @@
         width: 18px;
         height: 18px;
       }
+
+      /* Hero Section Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInScale {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes bounceIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.3);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.05);
+        }
+        70% {
+          transform: scale(0.9);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(32, 147, 164, 0.7);
+          transform: scale(1);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(32, 147, 164, 0);
+          transform: scale(1.02);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(32, 147, 164, 0);
+          transform: scale(1);
+        }
+      }
+
+      /* Hero Animation Classes */
+      .hero-animate {
+        opacity: 0;
+      }
+
+      .hero-animate.animate {
+        animation-duration: 0.8s;
+        animation-fill-mode: both;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .hero-title.animate {
+        animation: fadeInScale 1s ease-out 0.2s both;
+      }
+
+      .hero-subtitle.animate {
+        animation: slideInLeft 0.8s ease-out 0.6s both;
+      }
+
+      .cta.animate {
+        animation: bounceIn 0.8s ease-out 1s both;
+      }
+
+      .cta:hover {
+        animation: pulse 1.5s infinite;
+        opacity: 1 !important;
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(32, 147, 164, 0.3);
+      }
+
+      /* Loading animation for hero */
+      .hero.loading .content > * {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      /* Testimoni Section Styles */
+      .testimoni {
+        padding: 5rem 0;
+        background: linear-gradient(135deg, var(--bg) 0%, rgba(32, 147, 164, 0.05) 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .testimoni::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.05"/><circle cx="50" cy="10" r="1" fill="%23ffffff" opacity="0.03"/><circle cx="20" cy="80" r="1" fill="%23ffffff" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        pointer-events: none;
+      }
+
+      .testimoni h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+
+      .testimoni h2 span:first-child {
+        color: var(--primary);
+      }
+
+      .testimoni p {
+        text-align: center;
+        color: var(--text-secondary);
+        margin-bottom: 4rem;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .testimonial-slider {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto 4rem;
+        padding: 0 2rem;
+      }
+
+      .testimonial-container {
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+      }
+
+      .testimonial-card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        transform: translateX(100px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+      }
+
+      .testimonial-card.active {
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+      }
+
+      .testimonial-content {
+        background: var(--card-bg);
+        border-radius: 2rem;
+        padding: 3rem;
+        text-align: center;
+        position: relative;
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      }
+
+      .quote-icon {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+      }
+
+      .testimonial-text {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: var(--text-color);
+        margin: 2rem 0;
+        font-style: italic;
+      }
+
+      .testimonial-rating {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin: 2rem 0;
+      }
+
+      .star {
+        width: 20px;
+        height: 20px;
+        color: #ddd;
+        transition: color 0.3s ease;
+      }
+
+      .star.filled {
+        color: #ffa501;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .author-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid var(--primary);
+      }
+
+      .author-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .author-info h4 {
+        color: var(--text-color);
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .author-info p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin: 0;
+      }
+
+      .testimonial-dots {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--text-secondary);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0.5;
+      }
+
+      .dot.active {
+        background: var(--primary);
+        opacity: 1;
+        transform: scale(1.2);
+      }
+
+      .testimonial-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+      }
+
+      .nav-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        pointer-events: auto;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-btn:hover {
+        background: var(--primary);
+        color: white;
+        transform: scale(1.1);
+      }
+
+      .testimonial-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 2rem;
+        background: var(--card-bg);
+        border-radius: 1.5rem;
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-10px);
+      }
+
+      .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .testimoni h2 {
+          font-size: 2rem;
+        }
+
+        .testimonial-content {
+          padding: 2rem 1.5rem;
+        }
+
+        .testimonial-text {
+          font-size: 1rem;
+        }
+
+        .testimonial-author {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .author-avatar {
+          width: 50px;
+          height: 50px;
+        }
+
+        .testimonial-nav {
+          position: static;
+          transform: none;
+          justify-content: center;
+          gap: 1rem;
+          margin-top: 2rem;
+        }
+
+        .nav-btn {
+          width: 40px;
+          height: 40px;
+        }
+
+        .testimonial-stats {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+        }
+
+        .stat-item {
+          padding: 1.5rem 1rem;
+        }
+
+        .stat-number {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .testimonial-stats {
+          grid-template-columns: 1fr;
+        }
+
+        .testimonial-container {
+          height: auto;
+          min-height: 400px;
+        }
+      }
     </style>
 
     <!-- AlpineJS -->
@@ -222,6 +703,9 @@
 
     <!-- Auth Manager -->
     <script src="./js/auth.js?v=1.2.0"></script>
+
+    <!-- Language Manager -->
+    <script src="./js/language-manager.js?v=1.2.0"></script>
 
     <!-- APP -->
     <script src="./src/app.js?v=1.2.0" async></script>
@@ -235,13 +719,14 @@
       </a>
 
       <div class="navbar-nav">
-        <a href="#home">Home</a>
-        <a href="#about">Sejarah</a>
-        <a href="#menu">Kebijakan</a>
-        <a href="#materi">Materi</a>
-        <a href="latihan.html">Latihan</a>
-        <a href="buku-digital.html">Perpustakaan</a>
-        <a href="#contact">Kontak</a>
+        <a href="#home" data-lang="nav.home">Beranda</a>
+        <a href="#about" data-lang="nav.history">Sejarah</a>
+        <a href="#menu" data-lang="nav.policy">Kebijakan</a>
+        <a href="#materi" data-lang="nav.materials">Materi</a>
+        <a href="#latihan" data-lang="nav.exercises">Latihan</a>
+        <a href="#perpustakaan" data-lang="nav.library">Perpustakaan</a>
+        <a href="#testimoni" data-lang="nav.testimonials">Testimoni</a>
+        <a href="#contact" data-lang="nav.contact">Kontak</a>
       </div>
 
       <div class="navbar-extra">
@@ -255,6 +740,14 @@
           <span class="theme-toggle-label">☀️</span>
         </div>
         
+        <!-- Language Toggle -->
+        <div class="language-toggle-container">
+          <button id="languageToggle" class="language-toggle" aria-label="Switch language">
+            <span id="languageToggleText">ID</span>
+            <i data-feather="globe"></i>
+          </button>
+        </div>
+        
         <!-- User Menu for authenticated users -->
         <div class="user-menu" id="userMenu" style="display: none;">
           <div class="user-info" onclick="toggleDropdown()">
@@ -265,28 +758,28 @@
           <div class="dropdown-menu" id="dropdownMenu">
             <a href="profile.html">
               <i data-feather="user"></i>
-              Profil Saya
+              <span data-lang="user.profile">Profil Saya</span>
             </a>
             <a href="settings.html">
               <i data-feather="settings"></i>
-              Pengaturan
+              <span data-lang="user.settings">Pengaturan</span>
             </a>
             <a href="#" onclick="logout()">
               <i data-feather="log-out"></i>
-              Keluar
+              <span data-lang="user.logout">Keluar</span>
             </a>
           </div>
         </div>
         
         <!-- Login button for non-authenticated users -->
-        <a href="login.html" class="login-btn" id="loginBtn">Login</a>
+        <a href="login.html" class="login-btn" id="loginBtn" data-lang="user.login">Login</a>
         
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
 
       <!-- Search form start -->
        <div class="search-form">
-        <input type="search" id="search-box" placeholder="Search here...">
+        <input type="search" id="search-box" placeholder="Search here..." data-lang-placeholder="form.search">
         <label for="search-box"><i data-feather="search"></i></label>
        </div>
       <!-- Search form end -->
@@ -336,13 +829,13 @@
     <!-- Nav bar end -->
 
     <!-- Hero section start -->
-    <section class="hero" id="home">
+    <section class="hero loading" id="home">
       <main class="content">
-        <h1 class="hero-title">
-          SIKABAYAN
+        <h1 class="hero-title hero-animate">
+          <img src="./img/sikabayan.png?v=1.2.0" alt="Logo Sikabayan" loading="eager" onerror="this.style.display='none'">
         </h1>
-        <p class="hero-subtitle">Literasi Kebudayaan Aksara Sunda</p>
-        <a href="latihan.html" class="cta">Mulai Belajar</a>
+        <p class="hero-subtitle hero-animate">Literasi Kebudayaan Aksara Sunda</p>
+        <a href="latihan.html" class="cta hero-animate" data-lang="hero.cta">Mulai Belajar</a>
       </main>
     </section>
 
@@ -350,41 +843,41 @@
 
     <!-- About Section start -->
     <section id="about" class="about">
-      <h2><span>Sejarah</span> Aksara Sunda</h2>
+      <h2><span data-lang="about.title">Sejarah</span> <span data-lang="about.subtitle">Aksara Sunda</span></h2>
 
       <div class="content">
         <div class="sejarah-content">
           <div class="sejarah-item">
-            <h3>Asal Usul Aksara Sunda</h3>
-            <p>
+            <h3 data-lang="about.origin.title">Asal Usul Aksara Sunda</h3>
+            <p data-lang="about.origin.content">
               Sejarah Indonesia cukup panjang, begitu juga dengan akar budaya Sunda. Para peneliti sejarah mengatakan bahwa aksara Sunda awalnya berasal dari huruf Pallawa sebagai kreativitas dan kearifan lokal Sunda. Huruf Pallawa adalah jenis huruf tertua di Indonesia dan ditemukan di prasasti Kutai, Kalimantan.
             </p>
           </div>
 
           <div class="sejarah-item">
-            <h3>Pengaruh Kerajaan Tarumanegara</h3>
-            <p>
+            <h3 data-lang="about.tarumanegara.title">Pengaruh Kerajaan Tarumanegara</h3>
+            <p data-lang="about.tarumanegara.content">
               Adopsi huruf pun terus berkembang seiring dengan banyaknya kerajaan yang mampir ke nusantara. Dengan adanya kerajaan Tarumanegara yang menguasai Jawa bagian Barat, maka aksara yang menggambarkan bahasa Sunda pun ikut terpengaruh dengan adanya huruf sansekerta.
             </p>
           </div>
 
           <div class="sejarah-item">
-            <h3>Era VOC (1705)</h3>
-            <p>
+            <h3 data-lang="about.voc.title">Era VOC (1705)</h3>
+            <p data-lang="about.voc.content">
               Saat itu, aksara ini juga sempat diatur penggunaannya oleh VOC. Tahun 1705, VOC sempat menduduki daerah Priangan. Sebagai pihak yang sempat memerintah, mereka mengeluarkan aturan bahwa aksara yang resmi salah satunya adalah Sunda, Pegon, Latin dan Arab.
             </p>
           </div>
 
           <div class="sejarah-item">
-            <h3>Pengaruh Kolonial Eropa</h3>
-            <p>
+            <h3 data-lang="about.colonial.title">Pengaruh Kolonial Eropa</h3>
+            <p data-lang="about.colonial.content">
               Kedudukan Eropa yang cukup lama di tanah Sunda membawa pengaruh yang sangat besar. Mereka jarang menggunakan aksara ini lagi dan lebih banyak menggunakan huruf latin. Orang Sunda pun menjadi jarang menggunakannya kembali kecuali menghadiri sekolah tertentu.
             </p>
           </div>
 
           <div class="read-more">
             <a href="https://cultureofcomic.wordpress.com/2015/12/23/aksara-sunda-ngalagena-sejarah-dan-penggunaan/" target="_blank" class="btn">
-              <span>Baca Selengkapnya</span>
+              <span data-lang="about.read.more">Baca Selengkapnya</span>
             </a>
           </div>
         </div>
@@ -394,8 +887,8 @@
 
     <!-- Menu Section Start -->
     <section id="menu" class="menu">
-      <h2><span>Kebijakan</span> Aksara Sunda</h2>
-      <p>
+      <h2><span data-lang="menu.title">Kebijakan</span> <span data-lang="menu.subtitle">Aksara Sunda</span></h2>
+      <p data-lang="menu.description">
         Peraturan Daerah Provinsi Jawa Barat Nomor 14 Tahun 2014 tentang penggunaan, pemeliharaan, dan pengembangan bahasa, sastra, dan aksara Sunda
       </p>
       
@@ -405,57 +898,118 @@
 
     <!-- Materi Section Start -->
     <section id="materi" class="materi">
-      <h2><span>Materi</span> Pembelajaran</h2>
-      <p>Koleksi materi pembelajaran Aksara Sunda untuk membantu Anda memahami dan menguasai aksara tradisional Sunda</p>
+      <h2><span data-lang="materials.title">Materi</span> <span data-lang="materials.subtitle">Pembelajaran</span></h2>
+      <p data-lang="materials.description">Koleksi materi pembelajaran Aksara Sunda untuk membantu Anda memahami dan menguasai aksara tradisional Sunda</p>
 
       <div class="row">
         <div class="materi-card">
           <div class="materi-icon">
             <i data-feather="book-open"></i>
           </div>
-          <h3>Materi Dasar Aksara Sunda</h3>
-          <p>Pelajari dasar-dasar penulisan dan membaca aksara Sunda untuk pemula</p>
-          <a href="materials/materi-dasar.html" target="_blank" class="btn-materi">Baca Materi</a>
+          <h3 data-lang="materials.basic.title">Materi Dasar Aksara Sunda</h3>
+          <p data-lang="materials.basic.description">Pelajari dasar-dasar penulisan dan membaca aksara Sunda untuk pemula</p>
+          <a href="materials/materi-dasar.html" target="_blank" class="btn-materi" data-lang="materials.read.button">Baca Materi</a>
         </div>
         
         <div class="materi-card">
           <div class="materi-icon">
             <i data-feather="clock"></i>
           </div>
-          <h3>Sejarah Aksara Sunda</h3>
-          <p>Mengenal sejarah dan perkembangan aksara Sunda dari masa ke masa</p>
-          <a href="materials/sejarah-aksara.html" target="_blank" class="btn-materi">Baca Materi</a>
+          <h3 data-lang="materials.history.title">Sejarah Aksara Sunda</h3>
+          <p data-lang="materials.history.description">Mengenal sejarah dan perkembangan aksara Sunda dari masa ke masa</p>
+          <a href="materials/sejarah-aksara.html" target="_blank" class="btn-materi" data-lang="materials.read.button">Baca Materi</a>
         </div>
         
         <div class="materi-card">
           <div class="materi-icon">
             <i data-feather="edit-3"></i>
           </div>
-          <h3>Latihan Menulis</h3>
-          <p>Praktik menulis aksara Sunda dengan berbagai tingkat kesulitan</p>
-          <a href="materials/latihan-menulis.html" target="_blank" class="btn-materi">Baca Materi</a>
+          <h3 data-lang="materials.writing.title">Latihan Menulis</h3>
+          <p data-lang="materials.writing.description">Praktik menulis aksara Sunda dengan berbagai tingkat kesulitan</p>
+          <a href="materials/latihan-menulis.html" target="_blank" class="btn-materi" data-lang="materials.read.button">Baca Materi</a>
         </div>
 
         <div class="materi-card">
           <div class="materi-icon">
             <i data-feather="edit-3"></i>
           </div>
-          <h3>Materi Lengkap</h3>
-          <p>Berupa materi lengkap yang menggabungkan semua topik pembelajaran aksara Sunda, dari pengenalan hingga latihan menulis.</p>
-          <a href="materials/materi-lengkap.html" target="_blank" class="btn-materi">Baca Materi</a>
+          <h3 data-lang="materials.complete.title">Materi Lengkap</h3>
+          <p data-lang="materials.complete.description">Berupa materi lengkap yang menggabungkan semua topik pembelajaran aksara Sunda, dari pengenalan hingga latihan menulis.</p>
+          <a href="materials/materi-lengkap.html" target="_blank" class="btn-materi" data-lang="materials.read.button">Baca Materi</a>
         </div>
       </div>
       
       <div style="text-align: center; margin-top: 3rem;">
-        <a href="materi.html" class="cta">Lihat Semua Materi</a>
+        <a href="#" onclick="navigateToSection('latihan', 'materi.html')" class="cta" data-lang="materials.view.all">Lihat Semua Materi</a>
       </div>
     </section>
     <!-- Materi Section End -->
 
+    <!-- Latihan Section Start -->
+    <section id="latihan" class="latihan">
+      <h2><span data-lang="exercises.title">Latihan</span> <span data-lang="exercises.subtitle">Interaktif</span></h2>
+      <p data-lang="exercises.description">Uji kemampuan Anda dalam menguasai aksara Sunda melalui berbagai latihan yang menarik</p>
+
+      <div class="row">
+        <div class="latihan-card">
+          <div class="latihan-icon">
+            <i data-feather="edit-3"></i>
+          </div>
+          <h3 data-lang="exercises.writing.title">Latihan Menulis</h3>
+          <p data-lang="exercises.writing.description">Praktik menulis aksara Sunda dengan panduan langkah demi langkah</p>
+          <div class="level-indicator">
+            <span class="level beginner">Pemula</span>
+          </div>
+          <a href="#" onclick="navigateToSection('latihan-menulis', 'latihan.html')" class="btn-latihan" data-lang="exercises.start.button">Mulai Latihan</a>
+        </div>
+        
+        <div class="latihan-card">
+          <div class="latihan-icon">
+            <i data-feather="eye"></i>
+          </div>
+          <h3 data-lang="exercises.reading.title">Latihan Membaca</h3>
+          <p data-lang="exercises.reading.description">Meningkatkan kemampuan membaca teks aksara Sunda</p>
+          <div class="level-indicator">
+            <span class="level intermediate">Menengah</span>
+          </div>
+          <a href="#" onclick="navigateToSection('latihan-membaca', 'latihan.html')" class="btn-latihan" data-lang="exercises.start.button">Mulai Latihan</a>
+        </div>
+        
+        <div class="latihan-card">
+          <div class="latihan-icon">
+            <i data-feather="zap"></i>
+          </div>
+          <h3 data-lang="exercises.quick.title">Latihan Cepat</h3>
+          <p data-lang="exercises.quick.description">Kuis singkat untuk menguji pemahaman aksara Sunda</p>
+          <div class="level-indicator">
+            <span class="level all-levels">Semua Level</span>
+          </div>
+          <a href="#" onclick="navigateToSection('latihan-cepat', 'latihan.html')" class="btn-latihan" data-lang="exercises.start.button">Mulai Latihan</a>
+        </div>
+
+        <div class="latihan-card">
+          <div class="latihan-icon">
+            <i data-feather="target"></i>
+          </div>
+          <h3 data-lang="exercises.advanced.title">Latihan Lanjutan</h3>
+          <p data-lang="exercises.advanced.description">Tantangan untuk mereka yang sudah menguasai dasar-dasar aksara Sunda</p>
+          <div class="level-indicator">
+            <span class="level advanced">Lanjutan</span>
+          </div>
+          <a href="#" onclick="navigateToSection('latihan-lanjutan', 'latihan.html')" class="btn-latihan" data-lang="exercises.start.button">Mulai Latihan</a>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="#" onclick="navigateToSection('latihan', 'latihan.html')" class="cta" data-lang="exercises.view.all">Lihat Semua Latihan</a>
+      </div>
+    </section>
+    <!-- Latihan Section End -->
+
     <!-- Perpustakaan Section Start -->
     <section id="perpustakaan" class="perpustakaan">
-      <h2><span>Perpustakaan</span> Digital</h2>
-      <p>Koleksi cerita dan dongeng dalam aksara Sunda untuk memperkaya literasi budaya</p>
+      <h2><span data-lang="library.title">Perpustakaan</span> <span data-lang="library.subtitle">Digital</span></h2>
+      <p data-lang="library.description">Koleksi cerita dan dongeng dalam aksara Sunda untuk memperkaya literasi budaya</p>
       
       <div class="row">
         <div class="books-preview">
@@ -463,50 +1017,211 @@
             <div class="book-cover">
               <i data-feather="book"></i>
             </div>
-            <h4>Payung Ineu</h4>
-            <p>Cerita tradisional dalam aksara Sunda</p>
+            <h4 data-lang="book.payung.ineu">Payung Ineu</h4>
+            <p data-lang="book.traditional.story">Cerita tradisional dalam aksara Sunda</p>
           </div>
           
           <div class="book-item">
             <div class="book-cover">
               <i data-feather="book"></i>
             </div>
-            <h4>Galunggung</h4>
-            <p>Legenda Gunung Galunggung</p>
+            <h4 data-lang="book.galunggung">Galunggung</h4>
+            <p data-lang="book.galunggung.legend">Legenda Gunung Galunggung</p>
           </div>
           
           <div class="book-item">
             <div class="book-cover">
               <i data-feather="book"></i>
             </div>
-            <h4>Kampung Naga</h4>
-            <p>Kehidupan dan tradisi Kampung Naga</p>
+            <h4 data-lang="book.kampung.naga">Kampung Naga</h4>
+            <p data-lang="book.kampung.naga.life">Kehidupan dan tradisi Kampung Naga</p>
           </div>
           
           <div class="book-item">
             <div class="book-cover">
               <i data-feather="book"></i>
             </div>
-            <h4>Kupu-kupu Bordir</h4>
-            <p>Dongeng kupu-kupu yang pandai membordir</p>
+            <h4 data-lang="book.kupu.bordir">Kupu-kupu Bordir</h4>
+            <p data-lang="book.butterfly.story">Dongeng kupu-kupu yang pandai membordir</p>
           </div>
         </div>
       </div>
       
       <div style="text-align: center; margin-top: 3rem;">
-        <a href="buku-digital.html" class="cta">Jelajahi Perpustakaan</a>
+        <a href="#" onclick="navigateToSection('perpustakaan', 'buku-digital.html')" class="cta" data-lang="library.explore">Jelajahi Perpustakaan</a>
       </div>
     </section>
     <!-- Perpustakaan Section End -->
 
+    <!-- Testimoni Section Start -->
+    <section id="testimoni" class="testimoni">
+      <h2><span data-lang="testimonials.title">Testimoni</span> <span data-lang="testimonials.subtitle">Pengguna</span></h2>
+      <p data-lang="testimonials.description">Apa kata mereka yang telah belajar aksara Sunda dengan Sikabayan</p>
+      
+      <div class="testimonial-slider">
+        <div class="testimonial-container" id="testimonialContainer">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card active">
+            <div class="testimonial-content">
+              <div class="quote-icon">
+                <i data-feather="quote"></i>
+              </div>
+              <p class="testimonial-text" data-lang="testimonials.text1">
+                "Sikabayan benar-benar membantu saya memahami aksara Sunda dengan mudah. Metode pembelajarannya interaktif dan menyenangkan. Sekarang saya bisa menulis nama saya dalam aksara Sunda!"
+              </p>
+              <div class="testimonial-rating">
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar">
+                  <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face" alt="Sari Dewi" loading="lazy">
+                </div>
+                <div class="author-info">
+                  <h4>Sari Dewi</h4>
+                  <p>Mahasiswa, Bandung</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <div class="quote-icon">
+                <i data-feather="quote"></i>
+              </div>
+              <p class="testimonial-text" data-lang="testimonials.text2">
+                "Sebagai guru, saya sangat terbantu dengan materi yang disediakan Sikabayan. Anak-anak jadi lebih antusias belajar aksara Sunda. Platform ini sangat cocok untuk pembelajaran di kelas."
+              </p>
+              <div class="testimonial-rating">
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar">
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" alt="Budi Santoso" loading="lazy">
+                </div>
+                <div class="author-info">
+                  <h4>Budi Santoso, S.Pd</h4>
+                  <p>Guru SD, Tasikmalaya</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <div class="quote-icon">
+                <i data-feather="quote"></i>
+              </div>
+              <p class="testimonial-text" data-lang="testimonials.text3">
+                "Aplikasi yang luar biasa! Saya yang sudah lama tidak mempelajari aksara Sunda, kini bisa mengingat kembali berkat Sikabayan. Fitur latihannya sangat membantu untuk mengasah kemampuan."
+              </p>
+              <div class="testimonial-rating">
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Rahmat Hidayat" loading="lazy">
+                </div>
+                <div class="author-info">
+                  <h4>Rahmat Hidayat</h4>
+                  <p>Pegawai Swasta, Jakarta</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 4 -->
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <div class="quote-icon">
+                <i data-feather="quote"></i>
+              </div>
+              <p class="testimonial-text" data-lang="testimonials.text4">
+                "Fitur buku digital di Sikabayan sangat membantu saya memahami sejarah dan budaya Sunda. Kontennya lengkap dan mudah dipahami. Terima kasih Sikabayan!"
+              </p>
+              <div class="testimonial-rating">
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star filled"></i>
+                <i data-feather="star" class="star"></i>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar">
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="Fitri Rahayu" loading="lazy">
+                </div>
+                <div class="author-info">
+                  <h4>Fitri Rahayu</h4>
+                  <p>Peneliti Budaya, Sumedang</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Dots -->
+        <div class="testimonial-dots">
+          <span class="dot active" onclick="currentTestimonial(1)"></span>
+          <span class="dot" onclick="currentTestimonial(2)"></span>
+          <span class="dot" onclick="currentTestimonial(3)"></span>
+          <span class="dot" onclick="currentTestimonial(4)"></span>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="testimonial-nav">
+          <button class="nav-btn prev" onclick="changeTestimonial(-1)">
+            <i data-feather="chevron-left"></i>
+          </button>
+          <button class="nav-btn next" onclick="changeTestimonial(1)">
+            <i data-feather="chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Statistics Section -->
+      <div class="testimonial-stats">
+        <div class="stat-item">
+          <div class="stat-number" data-count="1000">0</div>
+          <div class="stat-label" data-lang="testimonials.stats.users">Pengguna Aktif</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-count="95">0</div>
+          <div class="stat-label" data-lang="testimonials.stats.satisfaction">% Kepuasan</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-count="500">0</div>
+          <div class="stat-label" data-lang="testimonials.stats.completed">Latihan Selesai</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-count="50">0</div>
+          <div class="stat-label" data-lang="testimonials.stats.schools">Sekolah Mitra</div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimoni Section End -->
+
     <!-- Contack Section Start -->
     <section id="contact" class="contact">
-      <h2><span>Kontak</span> Kami</h2>
-      <p>Temui tim pengembang Sikabayan yang berdedikasi untuk melestarikan aksara Sunda</p>
+      <h2><span data-lang="contact.title">Kontak</span> <span data-lang="contact.subtitle">Kami</span></h2>
+      <p data-lang="contact.description">Temui tim pengembang Sikabayan yang berdedikasi untuk melestarikan aksara Sunda</p>
       
       <!-- Tim Section Start -->
       <div class="team-section">
-        <h3>Tim Pengembang</h3>
+        <h3 data-lang="contact.team.title">Tim Pengembang</h3>
         <div class="team-grid">
           <!--
           <div class="team-card">
@@ -604,7 +1319,7 @@
 
       <!-- Contact Information Section Start -->
       <div class="contact-info-section">
-        <h3>Informasi Kontak</h3>
+        <h3 data-lang="contact.info.title">Informasi Kontak</h3>
         <div class="contact-details">
           <div class="contact-item">
             <div class="contact-icon">
@@ -672,7 +1387,7 @@
         </div>
 
         <div class="social-media-links">
-          <h4>Ikuti Kami</h4>
+          <h4 data-lang="contact.follow">Ikuti Kami</h4>
           <div class="social-buttons">
             <a href="mailto:info@sikabayan.com" class="social-btn email" title="Email">
               <i data-feather="mail"></i>
@@ -709,27 +1424,27 @@
 
       <!-- Contact Form Section -->
       <div class="contact-form-section">
-        <h3>Hubungi Kami</h3>
-        <p>Ada pertanyaan atau saran? Jangan ragu untuk menghubungi kami!</p>
+        <h3 data-lang="contact.form.title">Hubungi Kami</h3>
+        <p data-lang="contact.form.description">Ada pertanyaan atau saran? Jangan ragu untuk menghubungi kami!</p>
         <div class="row">
           <form action="">
             <div class="input-grup">
               <i data-feather="user"></i>
-              <input type="text" placeholder="Nama Lengkap" required>
+              <input type="text" placeholder="Nama Lengkap" data-lang-placeholder="form.name" required>
             </div>
             <div class="input-grup">
               <i data-feather="mail"></i>
-              <input type="email" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Masukkan format email yang valid (contoh: nama@domain.com)">
+              <input type="email" placeholder="Email" data-lang-placeholder="form.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Masukkan format email yang valid (contoh: nama@domain.com)">
             </div>
             <div class="input-grup">
               <i data-feather="phone"></i>
-              <input type="tel" placeholder="No HP" pattern="[0-9]{10,13}" title="Masukkan nomor HP yang valid (10-13 digit angka)" maxlength="13">
+              <input type="tel" placeholder="No HP" data-lang-placeholder="form.phone" pattern="[0-9]{10,13}" title="Masukkan nomor HP yang valid (10-13 digit angka)" maxlength="13">
             </div>
             <div class="input-grup">
               <i data-feather="message-square"></i>
-              <textarea placeholder="Pesan Anda" rows="5" required></textarea>
+              <textarea placeholder="Pesan Anda" data-lang-placeholder="form.message" rows="5" required></textarea>
             </div>
-            <button type="submit" class="btn">Kirim Pesan</button>
+            <button type="submit" class="btn" data-lang="contact.form.send">Kirim Pesan</button>
           </form>
         </div>
       </div>
@@ -745,15 +1460,17 @@
         <a href="#"><i data-feather="facebook"></i></a>
       </div>-->
       <div class="links">
-        <a href="#home">Home</a>
-        <a href="#about">Sejarah</a>
-        <a href="#menu">Kebijakan</a>
-        <a href="#materi">Materi</a>
-        <a href="latihan.html">Latihan</a>
-        <a href="#contact">Kontak</a>
+        <a href="#home" data-lang="nav.home">Beranda</a>
+        <a href="#about" data-lang="nav.history">Sejarah</a>
+        <a href="#menu" data-lang="nav.policy">Kebijakan</a>
+        <a href="#materi" data-lang="nav.materials">Materi</a>
+        <a href="#" onclick="navigateToProtectedPage('latihan.html')" data-lang="nav.exercises">Latihan</a>
+        <a href="#" onclick="navigateToProtectedPage('buku-digital.html')" data-lang="nav.library">Perpustakaan</a>
+        <a href="#testimoni" data-lang="nav.testimonials">Testimoni</a>
+        <a href="#contact" data-lang="nav.contact">Kontak</a>
       </div>
       <div class="credit">
-        <p>Created by <a href="">Sikabayan</a> | &copy; 2025.</p>
+        <p><span data-lang="footer.created">Created by</span> <a href="">Sikabayan</a> | &copy; 2025.</p>
       </div>
      </footer>
     <!-- Footer End -->
@@ -800,8 +1517,37 @@
     <!-- Cache Manager -->
     <script src="./js/cache-manager.js?v=1.2.0"></script>
 
+    <!-- Performance Optimization -->
+    <script src="./js/performance.js?v=1.2.0"></script>
+
     <!-- User Management Script -->
     <script>
+      // Navigation function for protected pages from sections
+      function navigateToSection(section, targetPage) {
+        // Check if user is logged in using AuthManager
+        if (AuthManager.isLoggedIn()) {
+          // User is logged in, redirect to target page with section anchor
+          window.location.href = targetPage + '#' + section;
+        } else {
+          // User is not logged in, show message and redirect to login
+          alert('Anda harus login terlebih dahulu untuk mengakses halaman ini.');
+          window.location.href = 'login.html';
+        }
+      }
+
+      // Navigation function for protected pages
+      function navigateToProtectedPage(page) {
+        // Check if user is logged in using AuthManager
+        if (AuthManager.isLoggedIn()) {
+          // User is logged in, allow navigation
+          window.location.href = page;
+        } else {
+          // User is not logged in, show message and redirect to login
+          alert('Anda harus login terlebih dahulu untuk mengakses halaman ini.');
+          window.location.href = 'login.html';
+        }
+      }
+
       // Simple debug for user management
       document.addEventListener('DOMContentLoaded', function() {
         initializeUserMenu();
@@ -840,8 +1586,15 @@
         const isLoggedIn = localStorage.getItem('user_logged_in') === 'true';
         const userMenu = document.getElementById('userMenu');
         const loginBtn = document.getElementById('loginBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
         
         console.log('🔄 Initializing user menu...', { isLoggedIn });
+        
+        // Always close dropdown when initializing
+        if (dropdownMenu) {
+          dropdownMenu.classList.remove('show');
+          dropdownMenu.style.display = 'none';
+        }
         
         if (isLoggedIn) {
           // Show user menu, hide login button
@@ -852,6 +1605,11 @@
           if (loginBtn) {
             loginBtn.style.display = 'none';
             console.log('🔒 Login button hidden');
+          }
+          
+          // Reset dropdown display for user menu
+          if (dropdownMenu) {
+            dropdownMenu.style.display = 'block';
           }
           
           // Set user name from localStorage or default
@@ -874,31 +1632,73 @@
             loginBtn.style.display = 'flex';
             console.log('🔓 Login button shown');
           }
+          
+          // Ensure dropdown is completely hidden
+          if (dropdownMenu) {
+            dropdownMenu.style.display = 'none';
+          }
         }
       }
       
       function toggleDropdown() {
         const dropdownMenu = document.getElementById('dropdownMenu');
         if (dropdownMenu) {
-          dropdownMenu.classList.toggle('show');
+          const isVisible = dropdownMenu.classList.contains('show');
+          
+          if (isVisible) {
+            dropdownMenu.classList.remove('show');
+            console.log('🔽 Dropdown closed');
+          } else {
+            dropdownMenu.classList.add('show');
+            console.log('🔼 Dropdown opened');
+          }
         }
       }
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(event) {
+        const userMenu = document.querySelector('.user-menu');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        
+        if (dropdownMenu && userMenu) {
+          // Check if click is outside the user menu
+          if (!userMenu.contains(event.target)) {
+            if (dropdownMenu.classList.contains('show')) {
+              dropdownMenu.classList.remove('show');
+              console.log('🔽 Dropdown closed by outside click');
+            }
+          }
+        }
+      });
       
       function logout() {
         if (confirm('Apakah Anda yakin ingin keluar?')) {
           console.log('🚪 Logging out...');
           
+          // Clear user data
           localStorage.removeItem('user_logged_in');
           localStorage.removeItem('user_name');
           
-          // Close dropdown before updating UI
+          // Close dropdown immediately and remove show class
           const dropdownMenu = document.getElementById('dropdownMenu');
           if (dropdownMenu) {
             dropdownMenu.classList.remove('show');
+            dropdownMenu.style.display = 'none'; // Force hide
           }
           
-          // Re-initialize menu to show login button
-          initializeUserMenu();
+          // Hide user menu and show login button
+          const userMenu = document.getElementById('userMenu');
+          const loginBtn = document.getElementById('loginBtn');
+          
+          if (userMenu) {
+            userMenu.style.display = 'none';
+            console.log('❌ User menu hidden');
+          }
+          
+          if (loginBtn) {
+            loginBtn.style.display = 'flex';
+            console.log('🔓 Login button shown');
+          }
           
           console.log('✅ Logout successful - Login button restored');
         }
@@ -930,8 +1730,201 @@
       console.log('');
       console.log('🧪 For Testing: Add "?login=success" to URL to simulate successful login');
     </script>
+
+    <!-- Hero Animation Script -->
+    <script>
+      // Hero Animation System
+      console.log('🎬 Hero Animation System Loading...');
+
+      function initHeroAnimations() {
+        console.log('🚀 Initializing hero animations...');
+
+        const heroSection = document.querySelector('.hero');
+        const animatedElements = document.querySelectorAll('.hero-animate');
+
+        if (!heroSection || animatedElements.length === 0) {
+          console.warn('⚠️ Hero elements not found for animation');
+          return;
+        }
+
+        // Remove loading class after a short delay to ensure page is ready
+        setTimeout(() => {
+          heroSection.classList.remove('loading');
+          
+          // Trigger animations for each element with staggered timing
+          animatedElements.forEach((element, index) => {
+            setTimeout(() => {
+              element.classList.add('animate');
+              console.log(`✨ Animating element ${index + 1}:`, element.className);
+            }, index * 200); // 200ms stagger between elements
+          });
+
+          console.log('🎉 Hero animations triggered successfully!');
+        }, 300); // Initial delay to ensure page readiness
+      }
+
+      // Initialize animations when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHeroAnimations);
+      } else {
+        initHeroAnimations();
+      }
+
+      // Re-trigger animations on page visibility change (when user returns to tab)
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+          const heroSection = document.querySelector('.hero');
+          const animatedElements = document.querySelectorAll('.hero-animate');
+          
+          // Reset and re-trigger animations
+          animatedElements.forEach(element => {
+            element.classList.remove('animate');
+          });
+          
+          setTimeout(() => {
+            animatedElements.forEach((element, index) => {
+              setTimeout(() => {
+                element.classList.add('animate');
+              }, index * 150);
+            });
+          }, 100);
+        }
+      });
+
+      console.log('🎭 Hero Animation System Ready!');
+      console.log('🌟 Features:');
+      console.log('   ✅ Fade-in with scale animation for logo');
+      console.log('   ✅ Slide-in from left for subtitle');
+      console.log('   ✅ Bounce-in animation for CTA button');
+      console.log('   ✅ Staggered timing for smooth sequence');
+      console.log('   ✅ Pulse effect on button hover');
+      console.log('   ✅ Re-trigger on page visibility change');
+      
+      // Initialize auth state on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof AuthManager !== 'undefined') {
+          AuthManager.updateNavbar();
+        }
+      });
     </script>
 
+    <!-- Auth Manager -->
+    <script src="./js/auth.js"></script>
+    
+    <!-- Testimonial Slider Script -->
+    <script>
+      // Testimonial Slider System
+      let currentTestimonialIndex = 1;
+      const totalTestimonials = 4;
+      let testimonialInterval;
+
+      function showTestimonial(index) {
+        const cards = document.querySelectorAll('.testimonial-card');
+        const dots = document.querySelectorAll('.dot');
+        
+        // Hide all cards
+        cards.forEach(card => card.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        // Show selected card
+        if (cards[index - 1]) {
+          cards[index - 1].classList.add('active');
+        }
+        if (dots[index - 1]) {
+          dots[index - 1].classList.add('active');
+        }
+        
+        currentTestimonialIndex = index;
+      }
+
+      function currentTestimonial(index) {
+        showTestimonial(index);
+        resetInterval();
+      }
+
+      function changeTestimonial(direction) {
+        let newIndex = currentTestimonialIndex + direction;
+        
+        if (newIndex > totalTestimonials) {
+          newIndex = 1;
+        } else if (newIndex < 1) {
+          newIndex = totalTestimonials;
+        }
+        
+        showTestimonial(newIndex);
+        resetInterval();
+      }
+
+      function resetInterval() {
+        clearInterval(testimonialInterval);
+        startTestimonialSlider();
+      }
+
+      function startTestimonialSlider() {
+        testimonialInterval = setInterval(() => {
+          changeTestimonial(1);
+        }, 5000); // Change every 5 seconds
+      }
+
+      // Counter Animation
+      function animateCounters() {
+        const counters = document.querySelectorAll('[data-count]');
+        
+        counters.forEach(counter => {
+          const target = parseInt(counter.getAttribute('data-count'));
+          const increment = target / 100;
+          let current = 0;
+          
+          const updateCounter = () => {
+            if (current < target) {
+              current += increment;
+              counter.textContent = Math.ceil(current);
+              requestAnimationFrame(updateCounter);
+            } else {
+              counter.textContent = target;
+            }
+          };
+          
+          updateCounter();
+        });
+      }
+
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        // Start testimonial slider
+        startTestimonialSlider();
+        
+        // Animate counters when section is in view
+        const testimonialSection = document.querySelector('.testimoni');
+        if (testimonialSection) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.5 });
+          
+          observer.observe(testimonialSection);
+        }
+      });
+
+      // Pause slider on hover
+      document.addEventListener('DOMContentLoaded', function() {
+        const sliderContainer = document.querySelector('.testimonial-slider');
+        if (sliderContainer) {
+          sliderContainer.addEventListener('mouseenter', () => {
+            clearInterval(testimonialInterval);
+          });
+          
+          sliderContainer.addEventListener('mouseleave', () => {
+            startTestimonialSlider();
+          });
+        }
+      });
+    </script>
+    
     <!-- My Javascript -->
     <script src="./js/script.js?v=1.2.0"></script>
   </body>

@@ -615,53 +615,15 @@
           document.getElementById("errorMessage").style.display = "none";
           document.getElementById("successMessage").style.display = "none";
 
-          // Simple validation (in real app, this would be server-side)
-          const users = JSON.parse(localStorage.getItem("users") || "[]");
-
-          // Add default test users if none exist
-          if (users.length === 0) {
-            const testUsers = [
-              {
-                email: "user@sikabayan.com",
-                password: "user123",
-                name: "User Demo",
-              },
-              {
-                email: "test@sikabayan.com",
-                password: "test123",
-                name: "Test User",
-              },
-            ];
-            localStorage.setItem("users", JSON.stringify(testUsers));
-            users.push(...testUsers);
+          if (!email || !password) {
+            document.getElementById("errorMessage").style.display = "block";
+            return;
           }
 
-          const user = users.find(
-            (u) => u.email === email && u.password === password
-          );
-
-          if (
-            user ||
-            (email === "admin@sikabayan.com" && password === "admin123")
-          ) {
+          // Use AuthManager for login
+          if (AuthManager.login(email, password)) {
             document.getElementById("successMessage").style.display = "block";
-
-            setTimeout(() => {
-              localStorage.setItem("isLoggedIn", "true");
-              localStorage.setItem("userEmail", email);
-
-              // Determine redirect based on user type
-              if (email === "admin@sikabayan.com") {
-                // Admin goes to dashboard
-                window.location.href = "dashboard.html";
-              } else {
-                // Regular users go to homepage with login success parameter
-                const userName = user ? user.name : email.split("@")[0];
-                localStorage.setItem("user_logged_in", "true");
-                localStorage.setItem("user_name", userName);
-                window.location.href = "index.html?login=success";
-              }
-            }, 1500);
+            // AuthManager will handle the redirect automatically
           } else {
             document.getElementById("errorMessage").style.display = "block";
           }
@@ -682,5 +644,8 @@
         );
       }
     </script>
+
+    <!-- Auth Manager Script -->
+    <script src="js/auth.js"></script>
   </body>
 </html>

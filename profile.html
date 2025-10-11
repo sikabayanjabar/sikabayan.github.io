@@ -21,6 +21,24 @@
         --primary: #2093a4;
         --bg: #232222;
         --secondary: #1a7a85;
+        --text-color: #fff;
+        --text-secondary: #ccc;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --navbar-bg: rgba(1, 1, 1, 0.9);
+        --border-color: #21646e;
+      }
+
+      [data-theme="light"] {
+        --primary: #2093a4;
+        --bg: #ffffff;
+        --secondary: #1a7a85;
+        --text-color: #333333;
+        --text-secondary: #666666;
+        --card-bg: #ffffff;
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --navbar-bg: rgba(255, 255, 255, 0.95);
+        --border-color: #e0e0e0;
       }
 
       * {
@@ -32,20 +50,27 @@
       body {
         font-family: "DM Sans", sans-serif;
         background-color: var(--bg);
-        color: #fff;
+        color: var(--text-color);
         min-height: 100vh;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        padding-top: 70px; /* Account for fixed navbar */
       }
 
-      .navbar {
-        background-color: rgba(1, 1, 1, 0.9);
-        padding: 1rem 7%;
-        border-bottom: 1px solid #21646e;
-        position: sticky;
+      /* Top Navbar */
+      .navbar-top {
+        position: fixed;
         top: 0;
-        z-index: 1000;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background-color: var(--navbar-bg);
+        border-bottom: 1px solid var(--border-color);
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
       }
 
       .navbar-logo {
@@ -53,17 +78,254 @@
         font-weight: 700;
         color: var(--primary);
         text-decoration: none;
-      }
-
-      .navbar-nav {
         display: flex;
-        gap: 2rem;
         align-items: center;
       }
 
-      .navbar-nav a {
-        color: #fff;
+      .navbar-extra {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-left: auto;
+      }
+
+      .navbar-extra a {
+        color: var(--text-color);
+        font-size: 1rem;
         text-decoration: none;
+        transition: color 0.3s ease;
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar-extra a:hover {
+        color: var(--primary);
+      }
+
+      /* User Menu */
+      .user-menu {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        cursor: pointer;
+        padding: 0.4rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .user-info:hover {
+        background-color: var(--card-bg);
+      }
+
+      .user-avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), #1a7a85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.8rem;
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(32, 147, 164, 0.3);
+      }
+
+      #userName {
+        font-weight: 600;
+        color: var(--text-color);
+        font-size: 0.85rem;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        background-color: var(--card-bg);
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px var(--shadow-color);
+        min-width: 220px;
+        display: none;
+        z-index: 1000;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      .dropdown-menu.show {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+        animation: dropdownFadeIn 0.3s ease-out;
+      }
+
+      @keyframes dropdownFadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-15px) scale(0.95);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .dropdown-menu::before {
+        content: "";
+        position: absolute;
+        top: -6px;
+        right: 1rem;
+        width: 12px;
+        height: 12px;
+        background-color: var(--card-bg);
+        transform: rotate(45deg);
+        border-left: 1px solid var(--border-color);
+        border-top: 1px solid var(--border-color);
+      }
+
+      .dropdown-menu a {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .dropdown-menu a:last-child {
+        border-bottom: none;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: var(--primary);
+        color: #fff;
+        transform: translateX(5px);
+      }
+
+      .dropdown-menu a i {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* Language Toggle Styling */
+      .language-toggle-container {
+        display: flex;
+        align-items: center;
+        margin: 0 0.5rem;
+      }
+
+      .language-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(32, 147, 164, 0.1);
+        border: 1px solid rgba(32, 147, 164, 0.3);
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.8rem;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.85rem;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+      }
+
+      .language-toggle:hover {
+        background: rgba(32, 147, 164, 0.2);
+        border-color: var(--primary);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(32, 147, 164, 0.3);
+      }
+
+      .language-toggle:active {
+        transform: translateY(0);
+      }
+
+      .language-toggle span {
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--primary);
+      }
+
+      .language-toggle i {
+        width: 16px;
+        height: 16px;
+        color: var(--primary);
+      }
+
+      /* Theme toggle container styling */
+      .theme-toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .theme-toggle-label {
+        color: var(--text-color);
+        font-size: 0.8rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      /* Theme Switch Styling */
+      .theme-switch {
+        position: relative;
+        display: inline-block;
+        width: 42px;
+        height: 20px;
+      }
+
+      .theme-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.3s;
+        border-radius: 24px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--primary);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(22px);
+      }
+
+      .navbar-nav a {
         font-size: 1rem;
         transition: color 0.3s ease;
       }
@@ -79,7 +341,7 @@
       }
 
       .navbar-extra a {
-        color: #fff;
+        color: var(--text-color);
         text-decoration: none;
         transition: color 0.3s ease;
       }
@@ -93,8 +355,8 @@
         top: 100%;
         right: 7%;
         background-color: #fff;
-        width: 50rem;
-        height: 5rem;
+        width: 25rem;
+        height: 3rem;
         display: flex;
         align-items: center;
         transform: scaleY(0);
@@ -109,17 +371,17 @@
       .search-form input {
         height: 100%;
         width: 100%;
-        font-size: 1.6rem;
+        font-size: 1rem;
         color: var(--bg);
-        padding: 1rem;
+        padding: 0.5rem 0.8rem;
         border: none;
         outline: none;
       }
 
       .search-form label {
         cursor: pointer;
-        font-size: 2rem;
-        margin-right: 1.5rem;
+        font-size: 1.2rem;
+        margin-right: 0.8rem;
         color: var(--bg);
       }
 
@@ -495,28 +757,163 @@
           grid-template-columns: 1fr;
         }
       }
+
+      /* Theme Switch Styling */
+      .theme-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+
+      .theme-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.3s;
+        border-radius: 24px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--primary);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
+      .theme-toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .theme-toggle-label {
+        font-size: 1rem;
+        color: var(--text-color);
+      }
     </style>
   </head>
   <body>
-    <nav class="navbar">
+    <!-- Top Navbar -->
+    <nav class="navbar-top">
       <a href="index.html" class="navbar-logo">
         <img
           src="img/Logo-sikabayan.png"
           alt="Logo Sikabayan"
-          style="height: 50px; margin-right: 10px"
+          style="height: 40px; margin-right: 10px; vertical-align: middle"
         />
-        <span style="color: #2093a4">SIKABAYAN</span>
+        <span style="color: #2093a4; vertical-align: middle">SIKABAYAN</span>
       </a>
-
-      <div class="navbar-nav">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="materi.html">Materi</a>
-        <a href="#latihan">Latihan</a>
-        <a href="settings.html">Pengaturan</a>
-      </div>
 
       <div class="navbar-extra">
         <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <div class="theme-toggle-container">
+          <span class="theme-toggle-label">🌙</span>
+          <label class="theme-switch">
+            <input type="checkbox" id="themeToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="theme-toggle-label">☀️</span>
+        </div>
+
+        <!-- Language Toggle -->
+        <div class="language-toggle-container">
+          <button
+            id="languageToggle"
+            class="language-toggle"
+            aria-label="Switch language"
+          >
+            <span id="languageToggleText">ID</span>
+            <i data-feather="globe"></i>
+          </button>
+        </div>
+
+        <div class="user-menu">
+          <div class="user-info" onclick="toggleDropdown()">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <span id="userName">User</span>
+            <i data-feather="chevron-down"></i>
+          </div>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="profile.html">
+              <i data-feather="user"></i>
+              <span data-lang="user.profile">Profil Saya</span>
+            </a>
+            <a href="settings.html">
+              <i data-feather="settings"></i>
+              <span data-lang="user.settings">Pengaturan</span>
+            </a>
+            <a href="#" onclick="logout()">
+              <i data-feather="log-out"></i>
+              <span data-lang="user.logout">Keluar</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search form -->
+        <!-- Language Toggle -->
+        <div class="language-toggle-container">
+          <button id="languageToggle" class="language-toggle" aria-label="Switch language">
+            <span id="languageToggleText">ID</span>
+            <i data-feather="globe"></i>
+          </button>
+        </div>
+        
+        <div class="user-menu">
+          <div class="user-info" onclick="toggleDropdown()">
+            <div class="user-avatar" id="navUserAvatar">U</div>
+            <span id="navUserName">User</span>
+            <i data-feather="chevron-down"></i>
+          </div>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="profile.html">
+              <i data-feather="user"></i>
+              <span data-lang="user.profile">Profil Saya</span>
+            </a>
+            <a href="settings.html">
+              <i data-feather="settings"></i>
+              <span data-lang="user.settings">Pengaturan</span>
+            </a>
+            <a href="#" onclick="logout()">
+              <i data-feather="log-out"></i>
+              <span data-lang="user.logout">Keluar</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hamburger Menu untuk Mobile -->
+      <div id="hamburger-menu">
+        <i data-feather="menu"></i>
+      </div>
+            <span class="slider"></span>
+          </label>
+          <span class="theme-toggle-label">☀️</span>
+        </div>
         <div class="user-menu">
           <div class="user-info" onclick="toggleDropdown()">
             <div class="user-avatar" id="navUserAvatar">U</div>
@@ -742,6 +1139,7 @@
     />
 
     <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
     <script>
       feather.replace();
 
@@ -891,17 +1289,33 @@
 
       // Dropdown functionality
       function toggleDropdown() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdown.style.display =
-          dropdown.style.display === "block" ? "none" : "block";
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        if (dropdownMenu) {
+          const isVisible = dropdownMenu.classList.contains("show");
+
+          if (isVisible) {
+            dropdownMenu.classList.remove("show");
+            console.log("🔽 Dropdown closed");
+          } else {
+            dropdownMenu.classList.add("show");
+            console.log("🔼 Dropdown opened");
+          }
+        }
       }
 
       // Close dropdown when clicking outside
       document.addEventListener("click", function (event) {
-        const dropdown = document.getElementById("dropdownMenu");
         const userMenu = document.querySelector(".user-menu");
-        if (!userMenu.contains(event.target)) {
-          dropdown.style.display = "none";
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        if (dropdownMenu && userMenu) {
+          // Check if click is outside the user menu
+          if (!userMenu.contains(event.target)) {
+            if (dropdownMenu.classList.contains("show")) {
+              dropdownMenu.classList.remove("show");
+              console.log("🔽 Dropdown closed by outside click");
+            }
+          }
         }
       });
 
@@ -941,6 +1355,38 @@
           }
         }
       });
+
+      // Hamburger menu toggle
+      const hamburgerMenu = document.querySelector("#hamburger-menu");
+      const navbarNav = document.querySelector(".navbar-nav");
+
+      hamburgerMenu.addEventListener("click", () => {
+        navbarNav.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!hamburgerMenu.contains(e.target) && !navbarNav.contains(e.target)) {
+          navbarNav.classList.remove("active");
+        }
+      });
+
+      // Language toggle functionality
+      const languageToggle = document.getElementById('languageToggle');
+      const languageToggleText = document.getElementById('languageToggleText');
+      
+      if (languageToggle && languageToggleText) {
+        languageToggle.addEventListener('click', () => {
+          const currentLang = languageToggleText.textContent;
+          const newLang = currentLang === 'ID' ? 'SU' : 'ID';
+          languageToggleText.textContent = newLang;
+          
+          // Here you would typically call a language manager
+          if (typeof LanguageManager !== 'undefined') {
+            LanguageManager.switchLanguage(newLang.toLowerCase());
+          }
+        });
+      }
 
       function logout() {
         if (confirm("Apakah Anda yakin ingin keluar?")) {

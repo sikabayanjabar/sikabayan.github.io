@@ -680,12 +680,12 @@
       </a>
 
       <div class="navbar-nav">
-        <a href="index.html#home">Home</a>
+        <a href="index.html#home">Beranda</a>
         <a href="index.html#about">Sejarah</a>
         <a href="index.html#menu">Kebijakan</a>
         <a href="index.html#materi">Materi</a>
-        <a href="latihan.html">Latihan</a>
-        <a href="buku-digital.html">Perpustakaan</a>
+        <a href="index.html#latihan">Latihan</a>
+        <a href="index.html#perpustakaan">Perpustakaan</a>
         <a href="index.html#contact">Kontak</a>
       </div>
 
@@ -743,7 +743,7 @@
       <div class="library-header">
         <h1><span>📚</span> Perpustakaan Digital Sunda</h1>
         <p class="library-subtitle">
-          Koleksi cerita dan dongeng dalam aksara Sunda untuk memperkaya
+          Koleksi cerita dan dongeng dalam bahasa Sunda untuk memperkaya
           literasi budaya
         </p>
 
@@ -787,7 +787,7 @@
           <button class="filter-btn active" data-filter="all">
             Semua Buku
           </button>
-          <button class="filter-btn" data-filter="sunda">Aksara Sunda</button>
+          <button class="filter-btn" data-filter="sunda">Bahasa Sunda</button>
           <button class="filter-btn" data-filter="indonesia">
             Bahasa Indonesia
           </button>
@@ -853,7 +853,7 @@
           title: "Curug Dengdeng",
           language: "sunda",
           category: "sejarah",
-          description: "Legenda air terjun Curug Dengdeng dalam aksara Sunda",
+          description: "Legenda air terjun Curug Dengdeng dalam bahasa Sunda",
         },
         {
           filename: "galunggung indo.pdf",
@@ -868,14 +868,14 @@
           language: "sunda",
           category: "sejarah",
           description:
-            "Sejarah dan legenda Gunung Galunggung dalam aksara Sunda",
+            "Sejarah dan legenda Gunung Galunggung dalam bahasa Sunda",
         },
         {
           filename: "kampung naga bhs sunda.pdf",
           title: "Kampung Naga",
           language: "sunda",
           category: "budaya",
-          description: "Kehidupan dan tradisi Kampung Naga dalam aksara Sunda",
+          description: "Kehidupan dan tradisi Kampung Naga dalam bahasa Sunda",
         },
         {
           filename: "kampung naga.pdf",
@@ -897,7 +897,7 @@
           language: "sunda",
           category: "dongeng",
           description:
-            "Cerita tentang kupu-kupu yang pandai membordir dalam aksara Sunda",
+            "Cerita tentang kupu-kupu yang pandai membordir dalam bahasa Sunda",
         },
         {
           filename: "mendong puspa.pdf",
@@ -911,7 +911,7 @@
           title: "Payung Ineu",
           language: "sunda",
           category: "dongeng",
-          description: "Cerita Payung Ineu dalam aksara Sunda",
+          description: "Cerita Payung Ineu dalam bahasa Sunda",
         },
         {
           filename: "payung ineu indo.pdf",
@@ -926,7 +926,7 @@
           language: "sunda",
           category: "budaya",
           description:
-            "Cerita tentang makanan tradisional ranginang dalam aksara Sunda",
+            "Cerita tentang makanan tradisional ranginang dalam bahasa Sunda",
         },
         {
           filename: "rennginang indo - Copy.pdf",
@@ -947,7 +947,7 @@
           title: "Situ Gede",
           language: "sunda",
           category: "sejarah",
-          description: "Legenda Situ Gede dalam aksara Sunda",
+          description: "Legenda Situ Gede dalam bahasa Sunda",
         },
         {
           filename: "tikar mendong indo. sunda.pdf",
@@ -955,7 +955,7 @@
           language: "sunda",
           category: "budaya",
           description:
-            "Cerita tentang kerajinan tikar mendong dalam aksara Sunda",
+            "Cerita tentang kerajinan tikar mendong dalam bahasa Sunda",
         },
         {
           filename: "tikar mendong indo.pdf",
@@ -976,7 +976,7 @@
           title: "TOS",
           language: "sunda",
           category: "dongeng",
-          description: "Cerita pendek TOS dalam aksara Sunda",
+          description: "Cerita pendek TOS dalam bahasa Sunda",
         },
       ];
 
@@ -1123,7 +1123,7 @@
                                 <span>${languageIcon}</span>
                                 <span>${
                                   book.language === "sunda"
-                                    ? "Aksara Sunda"
+                                    ? "Bahasa Sunda"
                                     : "Bahasa Indonesia"
                                 }</span>
                             </div>
@@ -1248,6 +1248,17 @@
 
     <!-- User Menu Script -->
     <script>
+      // Authentication Guard - Check if user is logged in
+      document.addEventListener("DOMContentLoaded", function () {
+        if (!AuthManager.requireAuth()) {
+          // User will be redirected to login if not authenticated
+          return;
+        }
+
+        // Initialize page after authentication check
+        initializeUserMenu();
+      });
+
       // User Menu Functions
       function initializeUserMenu() {
         const isLoggedIn = localStorage.getItem("user_logged_in") === "true";
@@ -1279,9 +1290,18 @@
       }
 
       function toggleDropdown() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdown.style.display =
-          dropdown.style.display === "block" ? "none" : "block";
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        if (dropdownMenu) {
+          const isVisible = dropdownMenu.classList.contains("show");
+
+          if (isVisible) {
+            dropdownMenu.classList.remove("show");
+            console.log("🔽 Dropdown closed");
+          } else {
+            dropdownMenu.classList.add("show");
+            console.log("🔼 Dropdown opened");
+          }
+        }
       }
 
       function logout() {
@@ -1293,10 +1313,16 @@
       // Close dropdown when clicking outside
       document.addEventListener("click", function (event) {
         const userMenu = document.querySelector(".user-menu");
-        const dropdown = document.getElementById("dropdownMenu");
+        const dropdownMenu = document.getElementById("dropdownMenu");
 
-        if (userMenu && !userMenu.contains(event.target)) {
-          dropdown.style.display = "none";
+        if (dropdownMenu && userMenu) {
+          // Check if click is outside the user menu
+          if (!userMenu.contains(event.target)) {
+            if (dropdownMenu.classList.contains("show")) {
+              dropdownMenu.classList.remove("show");
+              console.log("🔽 Dropdown closed by outside click");
+            }
+          }
         }
       });
 

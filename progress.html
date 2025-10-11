@@ -240,9 +240,9 @@
         top: 100%;
         right: 7%;
         background-color: var(--card-bg);
-        width: 50rem;
+        width: 25rem;
         max-width: 90vw;
-        height: 5rem;
+        height: 3rem;
         display: flex;
         align-items: center;
         transform: scaleY(0);
@@ -262,9 +262,9 @@
       .search-form input {
         height: 100%;
         width: 100%;
-        font-size: 1.6rem;
+        font-size: 1rem;
         color: var(--text-color);
-        padding: 1rem;
+        padding: 0.5rem 0.8rem;
         border: none;
         outline: none;
         border-radius: 0.5rem;
@@ -281,8 +281,8 @@
 
       .search-form label {
         cursor: pointer;
-        font-size: 2rem;
-        margin-right: 1.5rem;
+        font-size: 1.2rem;
+        margin-right: 0.8rem;
         color: var(--text-color);
         transition: color 0.3s ease;
       }
@@ -295,17 +295,17 @@
         .search-form {
           right: 5%;
           width: 90vw;
-          height: 4rem;
+          height: 2.8rem;
         }
 
         .search-form input {
-          font-size: 1.2rem;
-          padding: 0.75rem;
+          font-size: 0.9rem;
+          padding: 0.4rem 0.6rem;
         }
 
         .search-form label {
-          font-size: 1.5rem;
-          margin-right: 1rem;
+          font-size: 1rem;
+          margin-right: 0.6rem;
         }
       }
 
@@ -1521,17 +1521,33 @@
 
       // Dropdown functionality
       function toggleDropdown() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdown.style.display =
-          dropdown.style.display === "block" ? "none" : "block";
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        if (dropdownMenu) {
+          const isVisible = dropdownMenu.classList.contains("show");
+
+          if (isVisible) {
+            dropdownMenu.classList.remove("show");
+            console.log("🔽 Dropdown closed");
+          } else {
+            dropdownMenu.classList.add("show");
+            console.log("🔼 Dropdown opened");
+          }
+        }
       }
 
       // Close dropdown when clicking outside
       document.addEventListener("click", function (event) {
-        const dropdown = document.getElementById("dropdownMenu");
         const userMenu = document.querySelector(".user-menu");
-        if (!userMenu.contains(event.target)) {
-          dropdown.style.display = "none";
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        if (dropdownMenu && userMenu) {
+          // Check if click is outside the user menu
+          if (!userMenu.contains(event.target)) {
+            if (dropdownMenu.classList.contains("show")) {
+              dropdownMenu.classList.remove("show");
+              console.log("🔽 Dropdown closed by outside click");
+            }
+          }
         }
       });
 

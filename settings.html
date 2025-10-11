@@ -17,12 +17,43 @@
     <script src="https://unpkg.com/feather-icons"></script>
 
     <style>
+      /* Existing styles */
+      /* Root variables */
       :root {
         --primary: #2093a4;
         --bg: #232222;
         --secondary: #1a7a85;
+        --text-color: #fff;
+        --text-secondary: #ccc;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --navbar-bg: rgba(1, 1, 1, 0.95);
+        --border-color: #21646e;
+        --shadow-light: rgba(0, 0, 0, 0.1);
+        --shadow-medium: rgba(0, 0, 0, 0.15);
+        --border-radius: 12px;
+        --border-radius-small: 8px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
+      [data-theme="light"] {
+        --primary: #2093a4;
+        --bg: #ffffff;
+        --secondary: #1a7a85;
+        --text-color: #333333;
+        --text-secondary: #666666;
+        --card-bg: rgba(0, 0, 0, 0.05);
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --navbar-bg: rgba(255, 255, 255, 0.95);
+        --border-color: #e0e0e0;
+        --shadow-light: rgba(0, 0, 0, 0.1);
+        --shadow-medium: rgba(0, 0, 0, 0.15);
+        --border-radius: 12px;
+        --border-radius-small: 8px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Base styles */
       * {
         margin: 0;
         padding: 0;
@@ -30,56 +61,334 @@
       }
 
       body {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: var(--bg);
-        color: #fff;
-        min-height: 100vh;
+        color: var(--text-color);
+        line-height: 1.6;
+        transition: var(--transition);
+        padding-top: 70px; /* Account for fixed navbar */
       }
 
-      .navbar {
-        background-color: rgba(1, 1, 1, 0.9);
-        padding: 1rem 7%;
-        border-bottom: 1px solid #21646e;
-        position: sticky;
+      /* Top Navbar Styles */
+      .navbar-top {
+        position: fixed;
         top: 0;
-        z-index: 1000;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background-color: var(--navbar-bg);
+        border-bottom: 1px solid var(--border-color);
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
       }
 
       .navbar-logo {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: var(--primary);
-        text-decoration: none;
-      }
-
-      .navbar-nav {
         display: flex;
-        gap: 2rem;
         align-items: center;
-      }
-
-      .navbar-nav a {
-        color: #fff;
+        color: var(--text-color);
         text-decoration: none;
-        font-size: 1rem;
-        transition: color 0.3s ease;
+        font-weight: 600;
+        font-size: 1.2rem;
+        transition: var(--transition);
       }
 
-      .navbar-nav a:hover {
-        color: var(--primary);
+      .navbar-logo:hover {
+        transform: translateY(-2px);
       }
 
       .navbar-extra {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1rem;
       }
 
       .navbar-extra a {
-        color: #fff;
+        color: var(--text-color);
+        margin: 0 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        transition: var(--transition);
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+      }
+
+      .navbar-extra a:hover {
+        background: rgba(32, 147, 164, 0.2);
+        transform: translateY(-2px);
+      }
+
+      /* Theme Toggle Styles */
+      .theme-toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .theme-toggle-container:hover {
+        transform: translateY(-1px);
+      }
+
+      .theme-toggle-label {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        opacity: 0.9;
+        transition: var(--transition);
+      }
+
+      .theme-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+
+      .theme-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: var(--transition);
+        border-radius: 24px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background: white;
+        transition: var(--transition);
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--primary);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
+      /* Language Toggle Styles */
+      .language-toggle-container {
+        position: relative;
+      }
+
+      .language-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--card-bg);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        padding: 8px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: var(--transition);
+        min-width: 60px;
+        justify-content: center;
+      }
+
+      .language-toggle:hover {
+        background: rgba(32, 147, 164, 0.2);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .language-toggle i {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* User Menu Styles */
+      .user-menu {
+        position: relative;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 25px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+        color: var(--text-color);
+      }
+
+      .user-info:hover {
+        background: rgba(32, 147, 164, 0.2);
+        transform: translateY(-1px);
+      }
+
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(32, 147, 164, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border: 2px solid var(--border-color);
+        color: var(--text-color);
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: 0 10px 40px var(--shadow-light);
+        border: 1px solid var(--border-color);
+        min-width: 200px;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        backdrop-filter: blur(20px);
+      }
+
+      .dropdown-menu.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        animation: dropdownFadeIn 0.3s ease-out;
+      }
+
+      @keyframes dropdownFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-15px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .dropdown-menu a {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 12px 16px;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: var(--transition);
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .dropdown-menu a:last-child {
+        border-bottom: none;
+      }
+
+      .dropdown-menu a:hover {
+        background: rgba(32, 147, 164, 0.1);
+        color: var(--primary);
+        padding-left: 20px;
+      }
+
+      .dropdown-menu a i {
+        width: 18px;
+        height: 18px;
+        opacity: 0.7;
+      }
+
+      .dropdown-menu a:hover i {
+        opacity: 1;
+        color: var(--primary);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .navbar-top {
+          padding: 1rem;
+        }
+
+        .navbar-extra {
+          gap: 0.5rem;
+        }
+
+        .theme-toggle-container {
+          padding: 6px 8px;
+        }
+
+        .theme-toggle-label {
+          display: none;
+        }
+
+        .theme-switch {
+          width: 40px;
+          height: 20px;
+        }
+
+        .slider:before {
+          height: 14px;
+          width: 14px;
+          left: 2px;
+          bottom: 2px;
+        }
+
+        input:checked + .slider:before {
+          transform: translateX(20px);
+        }
+
+        .user-info span {
+          display: none;
+        }
+
+        .dropdown-menu {
+          right: -10px;
+          min-width: 180px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .navbar-top {
+          padding: 0.75rem;
+        }
+
+        .navbar-logo span {
+          font-size: 1rem;
+        }
+
+        .navbar-extra a {
+          width: 36px;
+          height: 36px;
+        }
+      }
+
+      /* Settings page specific styles */
+
+      .navbar-extra a {
+        color: var(--text-color);
         text-decoration: none;
         transition: color 0.3s ease;
       }
@@ -93,8 +402,8 @@
         top: 100%;
         right: 7%;
         background-color: #fff;
-        width: 50rem;
-        height: 5rem;
+        width: 25rem;
+        height: 3rem;
         display: flex;
         align-items: center;
         transform: scaleY(0);
@@ -109,17 +418,17 @@
       .search-form input {
         height: 100%;
         width: 100%;
-        font-size: 1.6rem;
+        font-size: 1rem;
         color: var(--bg);
-        padding: 1rem;
+        padding: 0.5rem 0.8rem;
         border: none;
         outline: none;
       }
 
       .search-form label {
         cursor: pointer;
-        font-size: 2rem;
-        margin-right: 1.5rem;
+        font-size: 1.2rem;
+        margin-right: 0.8rem;
         color: var(--bg);
       }
 
@@ -493,28 +802,139 @@
           align-self: flex-end;
         }
       }
+
+      /* Theme Switch Styling */
+      .theme-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+
+      .theme-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.3s;
+        border-radius: 24px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--primary);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
+      .theme-toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .theme-toggle-label {
+        font-size: 1rem;
+        color: var(--text-color);
+      }
     </style>
   </head>
   <body>
-    <nav class="navbar">
+    <!-- Top Navbar -->
+    <nav class="navbar-top">
       <a href="index.html" class="navbar-logo">
         <img
           src="img/Logo-sikabayan.png"
           alt="Logo Sikabayan"
-          style="height: 50px; margin-right: 10px"
+          style="height: 40px; margin-right: 10px; vertical-align: middle"
         />
-        <span style="color: #2093a4">SIKABAYAN</span>
+        <span style="color: #2093a4; vertical-align: middle">SIKABAYAN</span>
       </a>
-
-      <div class="navbar-nav">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="materi.html">Materi</a>
-        <a href="#latihan">Latihan</a>
-        <a href="profile.html">Profil</a>
-      </div>
 
       <div class="navbar-extra">
         <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <div class="theme-toggle-container">
+          <span class="theme-toggle-label">🌙</span>
+          <label class="theme-switch">
+            <input type="checkbox" id="themeToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="theme-toggle-label">☀️</span>
+        </div>
+
+        <!-- Language Toggle -->
+        <div class="language-toggle-container">
+          <button
+            id="languageToggle"
+            class="language-toggle"
+            aria-label="Switch language"
+          >
+            <span id="languageToggleText">ID</span>
+            <i data-feather="globe"></i>
+          </button>
+        </div>
+
+        <div class="user-menu">
+          <div class="user-info" onclick="toggleDropdown()">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <span id="userName">User</span>
+            <i data-feather="chevron-down"></i>
+          </div>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="profile.html">
+              <i data-feather="user"></i>
+              <span data-lang="user.profile">Profil Saya</span>
+            </a>
+            <a href="settings.html">
+              <i data-feather="settings"></i>
+              <span data-lang="user.settings">Pengaturan</span>
+            </a>
+            <a href="#" onclick="logout()">
+              <i data-feather="log-out"></i>
+              <span data-lang="user.logout">Keluar</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search form -->
+          <span class="theme-toggle-label">☀️</span>
+        </div>
+
+        <!-- Language Toggle -->
+        <div class="language-toggle-container">
+          <button
+            id="languageToggle"
+            class="language-toggle"
+            aria-label="Switch language"
+          >
+            <span id="languageToggleText">ID</span>
+            <i data-feather="globe"></i>
+          </button>
+        </div>
+
         <div class="user-menu">
           <div class="user-info" onclick="toggleDropdown()">
             <div class="user-avatar" id="navUserAvatar">U</div>
@@ -524,18 +944,23 @@
           <div class="dropdown-menu" id="dropdownMenu">
             <a href="profile.html">
               <i data-feather="user"></i>
-              Profil Saya
+              <span data-lang="user.profile">Profil Saya</span>
             </a>
             <a href="settings.html">
               <i data-feather="settings"></i>
-              Pengaturan
+              <span data-lang="user.settings">Pengaturan</span>
             </a>
             <a href="#" onclick="logout()">
               <i data-feather="log-out"></i>
-              Keluar
+              <span data-lang="user.logout">Keluar</span>
             </a>
           </div>
         </div>
+      </div>
+
+      <!-- Hamburger Menu untuk Mobile -->
+      <div id="hamburger-menu">
+        <i data-feather="menu"></i>
       </div>
 
       <!-- Search form start -->
@@ -963,16 +1388,40 @@
                   </div>
                 </div>
 
-                <div style="margin: 2rem 0">
+                <div
+                  style="
+                    margin: 2rem 0;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                    justify-content: center;
+                  "
+                >
                   <a
                     href="#"
                     class="btn btn-secondary"
                     onclick="checkUpdates()"
+                    style="
+                      flex: 1;
+                      min-width: 180px;
+                      max-width: 220px;
+                      text-align: center;
+                    "
                   >
                     <i data-feather="refresh-cw"></i>
                     Cek Update
                   </a>
-                  <a href="#" class="btn btn-secondary" onclick="showTerms()">
+                  <a
+                    href="#"
+                    class="btn btn-secondary"
+                    onclick="showTerms()"
+                    style="
+                      flex: 1;
+                      min-width: 180px;
+                      max-width: 220px;
+                      text-align: center;
+                    "
+                  >
                     <i data-feather="file-text"></i>
                     Syarat & Ketentuan
                   </a>
@@ -980,6 +1429,12 @@
                     href="#"
                     class="btn btn-secondary"
                     onclick="showPrivacyPolicy()"
+                    style="
+                      flex: 1;
+                      min-width: 180px;
+                      max-width: 220px;
+                      text-align: center;
+                    "
                   >
                     <i data-feather="shield"></i>
                     Kebijakan Privasi
@@ -993,6 +1448,7 @@
     </div>
 
     <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
     <script>
       feather.replace();
 
@@ -1011,13 +1467,18 @@
         const currentUser = AuthManager.getCurrentUser();
         if (!currentUser) return;
 
-        document.getElementById("navUserName").textContent =
-          currentUser.firstName || "User";
-        document.getElementById("navUserAvatar").textContent = (
-          currentUser.firstName || "U"
-        )
-          .charAt(0)
-          .toUpperCase();
+        // Update navbar user info
+        const userNameElement = document.getElementById("userName");
+        const userAvatarElement = document.getElementById("userAvatar");
+
+        if (userNameElement) {
+          userNameElement.textContent = currentUser.firstName || "User";
+        }
+        if (userAvatarElement) {
+          userAvatarElement.textContent = (currentUser.firstName || "U")
+            .charAt(0)
+            .toUpperCase();
+        }
       }
 
       function loadSettings() {
@@ -1280,17 +1741,33 @@
 
       // Dropdown functionality
       function toggleDropdown() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdown.style.display =
-          dropdown.style.display === "block" ? "none" : "block";
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        if (dropdownMenu) {
+          const isVisible = dropdownMenu.classList.contains("show");
+
+          if (isVisible) {
+            dropdownMenu.classList.remove("show");
+            console.log("🔽 Dropdown closed");
+          } else {
+            dropdownMenu.classList.add("show");
+            console.log("🔼 Dropdown opened");
+          }
+        }
       }
 
       // Close dropdown when clicking outside
       document.addEventListener("click", function (event) {
-        const dropdown = document.getElementById("dropdownMenu");
         const userMenu = document.querySelector(".user-menu");
-        if (!userMenu.contains(event.target)) {
-          dropdown.style.display = "none";
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        if (dropdownMenu && userMenu) {
+          // Check if click is outside the user menu
+          if (!userMenu.contains(event.target)) {
+            if (dropdownMenu.classList.contains("show")) {
+              dropdownMenu.classList.remove("show");
+              console.log("🔽 Dropdown closed by outside click");
+            }
+          }
         }
       });
 
@@ -1328,6 +1805,56 @@
             searchForm.classList.remove("active");
             searchBox.value = "";
           }
+        }
+      });
+
+      // Hamburger menu toggle
+      const hamburgerMenu = document.querySelector("#hamburger-menu");
+      const navbarNav = document.querySelector(".navbar-nav");
+
+      hamburgerMenu.addEventListener("click", () => {
+        navbarNav.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !hamburgerMenu.contains(e.target) &&
+          !navbarNav.contains(e.target)
+        ) {
+          navbarNav.classList.remove("active");
+        }
+      });
+
+      // Language toggle functionality
+      const languageToggle = document.getElementById("languageToggle");
+      const languageToggleText = document.getElementById("languageToggleText");
+
+      if (languageToggle && languageToggleText) {
+        languageToggle.addEventListener("click", () => {
+          const currentLang = languageToggleText.textContent;
+          const newLang = currentLang === "ID" ? "SU" : "ID";
+          languageToggleText.textContent = newLang;
+
+          // Here you would typically call a language manager
+          if (typeof LanguageManager !== "undefined") {
+            LanguageManager.switchLanguage(newLang.toLowerCase());
+          }
+        });
+      }
+
+      function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.classList.toggle("show");
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function (event) {
+        const userMenu = document.querySelector(".user-menu");
+        const dropdown = document.getElementById("dropdownMenu");
+
+        if (!userMenu.contains(event.target)) {
+          dropdown.classList.remove("show");
         }
       });
 

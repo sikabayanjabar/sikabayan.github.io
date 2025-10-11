@@ -1,7 +1,11 @@
 // Auth utility functions
 class AuthManager {
   static isLoggedIn() {
-    return localStorage.getItem("isLoggedIn") === "true";
+    // Check both authentication methods for compatibility
+    return (
+      localStorage.getItem("isLoggedIn") === "true" ||
+      localStorage.getItem("user_logged_in") === "true"
+    );
   }
 
   static getCurrentUser() {
@@ -9,36 +13,105 @@ class AuthManager {
 
     const userEmail = localStorage.getItem("userEmail");
     const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    // Find user by email
+    let user = users.find((user) => user.email === userEmail);
+
+    // If not found by userEmail, try to get from user_name
+    if (!user && localStorage.getItem("user_name")) {
+      user = {
+        firstName: localStorage.getItem("user_name"),
+        email: userEmail || "user@example.com",
+      };
+    }
+
     return (
-      users.find((user) => user.email === userEmail) || {
+      user || {
         firstName: "User",
-        email: userEmail,
+        email: userEmail || "user@example.com",
       }
     );
   }
 
   static login(email, password) {
-    // In a real app, this would validate against a server
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    // Initialize default users if not exists
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    if (users.length === 0) {
+      const defaultUsers = [
+        {
+          email: "admin@sikabayan.com",
+          password: "admin123",
+          firstName: "Admin",
+          lastName: "Sikabayan",
+          role: "admin",
+        },
+        {
+          email: "user@sikabayan.com",
+          password: "user123",
+          firstName: "User",
+          lastName: "Demo",
+          role: "user",
+        },
+        {
+          email: "test@sikabayan.com",
+          password: "test123",
+          firstName: "Test",
+          lastName: "User",
+          role: "user",
+        },
+      ];
+      localStorage.setItem("users", JSON.stringify(defaultUsers));
+      users = defaultUsers;
+    }
+
+    // Validate credentials
     const user = users.find(
       (u) => u.email === email && u.password === password
     );
 
     if (user || (email === "admin@sikabayan.com" && password === "admin123")) {
+      // Set both authentication methods for compatibility
       localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("user_logged_in", "true");
       localStorage.setItem("userEmail", email);
+
+      // Set user name for compatibility
+      const userName = user ? user.firstName : "Admin";
+      localStorage.setItem("user_name", userName);
+
+      // Redirect based on user role
+      setTimeout(() => {
+        if (
+          email === "admin@sikabayan.com" ||
+          (user && user.role === "admin")
+        ) {
+          window.location.href = "dashboard.html";
+        } else {
+          window.location.href = "dashboard.html"; // All authenticated users go to dashboard
+        }
+      }, 1000);
+
       return true;
     }
     return false;
   }
 
   static logout() {
+    // Clear all authentication data
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("user_logged_in");
     localStorage.removeItem("userEmail");
+    localStorage.removeItem("user_name");
+
+    // Always redirect to index.html after logout
+    window.location.href = "index.html";
   }
 
   static requireAuth() {
     if (!this.isLoggedIn()) {
+      // Show user-friendly message and redirect
+      alert("Anda harus login terlebih dahulu untuk mengakses halaman ini.");
       window.location.href = "login.html";
       return false;
     }
@@ -56,23 +129,53 @@ class AuthManager {
   static updateNavbar() {
     const isLoggedIn = this.isLoggedIn();
     const navbarExtra = document.querySelector(".navbar-extra");
+    const userMenu = document.querySelector(".user-menu");
+    const loginButton = document.querySelector('a[href="login.html"]');
 
-    if (isLoggedIn && navbarExtra) {
-      const currentUser = this.getCurrentUser();
-      const loginLink = navbarExtra.querySelector('a[href="login.html"]');
+    if (!navbarExtra) return;
 
-      if (loginLink && currentUser) {
-        loginLink.outerHTML = `
-                    <div class="user-menu-simple">
-                        <a href="dashboard.html" style="display: flex; align-items: center; gap: 0.5rem; color: #fff; text-decoration: none; transition: color 0.3s ease;">
-                            <div style="width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(135deg, #2093a4, #1a7a85); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">
-                                ${currentUser.firstName.charAt(0).toUpperCase()}
-                            </div>
-                            ${currentUser.firstName}
-                        </a>
-                        <a href="#" onclick="AuthManager.logoutWithConfirm()" style="color: #fff; text-decoration: none; margin-left: 1rem; font-size: 0.9rem; transition: color 0.3s ease;">Keluar</a>
-                    </div>
-                `;
+    if (isLoggedIn) {
+      // User is logged in - show user menu, hide login button
+      if (userMenu) {
+        userMenu.style.display = "block";
+
+        // Update user info
+        const currentUser = this.getCurrentUser();
+        const userAvatar = userMenu.querySelector(".user-avatar");
+        const userName = userMenu.querySelector("#userName, #navUserName");
+
+        if (currentUser && userAvatar && userName) {
+          userAvatar.textContent = currentUser.firstName
+            .charAt(0)
+            .toUpperCase();
+          userName.textContent = currentUser.firstName;
+        }
+      }
+
+      if (loginButton) {
+        loginButton.style.display = "none";
+      }
+    } else {
+      // User is not logged in - hide user menu, show login button
+      if (userMenu) {
+        userMenu.style.display = "none";
+      }
+
+      if (loginButton) {
+        loginButton.style.display = "flex";
+      } else {
+        // Create login button if it doesn't exist
+        const loginBtn = document.createElement("a");
+        loginBtn.href = "login.html";
+        loginBtn.className = "login-btn";
+        loginBtn.innerHTML =
+          '<i data-feather="log-in"></i> <span data-lang="nav.login">Login</span>';
+        navbarExtra.appendChild(loginBtn);
+
+        // Initialize feather icons if available
+        if (typeof feather !== "undefined") {
+          feather.replace();
+        }
       }
     }
   }
@@ -80,7 +183,6 @@ class AuthManager {
   static logoutWithConfirm() {
     if (confirm("Apakah Anda yakin ingin keluar?")) {
       this.logout();
-      window.location.href = "index.html";
     }
   }
 
@@ -117,6 +219,11 @@ class AuthManager {
     return false;
   }
 }
+
+// Global logout function for backward compatibility
+window.logout = function () {
+  AuthManager.logoutWithConfirm();
+};
 
 // Auto-update navbar on page load
 document.addEventListener("DOMContentLoaded", function () {

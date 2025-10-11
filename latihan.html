@@ -121,6 +121,51 @@
       input:checked + .slider:before {
         transform: translateX(26px);
       }
+
+      /* Language Toggle Styling */
+      .language-toggle-container {
+        display: flex;
+        align-items: center;
+        margin: 0 1rem;
+      }
+
+      .language-toggle {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        padding: 0.5rem 1rem;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+      }
+
+      .language-toggle:hover {
+        background: rgba(32, 147, 164, 0.2);
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(32, 147, 164, 0.3);
+      }
+
+      .language-toggle:active {
+        transform: translateY(0);
+      }
+
+      #languageToggleText {
+        font-weight: bold;
+        min-width: 20px;
+        text-align: center;
+      }
+
+      .language-toggle i {
+        width: 16px;
+        height: 16px;
+      }
     </style>
 
     <!-- AlpineJS -->
@@ -340,6 +385,54 @@
         padding-bottom: 1.5rem;
         border-bottom: 2px solid rgba(32, 147, 164, 0.2);
         position: relative;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .category-header-left {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .category-header-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .reset-category-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        background: rgba(220, 53, 69, 0.1);
+        border: 2px solid rgba(220, 53, 69, 0.3);
+        border-radius: 0.75rem;
+        color: #dc3545;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+      }
+
+      .reset-category-btn:hover {
+        background: rgba(220, 53, 69, 0.2);
+        border-color: #dc3545;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+      }
+
+      .reset-category-btn:active {
+        transform: translateY(0);
+      }
+
+      .reset-category-btn i {
+        width: 16px;
+        height: 16px;
       }
 
       .category-header::after {
@@ -419,6 +512,11 @@
         overflow: hidden;
         backdrop-filter: blur(10px);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        display: grid;
+        grid-template-rows: auto auto auto auto 1fr auto;
+        height: 100%;
+        min-height: 420px;
+        align-content: start;
       }
 
       .level-card::before {
@@ -583,6 +681,17 @@
         margin-bottom: 1.5rem;
         line-height: 1.6;
         font-size: 1rem;
+        flex-grow: 0;
+      }
+
+      /* Content wrapper untuk spacing yang konsisten */
+      .level-card > div:not(.level-status):not(.level-icon) {
+        margin-bottom: 1rem;
+      }
+
+      /* Membuat konten level-card menggunakan flexbox yang benar */
+      .level-card {
+        justify-content: space-between;
       }
 
       .level-stats {
@@ -594,6 +703,7 @@
         background: rgba(255, 255, 255, 0.05);
         border-radius: 0.75rem;
         border: 1px solid rgba(255, 255, 255, 0.1);
+        align-self: end;
       }
 
       .level-stats span {
@@ -629,6 +739,7 @@
         letter-spacing: 0.5px;
         position: relative;
         overflow: hidden;
+        align-self: end;
       }
 
       .level-btn::before {
@@ -793,6 +904,19 @@
           flex-direction: column;
           gap: 1rem;
           align-items: flex-start;
+        }
+
+        .category-header-right {
+          width: 100%;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
+        .reset-category-btn {
+          font-size: 0.8rem;
+          padding: 0.6rem 1rem;
+          flex-shrink: 0;
         }
 
         .category-header h3 {
@@ -978,12 +1102,12 @@
       </a>
 
       <div class="navbar-nav">
-        <a href="index.html#home">Home</a>
+        <a href="index.html#home">Beranda</a>
         <a href="index.html#about">Sejarah</a>
         <a href="index.html#menu">Kebijakan</a>
-        <a href="materi.html">Materi</a>
-        <a href="latihan.html" class="active">Latihan</a>
-        <a href="buku-digital.html">Perpustakaan</a>
+        <a href="index.html#materi">Materi</a>
+        <a href="index.html#latihan">Latihan</a>
+        <a href="index.html#perpustakaan">Perpustakaan</a>
         <a href="index.html#contact">Kontak</a>
       </div>
 
@@ -996,6 +1120,18 @@
             <span class="slider"></span>
           </label>
           <span class="theme-toggle-label">☀️</span>
+        </div>
+
+        <!-- Language Toggle -->
+        <div class="language-toggle-container">
+          <button
+            id="languageToggle"
+            class="language-toggle"
+            aria-label="Switch language"
+          >
+            <span id="languageToggleText">ID</span>
+            <i data-feather="globe"></i>
+          </button>
         </div>
 
         <!-- User Menu for authenticated users -->
@@ -1064,12 +1200,24 @@
         <!-- Beginner Level -->
         <div class="category-section">
           <div class="category-header">
-            <h3><i data-feather="star"></i> Level Pemula (Beginner)</h3>
-            <div class="category-progress">
-              <span class="completed">5/6 Level</span>
-              <div class="mini-progress">
-                <div class="mini-progress-fill" style="width: 83%"></div>
+            <div class="category-header-left">
+              <h3><i data-feather="star"></i> Level Pemula (Beginner)</h3>
+            </div>
+            <div class="category-header-right">
+              <div class="category-progress">
+                <span class="completed">5/6 Level</span>
+                <div class="mini-progress">
+                  <div class="mini-progress-fill" style="width: 83%"></div>
+                </div>
               </div>
+              <button
+                class="reset-category-btn"
+                onclick="resetCategory('beginner')"
+                title="Reset semua progress level pemula"
+              >
+                <i data-feather="rotate-ccw"></i>
+                <span data-lang="reset.button">Reset</span>
+              </button>
             </div>
           </div>
 
@@ -1205,12 +1353,24 @@
         <!-- Intermediate Level -->
         <div class="category-section">
           <div class="category-header">
-            <h3><i data-feather="zap"></i> Level Menengah (Intermediate)</h3>
-            <div class="category-progress">
-              <span class="completed">4/7 Level</span>
-              <div class="mini-progress">
-                <div class="mini-progress-fill" style="width: 57%"></div>
+            <div class="category-header-left">
+              <h3><i data-feather="zap"></i> Level Menengah (Intermediate)</h3>
+            </div>
+            <div class="category-header-right">
+              <div class="category-progress">
+                <span class="completed">4/7 Level</span>
+                <div class="mini-progress">
+                  <div class="mini-progress-fill" style="width: 57%"></div>
+                </div>
               </div>
+              <button
+                class="reset-category-btn"
+                onclick="resetCategory('intermediate')"
+                title="Reset semua progress level menengah"
+              >
+                <i data-feather="rotate-ccw"></i>
+                <span data-lang="reset.button">Reset</span>
+              </button>
             </div>
           </div>
 
@@ -1358,12 +1518,24 @@
         <!-- Advanced Level -->
         <div class="category-section">
           <div class="category-header">
-            <h3><i data-feather="award"></i> Level Lanjutan (Advanced)</h3>
-            <div class="category-progress">
-              <span class="completed">5/7 Level Tersedia</span>
-              <div class="mini-progress">
-                <div class="mini-progress-fill" style="width: 71%"></div>
+            <div class="category-header-left">
+              <h3><i data-feather="award"></i> Level Lanjutan (Advanced)</h3>
+            </div>
+            <div class="category-header-right">
+              <div class="category-progress">
+                <span class="completed">5/7 Level Tersedia</span>
+                <div class="mini-progress">
+                  <div class="mini-progress-fill" style="width: 71%"></div>
+                </div>
               </div>
+              <button
+                class="reset-category-btn"
+                onclick="resetCategory('advanced')"
+                title="Reset semua progress level lanjutan"
+              >
+                <i data-feather="rotate-ccw"></i>
+                <span data-lang="reset.button">Reset</span>
+              </button>
             </div>
           </div>
 
@@ -1561,6 +1733,17 @@
 
     <!-- User Menu Script -->
     <script>
+      // Authentication Guard - Check if user is logged in
+      document.addEventListener("DOMContentLoaded", function () {
+        if (!AuthManager.requireAuth()) {
+          // User will be redirected to login if not authenticated
+          return;
+        }
+
+        // Initialize page after authentication check
+        initializeUserMenu();
+      });
+
       // User Menu Functions
       function initializeUserMenu() {
         const isLoggedIn = localStorage.getItem("user_logged_in") === "true";
@@ -1592,9 +1775,18 @@
       }
 
       function toggleDropdown() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdown.style.display =
-          dropdown.style.display === "block" ? "none" : "block";
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        if (dropdownMenu) {
+          const isVisible = dropdownMenu.classList.contains("show");
+
+          if (isVisible) {
+            dropdownMenu.classList.remove("show");
+            console.log("🔽 Dropdown closed");
+          } else {
+            dropdownMenu.classList.add("show");
+            console.log("🔼 Dropdown opened");
+          }
+        }
       }
 
       function logout() {
@@ -1606,10 +1798,16 @@
       // Close dropdown when clicking outside
       document.addEventListener("click", function (event) {
         const userMenu = document.querySelector(".user-menu");
-        const dropdown = document.getElementById("dropdownMenu");
+        const dropdownMenu = document.getElementById("dropdownMenu");
 
-        if (userMenu && !userMenu.contains(event.target)) {
-          dropdown.style.display = "none";
+        if (dropdownMenu && userMenu) {
+          // Check if click is outside the user menu
+          if (!userMenu.contains(event.target)) {
+            if (dropdownMenu.classList.contains("show")) {
+              dropdownMenu.classList.remove("show");
+              console.log("🔽 Dropdown closed by outside click");
+            }
+          }
         }
       });
 
@@ -1617,6 +1815,426 @@
       document.addEventListener("DOMContentLoaded", function () {
         initializeUserMenu();
       });
+
+      // Reset Category Function
+      function resetCategory(categoryType) {
+        // Show confirmation dialog
+        const categoryName = getCategoryName(categoryType);
+        const confirmReset = confirm(
+          `Apakah Anda yakin ingin mereset semua progress untuk level ${categoryName}?\n\nTindakan ini akan:\n• Menghapus semua skor dan progress\n• Mengatur ulang status level ke belum selesai\n• Data tidak dapat dikembalikan\n\nLanjutkan?`
+        );
+
+        if (!confirmReset) {
+          return;
+        }
+
+        console.log(`🔄 Resetting category: ${categoryType}`);
+
+        // Add loading state to button
+        const resetBtn = event.target.closest(".reset-category-btn");
+        const originalContent = resetBtn.innerHTML;
+        resetBtn.disabled = true;
+        resetBtn.innerHTML =
+          '<i data-feather="loader" style="animation: spin 1s linear infinite;"></i> <span>Mereset...</span>';
+
+        // Re-render feather icons
+        if (typeof feather !== "undefined") {
+          feather.replace();
+        }
+
+        try {
+          // Reset localStorage data for this category
+          resetCategoryData(categoryType);
+
+          // Update UI to reflect reset immediately
+          setTimeout(() => {
+            updateCategoryUI(categoryType);
+
+            // Debug localStorage untuk memastikan data terhapus
+            debugLocalStorage(categoryType);
+
+            // Restore button
+            resetBtn.disabled = false;
+            resetBtn.innerHTML = originalContent;
+            if (typeof feather !== "undefined") {
+              feather.replace();
+            }
+
+            // Show success message
+            showResetSuccessMessage(categoryType);
+
+            console.log(`✅ Category ${categoryType} reset successfully`);
+          }, 500); // Reduced delay for immediate feedback
+        } catch (error) {
+          console.error(`❌ Error resetting category ${categoryType}:`, error);
+
+          // Restore button
+          resetBtn.disabled = false;
+          resetBtn.innerHTML = originalContent;
+          if (typeof feather !== "undefined") {
+            feather.replace();
+          }
+
+          alert("Terjadi kesalahan saat mereset kategori. Silakan coba lagi.");
+        }
+      }
+
+      function getCategoryName(categoryType) {
+        const categoryNames = {
+          beginner: "Pemula (Beginner)",
+          intermediate: "Menengah (Intermediate)",
+          advanced: "Lanjutan (Advanced)",
+        };
+        return categoryNames[categoryType] || categoryType;
+      }
+
+      function resetCategoryData(categoryType) {
+        // Define level ranges for each category - sesuaikan dengan level yang ada di halaman
+        const categoryLevels = {
+          beginner: [1, 2, 3, 4, 5, 6], // Level 1-6
+          intermediate: [7, 8, 9, 10, 11, 12, 13], // Level 7-13
+          advanced: [14, 15, 16, 17, 18, 19, 20], // Level 14-20
+        };
+
+        const levels = categoryLevels[categoryType] || [];
+
+        // Reset localStorage data untuk setiap level dalam kategori
+        // Menggunakan berbagai kemungkinan key yang mungkin digunakan sistem
+        levels.forEach((levelNumber) => {
+          // Format key yang mungkin digunakan
+          const possibleKeys = [
+            `sikabayan_level_${levelNumber}_score`,
+            `sikabayan_level_${levelNumber}_completed`,
+            `sikabayan_level_${levelNumber}_time`,
+            `sikabayan_level_${levelNumber}_progress`,
+            `sikabayan_level_${levelNumber}_status`,
+            `level_${levelNumber}_score`,
+            `level_${levelNumber}_completed`,
+            `level_${levelNumber}_time`,
+            `level_${levelNumber}_progress`,
+            `level_${levelNumber}_status`,
+            `level${levelNumber}_score`,
+            `level${levelNumber}_completed`,
+            `level${levelNumber}_time`,
+            `level${levelNumber}_progress`,
+            `level${levelNumber}_status`,
+            `exercise_level_${levelNumber}`,
+            `exercise_${levelNumber}_completed`,
+            `user_progress_level_${levelNumber}`,
+            `progress_level_${levelNumber}`,
+          ];
+
+          // Hapus semua kemungkinan key
+          possibleKeys.forEach((key) => {
+            localStorage.removeItem(key);
+          });
+        });
+
+        // Tambahan: Bersihkan semua key yang mengandung pattern level untuk kategori ini
+        // Ini untuk menangani kasus dimana sistem menggunakan key yang tidak terprediksi
+        const allKeys = Object.keys(localStorage);
+        allKeys.forEach((key) => {
+          const lowerKey = key.toLowerCase();
+          levels.forEach((levelNumber) => {
+            if (
+              lowerKey.includes(`level`) &&
+              (lowerKey.includes(`${levelNumber}`) ||
+                lowerKey.includes(
+                  `${levelNumber.toString().padStart(2, "0")}`
+                )) &&
+              (lowerKey.includes("score") ||
+                lowerKey.includes("completed") ||
+                lowerKey.includes("progress") ||
+                lowerKey.includes("status") ||
+                lowerKey.includes("time") ||
+                lowerKey.includes("result"))
+            ) {
+              console.log(`🧹 Removing additional key: ${key}`);
+              localStorage.removeItem(key);
+            }
+          });
+        });
+
+        // Reset category overall progress
+        const categoryKeys = [
+          `sikabayan_category_${categoryType}_progress`,
+          `sikabayan_category_${categoryType}_completed_count`,
+          `category_${categoryType}_progress`,
+          `category_${categoryType}_completed_count`,
+          `${categoryType}_progress`,
+          `${categoryType}_completed_count`,
+        ];
+
+        categoryKeys.forEach((key) => {
+          localStorage.removeItem(key);
+        });
+
+        // Reset general progress tracking
+        const generalKeys = [
+          "sikabayan_overall_progress",
+          "sikabayan_user_progress",
+          "overall_progress",
+          "user_progress",
+          "total_completed_levels",
+          "completed_levels_count",
+        ];
+
+        // Hanya reset general progress jika ini adalah reset untuk semua kategori
+        // Untuk saat ini kita tidak reset general progress
+
+        console.log(
+          `📊 Reset data for ${levels.length} levels in ${categoryType} category`
+        );
+        console.log(
+          `🗑️ Removed localStorage keys for levels: ${levels.join(", ")}`
+        );
+      }
+
+      function updateCategoryUI(categoryType) {
+        // Define level ranges for each category
+        const categoryLevels = {
+          beginner: [1, 2, 3, 4, 5, 6],
+          intermediate: [7, 8, 9, 10, 11, 12, 13],
+          advanced: [14, 15, 16, 17, 18, 19, 20],
+        };
+
+        const levels = categoryLevels[categoryType] || [];
+
+        // Update category header progress
+        const categoryHeaders = document.querySelectorAll(".category-header");
+
+        categoryHeaders.forEach((header) => {
+          const headerText = header
+            .querySelector("h3")
+            .textContent.toLowerCase();
+
+          if (
+            (categoryType === "beginner" && headerText.includes("pemula")) ||
+            (categoryType === "intermediate" &&
+              headerText.includes("menengah")) ||
+            (categoryType === "advanced" && headerText.includes("lanjutan"))
+          ) {
+            // Reset progress bar dan counts
+            const progressFill = header.querySelector(".mini-progress-fill");
+            const completedSpan = header.querySelector(".completed");
+
+            if (progressFill) {
+              progressFill.style.width = "0%";
+            }
+
+            if (completedSpan) {
+              const totalLevels = completedSpan.textContent.split("/")[1];
+              completedSpan.textContent = `0/${totalLevels}`;
+            }
+          }
+        });
+
+        // Reset level cards status - HANYA untuk kategori yang dipilih
+        const levelCards = document.querySelectorAll(".level-card");
+        const categoryLevelNumbers = levels; // [1,2,3,4,5,6] untuk beginner, dll
+
+        levelCards.forEach((card, index) => {
+          // Identifikasi level number dari card
+          const levelTitle = card.querySelector("h4");
+          if (!levelTitle) return;
+
+          const levelText = levelTitle.textContent;
+          const levelMatch = levelText.match(/Level (\d+)/);
+
+          if (levelMatch) {
+            const levelNumber = parseInt(levelMatch[1]);
+
+            // Hanya reset card jika level number ada dalam kategori yang dipilih
+            if (categoryLevelNumbers.includes(levelNumber)) {
+              console.log(
+                `🔄 Resetting level card ${levelNumber} for category ${categoryType}`
+              );
+
+              // Remove completed status
+              card.classList.remove("completed");
+              card.classList.remove("current");
+
+              // Reset status icon
+              const statusIcon = card.querySelector(".level-status i");
+
+              // Reset scores to default
+              const scoreSpan = card.querySelector(".score");
+              if (scoreSpan) {
+                scoreSpan.textContent = "Score: --/100";
+              }
+
+              // Reset time
+              const timeSpan = card.querySelector(".time");
+              if (timeSpan) {
+                timeSpan.textContent = "⏱️ -- menit";
+              }
+
+              // Change button and status based on level position
+              const levelBtn = card.querySelector(".level-btn");
+
+              // Determine if this is the first level in the category
+              const isFirstLevel =
+                levelNumber === Math.min(...categoryLevelNumbers);
+
+              if (isFirstLevel) {
+                // First level in category should be unlocked
+                card.classList.remove("locked");
+                card.classList.add("current");
+                if (statusIcon) {
+                  statusIcon.setAttribute("data-feather", "play-circle");
+                }
+                if (levelBtn) {
+                  levelBtn.innerHTML =
+                    '<i data-feather="play"></i> Mulai Level';
+                  levelBtn.className = "level-btn current-btn";
+                  levelBtn.disabled = false;
+                }
+              } else {
+                // Other levels should be locked
+                card.classList.add("locked");
+                if (statusIcon) {
+                  statusIcon.setAttribute("data-feather", "lock");
+                }
+                if (levelBtn) {
+                  levelBtn.innerHTML = '<i data-feather="lock"></i> Terkunci';
+                  levelBtn.className = "level-btn locked-btn";
+                  levelBtn.disabled = true;
+                }
+              }
+            }
+          }
+        });
+
+        // Re-initialize feather icons
+        if (typeof feather !== "undefined") {
+          feather.replace();
+        }
+
+        console.log(
+          `🎨 UI updated for category ${categoryType} with ${levels.length} levels`
+        );
+      }
+
+      function showResetSuccessMessage(categoryType) {
+        // Create temporary success message - simple and brief
+        const message = document.createElement("div");
+        message.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: linear-gradient(135deg, #28a745, #20c997);
+          color: white;
+          padding: 1rem 1.5rem;
+          border-radius: 0.75rem;
+          box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+          z-index: 9999;
+          font-weight: 600;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          animation: slideInRight 0.3s ease-out;
+          max-width: 280px;
+        `;
+
+        message.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <i data-feather="check-circle" style="width: 20px; height: 20px;"></i>
+            <span>Level ${getCategoryName(
+              categoryType
+            )} berhasil direset!</span>
+          </div>
+        `;
+
+        document.body.appendChild(message);
+
+        // Initialize feather icon in message
+        if (typeof feather !== "undefined") {
+          feather.replace();
+        }
+
+        // Remove message after 3 seconds
+        setTimeout(() => {
+          message.style.animation = "slideOutRight 0.3s ease-in";
+          setTimeout(() => {
+            if (message.parentNode) {
+              message.parentNode.removeChild(message);
+            }
+          }, 300);
+        }, 3000);
+      }
+
+      // Tambahan: Fungsi untuk cek localStorage setelah reset (debugging)
+      function debugLocalStorage(categoryType) {
+        console.log(
+          `🔍 Checking localStorage after reset for ${categoryType}:`
+        );
+
+        const categoryLevels = {
+          beginner: [1, 2, 3, 4, 5, 6],
+          intermediate: [7, 8, 9, 10, 11, 12, 13],
+          advanced: [14, 15, 16, 17, 18, 19, 20],
+        };
+
+        const levels = categoryLevels[categoryType] || [];
+
+        levels.forEach((levelNumber) => {
+          const keys = [
+            `sikabayan_level_${levelNumber}_score`,
+            `sikabayan_level_${levelNumber}_completed`,
+            `level_${levelNumber}_score`,
+            `level_${levelNumber}_completed`,
+          ];
+
+          keys.forEach((key) => {
+            const value = localStorage.getItem(key);
+            if (value !== null) {
+              console.log(`⚠️ Key "${key}" still exists:`, value);
+            } else {
+              console.log(`✅ Key "${key}" successfully removed`);
+            }
+          });
+        });
+      }
+
+      // Add CSS animations for success message and loading
+      const style = document.createElement("style");
+      style.textContent = `
+        @keyframes slideInRight {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideOutRight {
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+        }
+        
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        .reset-category-btn:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+          pointer-events: none;
+        }
+      `;
+      document.head.appendChild(style);
     </script>
+
+    <!-- Language Manager -->
+    <script src="./js/language-manager.js?v=1.2.0"></script>
   </body>
 </html>
